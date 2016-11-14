@@ -7,7 +7,7 @@
     android:orientation="vertical"
     tools:context="com.tacademy.sadajo.MainActivity">
 
-    <include layout="@layout/main_toolbar"/>
+
 
    <!-- <Button
         android:id="@+id/testBtn"
