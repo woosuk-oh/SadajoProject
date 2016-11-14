@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_search"
     android:layout_width="match_parent"
@@ -11,10 +11,81 @@
   <!--  <include layout="@layout/include_navigation_tab" />-->
 
     <TextView
-        android:id="@+id/textview"
+        android:id="@+id/textview10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="검색"/>
+        android:textSize="10sp"
+        android:text="안드로이드10"/>
+    <TextView
+        android:layout_below="@+id/textview10"
+        android:id="@+id/textview11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="11sp"
+        android:text="안드로이드11"/>
+    <TextView
+        android:layout_below="@+id/textview11"
+        android:id="@+id/textview12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        android:text="안드로이드12"/>
+    <TextView
+        android:layout_below="@+id/textview12"
+        android:id="@+id/textview13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="13sp"
+        android:text="안드로이드13"/>
+    <TextView
+        android:layout_below="@+id/textview13"
+        android:id="@+id/textview14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:text="안드로이드14"/>
+  <TextView
+      android:layout_below="@+id/textview14"
+        android:id="@+id/textview15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+      android:textSize="15sp"
+        android:text="여행 예정이세요? 여행일정을 등록해보세요"/>
+  <TextView
+      android:layout_below="@+id/textview15"
+        android:id="@+id/textview16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+      android:textSize="16sp"
+        android:text="안드로이드16"/>
+  <TextView
+      android:layout_below="@+id/textview16"
+        android:id="@+id/textview17"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+      android:textSize="17sp"
+        android:text="안드로이드17"/>
+  <TextView
+      android:layout_below="@+id/textview17"
+        android:id="@+id/textview18"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+      android:textSize="18sp"
+        android:text="안드로이드18"/>
+  <TextView
+      android:layout_below="@+id/textview18"
+        android:id="@+id/textview19"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+      android:textSize="19sp"
+        android:text="안드로이드19"/>
+  <TextView
+      android:layout_below="@+id/textview19"
+        android:id="@+id/textview20"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+      android:textSize="20sp"
+        android:text="안드로이드20"/>
 
  <!--   <include layout ="@layout/include_bottm_tab" />-->
   <LinearLayout
@@ -23,4 +94,4 @@
       android:layout_alignParentBottom="true">
     <include layout ="@layout/include_bottom_tab_button" />
   </LinearLayout><!--Include Bottom TabBar Button -->
-</LinearLayout>
+</RelativeLayout>

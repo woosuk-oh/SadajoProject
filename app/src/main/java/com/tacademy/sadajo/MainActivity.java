@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
         public void onClick(View view) {
             switch (view.getId()){
                 case R.id.homeBtn :
-                     intent =  new Intent(MainActivity.this, SearchActivity.class);
+                     intent =  new Intent(MainActivity.this, MainActivity.class);
                     startActivity(intent);
                     break;
                 case R.id.searchBtn :
@@ -109,14 +109,17 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 case R.id.shoppingListBtn :
                      intent =  new Intent(MainActivity.this, SearchActivity.class);
+                    intent.putExtra("btnId", R.id.homeBtn);
                     startActivity(intent);
                     break;
                 case R.id. chattingBtn:
                     intent =  new Intent(MainActivity.this, SearchActivity.class);
+                    intent.putExtra("btnId", R.id.homeBtn);
                     startActivity(intent);
                     break;
                 case R.id.mypageBtn :
                    intent =  new Intent(MainActivity.this, SearchActivity.class);
+                    intent.putExtra("btnId", R.id.homeBtn);
                     startActivity(intent);
                     break;
             }
