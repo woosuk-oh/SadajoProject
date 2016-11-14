@@ -18,6 +18,7 @@
         <item name="colorPrimaryDark">#368BCB</item>
         <item name="colorAccent">#368BCB</item>
         <item name="android:windowBackground">@color/window_background</item>
+        <item name="android:windowAnimationStyle">@null</item>
         <!-- enable window content transitions -->
     </style>
 
