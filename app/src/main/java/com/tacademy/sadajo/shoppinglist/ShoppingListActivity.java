@@ -1,15 +1,18 @@
-package com.tacademy.sadajo.activities;
+package com.tacademy.sadajo.shoppinglist;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageButton;
 
 import com.tacademy.sadajo.MainActivity;
 import com.tacademy.sadajo.R;
+import com.tacademy.sadajo.activities.ChattingActivity;
+import com.tacademy.sadajo.mypage.MyPageActivity;
+import com.tacademy.sadajo.search.SearchActivity;
 
-public class SearchActivity extends AppCompatActivity {
+public class ShoppingListActivity extends Activity {
 
     ImageButton homeBtn;
     ImageButton searchBtn;
@@ -20,9 +23,9 @@ public class SearchActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search);
+        setContentView(R.layout.activity_shoppinglist);
 //        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
- //       setSupportActionBar(toolbar);
+        //       setSupportActionBar(toolbar);
 //        final ActionBar ab = getSupportActionBar();
 //        ab.setDisplayHomeAsUpEnabled(true);
 
@@ -33,9 +36,10 @@ public class SearchActivity extends AppCompatActivity {
         homeBtn.setOnClickListener(mClickListener);
         searchBtn = (ImageButton)findViewById(R.id.searchBtn);
         searchBtn.setOnClickListener(mClickListener);
-        searchBtn.setImageResource(R.drawable.heart_red);
+
         shoppingListBtn = (ImageButton)findViewById(R.id.shoppingListBtn);
         shoppingListBtn.setOnClickListener(mClickListener);
+        shoppingListBtn.setImageResource(R.drawable.heart_red);
         chattingBtn = (ImageButton)findViewById(R.id.chattingBtn);
         chattingBtn.setOnClickListener(mClickListener);
         mypageBtn = (ImageButton)findViewById(R.id.mypageBtn);
@@ -53,27 +57,27 @@ public class SearchActivity extends AppCompatActivity {
         public void onClick(View view) {
             switch (view.getId()){
                 case R.id.homeBtn :
-                   searchBtn.setImageResource(R.drawable.heart_black);
-                    intent =  new Intent(SearchActivity.this, MainActivity.class);
+                    shoppingListBtn.setImageResource(R.drawable.heart_black);
+                    intent =  new Intent(ShoppingListActivity.this, MainActivity.class);
                     startActivity(intent);
                     break;
                 case R.id.searchBtn :
-                    intent =  new Intent(SearchActivity.this, SearchActivity.class);
+                    shoppingListBtn.setImageResource(R.drawable.heart_black);
+                    intent =  new Intent(ShoppingListActivity.this, SearchActivity.class);
                     startActivity(intent);
                     break;
                 case R.id.shoppingListBtn :
-                    searchBtn.setImageResource(R.drawable.heart_black);
-                    intent =  new Intent(SearchActivity.this, ShoppingListActivity.class);
+                    intent =  new Intent(ShoppingListActivity.this, ShoppingListActivity.class);
                     startActivity(intent);
                     break;
                 case R.id.chattingBtn:
-                    searchBtn.setImageResource(R.drawable.heart_black);
-                    intent =  new Intent(SearchActivity.this, ChattingActivity.class);
+                    shoppingListBtn.setImageResource(R.drawable.heart_black);
+                    intent =  new Intent(ShoppingListActivity.this, ChattingActivity.class);
                     startActivity(intent);
                     break;
                 case R.id.mypageBtn :
-                    searchBtn.setImageResource(R.drawable.heart_black);
-                    intent =  new Intent(SearchActivity.this, MyPageActivity.class);
+                    shoppingListBtn.setImageResource(R.drawable.heart_black);
+                    intent =  new Intent(ShoppingListActivity.this, MyPageActivity.class);
                     startActivity(intent);
                     break;
             }

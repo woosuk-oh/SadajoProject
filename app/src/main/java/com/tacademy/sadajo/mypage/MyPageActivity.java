@@ -1,15 +1,18 @@
-package com.tacademy.sadajo.activities;
+package com.tacademy.sadajo.mypage;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageButton;
 
 import com.tacademy.sadajo.MainActivity;
 import com.tacademy.sadajo.R;
+import com.tacademy.sadajo.activities.ChattingActivity;
+import com.tacademy.sadajo.search.SearchActivity;
+import com.tacademy.sadajo.shoppinglist.ShoppingListActivity;
 
-public class ShoppingListActivity extends Activity {
+public class MyPageActivity extends AppCompatActivity {
 
     ImageButton homeBtn;
     ImageButton searchBtn;
@@ -20,7 +23,7 @@ public class ShoppingListActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_shoppinglist);
+        setContentView(R.layout.activity_mypage);
 //        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
         //       setSupportActionBar(toolbar);
 //        final ActionBar ab = getSupportActionBar();
@@ -33,14 +36,13 @@ public class ShoppingListActivity extends Activity {
         homeBtn.setOnClickListener(mClickListener);
         searchBtn = (ImageButton)findViewById(R.id.searchBtn);
         searchBtn.setOnClickListener(mClickListener);
-
         shoppingListBtn = (ImageButton)findViewById(R.id.shoppingListBtn);
         shoppingListBtn.setOnClickListener(mClickListener);
-        shoppingListBtn.setImageResource(R.drawable.heart_red);
         chattingBtn = (ImageButton)findViewById(R.id.chattingBtn);
         chattingBtn.setOnClickListener(mClickListener);
         mypageBtn = (ImageButton)findViewById(R.id.mypageBtn);
         mypageBtn.setOnClickListener(mClickListener);
+        mypageBtn.setImageResource(R.drawable.heart_red);
 
 
 
@@ -54,27 +56,27 @@ public class ShoppingListActivity extends Activity {
         public void onClick(View view) {
             switch (view.getId()){
                 case R.id.homeBtn :
-                    shoppingListBtn.setImageResource(R.drawable.heart_black);
-                    intent =  new Intent(ShoppingListActivity.this, MainActivity.class);
+                    mypageBtn.setImageResource(R.drawable.heart_black);
+                    intent =  new Intent(MyPageActivity.this, MainActivity.class);
                     startActivity(intent);
                     break;
                 case R.id.searchBtn :
-                    shoppingListBtn.setImageResource(R.drawable.heart_black);
-                    intent =  new Intent(ShoppingListActivity.this, SearchActivity.class);
+                    mypageBtn.setImageResource(R.drawable.heart_black);
+                    intent =  new Intent(MyPageActivity.this, SearchActivity.class);
                     startActivity(intent);
                     break;
                 case R.id.shoppingListBtn :
-                    intent =  new Intent(ShoppingListActivity.this, ShoppingListActivity.class);
+                    mypageBtn.setImageResource(R.drawable.heart_black);
+                    intent =  new Intent(MyPageActivity.this, ShoppingListActivity.class);
                     startActivity(intent);
                     break;
                 case R.id.chattingBtn:
-                    shoppingListBtn.setImageResource(R.drawable.heart_black);
-                    intent =  new Intent(ShoppingListActivity.this, ChattingActivity.class);
+                    mypageBtn.setImageResource(R.drawable.heart_black);
+                    intent =  new Intent(MyPageActivity.this, ChattingActivity.class);
                     startActivity(intent);
                     break;
                 case R.id.mypageBtn :
-                    shoppingListBtn.setImageResource(R.drawable.heart_black);
-                    intent =  new Intent(ShoppingListActivity.this, MyPageActivity.class);
+                    intent =  new Intent(MyPageActivity.this, MyPageActivity.class);
                     startActivity(intent);
                     break;
             }

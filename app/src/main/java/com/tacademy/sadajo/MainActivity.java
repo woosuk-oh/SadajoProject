@@ -7,9 +7,9 @@ import android.view.View;
 import android.widget.ImageButton;
 
 import com.tacademy.sadajo.activities.ChattingActivity;
-import com.tacademy.sadajo.activities.MyPageActivity;
-import com.tacademy.sadajo.activities.SearchActivity;
-import com.tacademy.sadajo.activities.ShoppingListActivity;
+import com.tacademy.sadajo.mypage.MyPageActivity;
+import com.tacademy.sadajo.search.SearchActivity;
+import com.tacademy.sadajo.shoppinglist.ShoppingListActivity;
 
 
 public class MainActivity extends AppCompatActivity {

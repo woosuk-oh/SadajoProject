@@ -8,6 +8,9 @@ import android.widget.ImageButton;
 
 import com.tacademy.sadajo.MainActivity;
 import com.tacademy.sadajo.R;
+import com.tacademy.sadajo.mypage.MyPageActivity;
+import com.tacademy.sadajo.search.SearchActivity;
+import com.tacademy.sadajo.shoppinglist.ShoppingListActivity;
 
 public class ChattingActivity extends Activity {
 
