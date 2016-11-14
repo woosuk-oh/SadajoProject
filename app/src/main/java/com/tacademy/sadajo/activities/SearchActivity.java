@@ -55,7 +55,7 @@ public class SearchActivity extends AppCompatActivity {
 
 
                 }
-            }
+            }    
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
