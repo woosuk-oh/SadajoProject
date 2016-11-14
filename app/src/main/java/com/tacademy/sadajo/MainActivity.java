@@ -15,10 +15,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+       setSupportActionBar(toolbar);
+           TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
 //        final ActionBar ab = getSupportActionBar();
 //        ab.setDisplayHomeAsUpEnabled(true);
 
@@ -30,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
               switch (tab.getPosition()){
@@ -42,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
                       tab.setIcon(R.drawable.selector_home);
                       Intent intent = new Intent(MainActivity.this, SearchActivity.class);
                       startActivity(intent);
-                      overridePendingTransition(0,0);
+                      //overridePendingTransition(0,0);
                       break;
                   case 2 :
                       tab.setIcon(R.drawable.selector_home);

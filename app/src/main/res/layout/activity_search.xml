@@ -6,10 +6,15 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.tacademy.sadajo.activities.SearchActivity">
-    <include layout="@layout/include_navigation_tab"/>
+
+
+    <include layout="@layout/include_navigation_tab" />
+
     <TextView
         android:id="@+id/textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="texttext"/>
+        android:text="검색"/>
+
+    <include layout ="@layout/include_bottm_tab" />
 </LinearLayout>
