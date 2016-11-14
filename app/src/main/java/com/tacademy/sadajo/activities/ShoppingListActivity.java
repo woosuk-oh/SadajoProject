@@ -33,9 +33,10 @@ public class ShoppingListActivity extends Activity {
         homeBtn.setOnClickListener(mClickListener);
         searchBtn = (ImageButton)findViewById(R.id.searchBtn);
         searchBtn.setOnClickListener(mClickListener);
-        searchBtn.setImageResource(R.drawable.heart_red);
+
         shoppingListBtn = (ImageButton)findViewById(R.id.shoppingListBtn);
         shoppingListBtn.setOnClickListener(mClickListener);
+        shoppingListBtn.setImageResource(R.drawable.heart_red);
         chattingBtn = (ImageButton)findViewById(R.id.chattingBtn);
         chattingBtn.setOnClickListener(mClickListener);
         mypageBtn = (ImageButton)findViewById(R.id.mypageBtn);
@@ -53,11 +54,12 @@ public class ShoppingListActivity extends Activity {
         public void onClick(View view) {
             switch (view.getId()){
                 case R.id.homeBtn :
-                    searchBtn.setImageResource(R.drawable.heart_black);
+                    shoppingListBtn.setImageResource(R.drawable.heart_black);
                     intent =  new Intent(ShoppingListActivity.this, MainActivity.class);
                     startActivity(intent);
                     break;
                 case R.id.searchBtn :
+                    shoppingListBtn.setImageResource(R.drawable.heart_black);
                     intent =  new Intent(ShoppingListActivity.this, SearchActivity.class);
                     startActivity(intent);
                     break;
@@ -66,10 +68,12 @@ public class ShoppingListActivity extends Activity {
                     startActivity(intent);
                     break;
                 case R.id.chattingBtn:
+                    shoppingListBtn.setImageResource(R.drawable.heart_black);
                     intent =  new Intent(ShoppingListActivity.this, ShoppingListActivity.class);
                     startActivity(intent);
                     break;
                 case R.id.mypageBtn :
+                    shoppingListBtn.setImageResource(R.drawable.heart_black);
                     intent =  new Intent(ShoppingListActivity.this, MyPageActivity.class);
                     startActivity(intent);
                     break;

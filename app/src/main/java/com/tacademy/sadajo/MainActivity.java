@@ -6,7 +6,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageButton;
 
+import com.tacademy.sadajo.activities.ChattingActivity;
 import com.tacademy.sadajo.activities.SearchActivity;
+import com.tacademy.sadajo.activities.ShoppingListActivity;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -108,18 +110,15 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(intent);
                     break;
                 case R.id.shoppingListBtn :
-                     intent =  new Intent(MainActivity.this, SearchActivity.class);
-                    intent.putExtra("btnId", R.id.homeBtn);
+                     intent =  new Intent(MainActivity.this, ShoppingListActivity.class);
                     startActivity(intent);
                     break;
                 case R.id. chattingBtn:
-                    intent =  new Intent(MainActivity.this, SearchActivity.class);
-                    intent.putExtra("btnId", R.id.homeBtn);
+                    intent =  new Intent(MainActivity.this, ChattingActivity.class);
                     startActivity(intent);
                     break;
                 case R.id.mypageBtn :
-                   intent =  new Intent(MainActivity.this, SearchActivity.class);
-                    intent.putExtra("btnId", R.id.homeBtn);
+                   intent =  new Intent(MainActivity.this, MainActivity.class);
                     startActivity(intent);
                     break;
             }

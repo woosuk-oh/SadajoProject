@@ -20,7 +20,7 @@ public class MyPageActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_shoppinglist);
+        setContentView(R.layout.activity_mypage);
 //        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
         //       setSupportActionBar(toolbar);
 //        final ActionBar ab = getSupportActionBar();
@@ -33,13 +33,13 @@ public class MyPageActivity extends AppCompatActivity {
         homeBtn.setOnClickListener(mClickListener);
         searchBtn = (ImageButton)findViewById(R.id.searchBtn);
         searchBtn.setOnClickListener(mClickListener);
-        searchBtn.setImageResource(R.drawable.heart_red);
         shoppingListBtn = (ImageButton)findViewById(R.id.shoppingListBtn);
         shoppingListBtn.setOnClickListener(mClickListener);
         chattingBtn = (ImageButton)findViewById(R.id.chattingBtn);
         chattingBtn.setOnClickListener(mClickListener);
         mypageBtn = (ImageButton)findViewById(R.id.mypageBtn);
         mypageBtn.setOnClickListener(mClickListener);
+        mypageBtn.setImageResource(R.drawable.heart_red);
 
 
 
@@ -53,19 +53,22 @@ public class MyPageActivity extends AppCompatActivity {
         public void onClick(View view) {
             switch (view.getId()){
                 case R.id.homeBtn :
-                    searchBtn.setImageResource(R.drawable.heart_black);
+                    mypageBtn.setImageResource(R.drawable.heart_black);
                     intent =  new Intent(MyPageActivity.this, MainActivity.class);
                     startActivity(intent);
                     break;
                 case R.id.searchBtn :
+                    mypageBtn.setImageResource(R.drawable.heart_black);
                     intent =  new Intent(MyPageActivity.this, SearchActivity.class);
                     startActivity(intent);
                     break;
                 case R.id.shoppingListBtn :
+                    mypageBtn.setImageResource(R.drawable.heart_black);
                     intent =  new Intent(MyPageActivity.this, ShoppingListActivity.class);
                     startActivity(intent);
                     break;
                 case R.id.chattingBtn:
+                    mypageBtn.setImageResource(R.drawable.heart_black);
                     intent =  new Intent(MyPageActivity.this, ChattingActivity.class);
                     startActivity(intent);
                     break;

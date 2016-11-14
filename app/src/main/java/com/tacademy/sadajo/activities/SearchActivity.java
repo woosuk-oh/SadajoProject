@@ -62,14 +62,17 @@ public class SearchActivity extends AppCompatActivity {
                     startActivity(intent);
                     break;
                 case R.id.shoppingListBtn :
+                    searchBtn.setImageResource(R.drawable.heart_black);
                     intent =  new Intent(SearchActivity.this, SearchActivity.class);
                     startActivity(intent);
                     break;
                 case R.id.chattingBtn:
+                    searchBtn.setImageResource(R.drawable.heart_black);
                     intent =  new Intent(SearchActivity.this, SearchActivity.class);
                     startActivity(intent);
                     break;
                 case R.id.mypageBtn :
+                    searchBtn.setImageResource(R.drawable.heart_black);
                     intent =  new Intent(SearchActivity.this, SearchActivity.class);
                     startActivity(intent);
                     break;
