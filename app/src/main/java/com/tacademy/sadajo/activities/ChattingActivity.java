@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageButton;
 
-import com.tacademy.sadajo.MainActivity;
+import com.tacademy.sadajo.HomeActivity;
 import com.tacademy.sadajo.R;
 import com.tacademy.sadajo.mypage.MyPageActivity;
 import com.tacademy.sadajo.search.SearchActivity;
@@ -58,7 +58,7 @@ public class ChattingActivity extends AppCompatActivity {
             switch (view.getId()){
                 case R.id.homeBtn :
                     chattingBtn.setImageResource(R.drawable.heart_black);
-                    intent =  new Intent(ChattingActivity.this, MainActivity.class);
+                    intent =  new Intent(ChattingActivity.this, HomeActivity.class);
                     startActivity(intent);
                     break;
                 case R.id.searchBtn :

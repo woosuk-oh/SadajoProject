@@ -5,18 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.tacademy.sadajo.MainActivity">
+    tools:context="com.tacademy.sadajo.HomeActivity">
 
 
 
-    <!-- <Button
-         android:id="@+id/testBtn"
-         android:layout_marginTop="50dp"
-         android:layout_width="212dp"
-         android:layout_height="35dp"
-         android:layout_gravity="center"
-         android:background="@drawable/selecto_btn"
-         />-->
+
 
     <LinearLayout
         android:layout_width="match_parent"

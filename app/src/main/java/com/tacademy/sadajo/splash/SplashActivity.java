@@ -1,8 +1,11 @@
 package com.tacademy.sadajo.splash;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 
+import com.tacademy.sadajo.HomeActivity;
 import com.tacademy.sadajo.R;
 
 public class SplashActivity extends Activity {
@@ -16,16 +19,14 @@ public class SplashActivity extends Activity {
         animatedGifImageView.setAnimatedGif(R.raw.splash,
                 AnimatedGifImageView.TYPE.FIT_CENTER);
 
-//        handler.postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//               Intent intent = new Intent(SplashActivity.this, MainActivity.class);
-//                startActivity(intent);
-//                finish();
-//            }
-//        }, 1600);
-           // Intent intent = new Intent(SplashActivity.this, MainActivity.class);
-            //startActivity(intent);
-    }
-  //  Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+              Intent intent = new Intent(SplashActivity.this, HomeActivity.class);
+                startActivity(intent);
+               finish();       }
+        }, 1600);
+
+   }
+    Handler handler = new Handler();
 }
