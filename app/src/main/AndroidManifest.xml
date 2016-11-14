@@ -17,21 +17,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.SearchActivity" />
-        <activity android:name=".activities.ShoppingListActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".activities.ChattingActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".activities.MyPageActivity"></activity>
+        <activity android:name=".activities.ShoppingListActivity"/>
+        <activity android:name=".activities.ChattingActivity"/>
+        <activity android:name=".activities.MyPageActivity"/>
     </application>
 
 </manifest>
