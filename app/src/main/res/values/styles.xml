@@ -1,0 +1,39 @@
+<resources>
+
+   <!-- Base application theme.
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!- Customize your theme here.
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>-->
+
+
+    <!-- Theme추가 -->
+    <style name="Theme.DesignDemo" parent="Theme.Sadajo">
+    </style>
+
+    <style name="Theme.Sadajo" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">#368BCB</item>
+        <item name="colorPrimaryDark">#368BCB</item>
+        <item name="colorAccent">#368BCB</item>
+        <item name="android:windowBackground">@color/window_background</item>
+        <!-- enable window content transitions -->
+    </style>
+
+    <!--TabLayout textColor-->
+    <style name="TabLayout" parent="Widget.Design.TabLayout">
+        <item name="tabIndicatorColor">#FFFFFF</item>
+        <item name="tabPaddingStart">3dp</item>
+        <item name="tabPaddingEnd">3dp</item>
+        <item name="tabSelectedTextColor">#368BCB</item>
+        <item name="tabTextColor">#000000</item>
+        <item name="android:textAppearance">@style/CustomTabWidgetText</item>
+    </style>
+    <style name="CustomTabWidgetText"
+        parent="@android:style/TextAppearance.Widget.TabWidget">
+        <item name="android:textSize">10sp</item>
+        <item name="android:textAlignment">center</item>
+      <!--  <item name="android:textStyle">bold</item>-->
+    </style>
+</resources>
