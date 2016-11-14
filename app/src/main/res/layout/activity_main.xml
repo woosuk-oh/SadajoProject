@@ -10,6 +10,8 @@
     <!--
     <include layout="@layout/include_navigation_tab"/>
     -->
+    <include layout="@layout/main_toolbar"/>
+
    <!-- <Button
         android:id="@+id/testBtn"
         android:layout_marginTop="50dp"
