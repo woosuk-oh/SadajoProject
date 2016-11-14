@@ -16,7 +16,7 @@ public class SearchActivity extends AppCompatActivity {
         setContentView(R.layout.activity_search);
 //        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
  //       setSupportActionBar(toolbar);
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+          TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
 //        final ActionBar ab = getSupportActionBar();
 //        ab.setDisplayHomeAsUpEnabled(true);
 
