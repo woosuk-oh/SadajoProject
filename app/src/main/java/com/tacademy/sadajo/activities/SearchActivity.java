@@ -26,6 +26,8 @@ public class SearchActivity extends AppCompatActivity {
 
 
 
+
+
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
