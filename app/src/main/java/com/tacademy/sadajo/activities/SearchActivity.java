@@ -1,12 +1,10 @@
 package com.tacademy.sadajo.activities;
 
-import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 
-import com.tacademy.sadajo.MainActivity;
 import com.tacademy.sadajo.R;
 
 public class SearchActivity extends AppCompatActivity {
@@ -25,6 +23,8 @@ public class SearchActivity extends AppCompatActivity {
         tabLayout.addTab(tabLayout.newTab().setText("1").setIcon(R.drawable.heart_black));
         tabLayout.addTab(tabLayout.newTab().setText("1").setIcon(R.drawable.heart_black));
 
+
+        
 
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
