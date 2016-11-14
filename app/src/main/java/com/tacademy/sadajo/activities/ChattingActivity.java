@@ -1,15 +1,15 @@
 package com.tacademy.sadajo.activities;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageButton;
 
 import com.tacademy.sadajo.MainActivity;
 import com.tacademy.sadajo.R;
 
-public class SearchActivity extends AppCompatActivity {
+public class ChattingActivity extends Activity {
 
     ImageButton homeBtn;
     ImageButton searchBtn;
@@ -20,9 +20,9 @@ public class SearchActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search);
+        setContentView(R.layout.activity_shoppinglist);
 //        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
- //       setSupportActionBar(toolbar);
+        //       setSupportActionBar(toolbar);
 //        final ActionBar ab = getSupportActionBar();
 //        ab.setDisplayHomeAsUpEnabled(true);
 
@@ -53,24 +53,24 @@ public class SearchActivity extends AppCompatActivity {
         public void onClick(View view) {
             switch (view.getId()){
                 case R.id.homeBtn :
-                   searchBtn.setImageResource(R.drawable.heart_black);
-                    intent =  new Intent(SearchActivity.this, MainActivity.class);
+                    searchBtn.setImageResource(R.drawable.heart_black);
+                    intent =  new Intent(ChattingActivity.this, MainActivity.class);
                     startActivity(intent);
                     break;
                 case R.id.searchBtn :
-                    intent =  new Intent(SearchActivity.this, SearchActivity.class);
+                    intent =  new Intent(ChattingActivity.this, SearchActivity.class);
                     startActivity(intent);
                     break;
                 case R.id.shoppingListBtn :
-                    intent =  new Intent(SearchActivity.this, SearchActivity.class);
+                    intent =  new Intent(ChattingActivity.this, ShoppingListActivity.class);
                     startActivity(intent);
                     break;
                 case R.id.chattingBtn:
-                    intent =  new Intent(SearchActivity.this, SearchActivity.class);
+                    intent =  new Intent(ChattingActivity.this, ChattingActivity.class);
                     startActivity(intent);
                     break;
                 case R.id.mypageBtn :
-                    intent =  new Intent(SearchActivity.this, SearchActivity.class);
+                    intent =  new Intent(ChattingActivity.this, MyPageActivity.class);
                     startActivity(intent);
                     break;
             }
