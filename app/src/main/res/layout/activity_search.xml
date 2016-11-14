@@ -9,6 +9,8 @@
 
 
   <!--  <include layout="@layout/include_navigation_tab" />-->
+  <include layout="@layout/main_toolbar"/>
+
 
     <TextView
         android:id="@+id/textview10"
