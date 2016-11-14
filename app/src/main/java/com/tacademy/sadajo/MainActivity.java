@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.ImageButton;
 
 import com.tacademy.sadajo.activities.ChattingActivity;
+import com.tacademy.sadajo.activities.MyPageActivity;
 import com.tacademy.sadajo.activities.SearchActivity;
 import com.tacademy.sadajo.activities.ShoppingListActivity;
 
@@ -124,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 case R.id.mypageBtn :
                     homeBtn.setImageResource(R.drawable.heart_black);
-                   intent =  new Intent(MainActivity.this, MainActivity.class);
+                   intent =  new Intent(MainActivity.this, MyPageActivity.class);
                     startActivity(intent);
                     break;
             }

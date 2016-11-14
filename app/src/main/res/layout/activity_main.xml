@@ -7,9 +7,6 @@
     android:orientation="vertical"
     tools:context="com.tacademy.sadajo.MainActivity">
 
-    <!--
-    <include layout="@layout/include_navigation_tab"/>
-    -->
     <include layout="@layout/main_toolbar"/>
 
    <!-- <Button

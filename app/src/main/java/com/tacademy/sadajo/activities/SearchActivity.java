@@ -73,7 +73,7 @@ public class SearchActivity extends AppCompatActivity {
                     break;
                 case R.id.mypageBtn :
                     searchBtn.setImageResource(R.drawable.heart_black);
-                    intent =  new Intent(SearchActivity.this, MainActivity.class);
+                    intent =  new Intent(SearchActivity.this, MyPageActivity.class);
                     startActivity(intent);
                     break;
             }
