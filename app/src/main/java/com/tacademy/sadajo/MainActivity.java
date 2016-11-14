@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
        setSupportActionBar(toolbar);
            TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
 //        final ActionBar ab = getSupportActionBar();
-//        ab.setDisplayHomeAsUpEnabled(true);
+//        ab.setDisplayHomeAsUpEnabled(true);   X
 
         tabLayout.addTab(tabLayout.newTab().setText("홈").setIcon(R.drawable.heart_black));
         tabLayout.addTab(tabLayout.newTab().setText("검색").setIcon(R.drawable.heart_black));
