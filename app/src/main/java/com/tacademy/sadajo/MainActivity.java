@@ -1,11 +1,10 @@
 package com.tacademy.sadajo;
 
 import android.content.Intent;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.support.design.widget.TabLayout;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 
 import com.tacademy.sadajo.activities.SearchActivity;
 
@@ -27,7 +26,8 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.addTab(tabLayout.newTab().setText("검색").setIcon(R.drawable.heart_black));
         tabLayout.addTab(tabLayout.newTab().setText("쇼핑리스트").setIcon(R.drawable.heart_black));
         tabLayout.addTab(tabLayout.newTab().setText("채팅").setIcon(R.drawable.heart_black));
-        tabLayout.addTab(tabLayout.newTab().setText("마이페이지").setIcon(R.drawable.heart_black));
+        //tabLayout.addTab(tabLayout.newTab().setText("마이페이지").setIcon(R.drawable.heart_black));
+
 
 
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {

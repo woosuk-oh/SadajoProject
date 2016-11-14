@@ -24,7 +24,7 @@ public class SearchActivity extends AppCompatActivity {
         tabLayout.addTab(tabLayout.newTab().setText("1").setIcon(R.drawable.heart_black));
 
 
-        
+
 
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
