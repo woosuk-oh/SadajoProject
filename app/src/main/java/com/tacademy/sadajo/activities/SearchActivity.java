@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.widget.TextView;
 
 import com.tacademy.sadajo.R;
 
@@ -20,6 +21,7 @@ public class SearchActivity extends AppCompatActivity {
 //        final ActionBar ab = getSupportActionBar();
 //        ab.setDisplayHomeAsUpEnabled(true);
 
+        TextView textView = (TextView)findViewById(R.id.textview);
 
         tabLayout.addTab(tabLayout.newTab().setText("홈").setIcon(R.drawable.heart_black));
         tabLayout.addTab(tabLayout.newTab().setText("검색").setIcon(R.drawable.heart_black));

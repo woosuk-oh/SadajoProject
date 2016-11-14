@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
                       tab.setIcon(R.drawable.selector_home);
                       Intent intent = new Intent(MainActivity.this, SearchActivity.class);
                       startActivity(intent);
+                      overridePendingTransition(0,0);
                       break;
                   case 2 :
                       tab.setIcon(R.drawable.selector_home);
