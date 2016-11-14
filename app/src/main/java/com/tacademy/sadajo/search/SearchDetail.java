@@ -18,6 +18,9 @@ public class SearchDetail extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_search_detail_body);
 
-        final ImageView itemImage = (ImageView) findViewById(R.id.)
+        final ImageView itemImage = (ImageView) findViewById(R.id.item_image);
+
+        itemImage.setImageResource(R.drawable.splash_img);
+
     }
 }
