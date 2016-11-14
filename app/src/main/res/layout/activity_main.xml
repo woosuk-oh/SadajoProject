@@ -1,16 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.tacademy.sadajo.MainActivity">
-    tools:context="com.tacademy.sadajo.MainActivity">
 
     <!--
     <include layout="@layout/include_navigation_tab"/>
     -->
+   <!-- <Button
+        android:id="@+id/testBtn"
+        android:layout_marginTop="50dp"
+        android:layout_width="212dp"
+        android:layout_height="35dp"
+        android:layout_gravity="center"
+        android:background="@drawable/selecto_btn"
+        />-->
 
-    <include layout ="@layout/include_bottm_tab"/>
-</LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="72dp"
+        android:layout_alignParentBottom="true">
+        <include layout ="@layout/include_bottom_tab_button" />
+    </LinearLayout><!--Include Bottom TabBar Button -->
+</RelativeLayout>
