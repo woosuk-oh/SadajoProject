@@ -13,6 +13,12 @@ import com.tacademy.sadajo.activities.ShoppingListActivity;
 
 public class MainActivity extends AppCompatActivity {
 
+    ImageButton homeBtn;
+    ImageButton searchBtn;
+    ImageButton shoppingListBtn;
+    ImageButton chattingBtn;
+    ImageButton mypageBtn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,14 +30,10 @@ public class MainActivity extends AppCompatActivity {
 //        ab.setDisplayHomeAsUpEnabled(true);
 
 
-        ImageButton homeBtn;
-        ImageButton searchBtn;
-        ImageButton shoppingListBtn;
-        ImageButton chattingBtn;
-        ImageButton mypageBtn;
 
         homeBtn = (ImageButton)findViewById(R.id.homeBtn);
         homeBtn.setOnClickListener(mClickListener);
+        homeBtn.setImageResource(R.drawable.heart_red);
         searchBtn = (ImageButton)findViewById(R.id.searchBtn);
         searchBtn.setOnClickListener(mClickListener);
         shoppingListBtn = (ImageButton)findViewById(R.id.shoppingListBtn);
@@ -106,18 +108,22 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(intent);
                     break;
                 case R.id.searchBtn :
+                    homeBtn.setImageResource(R.drawable.heart_black);
                     intent =  new Intent(MainActivity.this, SearchActivity.class);
                     startActivity(intent);
                     break;
                 case R.id.shoppingListBtn :
+                    homeBtn.setImageResource(R.drawable.heart_black);
                      intent =  new Intent(MainActivity.this, ShoppingListActivity.class);
                     startActivity(intent);
                     break;
                 case R.id. chattingBtn:
+                    homeBtn.setImageResource(R.drawable.heart_black);
                     intent =  new Intent(MainActivity.this, ChattingActivity.class);
                     startActivity(intent);
                     break;
                 case R.id.mypageBtn :
+                    homeBtn.setImageResource(R.drawable.heart_black);
                    intent =  new Intent(MainActivity.this, MainActivity.class);
                     startActivity(intent);
                     break;

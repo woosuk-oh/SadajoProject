@@ -69,7 +69,7 @@ public class ShoppingListActivity extends Activity {
                     break;
                 case R.id.chattingBtn:
                     shoppingListBtn.setImageResource(R.drawable.heart_black);
-                    intent =  new Intent(ShoppingListActivity.this, ShoppingListActivity.class);
+                    intent =  new Intent(ShoppingListActivity.this, ChattingActivity.class);
                     startActivity(intent);
                     break;
                 case R.id.mypageBtn :
