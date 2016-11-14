@@ -6,13 +6,14 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#368BCB"
-    tools:context="com.tacademy.sadajo.activities.SplashActivity">
+    tools:context="com.tacademy.sadajo.splash.SplashActivity">
 
-    <ImageView
+<!--  이전 gif 스플래시용 레이아웃 파일
+
+  <ImageView
         android:id="@+id/splashImg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:src="@drawable/splash"/>
-
+        android:src="@drawable/splash"/>-->
 </LinearLayout>

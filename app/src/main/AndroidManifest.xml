@@ -9,7 +9,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Sadajo">
         <activity android:name=".MainActivity"></activity>
-        <activity android:name=".activities.SplashActivity">
+        <activity android:name=".splash.SplashActivity">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
