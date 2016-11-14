@@ -10,32 +10,37 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:src="@drawable/heart_black"
+        android:background="@drawable/selector_home"
+
         android:layout_weight="1"/>
-
-
-    <Button
+    <ImageButton
         android:id="@+id/searchBtn"
-        android:text="검색"
         android:layout_width="0dp"
         android:layout_height="match_parent"
+        android:src="@drawable/heart_black"
+        android:background="@drawable/selector_home"
         android:layout_weight="1"/>
-    <Button
+    <ImageButton
         android:id="@+id/shoppingListBtn"
-        android:text="쇼핑리스트"
         android:layout_width="0dp"
         android:layout_height="match_parent"
+        android:src="@drawable/heart_black"
+        android:background="@drawable/selector_home"
         android:layout_weight="1"/>
-    <Button
+    <ImageButton
         android:id="@+id/chattingBtn"
-        android:text="채팅"
         android:layout_width="0dp"
         android:layout_height="match_parent"
+        android:src="@drawable/heart_black"
+        android:background="@drawable/selector_home"
         android:layout_weight="1"/>
-    <Button
+    <ImageButton
         android:id="@+id/mypageBtn"
-        android:text="마이페이지"
         android:layout_width="0dp"
         android:layout_height="match_parent"
+        android:src="@drawable/heart_black"
+        android:background="@drawable/selector_home"
         android:layout_weight="1"/>
+
 
 </LinearLayout>

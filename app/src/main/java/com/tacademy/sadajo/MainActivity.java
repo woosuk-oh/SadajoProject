@@ -1,7 +1,12 @@
 package com.tacademy.sadajo;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.ImageButton;
+
+import com.tacademy.sadajo.activities.SearchActivity;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -15,6 +20,27 @@ public class MainActivity extends AppCompatActivity {
 //           TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
 //        final ActionBar ab = getSupportActionBar();
 //        ab.setDisplayHomeAsUpEnabled(true);
+
+
+        ImageButton homeBtn;
+        ImageButton searchBtn;
+        ImageButton shoppingListBtn;
+        ImageButton chattingBtn;
+        ImageButton mypageBtn;
+
+        homeBtn = (ImageButton)findViewById(R.id.homeBtn);
+        homeBtn.setOnClickListener(mClickListener);
+        searchBtn = (ImageButton)findViewById(R.id.searchBtn);
+        searchBtn.setOnClickListener(mClickListener);
+        shoppingListBtn = (ImageButton)findViewById(R.id.shoppingListBtn);
+        shoppingListBtn.setOnClickListener(mClickListener);
+        chattingBtn = (ImageButton)findViewById(R.id.chattingBtn);
+        chattingBtn.setOnClickListener(mClickListener);
+        mypageBtn = (ImageButton)findViewById(R.id.mypageBtn);
+        mypageBtn.setOnClickListener(mClickListener);
+
+
+
 
 //       Button button  = (Button)findViewById(R.id.testBtn) ;
 
@@ -67,4 +93,33 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
+    ImageButton.OnClickListener  mClickListener = new View.OnClickListener() {
+        Intent intent;
+        @Override
+        public void onClick(View view) {
+            switch (view.getId()){
+                case R.id.homeBtn :
+                     intent =  new Intent(MainActivity.this, SearchActivity.class);
+                    startActivity(intent);
+                    break;
+                case R.id.searchBtn :
+                    intent =  new Intent(MainActivity.this, SearchActivity.class);
+                    startActivity(intent);
+                    break;
+                case R.id.shoppingListBtn :
+                     intent =  new Intent(MainActivity.this, SearchActivity.class);
+                    startActivity(intent);
+                    break;
+                case R.id. chattingBtn:
+                    intent =  new Intent(MainActivity.this, SearchActivity.class);
+                    startActivity(intent);
+                    break;
+                case R.id.mypageBtn :
+                   intent =  new Intent(MainActivity.this, SearchActivity.class);
+                    startActivity(intent);
+                    break;
+            }
+        }
+    };
 }

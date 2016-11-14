@@ -16,5 +16,11 @@
         android:layout_height="wrap_content"
         android:text="검색"/>
 
-    <include layout ="@layout/include_bottm_tab" />
+ <!--   <include layout ="@layout/include_bottm_tab" />-->
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="72dp"
+      android:layout_alignParentBottom="true">
+    <include layout ="@layout/include_bottom_tab_button" />
+  </LinearLayout><!--Include Bottom TabBar Button -->
 </LinearLayout>
