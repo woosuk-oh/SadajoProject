@@ -1,8 +1,8 @@
 package com.tacademy.sadajo.activities;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageButton;
 
@@ -12,7 +12,7 @@ import com.tacademy.sadajo.mypage.MyPageActivity;
 import com.tacademy.sadajo.search.SearchActivity;
 import com.tacademy.sadajo.shoppinglist.ShoppingListActivity;
 
-public class ChattingActivity extends Activity {
+public class ChattingActivity extends AppCompatActivity {
 
     ImageButton homeBtn;
     ImageButton searchBtn;
