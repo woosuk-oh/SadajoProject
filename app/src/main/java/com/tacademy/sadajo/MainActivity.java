@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.addTab(tabLayout.newTab().setText("검색").setIcon(R.drawable.heart_black));
         tabLayout.addTab(tabLayout.newTab().setText("쇼핑리스트").setIcon(R.drawable.heart_black));
         tabLayout.addTab(tabLayout.newTab().setText("채팅").setIcon(R.drawable.heart_black));
-        //tabLayout.addTab(tabLayout.newTab().setText("마이페이지").setIcon(R.drawable.heart_black));
+        tabLayout.addTab(tabLayout.newTab().setText("마이페이지").setIcon(R.drawable.heart_black));
 
 
 
@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
                   case 1 :
                       tab.setIcon(R.drawable.selector_home);
                       Intent intent = new Intent(MainActivity.this, SearchActivity.class);
+                      startActivity(intent);
                       break;
                   case 2 :
                       tab.setIcon(R.drawable.selector_home);
