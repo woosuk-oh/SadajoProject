@@ -1,4 +1,4 @@
-package com.tacademy.sadajo.activities;
+package com.tacademy.sadajo.mypage;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,8 +8,11 @@ import android.widget.ImageButton;
 
 import com.tacademy.sadajo.MainActivity;
 import com.tacademy.sadajo.R;
+import com.tacademy.sadajo.activities.ChattingActivity;
+import com.tacademy.sadajo.search.SearchActivity;
+import com.tacademy.sadajo.shoppinglist.ShoppingListActivity;
 
-public class SearchActivity extends AppCompatActivity {
+public class MyPageActivity extends AppCompatActivity {
 
     ImageButton homeBtn;
     ImageButton searchBtn;
@@ -20,9 +23,9 @@ public class SearchActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search);
+        setContentView(R.layout.activity_mypage);
 //        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
- //       setSupportActionBar(toolbar);
+        //       setSupportActionBar(toolbar);
 //        final ActionBar ab = getSupportActionBar();
 //        ab.setDisplayHomeAsUpEnabled(true);
 
@@ -33,13 +36,13 @@ public class SearchActivity extends AppCompatActivity {
         homeBtn.setOnClickListener(mClickListener);
         searchBtn = (ImageButton)findViewById(R.id.searchBtn);
         searchBtn.setOnClickListener(mClickListener);
-        searchBtn.setImageResource(R.drawable.heart_red);
         shoppingListBtn = (ImageButton)findViewById(R.id.shoppingListBtn);
         shoppingListBtn.setOnClickListener(mClickListener);
         chattingBtn = (ImageButton)findViewById(R.id.chattingBtn);
         chattingBtn.setOnClickListener(mClickListener);
         mypageBtn = (ImageButton)findViewById(R.id.mypageBtn);
         mypageBtn.setOnClickListener(mClickListener);
+        mypageBtn.setImageResource(R.drawable.heart_red);
 
 
 
@@ -53,27 +56,27 @@ public class SearchActivity extends AppCompatActivity {
         public void onClick(View view) {
             switch (view.getId()){
                 case R.id.homeBtn :
-                   searchBtn.setImageResource(R.drawable.heart_black);
-                    intent =  new Intent(SearchActivity.this, MainActivity.class);
+                    mypageBtn.setImageResource(R.drawable.heart_black);
+                    intent =  new Intent(MyPageActivity.this, MainActivity.class);
                     startActivity(intent);
                     break;
                 case R.id.searchBtn :
-                    intent =  new Intent(SearchActivity.this, SearchActivity.class);
+                    mypageBtn.setImageResource(R.drawable.heart_black);
+                    intent =  new Intent(MyPageActivity.this, SearchActivity.class);
                     startActivity(intent);
                     break;
                 case R.id.shoppingListBtn :
-                    searchBtn.setImageResource(R.drawable.heart_black);
-                    intent =  new Intent(SearchActivity.this, ShoppingListActivity.class);
+                    mypageBtn.setImageResource(R.drawable.heart_black);
+                    intent =  new Intent(MyPageActivity.this, ShoppingListActivity.class);
                     startActivity(intent);
                     break;
                 case R.id.chattingBtn:
-                    searchBtn.setImageResource(R.drawable.heart_black);
-                    intent =  new Intent(SearchActivity.this, ChattingActivity.class);
+                    mypageBtn.setImageResource(R.drawable.heart_black);
+                    intent =  new Intent(MyPageActivity.this, ChattingActivity.class);
                     startActivity(intent);
                     break;
                 case R.id.mypageBtn :
-                    searchBtn.setImageResource(R.drawable.heart_black);
-                    intent =  new Intent(SearchActivity.this, MyPageActivity.class);
+                    intent =  new Intent(MyPageActivity.this, MyPageActivity.class);
                     startActivity(intent);
                     break;
             }

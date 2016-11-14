@@ -1,4 +1,4 @@
-package com.tacademy.sadajo.activities;
+package com.tacademy.sadajo.shoppinglist;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +8,9 @@ import android.widget.ImageButton;
 
 import com.tacademy.sadajo.MainActivity;
 import com.tacademy.sadajo.R;
+import com.tacademy.sadajo.activities.ChattingActivity;
+import com.tacademy.sadajo.mypage.MyPageActivity;
+import com.tacademy.sadajo.search.SearchActivity;
 
 public class ShoppingListActivity extends AppCompatActivity {
 

@@ -16,10 +16,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.SearchActivity" />
-        <activity android:name=".activities.ShoppingListActivity"/>
+        <activity android:name=".search.SearchActivity" />
+        <activity android:name=".shoppinglist.ShoppingListActivity"/>
         <activity android:name=".activities.ChattingActivity"/>
-        <activity android:name=".activities.MyPageActivity"/>
+        <activity android:name=".mypage.MyPageActivity"/>
     </application>
 
 </manifest>
