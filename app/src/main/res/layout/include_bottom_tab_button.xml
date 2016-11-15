@@ -3,7 +3,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="#FFFFFF">
 
     <ImageButton
         android:id="@+id/homeBtn"
@@ -13,11 +14,12 @@
         android:scaleType="fitCenter"
         android:layout_weight="1"
         />
+
     <ImageButton
         android:id="@+id/searchBtn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@drawable/selector_home"
+        android:background="@drawable/selector_search"
         android:scaleType="fitCenter"
         android:layout_weight="1"
         />
@@ -26,7 +28,7 @@
         android:id="@+id/shoppingListBtn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@drawable/selector_home"
+        android:background="@drawable/selector_shopping"
         android:scaleType="fitCenter"
         android:layout_weight="1"
         />
@@ -34,7 +36,7 @@
         android:id="@+id/chattingBtn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@drawable/selector_home"
+        android:background="@drawable/selector_chatting"
         android:scaleType="fitCenter"
         android:layout_weight="1"
        />
@@ -42,7 +44,7 @@
         android:id="@+id/mypageBtn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@drawable/selector_home"
+        android:background="@drawable/selector_my"
         android:scaleType="fitCenter"
         android:layout_weight="1"
        />
