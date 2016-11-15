@@ -9,13 +9,13 @@
     </style>-->
 
 
-    <!-- Theme추가 -->
+    <!-- Theme추가  NoACtionBar-->
     <style name="Theme.DesignDemo" parent="Theme.Sadajo">
     </style>
 
-    <style name="Theme.Sadajo" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="colorPrimary">#368BCB</item>
-        <item name="colorPrimaryDark">#368BCB</item>
+    <style name="Theme.Sadajo" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">#2fbcea</item>
+        <item name="colorPrimaryDark">#2fbcea</item>
         <item name="colorAccent">#368BCB</item>
         <item name="android:windowBackground">@color/window_background</item>
         <item name="android:windowAnimationStyle">@null</item>  <!-- 액티비티 애니메이션 전환 효과 삭제-->

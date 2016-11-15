@@ -6,10 +6,10 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.tacademy.sadajo.search.SearchActivity">
-
+  <include layout="@layout/include_toolbar_layout"/>
 
   <!--  <include layout="@layout/include_navigation_tab" />-->
-  <include layout="@layout/fragment_search_detail_body"/>
+  <include layout="@layout/fragment_search_detail_body"/><!--include toolbar -->
 
 
     <TextView

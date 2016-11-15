@@ -3,6 +3,7 @@ package com.tacademy.sadajo.shoppinglist;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageButton;
 
@@ -24,8 +25,10 @@ public class ShoppingListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shoppinglist);
-//        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
-        //       setSupportActionBar(toolbar);
+        setTitle("");//툴바 타이틀명공백
+        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
 //        final ActionBar ab = getSupportActionBar();
 //        ab.setDisplayHomeAsUpEnabled(true);
 
@@ -39,7 +42,8 @@ public class ShoppingListActivity extends AppCompatActivity {
 
         shoppingListBtn = (ImageButton)findViewById(R.id.shoppingListBtn);
         shoppingListBtn.setOnClickListener(mClickListener);
-        shoppingListBtn.setImageResource(R.drawable.heart_red);
+     //   shoppingListBtn.setImageResource(R.drawable.heart_red);
+        shoppingListBtn.setSelected(true);
         chattingBtn = (ImageButton)findViewById(R.id.chattingBtn);
         chattingBtn.setOnClickListener(mClickListener);
         mypageBtn = (ImageButton)findViewById(R.id.mypageBtn);
@@ -57,12 +61,12 @@ public class ShoppingListActivity extends AppCompatActivity {
         public void onClick(View view) {
             switch (view.getId()){
                 case R.id.homeBtn :
-                    shoppingListBtn.setImageResource(R.drawable.heart_black);
+                    shoppingListBtn.setSelected(false);
                     intent =  new Intent(ShoppingListActivity.this, HomeActivity.class);
                     startActivity(intent);
                     break;
                 case R.id.searchBtn :
-                    shoppingListBtn.setImageResource(R.drawable.heart_black);
+                    shoppingListBtn.setSelected(false);
                     intent =  new Intent(ShoppingListActivity.this, SearchActivity.class);
                     startActivity(intent);
                     break;
@@ -71,12 +75,12 @@ public class ShoppingListActivity extends AppCompatActivity {
                     startActivity(intent);
                     break;
                 case R.id.chattingBtn:
-                    shoppingListBtn.setImageResource(R.drawable.heart_black);
+                    shoppingListBtn.setSelected(false);
                     intent =  new Intent(ShoppingListActivity.this, ChattingActivity.class);
                     startActivity(intent);
                     break;
                 case R.id.mypageBtn :
-                    shoppingListBtn.setImageResource(R.drawable.heart_black);
+                    shoppingListBtn.setSelected(false);
                     intent =  new Intent(ShoppingListActivity.this, MyPageActivity.class);
                     startActivity(intent);
                     break;

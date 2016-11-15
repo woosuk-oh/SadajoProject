@@ -3,6 +3,7 @@ package com.tacademy.sadajo;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageButton;
 
@@ -24,8 +25,10 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-//          Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
- //         setSupportActionBar(toolbar);
+        setTitle("");//툴바 타이틀명공백
+         Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
+          setSupportActionBar(toolbar);
+
 //           TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
 //        final ActionBar ab = getSupportActionBar();
 //        ab.setDisplayHomeAsUpEnabled(true);
@@ -34,7 +37,7 @@ public class HomeActivity extends AppCompatActivity {
 
         homeBtn = (ImageButton)findViewById(R.id.homeBtn);
         homeBtn.setOnClickListener(mClickListener);
-        homeBtn.setImageResource(R.drawable.heart_red);
+        homeBtn.setSelected(true);
         searchBtn = (ImageButton)findViewById(R.id.searchBtn);
         searchBtn.setOnClickListener(mClickListener);
         shoppingListBtn = (ImageButton)findViewById(R.id.shoppingListBtn);
@@ -105,26 +108,28 @@ public class HomeActivity extends AppCompatActivity {
         public void onClick(View view) {
             switch (view.getId()){
                 case R.id.homeBtn :
+
                      intent =  new Intent(HomeActivity.this, HomeActivity.class);
                     startActivity(intent);
                     break;
                 case R.id.searchBtn :
-                    homeBtn.setImageResource(R.drawable.heart_black);
+                    homeBtn.setSelected(false);
+
                     intent =  new Intent(HomeActivity.this, SearchActivity.class);
                     startActivity(intent);
                     break;
                 case R.id.shoppingListBtn :
-                    homeBtn.setImageResource(R.drawable.heart_black);
+                    homeBtn.setSelected(false);
                      intent =  new Intent(HomeActivity.this, ShoppingListActivity.class);
                     startActivity(intent);
                     break;
                 case R.id. chattingBtn:
-                    homeBtn.setImageResource(R.drawable.heart_black);
+                    homeBtn.setSelected(false); //   homeBtn.setImageResource(R.drawable.heart_black);
                     intent =  new Intent(HomeActivity.this, ChattingActivity.class);
                     startActivity(intent);
                     break;
                 case R.id.mypageBtn :
-                    homeBtn.setImageResource(R.drawable.heart_black);
+                    homeBtn.setSelected(false);
                    intent =  new Intent(HomeActivity.this, MyPageActivity.class);
                     startActivity(intent);
                     break;
