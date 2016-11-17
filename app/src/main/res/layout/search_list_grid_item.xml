@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/search_list_grid_item_cardview"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    card_view:cardCornerRadius="5dp"
+    card_view:cardUseCompatPadding="true">
+
+    <!-- Search List에서 리스트되는 아이템 xml. (카드뷰 형태) -->
+
+
+    <LinearLayout
+        android:id="@+id/card_back"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:animateLayoutChanges="true"
+        android:orientation="vertical"
+        android:padding="4dp">
+
+        <ImageView
+            android:id="@+id/search_item_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/white"
+            android:padding="2dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/sample1" />
+
+        <LinearLayout
+            android:id="@+id/item_expand_area"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/search_item_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:text="itemName" />
+
+
+            <ImageView
+                android:id="@+id/cuntry_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="200dp"
+                card_view:srcCompat="@mipmap/ic_launcher" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/list_item_hash_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/sample_hash_button1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="hash1" />
+            <Button
+                android:id="@+id/sample_hash_button2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="hash2" />
+            <Button
+                android:id="@+id/sample_hash_button3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="hash3" />
+            <Button
+                android:id="@+id/sample_hash_button4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="hash4" />
+            <Button
+                android:id="@+id/sample_hash_button5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="hash5" />
+        </LinearLayout>
+
+    </LinearLayout>
+</android.support.v7.widget.CardView>

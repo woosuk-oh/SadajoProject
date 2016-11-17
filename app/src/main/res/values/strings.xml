@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">사다조</string>
+
+    <string name="transitionName">ItemName</string>
+</resources>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_shoppinglist"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_margin="0dp"
+    tools:context="com.tacademy.sadajo.shoppinglist.ShoppingListActivity">
+    <FrameLayout
+        android:id="@+id/toolbar_frame"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_alignParentTop="true"
+       >
+    <include layout="@layout/include_toolbar_layout" /><!--include toolbar -->
+ </FrameLayout>
+    <ScrollView
+        android:layout_below="@+id/toolbar_frame"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:orientation="vertical"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:orientation="vertical"
+            android:background="#FFFFFF">
+
+            <TextView
+                android:layout_marginTop="41dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="24dp"
+                android:text="SEOUL"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:orientation="vertical"
+            android:background="#FFFFFF">
+
+            <TextView
+                android:layout_marginTop="41dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="24dp"
+                android:text="SEOUL"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:orientation="vertical"
+            android:background="#FFFFFF">
+
+            <TextView
+                android:layout_marginTop="41dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="24dp"
+                android:text="SEOUL"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    </ScrollView>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        >
+        <include layout ="@layout/include_bottom_tab_button" />
+    </FrameLayout><!--Include Bottom TabBar Button -->
+</RelativeLayout>
