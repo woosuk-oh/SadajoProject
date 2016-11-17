@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<com.tacademy.sadajo.search.searchlist.CollapsingSwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/swipe_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    >
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/list_gird_frame">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/search_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="484dp" />
+        </LinearLayout>
+
+        <!--  <include layout="@layout/include_navigation_tab" />-->
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:gravity="bottom">
+
+            <include layout="@layout/include_bottom_tab_button" />
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/custom_view_bar"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#0b3c7a"
+            android:orientation="horizontal"
+            android:padding="4dp">
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="set."
+                />
+
+            <TextView
+                android:id="@+id/custom_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+
+
+
+                android:maxLines="1"
+                android:text="total"
+                android:textColor="@android:color/white"
+                android:textSize="16sp" />
+
+            <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/search_collaps_bar_spinner"
+                android:layout_marginLeft="350dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentStart="true" />
+
+
+        </RelativeLayout>
+        <!--   <include layout ="@layout/include_bottm_tab" />-->
+        <!--Include Bottom TabBar Button -->
+
+    </FrameLayout>
+
+
+</com.tacademy.sadajo.search.searchlist.CollapsingSwipeRefreshLayout>

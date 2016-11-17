@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="25dp">
+    <TextView
+        android:id="@+id/shoppinglistCountryNameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="이탈리아, 피렌체"
+        android:gravity="center"
+        android:layout_gravity="center"/>
+
+    <TextView
+        android:id="@+id/shoppinglistDateTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2016.10.01~2016.10.10"
+        android:gravity="center"
+        android:layout_gravity="center"/>
+
+    <ImageView
+        android:id="@+id/shoppinglistFolderImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/mark"
+        android:layout_gravity="center"
+        android:scaleType="center"/>
+
+</LinearLayout>
