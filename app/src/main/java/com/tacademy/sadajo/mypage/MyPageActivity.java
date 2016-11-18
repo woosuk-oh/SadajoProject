@@ -2,6 +2,11 @@ package com.tacademy.sadajo.mypage;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -12,6 +17,9 @@ import com.tacademy.sadajo.R;
 import com.tacademy.sadajo.chatting.ChattingActivity;
 import com.tacademy.sadajo.search.SearchListActivity;
 import com.tacademy.sadajo.shoppinglist.ShoppingListActivity;
+import com.tacademy.sadajo.shoppinglist.ShoppingListFragment;
+
+import java.util.ArrayList;
 
 public class MyPageActivity extends AppCompatActivity {
 
@@ -46,6 +54,14 @@ public class MyPageActivity extends AppCompatActivity {
         mypageBtn = (ImageButton)findViewById(R.id.mypageBtn);
         mypageBtn.setOnClickListener(mClickListener);
         mypageBtn.setSelected(true);
+
+        ViewPager viewPager = (ViewPager) findViewById(R.id.mypageViewpager);
+        if (viewPager != null) {
+            setupShoppingListViewPager(viewPager);
+        }
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.mypageTab);
+        tabLayout.setupWithViewPager(viewPager);
+
 
 
 
@@ -86,4 +102,41 @@ public class MyPageActivity extends AppCompatActivity {
             }
         }
     };
+
+    private void setupShoppingListViewPager(ViewPager viewPager){
+        MyPageActivity.GroupPagerAdapter girlsAdapter = new MyPageActivity.GroupPagerAdapter(getSupportFragmentManager());
+        girlsAdapter.appendFragment(ShoppingListFragment.newInstance(1), "후기");
+        girlsAdapter.appendFragment(ShoppingListFragment.newInstance(2), "등록한 TIP");
+        girlsAdapter.appendFragment(ShoppingListFragment.newInstance(2), "등록한아이템");
+        viewPager.setAdapter(girlsAdapter);
+    }
+
+    private static class GroupPagerAdapter extends FragmentPagerAdapter {
+        private final ArrayList<ShoppingListFragment> girsFragment = new ArrayList<>();
+        private final ArrayList<String> tabTitles = new ArrayList<>();
+
+        public GroupPagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        public void appendFragment(ShoppingListFragment fragment, String title) {
+            girsFragment.add(fragment);
+            tabTitles.add(title);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return girsFragment.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return girsFragment.size();
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return tabTitles.get(position);
+        }
+    }
 }

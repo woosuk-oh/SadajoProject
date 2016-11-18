@@ -11,8 +11,8 @@
     <include layout="@layout/include_toolbar_layout" /><!--include toolbar -->
 
     <ScrollView
-        android:layout_below="@+id/frame_toolbar_home"
-        android:layout_above="@+id/frame_bottom_bar"
+        android:layout_below="@+id/frameToolbarHome"
+        android:layout_above="@+id/frameBottomBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
           <LinearLayout
@@ -24,11 +24,36 @@
               <include layout="@layout/main_cardview1"/>
 
               <include layout="@layout/main_cardview2"/>
+              <ImageView
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:background="@drawable/character_main"
+                  android:layout_marginLeft="16dp"
+                  android:layout_marginRight="16dp"/>
+              <LinearLayout
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:layout_marginLeft="16dp"
+                  android:layout_marginRight="16dp"
+                  android:layout_marginTop="0dp"
+                  android:orientation="vertical"
+                  android:background="@color/white">
+                  <TextView
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:text="다른쇼퍼맨들의 쇼핑리스트 구경하기"
+                      android:textSize="17sp"/>
 
+                  <ImageView
+                      android:layout_width="match_parent"
+                      android:layout_height="match_parent"
+                      android:background="@drawable/date_go"
+                      android:gravity="center"
+                      android:layout_gravity="center"/>
 
+              </LinearLayout>
 
-              <include layout="@layout/main_cardview3"/>
-
+              <include layout="@layout/main_linearlayout3"/>
 
 
 

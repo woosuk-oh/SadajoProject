@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    >
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_margin="16dp"
+                    android:background="@color/white">
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/cardView3Tv"
+                            android:includeFontPadding="false"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/characterImageView"
+                            android:text="다른 쇼퍼맨의 쇼핑리스트 구경하기"
+                            android:textSize="17sp"/>
+                        <ImageView
+                            android:id="@+id/cardView3FlagImageView"
+                            android:layout_below="@+id/characterImageView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_toLeftOf="@+id/cardView3countrTv"
+                            android:src="@drawable/flag"/>
+
+                        <TextView
+                            android:layout_below="@+id/characterImageView"
+                            android:id="@+id/cardView3countrTv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:text="이탈리아"
+                            android:textSize="14sp"/>
+
+                        <ImageView
+                            android:id="@+id/characterImageView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/character_main"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignParentStart="true" />
+                    </RelativeLayout>
+                </LinearLayout>
+                <View
+                    android:layout_marginTop="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/rell"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:orientation="horizontal">
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/profile_empty"
+                            android:scaleType="center"
+                            android:layout_weight="1"/>
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/profile_empty"
+                            android:scaleType="center"
+                            android:layout_weight="1"/>
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/profile_empty"
+                            android:scaleType="center"
+                            android:layout_weight="1"/>
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/profile_empty"
+                            android:scaleType="center"
+                            android:layout_weight="1"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:orientation="horizontal">
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/profile_empty"
+                            android:scaleType="center"
+                            android:layout_weight="1"/>
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/profile_empty"
+                            android:scaleType="center"
+                            android:layout_weight="1"/>
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/profile_empty"
+                            android:scaleType="center"
+                            android:layout_weight="1"/>
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/profile_empty"
+                            android:scaleType="center"
+                            android:layout_weight="1"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+</LinearLayout>

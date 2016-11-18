@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.tacademy.sadajo.MainActivity;
 import com.tacademy.sadajo.R;
 
 import java.util.ArrayList;
@@ -22,7 +21,7 @@ import java.util.ArrayList;
  */
 public class ShoppingListFragment extends Fragment {
     public static int increment;
-    static MainActivity owner ;
+
     ArrayList<ShoppingListData> shoppingListDatas = new ArrayList<>();
 
     public ShoppingListFragment() {
@@ -45,8 +44,7 @@ public class ShoppingListFragment extends Fragment {
         RecyclerView  shoppingListRecyclerView = (RecyclerView) inflater.inflate(
                 R.layout.fragment_shoppinglist, container, false);
         Bundle initBundle = getArguments();
-        increment += initBundle.getInt("value");
-        owner = (MainActivity)getActivity();
+
         shoppingListRecyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
         shoppingListRecyclerView.setAdapter(new ShoppingListRecyclerViewAdapter(getContext(),
                 ShoppingListSample.shoppinList));

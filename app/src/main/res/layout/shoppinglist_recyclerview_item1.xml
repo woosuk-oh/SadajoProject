@@ -2,13 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="25dp">
+    android:layout_height="wrap_content"
+    android:padding="25dp"
+    android:background="@color/white"
+    android:layout_gravity="center">
     <TextView
         android:id="@+id/shoppinglistCountryNameTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="이탈리아, 피렌체"
         android:gravity="center"
         android:layout_gravity="center"/>
 
@@ -16,9 +17,9 @@
         android:id="@+id/shoppinglistDateTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="2016.10.01~2016.10.10"
         android:gravity="center"
-        android:layout_gravity="center"/>
+        android:layout_gravity="center"
+        android:textSize="10dp"/>
 
     <ImageView
         android:id="@+id/shoppinglistFolderImageView"

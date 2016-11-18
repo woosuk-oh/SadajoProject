@@ -1,76 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/mainCardView2"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <android.support.v7.widget.CardView
 
-        android:id="@+id/cvItemCard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
         android:layout_marginRight="16dp"
+        android:layout_marginLeft="16dp"
         android:layout_gravity="center"
         card_view:cardUseCompatPadding="true">
 
         <LinearLayout
-            android:id="@+id/card_back"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:animateLayoutChanges="true"
-            android:layout_marginTop="15dp"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"
+
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:paddingTop="25dp"
             android:orientation="vertical">
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+
                 <TextView
+                    android:id="@+id/cardView2Tv"
                     android:includeFontPadding="false"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:text="어머! 이건 꼭 사야해"
-                    android:textSize="17sp"/>
+                    android:text="어머! 이건 꼭 사야해!"
+                    android:textSize="17sp"
+                    android:textColor="#232323"
+                    />
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_toLeftOf="@+id/country"
+                    android:id="@+id/countryFlagImageView"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
                     android:src="@drawable/flag"
                     android:scaleType="center"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="80dp"
+
                     />
 
                 <TextView
-                    android:id="@+id/country"
+                    android:layout_marginLeft="10dp"
+                    android:includeFontPadding="false"
+                    android:id="@+id/card2CountryTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
-                    android:layout_alignParentRight="true"
-                    android:gravity="center"
+                    android:layout_gravity="right"
                     android:text="이탈리아"
-                    android:textSize="14sp"/>
-                </RelativeLayout>
+                    android:textSize="13sp"
+                    android:textColor="#747474"/>
+
             </LinearLayout>
             <View
                 android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/rell"/>
+                android:background="@color/rell"
+                android:layout_marginBottom="20dp"/>
             <LinearLayout
+                android:id="@+id/cardView2LL"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <LinearLayout
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:padding="8dp">
                     <Button
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

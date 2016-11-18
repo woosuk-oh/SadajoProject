@@ -32,8 +32,8 @@ public class ShoppingListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shoppinglist);
-        setTitle("");//툴바 타이틀명공백
-        Toolbar toolbar = (Toolbar)findViewById(R.id.shopping_toolbar);
+        setTitle("");
+        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
 //        final ActionBar ab = getSupportActionBar();
