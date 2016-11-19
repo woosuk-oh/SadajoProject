@@ -11,8 +11,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:layout_marginBottom="15dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginLeft="16dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
         android:layout_gravity="center"
         card_view:cardUseCompatPadding="true">
 
@@ -20,9 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:animateLayoutChanges="true"
-
             android:paddingLeft="8dp"
-            android:paddingRight="8dp"
             android:paddingTop="25dp"
             android:orientation="vertical">
             <LinearLayout
@@ -31,7 +29,7 @@
                 android:orientation="horizontal">
 
 
-                <TextView
+                <com.tacademy.sadajo.fonts.NanumBoldTextView
                     android:id="@+id/cardView2Tv"
                     android:includeFontPadding="false"
                     android:layout_width="wrap_content"
@@ -40,26 +38,31 @@
                     android:textSize="17sp"
                     android:textColor="#232323"
                     />
-                <ImageView
-                    android:id="@+id/countryFlagImageView"
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:src="@drawable/flag"
-                    android:scaleType="center"
-                    android:layout_marginLeft="80dp"
 
-                    />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="right"
+                    android:orientation="horizontal"
+                    android:layout_marginRight="8dp">
 
-                <TextView
-                    android:layout_marginLeft="10dp"
-                    android:includeFontPadding="false"
+                    <ImageView
+                        android:id="@+id/countryFlagImageView"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:src="@drawable/flag"
+                        android:scaleType="center"
+                        android:layout_marginRight="10dp"
+
+                        />
+                <com.tacademy.sadajo.fonts.NanumRegularTextView
                     android:id="@+id/card2CountryTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="right"
                     android:text="이탈리아"
                     android:textSize="13sp"
                     android:textColor="#747474"/>
+                    </LinearLayout>
 
             </LinearLayout>
             <View
@@ -81,14 +84,62 @@
                     <Button
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:background="@drawable/tag_button"
                         android:text="button"/>
                     <Button
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:background="@drawable/tag_button"
+
                         android:text="button"/>
                     <Button
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:background="@drawable/tag_button"
+
+
+                        android:text="button"/>
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/tag_button"
+
+
+                        android:text="button"/>
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/tag_button"
+
+
+                        android:text="button"/>
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/tag_button"
+
+
+                        android:text="button"/>
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/tag_button"
+
+
+                        android:text="button"/>
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/tag_button"
+
+
+                        android:text="button"/>
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/tag_button"
+
+
                         android:text="button"/>
 
                 </LinearLayout>

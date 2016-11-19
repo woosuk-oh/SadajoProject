@@ -1,17 +1,12 @@
 package com.tacademy.sadajo.chatting;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.widget.ImageButton;
 
-import com.tacademy.sadajo.home.HomeActivity;
+import com.tacademy.sadajo.BottomBarClickListner;
 import com.tacademy.sadajo.R;
-import com.tacademy.sadajo.mypage.MyPageActivity;
-import com.tacademy.sadajo.search.SearchListActivity;
-import com.tacademy.sadajo.shoppinglist.ShoppingListActivity;
 
 public class ChattingActivity extends AppCompatActivity {
 
@@ -36,58 +31,58 @@ public class ChattingActivity extends AppCompatActivity {
 
 
         homeBtn = (ImageButton)findViewById(R.id.homeBtn);
-        homeBtn.setOnClickListener(mClickListener);
+        homeBtn.setOnClickListener(new BottomBarClickListner(this));
         searchBtn = (ImageButton)findViewById(R.id.searchBtn);
-        searchBtn.setOnClickListener(mClickListener);
+        searchBtn.setOnClickListener(new BottomBarClickListner(this));
 
         shoppingListBtn = (ImageButton)findViewById(R.id.shoppingListBtn);
-        shoppingListBtn.setOnClickListener(mClickListener);
+        shoppingListBtn.setOnClickListener(new BottomBarClickListner(this));
         chattingBtn = (ImageButton)findViewById(R.id.chattingBtn);
-        chattingBtn.setOnClickListener(mClickListener);
+        chattingBtn.setOnClickListener(new BottomBarClickListner(this));
         chattingBtn.setSelected(true);
         mypageBtn = (ImageButton)findViewById(R.id.mypageBtn);
-        mypageBtn.setOnClickListener(mClickListener);
+        mypageBtn.setOnClickListener(new BottomBarClickListner(this));
 
 
 
 
 
     }
-
-    ImageButton.OnClickListener  mClickListener = new View.OnClickListener() {
-        Intent intent;
-        @Override
-        public void onClick(View view) {
-            switch (view.getId()){
-                case R.id.homeBtn :
-                    chattingBtn.setSelected(false);
-                    intent =  new Intent(ChattingActivity.this, HomeActivity.class);
-                    startActivity(intent);
-                    break;
-                case R.id.searchBtn :
-
-
-                    intent =  new Intent(ChattingActivity.this, SearchListActivity.class);
-
-                    chattingBtn.setSelected(false);
-
-                    startActivity(intent);
-                    break;
-                case R.id.shoppingListBtn :
-                    chattingBtn.setSelected(false);
-                    intent =  new Intent(ChattingActivity.this, ShoppingListActivity.class);
-                    startActivity(intent);
-                    break;
-                case R.id.chattingBtn:
-                    intent =  new Intent(ChattingActivity.this, ChattingActivity.class);
-                    startActivity(intent);
-                    break;
-                case R.id.mypageBtn :
-                    chattingBtn.setSelected(false);
-                    intent =  new Intent(ChattingActivity.this, MyPageActivity.class);
-                    startActivity(intent);
-                    break;
-            }
-        }
-    };
+ //   ImageButton.OnClickListener  mClickListener = new View.OnClickListener() {
+//        Intent intent;
+//        @Override
+//        public void onClick(View view) {
+//            switch (view.getId()){
+//                case R.id.homeBtn :
+//                    chattingBtn.setSelected(false);
+//                    intent =  new Intent(ChattingActivity.this, HomeActivity.class);
+//                    startActivity(intent);
+//                    break;
+//                case R.id.searchBtn :
+//
+//
+//                    intent =  new Intent(ChattingActivity.this, SearchListActivity.class);
+//
+//                    chattingBtn.setSelected(false);
+//
+//                    startActivity(intent);
+//                    break;
+//                case R.id.shoppingListBtn :
+//                    chattingBtn.setSelected(false);
+//                    intent =  new Intent(ChattingActivity.this, ShoppingListActivity.class);
+//                    startActivity(intent);
+//                    break;
+//                case R.id.chattingBtn:
+//                    intent =  new Intent(ChattingActivity.this, ChattingActivity.class);
+//                    startActivity(intent);
+//                    break;
+//                case R.id.mypageBtn :
+//                    chattingBtn.setSelected(false);
+//                    intent =  new Intent(ChattingActivity.this, MyPageActivity.class);
+//                    startActivity(intent);
+//                    break;
+//            }
+//        }
+//    };
+//
 }

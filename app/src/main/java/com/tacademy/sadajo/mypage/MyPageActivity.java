@@ -1,6 +1,5 @@
 package com.tacademy.sadajo.mypage;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -9,14 +8,10 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.widget.ImageButton;
 
-import com.tacademy.sadajo.home.HomeActivity;
+import com.tacademy.sadajo.BottomBarClickListner;
 import com.tacademy.sadajo.R;
-import com.tacademy.sadajo.chatting.ChattingActivity;
-import com.tacademy.sadajo.search.SearchListActivity;
-import com.tacademy.sadajo.shoppinglist.ShoppingListActivity;
 import com.tacademy.sadajo.shoppinglist.ShoppingListFragment;
 
 import java.util.ArrayList;
@@ -44,15 +39,15 @@ public class MyPageActivity extends AppCompatActivity {
 
 
         homeBtn = (ImageButton)findViewById(R.id.homeBtn);
-        homeBtn.setOnClickListener(mClickListener);
+        homeBtn.setOnClickListener(new BottomBarClickListner(this));
         searchBtn = (ImageButton)findViewById(R.id.searchBtn);
-        searchBtn.setOnClickListener(mClickListener);
+        searchBtn.setOnClickListener(new BottomBarClickListner(this));
         shoppingListBtn = (ImageButton)findViewById(R.id.shoppingListBtn);
-        shoppingListBtn.setOnClickListener(mClickListener);
+        shoppingListBtn.setOnClickListener(new BottomBarClickListner(this));
         chattingBtn = (ImageButton)findViewById(R.id.chattingBtn);
-        chattingBtn.setOnClickListener(mClickListener);
+        chattingBtn.setOnClickListener(new BottomBarClickListner(this));
         mypageBtn = (ImageButton)findViewById(R.id.mypageBtn);
-        mypageBtn.setOnClickListener(mClickListener);
+        mypageBtn.setOnClickListener(new BottomBarClickListner(this));
         mypageBtn.setSelected(true);
 
         ViewPager viewPager = (ViewPager) findViewById(R.id.mypageViewpager);
@@ -69,39 +64,39 @@ public class MyPageActivity extends AppCompatActivity {
 
     }
 
-    ImageButton.OnClickListener  mClickListener = new View.OnClickListener() {
-        Intent intent;
-        @Override
-        public void onClick(View view) {
-            switch (view.getId()){
-                case R.id.homeBtn :
-                    mypageBtn.setSelected(false);
-                    intent =  new Intent(MyPageActivity.this, HomeActivity.class);
-                    startActivity(intent);
-                    break;
-                case R.id.searchBtn :
-
-                    intent =  new Intent(MyPageActivity.this, SearchListActivity.class);
-                    mypageBtn.setSelected(false);
-                    startActivity(intent);
-                    break;
-                case R.id.shoppingListBtn :
-                    mypageBtn.setSelected(false);
-                    intent =  new Intent(MyPageActivity.this, ShoppingListActivity.class);
-                    startActivity(intent);
-                    break;
-                case R.id.chattingBtn:
-                    mypageBtn.setSelected(false);
-                    intent =  new Intent(MyPageActivity.this, ChattingActivity.class);
-                    startActivity(intent);
-                    break;
-                case R.id.mypageBtn :
-                    intent =  new Intent(MyPageActivity.this, MyPageActivity.class);
-                    startActivity(intent);
-                    break;
-            }
-        }
-    };
+//    ImageButton.OnClickListener  mClickListener = new View.OnClickListener() {
+//        Intent intent;
+//        @Override
+//        public void onClick(View view) {
+//            switch (view.getId()){
+//                case R.id.homeBtn :
+//                    mypageBtn.setSelected(false);
+//                    intent =  new Intent(MyPageActivity.this, HomeActivity.class);
+//                    startActivity(intent);
+//                    break;
+//                case R.id.searchBtn :
+//
+//                    intent =  new Intent(MyPageActivity.this, SearchListActivity.class);
+//                    mypageBtn.setSelected(false);
+//                    startActivity(intent);
+//                    break;
+//                case R.id.shoppingListBtn :
+//                    mypageBtn.setSelected(false);
+//                    intent =  new Intent(MyPageActivity.this, ShoppingListActivity.class);
+//                    startActivity(intent);
+//                    break;
+//                case R.id.chattingBtn:
+//                    mypageBtn.setSelected(false);
+//                    intent =  new Intent(MyPageActivity.this, ChattingActivity.class);
+//                    startActivity(intent);
+//                    break;
+//                case R.id.mypageBtn :
+//                    intent =  new Intent(MyPageActivity.this, MyPageActivity.class);
+//                    startActivity(intent);
+//                    break;
+//            }
+//        }
+//    };
 
     private void setupShoppingListViewPager(ViewPager viewPager){
         MyPageActivity.GroupPagerAdapter girlsAdapter = new MyPageActivity.GroupPagerAdapter(getSupportFragmentManager());
