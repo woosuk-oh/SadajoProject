@@ -9,7 +9,7 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.tacademy.sadajo.BottomBarClickListner;
+import com.tacademy.sadajo.BottomBarClickListener;
 import com.tacademy.sadajo.R;
 import com.tacademy.sadajo.fonts.NanumRegularTextView;
 
@@ -49,16 +49,16 @@ public class HomeActivity extends AppCompatActivity {
 
 
         homeBtn = (ImageButton)findViewById(R.id.homeBtn);
-        homeBtn.setOnClickListener(new BottomBarClickListner(this));
+        homeBtn.setOnClickListener(new BottomBarClickListener(this));
         homeBtn.setSelected(true);
         searchBtn = (ImageButton)findViewById(R.id.searchBtn);
-        searchBtn.setOnClickListener(new BottomBarClickListner(this));
+        searchBtn.setOnClickListener(new BottomBarClickListener(this));
         shoppingListBtn = (ImageButton)findViewById(R.id.shoppingListBtn);
-        shoppingListBtn.setOnClickListener(new BottomBarClickListner(this));
+        shoppingListBtn.setOnClickListener(new BottomBarClickListener(this));
         chattingBtn = (ImageButton)findViewById(R.id.chattingBtn);
-        chattingBtn.setOnClickListener(new BottomBarClickListner(this));
+        chattingBtn.setOnClickListener(new BottomBarClickListener(this));
         mypageBtn = (ImageButton)findViewById(R.id.mypageBtn);
-        mypageBtn.setOnClickListener(new BottomBarClickListner(this));
+        mypageBtn.setOnClickListener(new BottomBarClickListener(this));
 
 
         dateGoTv = (TextView)findViewById(R.id.dateGoTv);

@@ -24,11 +24,12 @@
 
     <!--TabLayout textColor-->
     <style name="TabLayout" parent="Widget.Design.TabLayout">
-        <item name="tabIndicatorColor">#FFFFFF</item>
+        <item name="tabIndicatorColor">@color/sadajoBackground</item>
         <item name="tabPaddingStart">3dp</item>
         <item name="tabPaddingEnd">3dp</item>
-        <item name="tabSelectedTextColor">#368BCB</item>
-        <item name="tabTextColor">#000000</item>
+        <item name="colorAccent">@color/sadajoBackground</item>
+        <item name="tabSelectedTextColor">@color/blackFont</item>
+        <item name="tabTextColor">@color/grayFont</item>
         <item name="android:textAppearance">@style/CustomTabWidgetText</item>
     </style>
     <style name="CustomTabWidgetText"

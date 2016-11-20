@@ -10,7 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.widget.ImageButton;
 
-import com.tacademy.sadajo.BottomBarClickListner;
+import com.tacademy.sadajo.BottomBarClickListener;
 import com.tacademy.sadajo.R;
 import com.tacademy.sadajo.shoppinglist.ShoppingListFragment;
 
@@ -39,15 +39,15 @@ public class MyPageActivity extends AppCompatActivity {
 
 
         homeBtn = (ImageButton)findViewById(R.id.homeBtn);
-        homeBtn.setOnClickListener(new BottomBarClickListner(this));
+        homeBtn.setOnClickListener(new BottomBarClickListener(this));
         searchBtn = (ImageButton)findViewById(R.id.searchBtn);
-        searchBtn.setOnClickListener(new BottomBarClickListner(this));
+        searchBtn.setOnClickListener(new BottomBarClickListener(this));
         shoppingListBtn = (ImageButton)findViewById(R.id.shoppingListBtn);
-        shoppingListBtn.setOnClickListener(new BottomBarClickListner(this));
+        shoppingListBtn.setOnClickListener(new BottomBarClickListener(this));
         chattingBtn = (ImageButton)findViewById(R.id.chattingBtn);
-        chattingBtn.setOnClickListener(new BottomBarClickListner(this));
+        chattingBtn.setOnClickListener(new BottomBarClickListener(this));
         mypageBtn = (ImageButton)findViewById(R.id.mypageBtn);
-        mypageBtn.setOnClickListener(new BottomBarClickListner(this));
+        mypageBtn.setOnClickListener(new BottomBarClickListener(this));
         mypageBtn.setSelected(true);
 
         ViewPager viewPager = (ViewPager) findViewById(R.id.mypageViewpager);

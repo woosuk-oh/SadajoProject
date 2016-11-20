@@ -10,9 +10,10 @@
     tools:context="com.tacademy.sadajo.shoppinglist.ShoppingListActivity">
 
 
-    <!--
+
     <android.support.v7.widget.Toolbar
-        android:id="@+id/shopping_toolbar"
+
+        android:id="@+id/shoppinglisttoolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:height="?actionBarSize"
@@ -24,39 +25,43 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:gravity="center"
             >
             <ImageView
 
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_horizontal"
-                android:gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
 
-                android:src="@drawable/airport"/>
+                android:src="@drawable/shoppinglist_logo"/>
 
 
         </LinearLayout>
-        </android.support.v7.widget.Toolbar>
-        -->
-    <include layout="@layout/include_toolbar_layout"
-        android:id="@+id/shoppinglisttoolbar"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="right">
+        <Button
+             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/mark"
+            />
+        </LinearLayout>
+
+    </android.support.v7.widget.Toolbar>
+
+<!--   <include layout="@layout/include_toolbar_layout"
+        android:id="@+id/shoppinglisttoolbar"/>-->
 
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:background="@drawable/mark"
-        android:layout_alignParentRight="true" />
     <android.support.design.widget.TabLayout
         android:id="@+id/shopping_tab"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/shoppinglisttoolbar"
-        android:background="?attr/colorPrimary"
+        android:background="@color/white"
         android:elevation="6dp"
         android:minHeight="?attr/actionBarSize"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
+        android:theme="@style/TabLayout"/>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/shopping_viewpager"
@@ -64,8 +69,6 @@
         android:layout_height="match_parent"
         android:layout_below="@id/shopping_tab"
        android:layout_above="@id/frameBottomBar"/>
-
-
 
 
     <include layout ="@layout/include_bottom_tab_button" />

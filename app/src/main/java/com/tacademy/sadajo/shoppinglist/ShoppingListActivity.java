@@ -10,7 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.widget.ImageButton;
 
-import com.tacademy.sadajo.BottomBarClickListner;
+import com.tacademy.sadajo.BottomBarClickListener;
 import com.tacademy.sadajo.R;
 
 import java.util.ArrayList;
@@ -43,17 +43,17 @@ public class ShoppingListActivity extends AppCompatActivity {
 
 
         homeBtn = (ImageButton)findViewById(R.id.homeBtn);
-        homeBtn.setOnClickListener(new BottomBarClickListner(this));
+        homeBtn.setOnClickListener(new BottomBarClickListener(this));
         searchBtn = (ImageButton)findViewById(R.id.searchBtn);
-        searchBtn.setOnClickListener(new BottomBarClickListner(this));
+        searchBtn.setOnClickListener(new BottomBarClickListener(this));
 
         shoppingListBtn = (ImageButton)findViewById(R.id.shoppingListBtn);
-        shoppingListBtn.setOnClickListener(new BottomBarClickListner(this));
+        shoppingListBtn.setOnClickListener(new BottomBarClickListener(this));
         shoppingListBtn.setSelected(true);
         chattingBtn = (ImageButton)findViewById(R.id.chattingBtn);
-        chattingBtn.setOnClickListener(new BottomBarClickListner(this));
+        chattingBtn.setOnClickListener(new BottomBarClickListener(this));
         mypageBtn = (ImageButton)findViewById(R.id.mypageBtn);
-        mypageBtn.setOnClickListener(new BottomBarClickListner(this));
+        mypageBtn.setOnClickListener(new BottomBarClickListener(this));
 
 
 
@@ -95,33 +95,33 @@ public class ShoppingListActivity extends AppCompatActivity {
 
 
     private void setupShoppingListViewPager(ViewPager viewPager){
-        GirlGroupPagerAdapter girlsAdapter = new GirlGroupPagerAdapter(getSupportFragmentManager());
-        girlsAdapter.appendFragment(ShoppingListFragment.newInstance(1), "쇼핑리스트");
-        girlsAdapter.appendFragment(ShoppingListFragment.newInstance(2), "찜");
-        viewPager.setAdapter(girlsAdapter);
+        ShoppingListPagerAdapter shoppingListAdapter = new ShoppingListPagerAdapter(getSupportFragmentManager());
+        shoppingListAdapter.appendFragment(ShoppingListFragment.newInstance(1), "쇼핑리스트");
+        shoppingListAdapter.appendFragment(ShoppingListFragment.newInstance(2), "찜");
+        viewPager.setAdapter(shoppingListAdapter);
     }
 
-private static class GirlGroupPagerAdapter extends FragmentPagerAdapter {
-    private final ArrayList<ShoppingListFragment> girsFragment = new ArrayList<>();
+private static class ShoppingListPagerAdapter extends FragmentPagerAdapter {
+    private final ArrayList<Fragment> Fragment = new ArrayList<>();
     private final ArrayList<String> tabTitles = new ArrayList<>();
 
-    public GirlGroupPagerAdapter(FragmentManager fm) {
+    public ShoppingListPagerAdapter(FragmentManager fm) {
         super(fm);
     }
 
-    public void appendFragment(ShoppingListFragment fragment, String title) {
-        girsFragment.add(fragment);
+    public void appendFragment(Fragment fragment, String title) {
+        Fragment.add(fragment);
         tabTitles.add(title);
     }
 
     @Override
     public Fragment getItem(int position) {
-        return girsFragment.get(position);
+        return Fragment.get(position);
     }
 
     @Override
     public int getCount() {
-        return girsFragment.size();
+        return Fragment.size();
     }
 
     @Override

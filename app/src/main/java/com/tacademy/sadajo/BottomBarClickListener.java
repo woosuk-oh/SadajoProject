@@ -14,11 +14,11 @@ import com.tacademy.sadajo.shoppinglist.ShoppingListActivity;
  * Created by EUNZY on 2016. 11. 20..
  */
 
-public class BottomBarClickListner extends Activity implements View.OnClickListener {
+public class BottomBarClickListener extends Activity implements View.OnClickListener {
 
     private  Activity activity;
 
-    public BottomBarClickListner(Activity activity) {
+    public BottomBarClickListener(Activity activity) {
       this.activity = activity;
     }
 

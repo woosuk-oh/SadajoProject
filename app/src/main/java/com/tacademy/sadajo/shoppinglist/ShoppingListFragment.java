@@ -4,7 +4,7 @@ package com.tacademy.sadajo.shoppinglist;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,9 +12,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.tacademy.sadajo.CustomRecyclerDecoration;
 import com.tacademy.sadajo.R;
 
 import java.util.ArrayList;
+
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,7 +26,7 @@ public class ShoppingListFragment extends Fragment {
     public static int increment;
 
     ArrayList<ShoppingListData> shoppingListDatas = new ArrayList<>();
-
+    ShoppingListRecyclerViewAdapter recyclerViewAdapter;
     public ShoppingListFragment() {
         // Required empty public constructor
     }
@@ -40,17 +43,18 @@ public class ShoppingListFragment extends Fragment {
                              Bundle savedInstanceState) {
 
 
+        CustomRecyclerDecoration decoration = new CustomRecyclerDecoration(2);
+        View view = inflater.inflate(R.layout.fragment_shoppinglist, container, false);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+        RecyclerView  shoppingListRecyclerView = (RecyclerView)view.findViewById(R.id.shoppingListRecyclerView1);
 
-        RecyclerView  shoppingListRecyclerView = (RecyclerView) inflater.inflate(
-                R.layout.fragment_shoppinglist, container, false);
+        shoppingListRecyclerView.setLayoutManager(layoutManager);
+        shoppingListRecyclerView.addItemDecoration(decoration);
+        recyclerViewAdapter = new ShoppingListRecyclerViewAdapter(getContext(),ShoppingListSample.shoppinList);
+        shoppingListRecyclerView.setAdapter(recyclerViewAdapter);
+
         Bundle initBundle = getArguments();
-
-        shoppingListRecyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
-        shoppingListRecyclerView.setAdapter(new ShoppingListRecyclerViewAdapter(getContext(),
-                ShoppingListSample.shoppinList));
-
-
-        return  shoppingListRecyclerView;
+        return  view;
 
     }
 
@@ -68,16 +72,16 @@ public class ShoppingListFragment extends Fragment {
         public static class ViewHolder extends RecyclerView.ViewHolder {
 
             public final View mView;
-            public final TextView shoppinglistCountryNameTextView;
-            public final TextView shoppinglistDateTextView;
-            public final ImageView shoppinglistFolderImageView;
+            public final TextView countryNameTextView;
+            public final TextView dateTextView;
+            public final ImageView countryImageView;
 
             public ViewHolder(View view) {
                 super(view);
                 mView = view;
-                shoppinglistCountryNameTextView = (TextView) view.findViewById(R.id.shoppinglistCountryNameTextView);
-                shoppinglistDateTextView = (TextView) view.findViewById(R.id.shoppinglistDateTextView);
-                shoppinglistFolderImageView = (ImageView) view.findViewById(R.id.shoppinglistFolderImageView);
+                countryNameTextView = (TextView) view.findViewById(R.id.countryNameTextView);
+                dateTextView = (TextView) view.findViewById(R.id.dateTextView);
+                countryImageView = (ImageView) view.findViewById(R.id.countryImageView);
 
             }
         }
@@ -98,9 +102,9 @@ public class ShoppingListFragment extends Fragment {
 //            holder.shoppinglistDateTextView.setText(shoppingListDatas.get(position).getTravelDate().toString());
 //            holder.shoppinglistFolderImageView.setImageResource(R.drawable.mark);
 
-            holder.shoppinglistCountryNameTextView.setText(shoppingListDatas.get(position).countryName);
-            holder.shoppinglistDateTextView.setText(shoppingListDatas.get(position).travelDate);
-            holder.shoppinglistFolderImageView.setImageResource(R.drawable.mark);
+            holder.countryNameTextView.setText(shoppingListDatas.get(position).countryName);
+            holder.dateTextView.setText(shoppingListDatas.get(position).travelDate);
+            holder.countryImageView.setImageResource(shoppingListDatas.get(position).countryImage);
 
 //            Glide.with(GirlsApplication.getGirlsContext())
 //                    .load(girlInfo)
