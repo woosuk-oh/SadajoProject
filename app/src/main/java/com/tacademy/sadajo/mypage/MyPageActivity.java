@@ -8,12 +8,10 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.widget.Button;
 import android.widget.ImageButton;
 
 import com.tacademy.sadajo.BottomBarClickListener;
 import com.tacademy.sadajo.R;
-import com.tacademy.sadajo.fonts.GothamTextView;
 import com.tacademy.sadajo.shoppinglist.ShoppingListFragment;
 
 import java.util.ArrayList;
@@ -25,8 +23,8 @@ public class MyPageActivity extends AppCompatActivity {
     ImageButton shoppingListBtn;
     ImageButton chattingBtn;
     ImageButton mypageBtn;
-    Button buyCountButton;
-    Button sellCountButton;
+    ImageButton buyCountButton;
+    ImageButton sellCountButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,11 +52,8 @@ public class MyPageActivity extends AppCompatActivity {
         mypageBtn.setOnClickListener(new BottomBarClickListener(this));
         mypageBtn.setSelected(true);
 
-        sellCountButton = (Button)findViewById(R.id.sellCountButton);
-        buyCountButton = (Button)findViewById(R.id.buyCountButton);
-
-        sellCountButton.setTypeface(new GothamTextView(getApplication()).getTypeface());
-        buyCountButton.setTypeface(new GothamTextView(getApplication()).getTypeface());
+        sellCountButton = (ImageButton)findViewById(R.id.sellCountButton);
+        buyCountButton = (ImageButton)findViewById(R.id.buyCountButton);
 
 
         ViewPager viewPager = (ViewPager) findViewById(R.id.mypageViewpager);

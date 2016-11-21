@@ -32,7 +32,7 @@
         <item name="colorPrimaryDark">@color/whiteGrayFont</item>
         <item name="tabPaddingStart">3dp</item>
         <item name="tabPaddingEnd">3dp</item>
-        <item name="colorAccent">@color/white</item>
+        <item name="colorAccent">@color/sadajoBackground</item>
         <item name="tabSelectedTextColor">@color/blackFont</item>
         <item name="tabTextColor">@color/grayFont</item>
         <item name="android:textAppearance">@style/CustomTabWidgetText</item>
