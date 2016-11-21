@@ -1,4 +1,4 @@
-﻿* 순서
+﻿﻿* 순서
  ADD - COMMIT - PUSH or PULL
 
 1. CMD 터미널에서 프로젝트 위치를 cd 로 이동
