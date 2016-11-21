@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import static com.tacademy.sadajo.SadajoContext.getContext;
 
 public class ChattingActivity extends AppCompatActivity {
-
+///push test
     ImageButton homeBtn;
     ImageButton searchBtn;
     ImageButton shoppingListBtn;
