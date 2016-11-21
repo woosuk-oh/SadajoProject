@@ -30,7 +30,7 @@ public class SearchListActivity extends AppCompatActivity {
     // private CollapsingSwipeRefreshLayout swiper;
     private RecyclerView mRecycler;
 
-    RecyclerView.Adapter Adapter;
+
     RecyclerView.LayoutManager layoutManager;
 
     ImageButton homeBtn;
@@ -46,7 +46,14 @@ public class SearchListActivity extends AppCompatActivity {
 
     private Animation inAnim;
     private Animation outAnim;
-    private TextView customTitle;
+
+    private TextView customTitleText1;
+    private TextView customTitleText2;
+    private TextView customTitleText3;
+    private TextView customTitleText4;
+    private TextView customTitleText5;
+
+
     private EditText searchBar;
     private Button searchBarClear;
 
@@ -109,10 +116,14 @@ public class SearchListActivity extends AppCompatActivity {
                     getResources().getDisplayMetrics());
         }
 
-        customTitle = (TextView) findViewById(R.id.custom_title);
+        customTitleText1 = (TextView) findViewById(R.id.chong);
+        customTitleText2 = (TextView) findViewById(R.id.item_count_textview); // 갯수
+        customTitleText3 = (TextView) findViewById(R.id.gae);
+        customTitleText4 = (TextView) findViewById(R.id.popularity); // 인기순
+        customTitleText5 = (TextView) findViewById(R.id.latest); //최신순
 
 
-        // 바텀 탭바
+                // 바텀 탭바
 
         homeBtn = (ImageButton) findViewById(R.id.homeBtn);
         homeBtn.setOnClickListener(mClickListener);
