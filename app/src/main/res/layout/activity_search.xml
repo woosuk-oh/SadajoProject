@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_my_gallery"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.tacademy.sadajo.search.searchlist.SearchListActivity">
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/search_app_bar"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="vertical"
+            android:theme="@style/AppTheme.AppBarOverlay"
+            app:layout_collapseMode="parallax"
+
+            >
+
+            <android.support.design.widget.CollapsingToolbarLayout
+                android:id="@+id/my_gallery_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                app:contentScrim="?attr/colorPrimary"
+                app:layout_collapseMode="parallax"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                app:titleEnabled="false"
+
+                >
+
+
+                <LinearLayout
+                    android:id="@+id/collapsing_toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    app:layout_collapseMode="parallax">
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+
+                        >
+
+
+                        <Spinner
+                            android:id="@+id/search_toolbar_spinner1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="left"
+
+
+                            /><!--android:background="@drawable/search_spinner"-->
+
+                        <FrameLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center">
+
+                            <EditText
+                                android:id="@+id/search_search_et"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="#000000"
+
+                                android:paddingLeft="10dp"
+
+
+
+                                android:singleLine="true" />
+                            <!--android:background="@drawable/search_bar"-->
+                            <Button
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+
+                                android:layout_gravity="right"
+                                android:id="@+id/search_search_bt"
+
+                                />
+                            <!--android:background="@drawable/search_delete_button"-->
+
+                        </FrameLayout>
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+
+            </android.support.design.widget.CollapsingToolbarLayout>
+
+
+        </android.support.design.widget.AppBarLayout>
+
+        <LinearLayout
+            android:id="@+id/custom_view_bar"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#2fbcea"
+            android:orientation="horizontal"
+            android:padding="4dp">
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="총" />
+
+            <TextView
+                android:id="@+id/custom_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:maxLines="1"
+                android:text="개"
+                android:textColor="@android:color/white"
+                android:textSize="16sp" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <Spinner
+                android:id="@+id/search_collaps_bar_spinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="150dp" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/search_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerHorizontal="true" />
+
+        </LinearLayout><!--  <include layout="@layout/include_navigation_tab" />-->
+
+
+    </LinearLayout>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:gravity="bottom">
+
+        <include layout="@layout/include_bottom_tab_button" />
+
+    </FrameLayout>
+
+
+</android.support.design.widget.CoordinatorLayout>
+

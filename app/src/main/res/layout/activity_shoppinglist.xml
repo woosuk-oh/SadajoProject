@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_shoppinglist"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/rell"
+    tools:context="com.tacademy.sadajo.shoppinglist.ShoppingListActivity">
+
+
+
+    <android.support.v7.widget.Toolbar
+
+        android:id="@+id/shoppinglisttoolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:height="?actionBarSize"
+        android:background="@color/sadajoBackground"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" >
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            >
+            <ImageView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:src="@drawable/shoppinglist_logo"/>
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="right">
+        <Button
+             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/mark"
+            />
+        </LinearLayout>
+
+    </android.support.v7.widget.Toolbar>
+
+<!--   <include layout="@layout/include_toolbar_layout"
+        android:id="@+id/shoppinglisttoolbar"/>-->
+
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/shopping_tab"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/shoppinglisttoolbar"
+        android:background="@color/white"
+        android:elevation="6dp"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/TabLayout"/>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/shopping_viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/shopping_tab"
+       android:layout_above="@id/frameBottomBar"/>
+
+
+    <include layout ="@layout/include_bottom_tab_button" />
+</RelativeLayout>
