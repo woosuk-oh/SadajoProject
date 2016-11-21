@@ -6,22 +6,28 @@ package com.tacademy.sadajo.shoppinglist;
 
 public class ShoppingListData {
 
+
     String countryName;
     String travelDate;
-    int    countryImage;
+    String cityName;
+    int    productImgae;
 
 
     public ShoppingListData() {
     }
 
-    public ShoppingListData(String countryName, String travelDate,int countryImage) {
+    public ShoppingListData(String countryName,String cityName, String travelDate,int productImgae) {
+        this.cityName = cityName;
         this.countryName = countryName;
         this.travelDate = travelDate;
-        this.countryImage = countryImage;
+        this.productImgae = productImgae;
     }
 
     public String getCountryName() {
         return countryName;
+    }
+    public String getCityName() {
+        return cityName;
     }
 
 
@@ -29,8 +35,8 @@ public class ShoppingListData {
         return travelDate;
     }
 
-    public int getCountryImage() {
-        return countryImage;
+    public int getProductImage() {
+        return productImgae;
     }
 
 

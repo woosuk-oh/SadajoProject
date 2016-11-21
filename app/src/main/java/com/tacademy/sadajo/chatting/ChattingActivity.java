@@ -72,44 +72,7 @@ public class ChattingActivity extends AppCompatActivity {
 
 
     }
- //   ImageButton.OnClickListener  mClickListener = new View.OnClickListener() {
-//        Intent intent;
-//        @Override
-//        public void onClick(View view) {
-//            switch (view.getId()){
-//                case R.id.homeBtn :
-//                    chattingBtn.setSelected(false);
-//                    intent =  new Intent(ChattingActivity.this, HomeActivity.class);
-//                    startActivity(intent);
-//                    break;
-//                case R.id.searchBtn :
-//
-//
-//                    intent =  new Intent(ChattingActivity.this, SearchListActivity.class);
-//
-//                    chattingBtn.setSelected(false);
-//
-//                    startActivity(intent);
-//                    break;
-//                case R.id.shoppingListBtn :
-//                    chattingBtn.setSelected(false);
-//                    intent =  new Intent(ChattingActivity.this, ShoppingListActivity.class);
-//                    startActivity(intent);
-//                    break;
-//                case R.id.chattingBtn:
-//                    intent =  new Intent(ChattingActivity.this, ChattingActivity.class);
-//                    startActivity(intent);
-//                    break;
-//                case R.id.mypageBtn :
-//                    chattingBtn.setSelected(false);
-//                    intent =  new Intent(ChattingActivity.this, MyPageActivity.class);
-//                    startActivity(intent);
-//                    break;
-//            }
-//        }
-//    };
 
-//
 
     public static class ChattingRecyclerViewAdapter
             extends RecyclerView.Adapter<ChattingRecyclerViewAdapter.ViewHolder> {

@@ -60,44 +60,12 @@ public class ShoppingListActivity extends AppCompatActivity {
 
     }
 
-//    ImageButton.OnClickListener  mClickListener = new View.OnClickListener() {
-//        Intent intent;
-//        @Override
-//        public void onClick(View view) {
-//            switch (view.getId()){
-//                case R.id.homeBtn :
-//                    shoppingListBtn.setSelected(false);
-//                    intent =  new Intent(ShoppingListActivity.this, HomeActivity.class);
-//                    startActivity(intent);
-//                    break;
-//                case R.id.searchBtn :
-//                    intent =  new Intent(ShoppingListActivity.this, SearchListActivity.class);
-//                    shoppingListBtn.setSelected(false);
-//                    startActivity(intent);
-//                    break;
-//                case R.id.shoppingListBtn :
-//                    intent =  new Intent(ShoppingListActivity.this, ShoppingListActivity.class);
-//                    startActivity(intent);
-//                    break;
-//                case R.id.chattingBtn:
-//                    shoppingListBtn.setSelected(false);
-//                    intent =  new Intent(ShoppingListActivity.this, ChattingActivity.class);
-//                    startActivity(intent);
-//                    break;
-//                case R.id.mypageBtn :
-//                    shoppingListBtn.setSelected(false);
-//                    intent =  new Intent(ShoppingListActivity.this, MyPageActivity.class);
-//                    startActivity(intent);
-//                    break;
-//            }
-//        }
-//    };
 
 
     private void setupShoppingListViewPager(ViewPager viewPager){
         ShoppingListPagerAdapter shoppingListAdapter = new ShoppingListPagerAdapter(getSupportFragmentManager());
-        shoppingListAdapter.appendFragment(ShoppingListFragment.newInstance(1), "쇼핑리스트");
-        shoppingListAdapter.appendFragment(ShoppingListFragment.newInstance(2), "찜");
+        shoppingListAdapter.appendFragment(ShoppingListFragment.newInstance(1), "찜");
+        shoppingListAdapter.appendFragment(ShoppingListFragment.newInstance(2), "쇼핑리스트");
         viewPager.setAdapter(shoppingListAdapter);
     }
 
