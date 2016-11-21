@@ -108,11 +108,12 @@
             android:id="@+id/chattingEditText"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingLeft="30dp"
-            android:hint="대화를 입력해주세요."
+
+            android:hint="     대화를 입력해주세요."
             android:textColorHint="@color/blackFont"
             android:textSize="12sp"
             android:gravity="center_vertical"
+            android:scrollbars="vertical"
             android:background="@android:color/transparent"/>
 
     </LinearLayout>
