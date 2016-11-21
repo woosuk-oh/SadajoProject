@@ -20,6 +20,7 @@
     </android.support.v7.widget.Toolbar>
 
 <LinearLayout
+    android:layout_below="@+id/toolbar"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -52,13 +53,14 @@
             android:text="이탈리아, 피렌체(4시간전)"
             android:gravity="center"/>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@android:color/darker_gray"/>
 
 
     </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"/>
+
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -71,6 +73,22 @@
             android:textColor="@color/sadajoBackground"
             android:gravity="center"/>
     </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/frameToolbarHome"
+        android:layout_above="@+id/frameBottomBar">
+
+        <ListView
+            android:id="@+id/listview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/whiteGrayFont"/>
+
+
+    </LinearLayout>
+
+
 </LinearLayout>
     
     
@@ -81,18 +99,21 @@
         android:orientation="horizontal"
         android:background="@color/white">
 
-        <Button
+        <ImageView
             android:layout_width="63dp"
-            android:layout_height="match_parent"
-            android:background="@drawable/chat_on"/>
-        <com.tacademy.sadajo.fonts.NanumRegularTextView
+            android:layout_height="45dp"
+            android:src="@drawable/chat_camera"
+            android:scaleType="fitCenter"/>
+        <EditText
+            android:id="@+id/chattingEditText"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingLeft="30dp"
             android:hint="대화를 입력해주세요."
             android:textColorHint="@color/blackFont"
             android:textSize="12sp"
-            android:gravity="center_vertical"/>
+            android:gravity="center_vertical"
+            android:background="@android:color/transparent"/>
 
     </LinearLayout>
 </RelativeLayout>

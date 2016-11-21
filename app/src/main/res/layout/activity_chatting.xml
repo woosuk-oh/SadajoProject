@@ -6,8 +6,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.tacademy.sadajo.chatting.ChattingActivity">
-
-
     <include layout="@layout/include_toolbar_layout"/> <!--include toolbar -->
 
 

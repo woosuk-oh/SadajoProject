@@ -16,14 +16,13 @@
         </intent-filter>
     </activity>
         <activity android:name=".splash.SplashActivity"/>
-
-
         <activity android:name=".search.searchlist.SearchListActivity" />
         <activity android:name=".shoppinglist.ShoppingListActivity" />
         <activity android:name=".chatting.ChattingActivity" />
         <activity android:name=".mypage.MyPageActivity" />
         <activity android:name=".MainActivity"></activity>
         <activity android:name=".search.searchdetail.SearchDetail"></activity>
+        <activity android:name=".chatting.ChattingRoom"></activity>
     </application>
 
 </manifest>

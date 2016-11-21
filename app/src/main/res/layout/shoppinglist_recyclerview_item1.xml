@@ -10,7 +10,10 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:background="@drawable/sl_image"
+        android:alpha="0.8"
+        >
          <com.tacademy.sadajo.fonts.GothamTextView
             android:id="@+id/countryNameTextView"
             android:layout_marginTop="26dp"
@@ -66,7 +69,9 @@
                 android:gravity="center"
                 android:text="99+"
                 android:textSize="20sp"
-                android:textColor="@color/white"/>
+                android:textColor="@color/white"
+                android:background="@drawable/sl_image_black"
+                android:alpha="0.5"/>
 
         </RelativeLayout>
     </LinearLayout>
