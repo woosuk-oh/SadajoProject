@@ -23,6 +23,7 @@ import java.util.ArrayList;
 public class SearchDetail extends AppCompatActivity implements ViewPager.OnPageChangeListener{
     ViewPager searchDetailViewPager;
     TextView itemcount;
+    //푸쉬 테스트
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
