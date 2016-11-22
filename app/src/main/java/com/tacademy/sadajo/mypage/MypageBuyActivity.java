@@ -39,8 +39,8 @@ public class MypageBuyActivity extends AppCompatActivity {
 
     private void setupBuySellViewPager(ViewPager viewPager){
         BuySellPagerAdapter buySellPagerAdapter = new BuySellPagerAdapter(getSupportFragmentManager());
-        buySellPagerAdapter.appendFragment(ShoppingListFragment.newInstance(1), "사다조");
-        buySellPagerAdapter.appendFragment(ShoppingListFragment.newInstance(2), "사다줌");
+        buySellPagerAdapter.appendFragment(BuyListFragment.newInstance(1), "사다조");
+        buySellPagerAdapter.appendFragment(BuyListFragment.newInstance(2), "사다줌");
         viewPager.setAdapter(buySellPagerAdapter);
     }
 

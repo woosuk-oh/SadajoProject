@@ -1,5 +1,6 @@
 package com.tacademy.sadajo.mypage;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -8,6 +9,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.ImageButton;
 
 import com.tacademy.sadajo.BottomBarClickListener;
@@ -64,11 +66,30 @@ public class MyPageActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
 
 
-
-
-
+        sellCountButton.setOnClickListener(clickListener);
+        buyCountButton.setOnClickListener(clickListener);
 
     }
+
+    ImageButton.OnClickListener clickListener = new View.OnClickListener() {
+        Intent intent;
+
+        @Override
+        public void onClick(View view) {
+            switch (view.getId()) {
+                case R.id.sellCountButton:
+                     intent = new Intent(MyPageActivity.this,MypageBuyActivity.class);
+                    startActivity(intent);
+                    break;
+                case R.id.buyCountButton:
+                    intent = new Intent(MyPageActivity.this,MypageBuyActivity.class);
+                    startActivity(intent);
+                    break;
+            }
+        }
+    };
+
+
 
 
 
