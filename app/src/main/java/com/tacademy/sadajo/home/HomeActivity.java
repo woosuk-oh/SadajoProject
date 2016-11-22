@@ -1,8 +1,11 @@
 package com.tacademy.sadajo.home;
 
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -95,6 +98,17 @@ public class HomeActivity extends AppCompatActivity {
         button.setText("버트으은");
         linearLayout2.addView(button);
 
+
+        scheduleBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ScheduleRegisterDialog dialog =new ScheduleRegisterDialog(HomeActivity.this);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+                dialog.show();
+
+            }
+        });
 
 
     }

@@ -17,10 +17,12 @@
     <style name="Theme.Sadajo" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">#2fbcea</item>
         <item name="colorPrimaryDark">#2fbcea</item>
-        <item name="colorAccent">#368BCB</item>
+        <item name="colorAccent">#2fbcea</item>
         <item name="android:windowBackground">@color/window_background</item>
         <item name="android:windowAnimationStyle">@null</item>  <!-- 액티비티 애니메이션 전환 효과 삭제-->
         <!-- enable window content transitions -->
+
+
     </style>
 
 
@@ -49,4 +51,24 @@
         <item name="android:textColor">@color/white</item>
     </style>
 
+
+
+
+    <style name="MyDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <!--buttons color-->
+        <item name="colorAccent">@color/pink</item>
+        <!--title and message color-->
+        <item name="android:textColorPrimary">@color/grayFont</item>
+        <!--dialog background-->
+        <item name="android:windowBackground">@drawable/dialog_background</item>
+    </style>
+
+    <style name="CustomDialog" parent="Theme.AppCompat.Dialog">
+        <!--buttons color-->
+        <item name="colorAccent">@color/sadajoBackground</item>
+        <!--title and message color-->
+        <item name="android:textColorPrimary">@color/grayFont</item>
+        <!--dialog background-->
+        <item name="android:windowBackground">@drawable/dialog_bg</item>
+    </style>
 </resources>
