@@ -100,8 +100,10 @@ public class ShoppingListFragment extends Fragment {
 
 
 
+
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+
 
 
             View view = LayoutInflater.from(parent.getContext()).inflate(
@@ -109,6 +111,15 @@ public class ShoppingListFragment extends Fragment {
 
 
             return new ViewHolder(view);
+
+//            View view = null;
+//
+//            if (viewType == AppConstant.FIRST_ROW)
+//                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_row_first, parent, false);
+//            else if (viewType == AppConstant.OTHER_ROW)
+//                view = LayoutInflater.from(parent.getContext()).(R.layout.view_row_other, parent, false);
+//
+//            return new ViewHolder(view, viewType);
         }
 
         @Override

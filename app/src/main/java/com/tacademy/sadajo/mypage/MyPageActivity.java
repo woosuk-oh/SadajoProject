@@ -14,7 +14,6 @@ import android.widget.ImageButton;
 
 import com.tacademy.sadajo.BottomBarClickListener;
 import com.tacademy.sadajo.R;
-import com.tacademy.sadajo.shoppinglist.ShoppingListFragment;
 
 import java.util.ArrayList;
 
@@ -71,9 +70,10 @@ public class MyPageActivity extends AppCompatActivity {
 
     }
 
+
+    //사다줌 , 사다조 버튼 거래내역페이지 이동
     ImageButton.OnClickListener clickListener = new View.OnClickListener() {
         Intent intent;
-
         @Override
         public void onClick(View view) {
             switch (view.getId()) {
@@ -96,8 +96,8 @@ public class MyPageActivity extends AppCompatActivity {
     private void setupMyPageViewPager(ViewPager viewPager){
         MyPageActivity.MyPagePagerAdapter myPagePagerAdapter = new MyPageActivity.MyPagePagerAdapter(getSupportFragmentManager());
         myPagePagerAdapter.appendFragment(ReviewFragment.newInstance(1), "후기");
-        myPagePagerAdapter.appendFragment(ShoppingListFragment.newInstance(2), "등록한 TIP");
-        myPagePagerAdapter.appendFragment(ShoppingListFragment.newInstance(2), "등록한아이템");
+        myPagePagerAdapter.appendFragment(ReviewFragment.newInstance(2), "등록한 TIP");
+        myPagePagerAdapter.appendFragment(ReviewFragment.newInstance(3), "등록한아이템");
         viewPager.setAdapter(myPagePagerAdapter);
     }
 

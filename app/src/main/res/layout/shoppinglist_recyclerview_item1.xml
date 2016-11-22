@@ -11,8 +11,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:layout_weight="1"
-        android:background="@drawable/sl_image"
-        android:alpha="0.8"
+
         >
          <com.tacademy.sadajo.fonts.GothamTextView
             android:id="@+id/countryNameTextView"

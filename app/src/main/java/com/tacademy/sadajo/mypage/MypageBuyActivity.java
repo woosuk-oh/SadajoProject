@@ -10,7 +10,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import com.tacademy.sadajo.R;
-import com.tacademy.sadajo.shoppinglist.ShoppingListFragment;
 
 import java.util.ArrayList;
 
