@@ -43,18 +43,27 @@ public class ShoppingListFragment extends Fragment {
                              Bundle savedInstanceState) {
 
 
-        CustomRecyclerDecoration decoration = new CustomRecyclerDecoration(2);
+        Bundle initBundle = getArguments();
+
         View view = inflater.inflate(R.layout.fragment_shoppinglist, container, false);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         RecyclerView  shoppingListRecyclerView = (RecyclerView)view.findViewById(R.id.shoppingListRecyclerView1);
-
         shoppingListRecyclerView.setLayoutManager(layoutManager);
+
+        CustomRecyclerDecoration decoration = new CustomRecyclerDecoration(30); //아이템간 간격
         shoppingListRecyclerView.addItemDecoration(decoration);
+
         recyclerViewAdapter = new ShoppingListRecyclerViewAdapter(getContext(),ShoppingListSample.shoppinList);
         shoppingListRecyclerView.setAdapter(recyclerViewAdapter);
 
-        Bundle initBundle = getArguments();
+        if(recyclerViewAdapter.getItemCount()==0){
+            view = inflater.inflate(R.layout.shoppinglist_noitem_layout, container, false);
+        }//쇼핑리스트 아이템이 하나도 없을 경우
+
         return  view;
+
+
+
 
     }
 
@@ -73,38 +82,55 @@ public class ShoppingListFragment extends Fragment {
 
             public final View mView;
             public final TextView countryNameTextView;
+            public final TextView cityNameTextView;
             public final TextView dateTextView;
-            public final ImageView countryImageView;
+            public final ImageView productImageView;
+
 
             public ViewHolder(View view) {
                 super(view);
                 mView = view;
                 countryNameTextView = (TextView) view.findViewById(R.id.countryNameTextView);
+                cityNameTextView = (TextView) view.findViewById(R.id.cityNameTextView);
                 dateTextView = (TextView) view.findViewById(R.id.dateTextView);
-                countryImageView = (ImageView) view.findViewById(R.id.countryImageView);
+                productImageView = (ImageView) view.findViewById(R.id.productImageView);
 
             }
         }
 
+
+
+
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+
+
+
             View view = LayoutInflater.from(parent.getContext()).inflate(
                     R.layout.shoppinglist_recyclerview_item1, parent, false);
 
+
             return new ViewHolder(view);
+
+//            View view = null;
+//
+//            if (viewType == AppConstant.FIRST_ROW)
+//                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_row_first, parent, false);
+//            else if (viewType == AppConstant.OTHER_ROW)
+//                view = LayoutInflater.from(parent.getContext()).(R.layout.view_row_other, parent, false);
+//
+//            return new ViewHolder(view, viewType);
         }
 
         @Override
         public void onBindViewHolder(final ViewHolder holder, final int position) {
 
 
-//            holder.shoppinglistCountryNameTextView.setText(shoppingListDatas.get(position).getCountryName().toString());
-//            holder.shoppinglistDateTextView.setText(shoppingListDatas.get(position).getTravelDate().toString());
-//            holder.shoppinglistFolderImageView.setImageResource(R.drawable.mark);
 
             holder.countryNameTextView.setText(shoppingListDatas.get(position).countryName);
+            holder.cityNameTextView.setText(shoppingListDatas.get(position).cityName);
             holder.dateTextView.setText(shoppingListDatas.get(position).travelDate);
-            holder.countryImageView.setImageResource(shoppingListDatas.get(position).countryImage);
+            holder.productImageView.setImageResource(shoppingListDatas.get(position).productImgae);
 
 //            Glide.with(GirlsApplication.getGirlsContext())
 //                    .load(girlInfo)

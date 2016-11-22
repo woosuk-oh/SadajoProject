@@ -2,10 +2,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal" android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginRight="16dp"
-    android:layout_marginLeft="16dp"
-    android:layout_marginTop="15dp"
-    android:layout_marginBottom="15dp">
+    android:paddingRight= "16dp"
+    android:paddingLeft="16dp"
+    android:paddingTop="15dp"
+    android:paddingBottom="15dp"
+    android:background="@color/white">
 
     <ImageView
         android:id="@+id/userProfileImageView"
@@ -19,17 +20,17 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:orientation="vertical"
-      >
+        >
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
-        <com.tacademy.sadajo.fonts.NanumBoldTextView
-            android:id="@+id/chattingTitleTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="아르팅팅"
-            android:textSize="13sp"
-            android:textColor="@color/blackFont"/>
+            <com.tacademy.sadajo.fonts.NanumBoldTextView
+                android:id="@+id/chattingTitleTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="아르팅팅"
+                android:textSize="13sp"
+                android:textColor="@color/blackFont"/>
             <com.tacademy.sadajo.fonts.NanumBoldTextView
 
                 android:layout_width="wrap_content"
@@ -46,9 +47,9 @@
             android:text="안녕하세요...."
             android:textSize="11sp"
             android:textColor="@color/grayFont"/>
-        
+
     </LinearLayout>
-    
+
     <LinearLayout
         android:layout_marginTop="15dp"
         android:layout_width="match_parent"
@@ -60,7 +61,7 @@
             android:layout_height="match_parent"
             android:textColor="@color/grayFont"
             android:textSize="11sp"/>
-        
+
     </LinearLayout>
 
 </LinearLayout>

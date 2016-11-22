@@ -1,6 +1,7 @@
 package com.tacademy.sadajo.chatting;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -21,10 +22,8 @@ import com.tacademy.sadajo.shoppinglist.ShoppingListSample;
 
 import java.util.ArrayList;
 
-import static com.tacademy.sadajo.SadajoContext.getContext;
-
 public class ChattingActivity extends AppCompatActivity {
-
+///push test
     ImageButton homeBtn;
     ImageButton searchBtn;
     ImageButton shoppingListBtn;
@@ -35,6 +34,7 @@ public class ChattingActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+       // setContentView(R.layout.activity_chatting);
         setContentView(R.layout.activity_chatting);
         setTitle("");//툴바 타이틀명공백
         Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
@@ -58,58 +58,20 @@ public class ChattingActivity extends AppCompatActivity {
         mypageBtn = (ImageButton)findViewById(R.id.mypageBtn);
         mypageBtn.setOnClickListener(new BottomBarClickListener(this));
 
-
-        CustomRecyclerDecoration decoration = new CustomRecyclerDecoration(10);
+        CustomRecyclerDecoration decoration = new CustomRecyclerDecoration(30);
         RecyclerView recyclerView = (RecyclerView)findViewById(R.id.recyclerView);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(ChattingActivity.this, LinearLayoutManager.VERTICAL, false);
 
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.addItemDecoration(decoration);
-        chattingRecyclerViewAdapter = new ChattingRecyclerViewAdapter(getContext(), ShoppingListSample.shoppinList);
+        chattingRecyclerViewAdapter = new ChattingRecyclerViewAdapter(ChattingActivity.this, ShoppingListSample.shoppinList);
         recyclerView.setAdapter(chattingRecyclerViewAdapter);
 
 
 
 
     }
- //   ImageButton.OnClickListener  mClickListener = new View.OnClickListener() {
-//        Intent intent;
-//        @Override
-//        public void onClick(View view) {
-//            switch (view.getId()){
-//                case R.id.homeBtn :
-//                    chattingBtn.setSelected(false);
-//                    intent =  new Intent(ChattingActivity.this, HomeActivity.class);
-//                    startActivity(intent);
-//                    break;
-//                case R.id.searchBtn :
-//
-//
-//                    intent =  new Intent(ChattingActivity.this, SearchListActivity.class);
-//
-//                    chattingBtn.setSelected(false);
-//
-//                    startActivity(intent);
-//                    break;
-//                case R.id.shoppingListBtn :
-//                    chattingBtn.setSelected(false);
-//                    intent =  new Intent(ChattingActivity.this, ShoppingListActivity.class);
-//                    startActivity(intent);
-//                    break;
-//                case R.id.chattingBtn:
-//                    intent =  new Intent(ChattingActivity.this, ChattingActivity.class);
-//                    startActivity(intent);
-//                    break;
-//                case R.id.mypageBtn :
-//                    chattingBtn.setSelected(false);
-//                    intent =  new Intent(ChattingActivity.this, MyPageActivity.class);
-//                    startActivity(intent);
-//                    break;
-//            }
-//        }
-//    };
 
-//
 
     public static class ChattingRecyclerViewAdapter
             extends RecyclerView.Adapter<ChattingRecyclerViewAdapter.ViewHolder> {
@@ -171,10 +133,10 @@ public class ChattingActivity extends AppCompatActivity {
 //                    .animate(android.R.anim.slide_in_left)
 //                    .into(holder.girlsImage);
 
-            holder.mView.setOnClickListener(new View.OnClickListener() {
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-//
+
 //                    Intent intent = new Intent(GirlsApplication.getGirlsContext(), GirlsMemberDetailActivity.class);
 //                    intent.putExtra("memberImage", girlsImages.get(position));
 //                    intent.putExtra("memberName", holder.memberName.getText().toString());
@@ -184,6 +146,8 @@ public class ChattingActivity extends AppCompatActivity {
 //                                    owner, holder.girlsImage, ViewCompat.getTransitionName(holder.girlsImage));
 //
 //                    ActivityCompat.startActivity(owner, intent, options.toBundle());
+                    Intent intent = new Intent(context,ChattingRoom.class);
+                    context.startActivity(intent);
 
                 }
             });

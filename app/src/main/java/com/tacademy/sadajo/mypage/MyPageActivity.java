@@ -1,5 +1,6 @@
 package com.tacademy.sadajo.mypage;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -8,11 +9,11 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.ImageButton;
 
 import com.tacademy.sadajo.BottomBarClickListener;
 import com.tacademy.sadajo.R;
-import com.tacademy.sadajo.shoppinglist.ShoppingListFragment;
 
 import java.util.ArrayList;
 
@@ -23,6 +24,8 @@ public class MyPageActivity extends AppCompatActivity {
     ImageButton shoppingListBtn;
     ImageButton chattingBtn;
     ImageButton mypageBtn;
+    ImageButton buyCountButton;
+    ImageButton sellCountButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,83 +53,75 @@ public class MyPageActivity extends AppCompatActivity {
         mypageBtn.setOnClickListener(new BottomBarClickListener(this));
         mypageBtn.setSelected(true);
 
+        sellCountButton = (ImageButton)findViewById(R.id.sellCountButton);
+        buyCountButton = (ImageButton)findViewById(R.id.buyCountButton);
+
+
         ViewPager viewPager = (ViewPager) findViewById(R.id.mypageViewpager);
         if (viewPager != null) {
-            setupShoppingListViewPager(viewPager);
+            setupMyPageViewPager(viewPager);
         }
         TabLayout tabLayout = (TabLayout) findViewById(R.id.mypageTab);
         tabLayout.setupWithViewPager(viewPager);
 
 
-
-
-
+        sellCountButton.setOnClickListener(clickListener);
+        buyCountButton.setOnClickListener(clickListener);
 
     }
 
-//    ImageButton.OnClickListener  mClickListener = new View.OnClickListener() {
-//        Intent intent;
-//        @Override
-//        public void onClick(View view) {
-//            switch (view.getId()){
-//                case R.id.homeBtn :
-//                    mypageBtn.setSelected(false);
-//                    intent =  new Intent(MyPageActivity.this, HomeActivity.class);
-//                    startActivity(intent);
-//                    break;
-//                case R.id.searchBtn :
-//
-//                    intent =  new Intent(MyPageActivity.this, SearchListActivity.class);
-//                    mypageBtn.setSelected(false);
-//                    startActivity(intent);
-//                    break;
-//                case R.id.shoppingListBtn :
-//                    mypageBtn.setSelected(false);
-//                    intent =  new Intent(MyPageActivity.this, ShoppingListActivity.class);
-//                    startActivity(intent);
-//                    break;
-//                case R.id.chattingBtn:
-//                    mypageBtn.setSelected(false);
-//                    intent =  new Intent(MyPageActivity.this, ChattingActivity.class);
-//                    startActivity(intent);
-//                    break;
-//                case R.id.mypageBtn :
-//                    intent =  new Intent(MyPageActivity.this, MyPageActivity.class);
-//                    startActivity(intent);
-//                    break;
-//            }
-//        }
-//    };
 
-    private void setupShoppingListViewPager(ViewPager viewPager){
-        MyPageActivity.GroupPagerAdapter girlsAdapter = new MyPageActivity.GroupPagerAdapter(getSupportFragmentManager());
-        girlsAdapter.appendFragment(ShoppingListFragment.newInstance(1), "후기");
-        girlsAdapter.appendFragment(ShoppingListFragment.newInstance(2), "등록한 TIP");
-        girlsAdapter.appendFragment(ShoppingListFragment.newInstance(2), "등록한아이템");
-        viewPager.setAdapter(girlsAdapter);
+    //사다줌 , 사다조 버튼 거래내역페이지 이동
+    ImageButton.OnClickListener clickListener = new View.OnClickListener() {
+        Intent intent;
+        @Override
+        public void onClick(View view) {
+            switch (view.getId()) {
+                case R.id.sellCountButton:
+                     intent = new Intent(MyPageActivity.this,MypageBuyActivity.class);
+                    startActivity(intent);
+                    break;
+                case R.id.buyCountButton:
+                    intent = new Intent(MyPageActivity.this,MypageBuyActivity.class);
+                    startActivity(intent);
+                    break;
+            }
+        }
+    };
+
+
+
+
+
+    private void setupMyPageViewPager(ViewPager viewPager){
+        MyPageActivity.MyPagePagerAdapter myPagePagerAdapter = new MyPageActivity.MyPagePagerAdapter(getSupportFragmentManager());
+        myPagePagerAdapter.appendFragment(ReviewFragment.newInstance(1), "후기");
+        myPagePagerAdapter.appendFragment(ReviewFragment.newInstance(2), "등록한 TIP");
+        myPagePagerAdapter.appendFragment(ReviewFragment.newInstance(3), "등록한아이템");
+        viewPager.setAdapter(myPagePagerAdapter);
     }
 
-    private static class GroupPagerAdapter extends FragmentPagerAdapter {
-        private final ArrayList<ShoppingListFragment> girsFragment = new ArrayList<>();
+    private static class MyPagePagerAdapter extends FragmentPagerAdapter {
+        private final ArrayList<Fragment> Fragment = new ArrayList<>();
         private final ArrayList<String> tabTitles = new ArrayList<>();
 
-        public GroupPagerAdapter(FragmentManager fm) {
+        public MyPagePagerAdapter(FragmentManager fm) {
             super(fm);
         }
 
-        public void appendFragment(ShoppingListFragment fragment, String title) {
-            girsFragment.add(fragment);
+        public void appendFragment(Fragment fragment, String title) {
+            Fragment.add(fragment);
             tabTitles.add(title);
         }
 
         @Override
         public Fragment getItem(int position) {
-            return girsFragment.get(position);
+            return Fragment.get(position);
         }
 
         @Override
         public int getCount() {
-            return girsFragment.size();
+            return Fragment.size();
         }
 
         @Override

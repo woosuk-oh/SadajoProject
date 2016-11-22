@@ -23,9 +23,13 @@
         <!-- enable window content transitions -->
     </style>
 
-    <!--TabLayout textColor-->
+
+    <!--TabLayout tabBackground textColor 수정 -->
     <style name="TabLayout" parent="Widget.Design.TabLayout">
         <item name="tabIndicatorColor">@color/sadajoBackground</item>
+        <item name="tabBackground">@drawable/selector_tab</item>
+        <item name="colorPrimary">@color/white</item>
+        <item name="colorPrimaryDark">@color/whiteGrayFont</item>
         <item name="tabPaddingStart">3dp</item>
         <item name="tabPaddingEnd">3dp</item>
         <item name="colorAccent">@color/sadajoBackground</item>

@@ -8,20 +8,22 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.Sadajo">
-        <activity android:name=".home.HomeActivity" />
-        <activity android:name=".splash.SplashActivity">
+        <activity android:name=".home.HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".splash.SplashActivity" />
         <activity android:name=".search.searchlist.SearchListActivity" />
         <activity android:name=".shoppinglist.ShoppingListActivity" />
         <activity android:name=".chatting.ChattingActivity" />
         <activity android:name=".mypage.MyPageActivity" />
-        <activity android:name=".MainActivity"></activity>
-        <activity android:name=".search.searchdetail.SearchDetail"></activity>
+        <activity android:name=".MainActivity" />
+        <activity android:name=".search.searchdetail.SearchDetail" />
+        <activity android:name=".chatting.ChattingRoom" />
+        <activity android:name=".mypage.MypageBuyActivity"></activity>
     </application>
 
 </manifest>

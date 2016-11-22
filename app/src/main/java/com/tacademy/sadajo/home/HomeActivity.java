@@ -97,44 +97,7 @@ public class HomeActivity extends AppCompatActivity {
 
 
 
-
-
     }
 
 
-//
-//    ImageButton.OnClickListener  mClickListener = new View.OnClickListener() {
-//        Intent intent;
-//        @Override
-//        public void onClick(View view) {
-//            switch (view.getId()){
-//                    case R.id.homeBtn :
-//                        intent =  new Intent(HomeActivity.this, HomeActivity.class);
-//                        startActivity(intent);
-//                        break;
-//                    case R.id.searchBtn :
-//
-//                        intent =  new Intent(HomeActivity.this, SearchListActivity.class);
-//                        homeBtn.setSelected(false);
-//                        startActivity(intent);
-//
-//                        break;
-//                    case R.id.shoppingListBtn :
-//                        homeBtn.setSelected(false);
-//                        intent =  new Intent(HomeActivity.this, ShoppingListActivity.class);
-//                        startActivity(intent);
-//                        break;
-//                    case R.id. chattingBtn:
-//                        homeBtn.setSelected(false);
-//                        intent =  new Intent(HomeActivity.this, ChattingActivity.class);
-//                        startActivity(intent);
-//                        break;
-//                    case R.id.mypageBtn :
-//                        homeBtn.setSelected(false);
-//                        intent =  new Intent(HomeActivity.this, MyPageActivity.class);
-//                        startActivity(intent);
-//                        break;
-//            }
-//        }
-//    };
 }
