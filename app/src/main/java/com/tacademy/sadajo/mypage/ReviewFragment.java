@@ -48,7 +48,7 @@ public class ReviewFragment extends Fragment {
         RecyclerView recyclerView = (RecyclerView)view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(layoutManager);
 
-        CustomRecyclerDecoration decoration = new CustomRecyclerDecoration(30); //아이템간 간격
+        CustomRecyclerDecoration decoration = new CustomRecyclerDecoration(30,"bottom"); //아이템간 간격
         recyclerView.addItemDecoration(decoration);
 
         reviewRecyclerViewAdapter = new ReviewRecyclerViewAdapter(getContext(), ShoppingListSample.shoppinList);

@@ -33,6 +33,9 @@ public class BottomBarClickListener extends Activity implements View.OnClickList
             case R.id.homeBtn:
                 intent = new Intent(activity, HomeActivity.class);
                 activity.startActivity(intent);
+
+                finish();
+
                 break;
             case R.id.searchBtn:
 

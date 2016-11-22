@@ -19,6 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.tacademy.sadajo.BottomBarClickListener;
+import com.tacademy.sadajo.CustomRecyclerDecoration;
 import com.tacademy.sadajo.R;
 import com.tacademy.sadajo.fonts.NanumRegularTextView;
 import com.tacademy.sadajo.mypage.MyPageActivity;
@@ -56,6 +57,7 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        this.overridePendingTransition(0,0); //애니메이션효과 제거
         setTitle("");//툴바 타이틀명공백
          Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
           setSupportActionBar(toolbar);
@@ -121,11 +123,11 @@ public class HomeActivity extends AppCompatActivity {
 
 
         //layout3
-      //  CustomRecyclerDecoration decoration = new CustomRecyclerDecoration(30);
+       CustomRecyclerDecoration decoration = new CustomRecyclerDecoration(45,"bottom");
         RecyclerView recyclerView = (RecyclerView)findViewById(R.id.recyclerView);
 
         recyclerView.setLayoutManager(new GridLayoutManager(HomeActivity.this,4));
-     //  recyclerView.addItemDecoration(decoration);
+       recyclerView.addItemDecoration(decoration);
          homeUserRecyclerViewAdapter = new HomeUserRecyclerViewAdapter(HomeActivity.this, ShoppingListSample.shoppinList);
         recyclerView.setAdapter(homeUserRecyclerViewAdapter);
 
@@ -190,7 +192,7 @@ public class HomeActivity extends AppCompatActivity {
 //                    .animate(android.R.anim.slide_in_left)
 //                    .into(holder.girlsImage);
 
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
+            holder.userProfileImageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 

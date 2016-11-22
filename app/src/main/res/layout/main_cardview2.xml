@@ -20,7 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:animateLayoutChanges="true"
-            android:paddingLeft="8dp"
+
             android:paddingTop="25dp"
             android:orientation="vertical">
             <LinearLayout
@@ -34,6 +34,7 @@
                     android:includeFontPadding="false"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:paddingLeft="8dp"
                     android:text="어머! 이건 꼭 사야해!"
                     android:textSize="17sp"
                     android:textColor="#232323"

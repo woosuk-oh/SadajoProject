@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.tacademy.sadajo.CustomRecyclerDecoration;
 import com.tacademy.sadajo.R;
 import com.tacademy.sadajo.shoppinglist.ShoppingListData;
 import com.tacademy.sadajo.shoppinglist.ShoppingListSample;
@@ -49,9 +50,17 @@ public class BuyListFragment extends Fragment {
 
         Bundle initBundle = getArguments();
 
+
+        //layout3
+
         View view = inflater.inflate(R.layout.fragment_buy_list, container, false);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         RecyclerView recyclerView = (RecyclerView)view.findViewById(R.id.recyclerView);
+
+        CustomRecyclerDecoration decoration = new CustomRecyclerDecoration(72,"left");
+        CustomRecyclerDecoration decoration2 = new CustomRecyclerDecoration(72,"right");
+        recyclerView.addItemDecoration(decoration);
+        recyclerView.addItemDecoration(decoration2);
         recyclerView.setLayoutManager(layoutManager);
 
 
@@ -134,7 +143,7 @@ public class BuyListFragment extends Fragment {
             holder.productNameTextView.setText("산타마리아노벨라 향수 최대여기까");
             holder.dateTextView .setText("2016.11.20");
 
-            holder.productImageView.setImageResource(R.drawable.profile_empty);
+            holder.productImageView.setImageResource(R.drawable.boracay_sample);
             holder.profileImageView.setImageResource(R.drawable.profile_empty);
 
 
