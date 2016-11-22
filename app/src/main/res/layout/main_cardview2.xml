@@ -52,7 +52,7 @@
                         android:layout_height="15dp"
                         android:src="@drawable/flag"
                         android:scaleType="center"
-                        android:layout_marginRight="10dp"
+                        android:layout_marginRight="3dp"
 
                         />
                 <com.tacademy.sadajo.fonts.NanumRegularTextView

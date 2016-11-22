@@ -1,5 +1,6 @@
 package com.tacademy.sadajo.home;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -9,12 +10,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.tacademy.sadajo.BottomBarClickListener;
 import com.tacademy.sadajo.R;
 import com.tacademy.sadajo.fonts.NanumRegularTextView;
+import com.tacademy.sadajo.mypage.MyPageActivity;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
@@ -27,6 +30,8 @@ public class HomeActivity extends AppCompatActivity {
     ImageButton shoppingListBtn;
     ImageButton chattingBtn;
     ImageButton mypageBtn;
+
+    ImageView profileImageView;
     TextView countryNameTv;
     TextView scheduleTv;
     TextView dateComeTv;
@@ -78,6 +83,11 @@ public class HomeActivity extends AppCompatActivity {
         countryNameTv = (TextView)findViewById(R.id.countryNameTv);
         scheduleTv = (TextView)findViewById(R.id.scheduleTv);
 
+        profileImageView = (ImageView)findViewById(R.id.profileImageView);
+
+        scheduleBtn.setOnClickListener(onClickListener);
+        profileImageView.setOnClickListener(onClickListener);
+
 
         LinearLayout linearLayout =(LinearLayout)findViewById(R.id.cardView2LL); //두번째 카드뷰 리니어레이아웃
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(MATCH_PARENT,WRAP_CONTENT);
@@ -99,19 +109,30 @@ public class HomeActivity extends AppCompatActivity {
         linearLayout2.addView(button);
 
 
-        scheduleBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ScheduleRegisterDialog dialog =new ScheduleRegisterDialog(HomeActivity.this);
-                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
-                dialog.show();
-
-            }
-        });
 
 
     }
+
+    View.OnClickListener onClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            switch (view.getId()){
+                case R.id.scheduleBtn:
+                    ScheduleRegisterDialog dialog =new ScheduleRegisterDialog(HomeActivity.this);
+                    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+                    dialog.show();
+                    break;
+
+                case R.id.profileImageView :
+                    Intent intent = new Intent(HomeActivity.this, MyPageActivity.class);
+                    startActivity(intent);
+                    break;
+
+            }
+        }
+    };
 
 
 }
