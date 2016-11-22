@@ -17,6 +17,7 @@ import com.tacademy.sadajo.R;
 
 import java.util.ArrayList;
 
+import static com.tacademy.sadajo.shoppinglist.ShoppingListSample.shoppinList;
 
 
 /**
@@ -53,7 +54,7 @@ public class ShoppingListFragment extends Fragment {
         CustomRecyclerDecoration decoration = new CustomRecyclerDecoration(30); //아이템간 간격
         shoppingListRecyclerView.addItemDecoration(decoration);
 
-        recyclerViewAdapter = new ShoppingListRecyclerViewAdapter(getContext(),ShoppingListSample.shoppinList);
+        recyclerViewAdapter = new ShoppingListRecyclerViewAdapter(getContext(), shoppinList);
         shoppingListRecyclerView.setAdapter(recyclerViewAdapter);
 
         if(recyclerViewAdapter.getItemCount()==0){
@@ -67,11 +68,21 @@ public class ShoppingListFragment extends Fragment {
 
     }
 
+
+
+
     public static class ShoppingListRecyclerViewAdapter
             extends RecyclerView.Adapter<ShoppingListRecyclerViewAdapter.ViewHolder> {
 
         private ArrayList<ShoppingListData> shoppingListDatas;
         private Context context;
+
+
+
+        //item viewType
+        private final static int HEADER_VIEW = 0;
+        private final static int CONTENT_VIEW = 1;
+
 
         public ShoppingListRecyclerViewAdapter(Context context, ArrayList<ShoppingListData> shoppingListDatas) {
             this.context = context;
@@ -105,27 +116,46 @@ public class ShoppingListFragment extends Fragment {
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
 
+//
+//            View view = LayoutInflater.from(parent.getContext()).inflate(
+//                    R.layout.shoppinglist_recyclerview_item1, parent, false);
+//
+//
+//            return new ViewHolder(view);
+//
 
-            View view = LayoutInflater.from(parent.getContext()).inflate(
-                    R.layout.shoppinglist_recyclerview_item1, parent, false);
+            int layoutRes = 0;
+            switch (viewType) {
+                case HEADER_VIEW:
+                    layoutRes = R.layout.shoppinglist_recyclerview_item1_first; //첫번째 item layout
+                    break;
+                case CONTENT_VIEW:
+                    layoutRes = R.layout.shoppinglist_recyclerview_item1; //나머지 item lyaout
+                    break;
+            }
 
-
+            View view = LayoutInflater.from(parent.getContext()).inflate(layoutRes, parent, false);
             return new ViewHolder(view);
 
-//            View view = null;
-//
-//            if (viewType == AppConstant.FIRST_ROW)
-//                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_row_first, parent, false);
-//            else if (viewType == AppConstant.OTHER_ROW)
-//                view = LayoutInflater.from(parent.getContext()).(R.layout.view_row_other, parent, false);
-//
-//            return new ViewHolder(view, viewType);
+        }
+
+        @Override
+        public int getItemViewType(int position) {
+            switch(position) {
+                case 0:
+                    return HEADER_VIEW; //첫번째 아이템 viewType
+                default:
+                    return CONTENT_VIEW;
+            }
         }
 
         @Override
         public void onBindViewHolder(final ViewHolder holder, final int position) {
 
+            int viewType = getItemViewType(position); //viewType 체크
 
+            //첫번째 아이템이 아닌 경우
+            if(viewType == CONTENT_VIEW){
 
             holder.countryNameTextView.setText(shoppingListDatas.get(position).countryName);
             holder.cityNameTextView.setText(shoppingListDatas.get(position).cityName);
@@ -154,7 +184,7 @@ public class ShoppingListFragment extends Fragment {
 
                 }
             });
-
+           }
         }
 
         @Override
