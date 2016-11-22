@@ -51,6 +51,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="horizontal"
+                        android:gravity="center"
 
 
                         >
@@ -58,12 +59,14 @@
 
                         <Spinner
                             android:id="@+id/search_toolbar_spinner1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:gravity="left"
+                            android:layout_width="71dp"
+                            android:layout_height="25dp"
+                            android:layout_marginRight="30dp"
+                            android:background="@drawable/search_bar1"
+                            android:text="ddd"
 
 
-                            /><!--android:background="@drawable/search_spinner"-->
+                            />
 
                         <FrameLayout
                             android:layout_width="wrap_content"
@@ -74,19 +77,21 @@
                                 android:id="@+id/search_search_et"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:paddingLeft="10dp"
+                                android:paddingLeft="25dp"
 
                                 android:singleLine="true"
-
+                                android:background="@drawable/search_bar2"
 
                                 android:textColor="#000000" />
-                            <!--android:background="@drawable/search_bar"-->
+
                             <Button
                                 android:id="@+id/search_search_bt"
-                                android:layout_width="20dp"
-
-                                android:layout_height="20dp"
+                                android:layout_width="15dp"
+                                android:background="@drawable/search_deleteicon"
+                                android:layout_height="15dp"
                                 android:layout_gravity="right"
+                                android:layout_marginRight="10dp"
+                                android:layout_marginTop="4dp"
 
                                 />
                             <!--android:background="@drawable/search_delete_button"-->

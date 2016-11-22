@@ -7,6 +7,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -28,6 +30,7 @@ public class SearchListRecyclerAdapter extends RecyclerView.Adapter<SearchListRe
     private ArrayList<ItemArrayList> mItems;
 
 
+
     private static int TYPE_HEADER = 0;
     private static int TYPE_BODY = 1;
     private static int TYPE_FOOTER = 3;
@@ -35,8 +38,7 @@ public class SearchListRecyclerAdapter extends RecyclerView.Adapter<SearchListRe
 
 
     private int lastPosition = -1;
-
-    private SearchDetail mActivity;
+    private int lastPosition2 = +1;
 
 
     public SearchListRecyclerAdapter(ArrayList<ItemArrayList> items, Context mCotext) {
@@ -56,20 +58,30 @@ public class SearchListRecyclerAdapter extends RecyclerView.Adapter<SearchListRe
 
         // 레이아웃을 뷰(홀더)에 붙이기 위한 인플레이터임.
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.search_list_grid_item, parent, false);
+        Log.d("ItemSize", ""+mItems.size());
+      /*  if(mItems.size() == lastPosition2){
+            v = LayoutInflater.from(parent.getContext()).inflate(R.layout.search_detail_view_pager_item, parent, false);
+            Log.d("ItemSize", ""+mItems.size());
+        }*/
+
         ViewHolder holder = new ViewHolder(v);
 
-        Log.d("test","oncreateviewholder: "+mItems.size());
+
 
         return holder;
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        Log.d("text","onbindviewholder : "+mItems.size());
+
         holder.itemImage.setImageResource(mItems.get(position).image);
         holder.itemName.setText(mItems.get(position).itemname);
         setAnimation(holder.itemImage, position);
+       /* if(position == mItems.size()+1)
+        {
 
+            holder.itemImage.setImageResource(R.drawable.search_button);
+        }*/
 
 
         holder.itemContainer.setOnClickListener(new View.OnClickListener() {
@@ -87,6 +99,7 @@ public class SearchListRecyclerAdapter extends RecyclerView.Adapter<SearchListRe
     @Override
     public int getItemCount() {
         return mItems.size();
+
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
@@ -112,9 +125,9 @@ public class SearchListRecyclerAdapter extends RecyclerView.Adapter<SearchListRe
 
         if(position > lastPosition)
         {
-//            Animation animation = AnimationUtils.loadAnimation(context, android.R.anim.slide_in_left);
-//            viewToAnimate.startAnimation(animation);
-//            lastPosition = position;
+            Animation animation = AnimationUtils.loadAnimation(context, android.R.anim.slide_in_left);
+            viewToAnimate.startAnimation(animation);
+            lastPosition = position;
         }
     }
 

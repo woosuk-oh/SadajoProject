@@ -71,6 +71,9 @@ public class SearchListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
+
+
+
         // 리싸이클러뷰 xml 붙이기.
         mRecycler = (RecyclerView) findViewById(R.id.search_recycler_view);
 
@@ -81,7 +84,7 @@ public class SearchListActivity extends AppCompatActivity {
 
         ArrayList<ItemArrayList> items = new ArrayList<>();
 
-        items.add(new ItemArrayList(R.drawable.sample1, "산타노벨라 향수"));
+      items.add(new ItemArrayList(R.drawable.sample1, "산타노벨라 향수"));
         items.add(new ItemArrayList(R.drawable.sample2, "샘플2"));
         items.add(new ItemArrayList(R.drawable.sample3, "샘플3"));
         items.add(new ItemArrayList(R.drawable.sample4, "샘플4"));
