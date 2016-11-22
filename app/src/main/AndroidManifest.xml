@@ -23,7 +23,8 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".search.searchdetail.SearchDetail" />
         <activity android:name=".chatting.ChattingRoom" />
-        <activity android:name=".mypage.MypageBuyActivity"></activity>
+        <activity android:name=".mypage.MypageBuyActivity" />
+        <activity android:name=".home.ScheduleDialogActivity"></activity>
     </application>
 
 </manifest>

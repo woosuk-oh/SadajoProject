@@ -17,5 +17,6 @@
     <color name="whiteGrayFont">#DFDFDF</color>
     <color name="blackFont">#232323</color>
     <color name="grayFont">#747474</color>
+    <color name="pink">#e62945</color>
 
 </resources>

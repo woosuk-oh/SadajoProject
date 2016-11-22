@@ -2,6 +2,8 @@ package com.tacademy.sadajo.shoppinglist;
 
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,11 +11,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.tacademy.sadajo.CustomRecyclerDecoration;
 import com.tacademy.sadajo.R;
+import com.tacademy.sadajo.home.ScheduleRegisterDialog;
 
 import java.util.ArrayList;
 
@@ -26,7 +30,7 @@ import static com.tacademy.sadajo.shoppinglist.ShoppingListSample.shoppinList;
 public class ShoppingListFragment extends Fragment {
     public static int increment;
 
-    ArrayList<ShoppingListData> shoppingListDatas = new ArrayList<>();
+
     ShoppingListRecyclerViewAdapter recyclerViewAdapter;
     public ShoppingListFragment() {
         // Required empty public constructor
@@ -96,6 +100,7 @@ public class ShoppingListFragment extends Fragment {
             public final TextView cityNameTextView;
             public final TextView dateTextView;
             public final ImageView productImageView;
+            public final Button newScheduleButton;
 
 
             public ViewHolder(View view) {
@@ -105,8 +110,11 @@ public class ShoppingListFragment extends Fragment {
                 cityNameTextView = (TextView) view.findViewById(R.id.cityNameTextView);
                 dateTextView = (TextView) view.findViewById(R.id.dateTextView);
                 productImageView = (ImageView) view.findViewById(R.id.productImageView);
+                newScheduleButton=(Button) view.findViewById(R.id.newScheduleButton);
 
             }
+
+
         }
 
 
@@ -184,7 +192,17 @@ public class ShoppingListFragment extends Fragment {
 
                 }
             });
-           }
+           }else{
+                holder.newScheduleButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        ScheduleRegisterDialog dialog =new ScheduleRegisterDialog(context);
+                        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                        dialog.show();
+
+                    }
+                });
+            }
         }
 
         @Override
