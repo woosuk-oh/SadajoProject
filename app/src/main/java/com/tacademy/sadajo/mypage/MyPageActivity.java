@@ -66,8 +66,8 @@ public class MyPageActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
 
 
-//
-//        //탭레이아웃 탭 셀렉터
+
+        //탭레이아웃 탭 셀렉터
 //        for (int i = 0; i < tabLayout.getTabCount(); i++) {
 //
 //            tabLayout.getTabAt(i).setIcon(R.drawable.selector_home);
@@ -124,7 +124,7 @@ public class MyPageActivity extends AppCompatActivity {
 
         public void appendFragment(Fragment fragment, String title) {
             Fragment.add(fragment);
-          tabTitles.add(title);
+           tabTitles.add(title);
 
         }
 

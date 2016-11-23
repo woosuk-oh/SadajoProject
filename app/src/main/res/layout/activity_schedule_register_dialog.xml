@@ -23,8 +23,6 @@
             android:layout_gravity="center"
             android:text="여행일정을 알려주세요!"
             android:textColor="@color/white"
-
-
            />
 
        </LinearLayout>
@@ -48,18 +46,21 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginBottom="10dp">
+
+
 
             <Spinner
                 android:id="@+id/countrySpinner"
                 android:layout_weight="1"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:paddingRight="5dp"
-                android:background="@color/grayFont"
+                android:background="@drawable/spinner_border"
+
                 >
 
             </Spinner>
@@ -68,7 +69,7 @@
                 android:id="@+id/citySpinner"
                 android:layout_weight="1"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:paddingLeft="5dp"
                 >
 
