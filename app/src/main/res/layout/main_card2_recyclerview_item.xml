@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <Button
+        android:id="@+id/textid"
+        android:layout_width="wrap_content"
+        android:layout_height="23dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:layout_marginLeft="8dp"
+        android:background="@drawable/tag_button"
+        android:gravity="center"
+
+        android:textSize="13sp"
+        android:text="산타마리아노벨라산타마리아노벨라"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="15dp"/>
+</LinearLayout>

@@ -114,6 +114,7 @@
 
 
     <LinearLayout
+        android:orientation="horizontal"
         android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="46dp">
@@ -125,5 +126,17 @@
             android:textColor="@color/white"
             android:textSize="13sp"
             android:background="@color/sadajoBackground"/>
+
+
+        <ImageButton
+            android:id="@+id/testReview"
+            android:layout_width="133dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/selector_my_buylist_review"/>
+        <ImageButton
+            android:id="@+id/testRequest"
+            android:layout_width="133dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/my_offer"/>
     </LinearLayout>
 </LinearLayout>

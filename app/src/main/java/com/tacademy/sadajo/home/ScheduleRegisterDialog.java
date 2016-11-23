@@ -32,7 +32,6 @@ public class ScheduleRegisterDialog extends Dialog {
     Button cancelButton;
 
 
-
     private String mode;
     private String text;
 
@@ -50,7 +49,7 @@ public class ScheduleRegisterDialog extends Dialog {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-      requestWindowFeature(Window.FEATURE_NO_TITLE);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_schedule_register_dialog);
 
 
@@ -128,8 +127,6 @@ public class ScheduleRegisterDialog extends Dialog {
         });
 
 
-
-
 //        registerButton.setOnTouchListener(new View.OnTouchListener() {
 //            @Override
 //            public boolean onTouch(View v, MotionEvent event) {
@@ -167,13 +164,13 @@ public class ScheduleRegisterDialog extends Dialog {
     View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            switch (view.getId()){
-                case R.id.cancelButton :
+            switch (view.getId()) {
+                case R.id.cancelButton:
                     dismiss();
                     break;
-                case R.id.registerButton :
+                case R.id.registerButton:
                     dismiss();
-                    Toast.makeText(getContext(),"여행일정이 등록되었습니다.",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "여행일정이 등록되었습니다.", Toast.LENGTH_SHORT).show();
                     break;
 
             }

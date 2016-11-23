@@ -2,13 +2,15 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="rectangle" >
 
-    <solid android:color="@color/sadajoBackground" />
+    <solid android:color="@color/white" />
 
     <corners
         android:radius="30dp" />
 
+
+    <!--
     <stroke
         android:width="4dp"
-        android:color="@color/grayFont" />
+        android:color="@color/grayFont" />-->
 
 </shape>
