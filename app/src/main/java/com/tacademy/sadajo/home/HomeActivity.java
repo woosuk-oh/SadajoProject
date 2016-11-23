@@ -15,7 +15,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.tacademy.sadajo.BottomBarClickListener;
@@ -27,9 +26,6 @@ import com.tacademy.sadajo.shoppinglist.ShoppingListData;
 import com.tacademy.sadajo.shoppinglist.ShoppingListSample;
 
 import java.util.ArrayList;
-
-import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
-import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 
 
 public class HomeActivity extends AppCompatActivity {
@@ -102,24 +98,24 @@ public class HomeActivity extends AppCompatActivity {
 
 
 
-        LinearLayout linearLayout =(LinearLayout)findViewById(R.id.cardView2LL); //두번째 카드뷰 리니어레이아웃
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(MATCH_PARENT,WRAP_CONTENT);
-
-        //차일드레이아웃 layoutparams
-        ViewGroup.LayoutParams buttonParams =  new ViewGroup.LayoutParams(WRAP_CONTENT,WRAP_CONTENT);
-        //buttonParams
-
-        LinearLayout linearLayout2 =new LinearLayout(this);
-        linearLayout2.setOrientation(LinearLayout.HORIZONTAL);
-        linearLayout.addView(linearLayout2);
-
-
-
-        Button button = new Button(this);
-        button.setLayoutParams(buttonParams);
-
-        button.setText("버트으은");
-        linearLayout2.addView(button);
+//        LinearLayout linearLayout =(LinearLayout)findViewById(R.id.cardView2LL); //두번째 카드뷰 리니어레이아웃
+//        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(MATCH_PARENT,WRAP_CONTENT);
+//
+//        //차일드레이아웃 layoutparams
+//        ViewGroup.LayoutParams buttonParams =  new ViewGroup.LayoutParams(WRAP_CONTENT,WRAP_CONTENT);
+//        //buttonParams
+//
+//        LinearLayout linearLayout2 =new LinearLayout(this);
+//        linearLayout2.setOrientation(LinearLayout.HORIZONTAL);
+//        linearLayout.addView(linearLayout2);
+//
+//
+//
+//        Button button = new Button(this);
+//        button.setLayoutParams(buttonParams);
+//
+//        button.setText("버트으은");
+//        linearLayout2.addView(button);
 
 
         //layout3
@@ -224,8 +220,12 @@ public class HomeActivity extends AppCompatActivity {
         public void onClick(View view) {
             switch (view.getId()){
                 case R.id.scheduleBtn:
-                    ScheduleRegisterDialog dialog =new ScheduleRegisterDialog(HomeActivity.this);
+
+
+
+                    ScheduleRegisterDialog dialog =new ScheduleRegisterDialog(HomeActivity.this,R.style.CustomDialog);
                     dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                    dialog.setTitle("여행일정등록");
 
                     dialog.show();
                     break;

@@ -4,12 +4,9 @@
 
     android:layout_width="270dp"
     android:layout_height="wrap_content"
-    android:background="@drawable/dialog_bg"
+   android:background="@drawable/dialog_bg"
 
     >
-
-
-
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -24,9 +21,18 @@
             android:gravity="center"
             android:text="여행일정을 알려주세요!"
             android:textColor="@color/white"
-            android:background="@drawable/dialog_title"/>
+
+
+           />
 
        </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/white"
+        android:layout_marginRight="4dp"
+        android:layout_marginLeft="4dp">
         <TextView
             android:id="@+id/txt_modify_edit"
             android:layout_width="match_parent"
@@ -35,6 +41,7 @@
             android:paddingTop="20dp"
             android:paddingBottom="10dp"
             android:text="어디로가세요?"
+            android:textColor="@color/grayFont"
             />
         <LinearLayout
             android:orientation="horizontal"
@@ -110,7 +117,7 @@
                 android:textSize="13sp"
               />
         </LinearLayout>
-
+    </LinearLayout>
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
@@ -123,16 +130,17 @@
                 android:id="@+id/registerButton"
                 android:layout_weight="1"
                 android:layout_width="0dp"
-                android:layout_height="50dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="등록하기"
-                android:background="@drawable/dialog_button_left"
+
                 android:textSize="13sp"
                 android:layout_marginRight="0.5dp"
                 android:textColor="@color/white"
-
+                android:background="@drawable/dialog_button_left"
 
                 />
+
             <Button
                 android:id="@+id/cancelButton"
                 android:layout_weight="1"
@@ -140,10 +148,10 @@
                 android:layout_height="50dp"
                 android:layout_gravity="center"
                 android:text="취소"
-                android:background="@drawable/dialog_button_right"
                 android:layout_marginLeft="0.5dp"
                 android:textSize="13sp"
                 android:textColor="@color/white"
+                android:background="@drawable/dialog_button_right"
                 />
 
 

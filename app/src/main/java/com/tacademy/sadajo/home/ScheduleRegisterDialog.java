@@ -6,6 +6,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -49,7 +50,7 @@ public class ScheduleRegisterDialog extends Dialog {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //      requestWindowFeature(Window.FEATURE_NO_TITLE);
+      requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_schedule_register_dialog);
 
 

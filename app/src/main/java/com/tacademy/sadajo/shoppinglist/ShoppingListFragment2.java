@@ -1,6 +1,5 @@
 package com.tacademy.sadajo.shoppinglist;
 
-
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -27,17 +26,17 @@ import static com.tacademy.sadajo.shoppinglist.ShoppingListSample.shoppinList;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ShoppingListFragment extends Fragment {
+public class ShoppingListFragment2 extends Fragment {
     public static int increment;
 
 
     ShoppingListRecyclerViewAdapter recyclerViewAdapter;
-    public ShoppingListFragment() {
+    public ShoppingListFragment2() {
         // Required empty public constructor
     }
 
-    public static ShoppingListFragment newInstance(int initValue){
-        ShoppingListFragment shoppingListFragment = new ShoppingListFragment();
+    public static ShoppingListFragment2 newInstance(int initValue){
+        ShoppingListFragment2 shoppingListFragment = new ShoppingListFragment2();
         Bundle bundle = new Bundle();
         bundle.putInt("value", initValue);
         shoppingListFragment.setArguments(bundle);
@@ -52,7 +51,7 @@ public class ShoppingListFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_shoppinglist, container, false);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-        RecyclerView  shoppingListRecyclerView = (RecyclerView)view.findViewById(R.id.shoppingListRecyclerView1);
+        RecyclerView  shoppingListRecyclerView = (RecyclerView)view.findViewById(R.id.shoppingListRecyclerView2);
         shoppingListRecyclerView.setLayoutManager(layoutManager);
 
         CustomRecyclerDecoration decoration = new CustomRecyclerDecoration(30,"bottom"); //아이템간 간격
@@ -165,10 +164,10 @@ public class ShoppingListFragment extends Fragment {
             //첫번째 아이템이 아닌 경우
             if(viewType == CONTENT_VIEW){
 
-            holder.countryNameTextView.setText(shoppingListDatas.get(position).countryName);
-            holder.cityNameTextView.setText(shoppingListDatas.get(position).cityName);
-            holder.dateTextView.setText(shoppingListDatas.get(position).travelDate);
-            holder.productImageView.setImageResource(shoppingListDatas.get(position).productImgae);
+                holder.countryNameTextView.setText(shoppingListDatas.get(position).countryName);
+                holder.cityNameTextView.setText(shoppingListDatas.get(position).cityName);
+                holder.dateTextView.setText(shoppingListDatas.get(position).travelDate);
+                holder.productImageView.setImageResource(shoppingListDatas.get(position).productImgae);
 
 //            Glide.with(GirlsApplication.getGirlsContext())
 //                    .load(girlInfo)
@@ -176,9 +175,9 @@ public class ShoppingListFragment extends Fragment {
 //                    .animate(android.R.anim.slide_in_left)
 //                    .into(holder.girlsImage);
 
-            holder.mView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+                holder.mView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
 //
 //                    Intent intent = new Intent(GirlsApplication.getGirlsContext(), GirlsMemberDetailActivity.class);
 //                    intent.putExtra("memberImage", girlsImages.get(position));
@@ -190,9 +189,9 @@ public class ShoppingListFragment extends Fragment {
 //
 //                    ActivityCompat.startActivity(owner, intent, options.toBundle());
 
-                }
-            });
-           }else{
+                    }
+                });
+            }else{
                 holder.newScheduleButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
