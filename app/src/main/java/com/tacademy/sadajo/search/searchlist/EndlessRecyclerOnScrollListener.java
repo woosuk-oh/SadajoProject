@@ -1,11 +1,14 @@
+/*
 package com.tacademy.sadajo.search.searchlist;
 
 import android.support.v7.widget.RecyclerView;
 
+*/
 /**
 * Custom Scroll listener for RecyclerView.
 * Based on implementation https://gist.github.com/ssinss/e06f12ef66c51252563e
-*/
+*//*
+
 public abstract class EndlessRecyclerOnScrollListener extends RecyclerView.OnScrollListener {
     public static String TAG = "EndlessScrollListener";
 
@@ -46,4 +49,4 @@ public abstract class EndlessRecyclerOnScrollListener extends RecyclerView.OnScr
 
     //Start loading
     public abstract void onLoadMore(int currentPage);
-}
+}*/

@@ -17,7 +17,7 @@
         android:layout_weight="1">
 
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/detail_comment_circleimage"
             android:layout_width="25dp"
             android:layout_height="25dp"

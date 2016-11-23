@@ -5,7 +5,7 @@
 
 
     <ImageView
-        android:id="@+id/search_list_item_imageview"
+        android:id="@+id/search_list_noitem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/search_button"

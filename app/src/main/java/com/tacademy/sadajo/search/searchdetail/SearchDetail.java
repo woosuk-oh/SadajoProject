@@ -65,8 +65,10 @@ public class SearchDetail extends AppCompatActivity implements ViewPager.OnPageC
 
         collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsingToolbarLayout1);
         collapsingToolbarLayout.setTitle(itemValue);
-        collapsingToolbarLayout.setExpandedTitleColor(getResources().getColor(android.R.color.transparent));
-        collapsingToolbarLayout.setCollapsedTitleTextColor(getResources().getColor(android.R.color.white));
+        collapsingToolbarLayout.setExpandedTitleColor(getResources().getColor(android.R.color.transparent)); // 콜랩스바 펼쳐져있을때 텍스트 투명
+        collapsingToolbarLayout.setCollapsedTitleTextColor(getResources().getColor(android.R.color.white)); // 콜랩스바 콜랩스됐을때 텍스트 흰색
+
+
 
         searchDetailToolbar = (Toolbar) findViewById(R.id.search_detail_body_toolbar);
         setSupportActionBar(searchDetailToolbar);

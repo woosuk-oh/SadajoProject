@@ -25,6 +25,7 @@
             app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
             <!--app:titleEnabled="false"-->
 
+
             <android.support.v4.view.ViewPager
                 android:id="@+id/search_detail_viewpager"
                 android:layout_width="match_parent"
@@ -32,18 +33,57 @@
 
                 ></android.support.v4.view.ViewPager>
 
+            <TextView
+                android:id="@+id/itemcount"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right|bottom"
+                app:layout_collapseMode="pin" />
+
             <android.support.v7.widget.Toolbar
                 android:id="@+id/search_detail_body_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:layout_collapseMode="pin" />
 
-            <TextView
-                android:id="@+id/itemcount"
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right|bottom"
-                app:layout_collapseMode="parallax" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="16dp"
+
+                android:gravity="top|end"
+                android:orientation="horizontal"
+                app:layout_collapseMode="parallax">
+
+                <Button
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:background="@drawable/search_icon_h" />
+                <TextView
+                    android:layout_marginLeft="4dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="99+"
+                    android:textSize="11sp"
+                    />
+                <Button
+                    android:layout_marginLeft="7dp"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:background="@drawable/search_icon_s"
+                    />
+                <TextView
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="99+"
+                    android:textSize="11sp"
+                    />
+
+
+            </LinearLayout>
+
 
             <!--<Button-->
             <!--android:layout_width="20dp"-->
@@ -55,8 +95,6 @@
         </android.support.design.widget.CollapsingToolbarLayout>
 
     </android.support.design.widget.AppBarLayout>
-
-
 
 
     <android.support.v4.widget.NestedScrollView
@@ -90,7 +128,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:paddingTop="19dp">
+                    >
+                    <!--android:paddingTop="19dp"-->
 
                     <TextView
                         android:id="@+id/search_detail_item_name"
@@ -98,7 +137,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="16dp"
                         android:layout_marginRight="25dp"
-
+                        android:layout_gravity="center"
                         android:text="itemName"
                         android:textColor="#232323"
                         android:textSize="17sp" />
@@ -109,21 +148,23 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="3"
-                    android:gravity="right"
-                    android:paddingTop="19dp">
-
+                   >
+                    <!--android:paddingTop="19dp"-->
 
                     <ImageView
                         android:id="@+id/cuntry_detail_image"
                         android:layout_width="15dp"
                         android:layout_height="15dp"
+                        android:src="@drawable/flag"
+                        android:layout_gravity="center"
 
                         />
 
                     <TextView
                         android:id="@+id/search_detail_country_name"
-                        android:layout_width="44dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="16dp"
                         android:text="이탈리아"
@@ -238,13 +279,17 @@
                 android:layout_marginTop="1dp"
                 android:background="@color/white">
 
+
                 <ImageView
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_marginLeft="16dp"
                     android:layout_marginRight="24dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_gravity="center"
+
                     android:src="@drawable/search_profile_105" />
+                <!--android:layout_marginTop="20dp"-->
+
 
                 <TextView
                     android:layout_width="244dp"
@@ -280,6 +325,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="1dp"
                 android:background="@color/white"
+
 
                 />
 
@@ -407,8 +453,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="1dp"
-                android:background="@color/white"
-             >
+                android:background="@color/white">
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/search_detail_location_recyclerview"
@@ -457,12 +502,12 @@
                 android:layout_marginTop="1dp"
 
 
-
                 />
 
 
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="45dp"
@@ -471,11 +516,18 @@
 
         android:visibility="visible">
 
+        <ImageView
+            android:id="@+id/chatt_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:src="@drawable/search_chat" />
+
         <EditText
 
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="20dp"
+            android:layout_toRightOf="@+id/chatt_img"
             android:hint="실시간 쇼핑 TIP을 알려주세요!" />
 
 
