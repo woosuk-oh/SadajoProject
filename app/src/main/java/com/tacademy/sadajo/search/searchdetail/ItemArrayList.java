@@ -1,4 +1,4 @@
-package com.tacademy.sadajo.search.searchlist;
+package com.tacademy.sadajo.search.searchdetail;
 
 /**
  * Created by woosuk on 2016-11-15.

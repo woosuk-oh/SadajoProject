@@ -5,8 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
+
     card_view:cardCornerRadius="2dp"
-    card_view:cardUseCompatPadding="true">
+    card_view:cardUseCompatPadding="true"
+    android:background="@color/whiteGrayFont">
 
     <!-- Search List에서 리스트되는 아이템 xml. (카드뷰 형태) -->
 
@@ -84,7 +86,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="#000000">
+            android:background="@color/whiteGrayFont">
 
         </LinearLayout>
 
