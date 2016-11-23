@@ -216,6 +216,7 @@ public class SearchDetail extends AppCompatActivity implements ViewPager.OnPageC
         public SearchDetailPagerAdapter() {
             imageList.add(R.drawable.detail_item_img_sample);
             imageList.add(R.drawable.detail_item_img_sample_2);
+            imageList.add(R.drawable.detail_item_img_sample_3);
         }
 
         @Override

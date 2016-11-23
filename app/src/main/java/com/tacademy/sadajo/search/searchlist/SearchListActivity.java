@@ -1,6 +1,5 @@
 package com.tacademy.sadajo.search.searchlist;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,12 +14,9 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.tacademy.sadajo.BottomBarClickListener;
 import com.tacademy.sadajo.R;
-import com.tacademy.sadajo.chatting.ChattingActivity;
 import com.tacademy.sadajo.funtion.SearchBarDeleteButton;
-import com.tacademy.sadajo.home.HomeActivity;
-import com.tacademy.sadajo.mypage.MyPageActivity;
-import com.tacademy.sadajo.shoppinglist.ShoppingListActivity;
 
 import java.util.ArrayList;
 
@@ -108,7 +104,7 @@ public class SearchListActivity extends AppCompatActivity {
         inAnim = AnimationUtils.loadAnimation(this, R.anim.abc_slide_in_top);
         outAnim = AnimationUtils.loadAnimation(this, R.anim.abc_slide_out_top);
 
-        customBar = (LinearLayout) findViewById(R.id.collapsing_toolbar);
+        customBar = (LinearLayout) findViewById(R.id.card_back);
 
 
         // ActionBar의 추천사이즈로 커스텀을 설정함.(리사이클뷰의 아이템 데코레이션 값)
@@ -129,16 +125,16 @@ public class SearchListActivity extends AppCompatActivity {
                 // 바텀 탭바
 
         homeBtn = (ImageButton) findViewById(R.id.homeBtn);
-        homeBtn.setOnClickListener(mClickListener);
+        homeBtn.setOnClickListener(new BottomBarClickListener(this));
         searchBtn = (ImageButton) findViewById(R.id.searchBtn);
-        searchBtn.setOnClickListener(mClickListener);
+        searchBtn.setOnClickListener(new BottomBarClickListener(this));
         searchBtn.setSelected(true);
         shoppingListBtn = (ImageButton) findViewById(R.id.shoppingListBtn);
-        shoppingListBtn.setOnClickListener(mClickListener);
+        shoppingListBtn.setOnClickListener(new BottomBarClickListener(this));
         chattingBtn = (ImageButton) findViewById(R.id.chattingBtn);
-        chattingBtn.setOnClickListener(mClickListener);
+        chattingBtn.setOnClickListener(new BottomBarClickListener(this));
         mypageBtn = (ImageButton) findViewById(R.id.mypageBtn);
-        mypageBtn.setOnClickListener(mClickListener);
+        mypageBtn.setOnClickListener(new BottomBarClickListener(this));
 
 
 
@@ -155,61 +151,12 @@ public class SearchListActivity extends AppCompatActivity {
     }
 
 
-  /*  View.OnFocusChangeListener FocusListener = new View.OnFocusChangeListener() {
-        @Override
-        public void onFocusChange(View view, boolean hasFocus) {
 
-            if (view == searchBar) { // 뷰가 서치바를 가지면
-                if (hasFocus) { //서치바에 포커스가 있을 시
-               *//* mTextMessage.setText("Touch-1Set Focus");*//*
-                    searchBar.setBackgroundResource(R.drawable.search_bar_onfocus);
-                } else {
-             *//*   mTextMessage.setText("Touch-1Kill Focus");*//*
-                    searchBar.setBackgroundResource(R.drawable.search_bar);
-                }
-            }
-        }
-    };*/
 
 
 // 하단 탭바 클릭 시
 
-    ImageButton.OnClickListener mClickListener = new View.OnClickListener() {
-        Intent intent;
 
-        @Override
-        public void onClick(View view) {
-            switch (view.getId()) {
-                case R.id.homeBtn:
-                    searchBtn.setSelected(false);
-                    intent = new Intent(SearchListActivity.this, HomeActivity.class);
-                    startActivity(intent);
-                    break;
-                case R.id.searchBtn:
-                    intent = new Intent(SearchListActivity.this, SearchListActivity.class);
-                    startActivity(intent);
-                    break;
-                case R.id.shoppingListBtn:
-                    searchBtn.setSelected(false);
-
-                    intent = new Intent(SearchListActivity.this, ShoppingListActivity.class);
-                    startActivity(intent);
-                    break;
-                case R.id.chattingBtn:
-                    searchBtn.setSelected(false);
-
-                    intent = new Intent(SearchListActivity.this, ChattingActivity.class);
-                    startActivity(intent);
-                    break;
-                case R.id.mypageBtn:
-                    searchBtn.setSelected(false);
-
-                    intent = new Intent(SearchListActivity.this, MyPageActivity.class);
-                    startActivity(intent);
-                    break;
-            }
-        }
-    };
 
 
 }

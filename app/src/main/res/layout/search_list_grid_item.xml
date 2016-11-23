@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-
+    android:layout_marginTop="15dp"
+    android:layout_marginBottom="6dp"
     card_view:cardCornerRadius="2dp"
     card_view:cardUseCompatPadding="true"
     android:background="@color/whiteGrayFont">
@@ -17,7 +18,7 @@
         android:id="@+id/card_back"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+
         android:animateLayoutChanges="true"
         android:orientation="vertical">
 
@@ -26,7 +27,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@android:color/white"
-            android:scaleType="fitCenter"
+            android:scaleType="fitXY"
+
             android:src="@drawable/sample1" />
 
         <LinearLayout

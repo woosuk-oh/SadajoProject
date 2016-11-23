@@ -22,14 +22,15 @@
             app:expandedTitleMarginBottom="11dp"
             app:expandedTitleMarginStart="33dp"
             app:expandedTitleTextAppearance="@style/TextAppearanceSet"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
-            >
+            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
             <!--app:titleEnabled="false"-->
 
             <android.support.v4.view.ViewPager
                 android:id="@+id/search_detail_viewpager"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"></android.support.v4.view.ViewPager>
+                android:layout_height="200dp"
+
+                ></android.support.v4.view.ViewPager>
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/search_detail_body_toolbar"
@@ -117,7 +118,7 @@
                         android:layout_width="15dp"
                         android:layout_height="15dp"
 
-                         />
+                        />
 
                     <TextView
                         android:id="@+id/search_detail_country_name"
@@ -276,7 +277,7 @@
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/search_detail_shopperuser_recyclerview"
                 android:layout_width="match_parent"
-                android:layout_height="175dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="1dp"
                 android:background="@color/white"
 
@@ -330,10 +331,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="1dp"
                 android:background="@color/white"
-
-
                 android:orientation="horizontal"
-                android:paddingLeft="16dp">
+
+
+                android:paddingTop="13dp">
 
 
                 <android.support.v7.widget.RecyclerView
@@ -341,6 +342,7 @@
 
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
                     android:layout_weight="1"
 
 
@@ -349,10 +351,11 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_marginRight="16dp"
-                    android:layout_marginTop="13dp"
+                    android:layout_marginBottom="20dp"
                     android:layout_weight="1"
+
                     android:gravity="right"
+                    android:paddingRight="16dp"
 
                     >
 
@@ -400,21 +403,21 @@
 
             </LinearLayout>
 
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/search_detail_location_recyclerview"
-
-
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
                 android:layout_marginTop="1dp"
-                android:layout_weight="1"
                 android:background="@color/white"
+             >
 
-
-                />
-
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/search_detail_location_recyclerview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="13dp"
+                    android:layout_weight="1" />
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -449,11 +452,10 @@
 
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="1dp"
-                android:layout_marginBottom="53dp"
 
-                android:layout_weight="1"
-                android:background="@color/whiteGrayFont"
+                android:layout_marginBottom="53dp"
+                android:layout_marginTop="1dp"
+
 
 
                 />
