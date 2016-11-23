@@ -32,15 +32,12 @@ public class MyPageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mypage);
      //   this.overridePendingTransition(0,0);
-        setTitle("");//툴바 타이틀명공백
+
         Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-//        final ActionBar ab = getSupportActionBar();
-//        ab.setDisplayHomeAsUpEnabled(true);
-
-
-
+        toolbar.setBackgroundResource(R.drawable.tool_03_mypage); //toolbar image
+        getSupportActionBar().setDisplayShowTitleEnabled(false);//title hidden
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false); //back icon
 
         homeBtn = (ImageButton)findViewById(R.id.homeBtn);
         homeBtn.setOnClickListener(new BottomBarClickListener(this));

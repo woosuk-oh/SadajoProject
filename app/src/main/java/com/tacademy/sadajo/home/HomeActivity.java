@@ -8,6 +8,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -24,6 +25,8 @@ import com.tacademy.sadajo.shoppinglist.ShoppingListData;
 import com.tacademy.sadajo.shoppinglist.ShoppingListSample;
 
 import java.util.ArrayList;
+
+import static android.R.attr.id;
 
 
 public class HomeActivity extends AppCompatActivity {
@@ -60,14 +63,21 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         //      this.overridePendingTransition(0,0); //애니메이션효과 제거
-        setTitle("");//툴바 타이틀명공백
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-//           TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
-//        final ActionBar ab = getSupportActionBar();
-//        ab.setDisplayHomeAsUpEnabled(true);
 
+        toolbar.setBackgroundResource(R.drawable.tool_01_main); //toolbar image
+        getSupportActionBar().setDisplayShowTitleEnabled(false);//title hidden
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false); //back icon
+
+
+
+
+        //바텀바 gone
+//        FrameLayout frameLayout = (FrameLayout)findViewById(R.id.frameBottomBar);
+//        frameLayout.setVisibility(View.GONE);
 
         homeBtn = (ImageButton) findViewById(R.id.homeBtn);
         homeBtn.setOnClickListener(new BottomBarClickListener(this));
@@ -242,4 +252,16 @@ public class HomeActivity extends AppCompatActivity {
             }
         }
     };
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if (id == android.R.id.home) {
+            onBackPressed();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 }

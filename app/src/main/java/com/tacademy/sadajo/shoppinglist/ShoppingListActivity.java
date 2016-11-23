@@ -8,6 +8,9 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageButton;
 
 import com.tacademy.sadajo.BottomBarClickListener;
@@ -28,9 +31,23 @@ public class ShoppingListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shoppinglist);
         //     this.overridePendingTransition(0,0);
-        setTitle("");
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar); //toolbar background image
         setSupportActionBar(toolbar);
+        toolbar.setBackgroundResource(R.drawable.tool_02_shoppinglist);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);//title hidden
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false); //back icon
+
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() { //뒤로가기
+            @Override
+            public void onClick(View view) {
+               onBackPressed();
+            }
+        });
+
+
 
 //        final ActionBar ab = getSupportActionBar();
 //        ab.setDisplayHomeAsUpEnabled(true);
@@ -98,4 +115,30 @@ public class ShoppingListActivity extends AppCompatActivity {
             return tabTitles.get(position);
         }
     }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;//false하면 메뉴아이콘 hidden
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+
+
 }

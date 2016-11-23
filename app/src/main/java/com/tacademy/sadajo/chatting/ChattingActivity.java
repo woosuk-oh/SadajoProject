@@ -36,13 +36,18 @@ public class ChattingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
       //  this.overridePendingTransition(0,0);
         setContentView(R.layout.activity_chatting);
-        setTitle("");//툴바 타이틀명공백
         Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        toolbar.setBackgroundResource(R.drawable.tool_04_chat); //toolbar image
+        getSupportActionBar().setDisplayShowTitleEnabled(false);//title hidden
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false); //back icon
 
-//        final ActionBar ab = getSupportActionBar();
-//        ab.setDisplayHomeAsUpEnabled(true);
-
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
 
 
 
