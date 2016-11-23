@@ -11,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.tacademy.sadajo.CustomRecyclerDecoration;
@@ -75,18 +74,22 @@ public class ItemFragment extends Fragment {
         }
 
         public static class ViewHolder extends RecyclerView.ViewHolder {
+
             public final View mView;
-            public ImageView itemImage;
-            public TextView itemName;
-            LinearLayout itemContainer;
+            public ImageView itemProductImageView;
+            public ImageView itemFlagImageView;
+            public TextView itemCountryNameTextView;
+            public TextView itemProductNameTextView;
 
 
 
             public ViewHolder(final View itemView) {
                 super(itemView);
                 mView = itemView;
-                itemImage = (ImageView) itemView.findViewById(R.id.search_item_image);
-                itemName = (TextView) itemView.findViewById(R.id.search_item_name);
+                itemProductImageView = (ImageView) itemView.findViewById(R.id.itemProductImageView);
+                itemFlagImageView = (ImageView) itemView.findViewById(R.id.itemFlagImageView);
+                itemCountryNameTextView = (TextView) itemView.findViewById(R.id.itemCountryNameTextView);
+                itemProductNameTextView = (TextView) itemView.findViewById(R.id.itemProductNameTextView);
 
 
 
@@ -96,7 +99,7 @@ public class ItemFragment extends Fragment {
         @Override
         public ItemReviewRecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(parent.getContext()).inflate(
-                    R.layout.search_list_grid_item, parent, false);
+                    R.layout.mypage_item_recyclerview_item, parent, false);
 
             return new ItemReviewRecyclerViewAdapter.ViewHolder(view);
         }
@@ -111,8 +114,11 @@ public class ItemFragment extends Fragment {
 //            holder.dateTextView.setText(shoppingListDatas.get(position).travelDate);
 //            holder.productImageView.setImageResource(shoppingListDatas.get(position).productImgae);
 
-            holder.itemImage.setImageResource(R.drawable.sample_img);
-            holder.itemName.setText("치약");
+            holder.itemProductImageView.setImageResource(R.drawable.detail_item_img_sample);
+            holder.itemProductNameTextView.setText("산타마리아노벨라 향수");
+            holder.itemFlagImageView.setImageResource(R.drawable.flag);
+            holder.itemCountryNameTextView.setText("이탈리아");
+
 
        /* if(position == mItems.size()+1)
         {
@@ -142,7 +148,7 @@ public class ItemFragment extends Fragment {
 //
 //                    ActivityCompat.startActivity(owner, intent, options.toBundle());
                     Intent intent = new Intent(context, SearchDetail.class);
-                    intent.putExtra("key", holder.itemName.getText());
+                    intent.putExtra("key", holder.itemProductNameTextView.getText());
                     context.startActivity(intent);
                 }
             });

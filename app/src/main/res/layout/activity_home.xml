@@ -33,7 +33,7 @@
    </ScrollView>
 
 
-
+<!--
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -47,7 +47,7 @@
             android:layout_margin="@dimen/fab_margin"
            app:srcCompat="@drawable/search_floating_plus" />
 
-    </RelativeLayout>
+    </RelativeLayout>-->
     <include layout ="@layout/include_bottom_tab_button" />
 
     <!--Include Bottom TabBar Button -->

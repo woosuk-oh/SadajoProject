@@ -58,6 +58,11 @@ public class ShoppingListActivity extends AppCompatActivity {
 
 
 
+        tabLayout.getTabAt(0).setIcon(R.drawable.selector_tab_sl_1);
+        tabLayout.getTabAt(1).setIcon(R.drawable.selector_tab_sl_2);
+
+       // tabLayout.getTabAt(0).setText("");
+
 
     }
 
