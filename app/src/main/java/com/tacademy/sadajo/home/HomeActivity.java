@@ -2,8 +2,6 @@ package com.tacademy.sadajo.home;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
@@ -36,7 +34,7 @@ public class HomeActivity extends AppCompatActivity {
     ImageButton chattingBtn;
     ImageButton mypageBtn;
 
-   // ImageView profileImageView;
+    // ImageView profileImageView;
     TextView countryNameTv;
     TextView scheduleTv;
     TextView dateComeTv;
@@ -47,89 +45,103 @@ public class HomeActivity extends AppCompatActivity {
     TextView card2CountryTv;
     Button scheduleBtn;
 
+    Button button1;
+    Button button2;
+    Button button3;
+    Button button4;
+    Button button5;
+    Button button6;
+    Button button7;
 
     HomeUserRecyclerViewAdapter homeUserRecyclerViewAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        this.overridePendingTransition(0,0); //애니메이션효과 제거
+        //      this.overridePendingTransition(0,0); //애니메이션효과 제거
         setTitle("");//툴바 타이틀명공백
-         Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
-          setSupportActionBar(toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
 //           TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
 //        final ActionBar ab = getSupportActionBar();
 //        ab.setDisplayHomeAsUpEnabled(true);
 
 
-
-        homeBtn = (ImageButton)findViewById(R.id.homeBtn);
+        homeBtn = (ImageButton) findViewById(R.id.homeBtn);
         homeBtn.setOnClickListener(new BottomBarClickListener(this));
         homeBtn.setSelected(true);
-        searchBtn = (ImageButton)findViewById(R.id.searchBtn);
+        searchBtn = (ImageButton) findViewById(R.id.searchBtn);
         searchBtn.setOnClickListener(new BottomBarClickListener(this));
-        shoppingListBtn = (ImageButton)findViewById(R.id.shoppingListBtn);
+        shoppingListBtn = (ImageButton) findViewById(R.id.shoppingListBtn);
         shoppingListBtn.setOnClickListener(new BottomBarClickListener(this));
-        chattingBtn = (ImageButton)findViewById(R.id.chattingBtn);
+        chattingBtn = (ImageButton) findViewById(R.id.chattingBtn);
         chattingBtn.setOnClickListener(new BottomBarClickListener(this));
-        mypageBtn = (ImageButton)findViewById(R.id.mypageBtn);
+        mypageBtn = (ImageButton) findViewById(R.id.mypageBtn);
         mypageBtn.setOnClickListener(new BottomBarClickListener(this));
 
 
-        dateGoTv = (TextView)findViewById(R.id.dateGoTv);
-        dateComeTv = (TextView)findViewById(R.id.dateComeTv);
-        scheduleBtn = (Button)findViewById(R.id.scheduleBtn);
+        dateGoTv = (TextView) findViewById(R.id.dateGoTv);
+        dateComeTv = (TextView) findViewById(R.id.dateComeTv);
+        scheduleBtn = (Button) findViewById(R.id.scheduleBtn);
         scheduleBtn.setTypeface(new NanumRegularTextView(getApplication()).getTypeface());
-        goTv =(TextView)findViewById(R.id.goTv);
-        comeTv =(TextView)findViewById(R.id.comeTv);
+        goTv = (TextView) findViewById(R.id.goTv);
+        comeTv = (TextView) findViewById(R.id.comeTv);
 
-        cardView2Tv = (TextView)findViewById(R.id.cardView2Tv);
-        card2CountryTv = (TextView)findViewById(R.id.card2CountryTv);
+        cardView2Tv = (TextView) findViewById(R.id.cardView2Tv);
+        card2CountryTv = (TextView) findViewById(R.id.card2CountryTv);
+        countryNameTv = (TextView) findViewById(R.id.countryNameTv);
+        scheduleTv = (TextView) findViewById(R.id.scheduleTv);
 
-
-        countryNameTv = (TextView)findViewById(R.id.countryNameTv);
-        scheduleTv = (TextView)findViewById(R.id.scheduleTv);
-
-        //profileImageView = (ImageView)findViewById(R.id.profileImageView);
-        //  profileImageView.setOnClickListener(onClickListener);
+        button1 = (Button) findViewById(R.id.button1);
+        button2 = (Button) findViewById(R.id.button2);
+        button3 = (Button) findViewById(R.id.button3);
+        button4 = (Button) findViewById(R.id.button4);
+        button5 = (Button) findViewById(R.id.button5);
+        button6 = (Button) findViewById(R.id.button6);
 
         scheduleBtn.setOnClickListener(onClickListener);
 
 
-
-//        LinearLayout linearLayout =(LinearLayout)findViewById(R.id.cardView2LL); //두번째 카드뷰 리니어레이아웃
+//        FlowLayout flowLayout =(FlowLayout)findViewById(R.id.homeFlowlayout); //두번째 카드뷰 리니어레이아웃
 //        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(MATCH_PARENT,WRAP_CONTENT);
 //
 //        //차일드레이아웃 layoutparams
 //        ViewGroup.LayoutParams buttonParams =  new ViewGroup.LayoutParams(WRAP_CONTENT,WRAP_CONTENT);
 //        //buttonParams
 //
-//        LinearLayout linearLayout2 =new LinearLayout(this);
-//        linearLayout2.setOrientation(LinearLayout.HORIZONTAL);
-//        linearLayout.addView(linearLayout2);
 //
 //
+//        for(int  i=0; i<10;i++) {
 //
-//        Button button = new Button(this);
-//        button.setLayoutParams(buttonParams);
+//            Button button = new Button(this);
+//            button.setLayoutParams(buttonParams);
 //
-//        button.setText("버트으은");
-//        linearLayout2.addView(button);
-
-
+//            button.setText("버트으은");
+//            flowLayout.addView(button);
+//
+//        }
         //layout3
-       CustomRecyclerDecoration decoration = new CustomRecyclerDecoration(45,"bottom");
-        RecyclerView recyclerView = (RecyclerView)findViewById(R.id.recyclerView);
+        CustomRecyclerDecoration decoration = new CustomRecyclerDecoration(45, "bottom");
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
 
-        recyclerView.setLayoutManager(new GridLayoutManager(HomeActivity.this,4));
-       recyclerView.addItemDecoration(decoration);
-         homeUserRecyclerViewAdapter = new HomeUserRecyclerViewAdapter(HomeActivity.this, ShoppingListSample.shoppinList);
+        recyclerView.setLayoutManager(new GridLayoutManager(HomeActivity.this, 4));
+        recyclerView.addItemDecoration(decoration);
+        homeUserRecyclerViewAdapter = new HomeUserRecyclerViewAdapter(HomeActivity.this, ShoppingListSample.shoppinList);
         recyclerView.setAdapter(homeUserRecyclerViewAdapter);
 
 
+        button1.setVisibility(View.VISIBLE);
+        button2.setVisibility(View.VISIBLE);
+        button3.setVisibility(View.VISIBLE);
+        button4.setVisibility(View.VISIBLE);
+        button4.setText("어렵다아아");
+        button5.setVisibility(View.VISIBLE);
+
 
     }
+
 
     public static class HomeUserRecyclerViewAdapter
             extends RecyclerView.Adapter<HomeUserRecyclerViewAdapter.ViewHolder> {
@@ -181,7 +193,6 @@ public class HomeActivity extends AppCompatActivity {
             holder.userProfileImageView.setImageResource(R.drawable.profile_empty);
 
 
-
 //            Glide.with(GirlsApplication.getGirlsContext())
 //                    .load(girlInfo)
 //                    .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -201,7 +212,7 @@ public class HomeActivity extends AppCompatActivity {
 //                                    owner, holder.girlsImage, ViewCompat.getTransitionName(holder.girlsImage));
 //
 //                    ActivityCompat.startActivity(owner, intent, options.toBundle());
-                    Intent intent = new Intent(context,MyPageActivity.class);
+                    Intent intent = new Intent(context, MyPageActivity.class);
                     context.startActivity(intent);
 
                 }
@@ -215,20 +226,13 @@ public class HomeActivity extends AppCompatActivity {
         }
     }
 
+
     View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            switch (view.getId()){
+            switch (view.getId()) {
                 case R.id.scheduleBtn:
 
-
-
-                    ScheduleRegisterDialog dialog =new ScheduleRegisterDialog(HomeActivity.this,R.style.CustomDialog);
-                    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                    dialog.setTitle("여행일정등록");
-
-                    dialog.show();
-                    break;
 
 //                case R.id.profileImageView :
 //                    Intent intent = new Intent(HomeActivity.this, MyPageActivity.class);
@@ -238,6 +242,4 @@ public class HomeActivity extends AppCompatActivity {
             }
         }
     };
-
-
 }

@@ -13,5 +13,5 @@ public class ChattingRoom extends AppCompatActivity {
         setContentView(R.layout.activity_chatting_room);
 
 
-}
+    }
 }

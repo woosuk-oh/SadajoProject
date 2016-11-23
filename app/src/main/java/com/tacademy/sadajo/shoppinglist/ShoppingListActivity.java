@@ -27,9 +27,9 @@ public class ShoppingListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shoppinglist);
-        this.overridePendingTransition(0,0);
+        //     this.overridePendingTransition(0,0);
         setTitle("");
-        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
 //        final ActionBar ab = getSupportActionBar();
@@ -43,64 +43,59 @@ public class ShoppingListActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
 
 
-        homeBtn = (ImageButton)findViewById(R.id.homeBtn);
+        homeBtn = (ImageButton) findViewById(R.id.homeBtn);
         homeBtn.setOnClickListener(new BottomBarClickListener(this));
-        searchBtn = (ImageButton)findViewById(R.id.searchBtn);
+        searchBtn = (ImageButton) findViewById(R.id.searchBtn);
         searchBtn.setOnClickListener(new BottomBarClickListener(this));
 
-        shoppingListBtn = (ImageButton)findViewById(R.id.shoppingListBtn);
+        shoppingListBtn = (ImageButton) findViewById(R.id.shoppingListBtn);
         shoppingListBtn.setOnClickListener(new BottomBarClickListener(this));
         shoppingListBtn.setSelected(true);
-        chattingBtn = (ImageButton)findViewById(R.id.chattingBtn);
+        chattingBtn = (ImageButton) findViewById(R.id.chattingBtn);
         chattingBtn.setOnClickListener(new BottomBarClickListener(this));
-        mypageBtn = (ImageButton)findViewById(R.id.mypageBtn);
+        mypageBtn = (ImageButton) findViewById(R.id.mypageBtn);
         mypageBtn.setOnClickListener(new BottomBarClickListener(this));
 
 
-
-        tabLayout.getTabAt(0).setIcon(R.drawable.selector_tab_sl_1);
-        tabLayout.getTabAt(1).setIcon(R.drawable.selector_tab_sl_2);
-
-       // tabLayout.getTabAt(0).setText("");
+        // tabLayout.getTabAt(0).setText("");
 
 
     }
 
 
-
-    private void setupShoppingListViewPager(ViewPager viewPager){
+    private void setupShoppingListViewPager(ViewPager viewPager) {
         ShoppingListPagerAdapter shoppingListAdapter = new ShoppingListPagerAdapter(getSupportFragmentManager());
         shoppingListAdapter.appendFragment(ShoppingListFragment2.newInstance(1), "찜");
         shoppingListAdapter.appendFragment(ShoppingListFragment.newInstance(2), "쇼핑리스트");
         viewPager.setAdapter(shoppingListAdapter);
     }
 
-private static class ShoppingListPagerAdapter extends FragmentPagerAdapter {
-    private final ArrayList<Fragment> Fragment = new ArrayList<>();
-    private final ArrayList<String> tabTitles = new ArrayList<>();
+    private static class ShoppingListPagerAdapter extends FragmentPagerAdapter {
+        private final ArrayList<Fragment> Fragment = new ArrayList<>();
+        private final ArrayList<String> tabTitles = new ArrayList<>();
 
-    public ShoppingListPagerAdapter(FragmentManager fm) {
-        super(fm);
-    }
+        public ShoppingListPagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
 
-    public void appendFragment(Fragment fragment, String title) {
-        Fragment.add(fragment);
-        tabTitles.add(title);
-    }
+        public void appendFragment(Fragment fragment, String title) {
+            Fragment.add(fragment);
+            tabTitles.add(title);
+        }
 
-    @Override
-    public Fragment getItem(int position) {
-        return Fragment.get(position);
-    }
+        @Override
+        public Fragment getItem(int position) {
+            return Fragment.get(position);
+        }
 
-    @Override
-    public int getCount() {
-        return Fragment.size();
-    }
+        @Override
+        public int getCount() {
+            return Fragment.size();
+        }
 
-    @Override
-    public CharSequence getPageTitle(int position) {
-        return tabTitles.get(position);
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return tabTitles.get(position);
+        }
     }
-}
 }

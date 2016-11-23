@@ -8,6 +8,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -22,8 +24,8 @@ import java.util.ArrayList;
 public class BuyListFragment extends Fragment {
 
 
-
     BuyListRecyclerViewAdapter recyclerViewAdapter;
+
     public BuyListFragment() {
     }
 
@@ -47,7 +49,6 @@ public class BuyListFragment extends Fragment {
                              Bundle savedInstanceState) {
 
 
-
         Bundle initBundle = getArguments();
 
 
@@ -55,10 +56,10 @@ public class BuyListFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.mypage_buylist_fragment, container, false);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-        RecyclerView recyclerView = (RecyclerView)view.findViewById(R.id.recyclerView);
+        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
 
-        CustomRecyclerDecoration decoration = new CustomRecyclerDecoration(72,"left");
-        CustomRecyclerDecoration decoration2 = new CustomRecyclerDecoration(72,"right");
+        CustomRecyclerDecoration decoration = new CustomRecyclerDecoration(72, "left");
+        CustomRecyclerDecoration decoration2 = new CustomRecyclerDecoration(72, "right");
         recyclerView.addItemDecoration(decoration);
         recyclerView.addItemDecoration(decoration2);
         recyclerView.setLayoutManager(layoutManager);
@@ -68,7 +69,7 @@ public class BuyListFragment extends Fragment {
         recyclerView.setAdapter(recyclerViewAdapter);
 
 
-        return  view;
+        return view;
 
     }
 
@@ -78,7 +79,7 @@ public class BuyListFragment extends Fragment {
         private ArrayList<ShoppingListData> shoppingListDatas;
         private Context context;
 
-        public BuyListRecyclerViewAdapter(Context context,  ArrayList<ShoppingListData> shoppingListDatas) {
+        public BuyListRecyclerViewAdapter(Context context, ArrayList<ShoppingListData> shoppingListDatas) {
             this.context = context;
             this.shoppingListDatas = shoppingListDatas;
 
@@ -87,6 +88,7 @@ public class BuyListFragment extends Fragment {
         public static class ViewHolder extends RecyclerView.ViewHolder {
 
             public final View mView;
+
             public final TextView countryEngName;
             public final TextView countryKorName;
             public final TextView userNameTextView;
@@ -98,6 +100,10 @@ public class BuyListFragment extends Fragment {
             public final ImageView productImageView;
             public final ImageView profileImageView;
 
+            public final Button okButton;
+
+            public final ImageButton testReview;
+            public final ImageButton testRequest;
 
 
             public ViewHolder(View view) {
@@ -111,16 +117,17 @@ public class BuyListFragment extends Fragment {
                 dateTextTextView = (TextView) view.findViewById(R.id.dateTextTextView);
                 dateTextView = (TextView) view.findViewById(R.id.dateTextView);
 
-
                 productImageView = (ImageView) view.findViewById(R.id.productImageView);
                 profileImageView = (ImageView) view.findViewById(R.id.profileImageView);
 
+                okButton = (Button) view.findViewById(R.id.okButton);
 
+                testReview = (ImageButton)view.findViewById(R.id.testReview);
+                testRequest = (ImageButton)view.findViewById(R.id.testRequest);
 
 
             }
         }
-
 
 
         @Override
@@ -141,39 +148,24 @@ public class BuyListFragment extends Fragment {
             holder.countryKorName.setText("필리핀, 마닐라");
             holder.userNameTextView.setText("닉네임");
             holder.productNameTextView.setText("산타마리아노벨라 향수 최대여기까");
-            holder.dateTextView .setText("2016.11.20");
+            holder.dateTextView.setText("2016.11.20");
 
             holder.productImageView.setImageResource(R.drawable.boracay_sample);
             holder.profileImageView.setImageResource(R.drawable.profile_empty);
 
-
-
-
-//
-//            holder.countryNameTextView.setText(shoppingListDatas.get(position).countryName);
-//            holder.cityNameTextView.setText(shoppingListDatas.get(position).cityName);
-//            holder.dateTextView.setText(shoppingListDatas.get(position).travelDate);
-//            holder.productImageView.setImageResource(shoppingListDatas.get(position).productImgae);
-
-//            Glide.with(GirlsApplication.getGirlsContext())
-//                    .load(girlInfo)
-//                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-//                    .animate(android.R.anim.slide_in_left)
-//                    .into(holder.girlsImage);
-
-            holder.mView.setOnClickListener(new View.OnClickListener() {
+            holder.okButton.setOnClickListener(new View.OnClickListener() { //사다조 요청수락버튼 클릭시
                 @Override
                 public void onClick(View v) {
-//
-//                    Intent intent = new Intent(GirlsApplication.getGirlsContext(), GirlsMemberDetailActivity.class);
-//                    intent.putExtra("memberImage", girlsImages.get(position));
-//                    intent.putExtra("memberName", holder.memberName.getText().toString());
-//
-//                    ActivityOptionsCompat options =
-//                            ActivityOptionsCompat.makeSceneTransitionAnimation(
-//                                    owner, holder.girlsImage, ViewCompat.getTransitionName(holder.girlsImage));
-//
-//                    ActivityCompat.startActivity(owner, intent, options.toBundle());
+
+                    v.setVisibility(View.GONE);
+                    holder.testRequest.setVisibility(View.VISIBLE); //요청보기 버튼 visible
+                    holder.testReview.setVisibility(View.VISIBLE);//후기작성버튼 visible
+                    holder.testReview.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            view.setSelected(true);
+                        }
+                    });
 
                 }
             });
