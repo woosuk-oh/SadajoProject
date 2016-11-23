@@ -1,30 +1,21 @@
 package com.tacademy.sadajo.home;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.tacademy.sadajo.BottomBarClickListener;
 import com.tacademy.sadajo.CustomRecyclerDecoration;
 import com.tacademy.sadajo.R;
 import com.tacademy.sadajo.fonts.NanumRegularTextView;
-import com.tacademy.sadajo.mypage.MyPageActivity;
-import com.tacademy.sadajo.shoppinglist.ShoppingListData;
 import com.tacademy.sadajo.shoppinglist.ShoppingListSample;
-
-import java.util.ArrayList;
 
 import static android.R.attr.id;
 
@@ -153,90 +144,6 @@ public class HomeActivity extends AppCompatActivity {
     }
 
 
-    public static class HomeUserRecyclerViewAdapter
-            extends RecyclerView.Adapter<HomeUserRecyclerViewAdapter.ViewHolder> {
-
-        private ArrayList<ShoppingListData> shoppingListDatas;
-        private Context context;
-
-        public HomeUserRecyclerViewAdapter(Context context, ArrayList<ShoppingListData> shoppingListDatas) {
-            this.context = context;
-            this.shoppingListDatas = shoppingListDatas;
-        }
-
-        public static class ViewHolder extends RecyclerView.ViewHolder {
-
-            public final View mView;
-
-            public final TextView homeUserIdTextView;
-            public final ImageView userProfileImageView;
-
-
-            public ViewHolder(View view) {
-                super(view);
-                mView = view;
-
-                homeUserIdTextView = (TextView) view.findViewById(R.id.homeUserIdTextView);
-                userProfileImageView = (ImageView) view.findViewById(R.id.userProfileImageView);
-
-            }
-        }
-
-        @Override
-        public HomeUserRecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(parent.getContext()).inflate(
-                    R.layout.home_layout3_recyclerview_item, parent, false);
-
-            return new HomeUserRecyclerViewAdapter.ViewHolder(view);
-        }
-
-        @Override
-        public void onBindViewHolder(final HomeUserRecyclerViewAdapter.ViewHolder holder, final int position) {
-
-
-//            holder.shoppinglistCountryNameTextView.setText(shoppingListDatas.get(position).getCountryName().toString());
-//            holder.shoppinglistDateTextView.setText(shoppingListDatas.get(position).getTravelDate().toString());
-//            holder.shoppinglistFolderImageView.setImageResource(R.drawable.mark);
-
-            holder.homeUserIdTextView.setText("닉네임");
-
-            holder.userProfileImageView.setImageResource(R.drawable.profile_empty);
-
-
-//            Glide.with(GirlsApplication.getGirlsContext())
-//                    .load(girlInfo)
-//                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-//                    .animate(android.R.anim.slide_in_left)
-//                    .into(holder.girlsImage);
-
-            holder.userProfileImageView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-//                    Intent intent = new Intent(GirlsApplication.getGirlsContext(), GirlsMemberDetailActivity.class);
-//                    intent.putExtra("memberImage", girlsImages.get(position));
-//                    intent.putExtra("memberName", holder.memberName.getText().toString());
-//
-//                    ActivityOptionsCompat options =
-//                            ActivityOptionsCompat.makeSceneTransitionAnimation(
-//                                    owner, holder.girlsImage, ViewCompat.getTransitionName(holder.girlsImage));
-//
-//                    ActivityCompat.startActivity(owner, intent, options.toBundle());
-                    Intent intent = new Intent(context, MyPageActivity.class);
-                    context.startActivity(intent);
-
-                }
-            });
-
-        }
-
-        @Override
-        public int getItemCount() {
-            return shoppingListDatas.size();
-        }
-    }
-
-
     View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
@@ -252,8 +159,6 @@ public class HomeActivity extends AppCompatActivity {
             }
         }
     };
-
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
@@ -264,4 +169,6 @@ public class HomeActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
 }

@@ -6,6 +6,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -104,11 +105,11 @@ public class MyPageActivity extends AppCompatActivity {
 
 
     private void setupMyPageViewPager(ViewPager viewPager){
-        MyPageActivity.MyPagePagerAdapter myPagePagerAdapter = new MyPageActivity.MyPagePagerAdapter(getSupportFragmentManager());
-        myPagePagerAdapter.appendFragment(ReviewFragment.newInstance(1), "후기");
-        myPagePagerAdapter.appendFragment(TipFragment.newInstance(2), "등록한 TIP");
-        myPagePagerAdapter.appendFragment(ItemFragment.newInstance(3), "등록한아이템");
-        viewPager.setAdapter(myPagePagerAdapter);
+        MyPagePagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager());
+        pagerAdapter.appendFragment(ReviewFragment.newInstance(1), "후기");
+        pagerAdapter.appendFragment(TipFragment.newInstance(2), "등록한 TIP");
+        pagerAdapter.appendFragment(ItemFragment.newInstance(3), "등록한아이템");
+        viewPager.setAdapter(pagerAdapter);
     }
 
     private static class MyPagePagerAdapter extends FragmentPagerAdapter {
