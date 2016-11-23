@@ -89,7 +89,7 @@
                         android:id="@+id/textid"
                         android:layout_width="wrap_content"
                         android:layout_height="23dp"
-                        android:background="@drawable/tag_button"
+                        android:background="@drawable/home_tag"
                         android:gravity="center"
                         android:textSize="13sp"
                         android:text="산타마리아노벨라산타마리아노벨라"

@@ -90,10 +90,12 @@ public class MyPageActivity extends AppCompatActivity {
             switch (view.getId()) {
                 case R.id.sellCountButton:
                      intent = new Intent(MyPageActivity.this,MypageBuyActivity.class);
+                    intent.putExtra("tabNum",1); //select될 tab값 전달
                     startActivity(intent);
                     break;
                 case R.id.buyCountButton:
                     intent = new Intent(MyPageActivity.this,MypageBuyActivity.class);
+                    intent.putExtra("tabNum",0);
                     startActivity(intent);
                     break;
             }
@@ -107,8 +109,8 @@ public class MyPageActivity extends AppCompatActivity {
     private void setupMyPageViewPager(ViewPager viewPager){
         MyPageActivity.MyPagePagerAdapter myPagePagerAdapter = new MyPageActivity.MyPagePagerAdapter(getSupportFragmentManager());
         myPagePagerAdapter.appendFragment(ReviewFragment.newInstance(1), "후기");
-        myPagePagerAdapter.appendFragment(ReviewFragment.newInstance(2), "등록한 TIP");
-        myPagePagerAdapter.appendFragment(ReviewFragment.newInstance(3), "등록한아이템");
+        myPagePagerAdapter.appendFragment(TipFragment.newInstance(2), "등록한 TIP");
+        myPagePagerAdapter.appendFragment(ItemFragment.newInstance(3), "등록한아이템");
         viewPager.setAdapter(myPagePagerAdapter);
     }
 

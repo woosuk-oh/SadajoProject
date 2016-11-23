@@ -65,7 +65,7 @@ public class ShoppingListActivity extends AppCompatActivity {
 
     private void setupShoppingListViewPager(ViewPager viewPager){
         ShoppingListPagerAdapter shoppingListAdapter = new ShoppingListPagerAdapter(getSupportFragmentManager());
-        shoppingListAdapter.appendFragment(ShoppingListFragment.newInstance(1), "찜");
+        shoppingListAdapter.appendFragment(ShoppingListFragment2.newInstance(1), "찜");
         shoppingListAdapter.appendFragment(ShoppingListFragment.newInstance(2), "쇼핑리스트");
         viewPager.setAdapter(shoppingListAdapter);
     }

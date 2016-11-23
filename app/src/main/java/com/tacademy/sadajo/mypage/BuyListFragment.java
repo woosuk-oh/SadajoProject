@@ -53,7 +53,7 @@ public class BuyListFragment extends Fragment {
 
         //layout3
 
-        View view = inflater.inflate(R.layout.fragment_buy_list, container, false);
+        View view = inflater.inflate(R.layout.mypage_buylist_fragment, container, false);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         RecyclerView recyclerView = (RecyclerView)view.findViewById(R.id.recyclerView);
 

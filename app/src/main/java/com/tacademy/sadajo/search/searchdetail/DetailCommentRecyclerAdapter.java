@@ -90,8 +90,6 @@ public class DetailCommentRecyclerAdapter extends RecyclerView.Adapter<DetailCom
             itemText2 = (TextView) itemView.findViewById(R.id.detail_comment_time);
 
 
-
-
         }
     }
 

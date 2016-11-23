@@ -28,18 +28,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="24dp"
-            android:text="이탈리아, 피렌체"
+            android:text="이탈리아"
             android:textSize="13sp"
             android:textColor="@color/blackFont"/>
-        <com.tacademy.sadajo.fonts.NanumRegularTextView
-            android:id="@+id/dateTextView"
-            android:layout_marginTop="8dp"
-            android:layout_marginLeft="24dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="10dp"
-            android:textColor="@color/grayFont"
-            android:text="2016.11.10 ~ 2016.11.20"/>
+
     </LinearLayout>
 
     <LinearLayout

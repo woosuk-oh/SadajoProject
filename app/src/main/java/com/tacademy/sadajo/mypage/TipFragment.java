@@ -2,6 +2,7 @@ package com.tacademy.sadajo.mypage;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 
 import com.tacademy.sadajo.CustomRecyclerDecoration;
 import com.tacademy.sadajo.R;
+import com.tacademy.sadajo.search.searchdetail.SearchDetail;
 import com.tacademy.sadajo.shoppinglist.ShoppingListData;
 import com.tacademy.sadajo.shoppinglist.ShoppingListSample;
 
@@ -22,85 +24,91 @@ import java.util.ArrayList;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ReviewFragment extends Fragment {
+public class TipFragment extends Fragment {
 
 
-    ReviewRecyclerViewAdapter reviewRecyclerViewAdapter;
 
-    public ReviewFragment() {
+    TipRecyclerViewAdapter tipRecyclerViewAdapter;
+    public TipFragment() {
         // Required empty public constructor
     }
 
-    public static ReviewFragment newInstance(int initValue){
-        ReviewFragment reviewFragment = new ReviewFragment();
+    public static TipFragment newInstance(int initValue) {
+        TipFragment fragment = new TipFragment();
         Bundle bundle = new Bundle();
         bundle.putInt("value", initValue);
-        reviewFragment.setArguments(bundle);
-        return reviewFragment;
+        fragment.setArguments(bundle);
+        return fragment;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
 
-        View view = inflater.inflate(R.layout.mypage_fragment_review, container, false);
+
+        View view = inflater.inflate(R.layout.mypage_fragment_tip, container, false);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-        RecyclerView recyclerView = (RecyclerView)view.findViewById(R.id.recyclerView);
+        RecyclerView recyclerView = (RecyclerView)view.findViewById(R.id.tipRecyclerView);
         recyclerView.setLayoutManager(layoutManager);
 
         CustomRecyclerDecoration decoration = new CustomRecyclerDecoration(30,"bottom"); //아이템간 간격
         recyclerView.addItemDecoration(decoration);
 
-        reviewRecyclerViewAdapter = new ReviewRecyclerViewAdapter(getContext(), ShoppingListSample.shoppinList);
-        recyclerView.setAdapter(reviewRecyclerViewAdapter);
+        tipRecyclerViewAdapter = new TipRecyclerViewAdapter(getContext(), ShoppingListSample.shoppinList);
+        recyclerView.setAdapter(tipRecyclerViewAdapter);
 
         Bundle initBundle = getArguments();
         return  view;
+
     }
 
-    public static class ReviewRecyclerViewAdapter
-            extends RecyclerView.Adapter<ReviewRecyclerViewAdapter.ViewHolder> {
+
+
+
+
+    public static class TipRecyclerViewAdapter
+            extends RecyclerView.Adapter<TipRecyclerViewAdapter.ViewHolder> {
 
         private ArrayList<ShoppingListData> shoppingListDatas;
         private Context context;
 
-        public ReviewRecyclerViewAdapter(Context context, ArrayList<ShoppingListData> shoppingListDatas) {
+        public TipRecyclerViewAdapter(Context context, ArrayList<ShoppingListData> shoppingListDatas) {
             this.context = context;
             this.shoppingListDatas = shoppingListDatas;
         }
 
         public static class ViewHolder extends RecyclerView.ViewHolder {
-
             public final View mView;
-            public final TextView userId;
-            public final TextView reviewTitleTextView;
-            public final TextView reviewDateTextView;
-            public final TextView reviewContentsTextView;
-            public final ImageView userProfileImageView;
+            public TextView itemText; // 코멘트 내용
+            public TextView itemText2; // 코멘트 입력시간
+            public ImageView itemImg; //코멘트 작성자 써클 이미지뷰
 
 
-            public ViewHolder(View view) {
-                super(view);
-                mView = view;
-                userId = (TextView) view.findViewById(R.id.userId);
-                reviewTitleTextView = (TextView) view.findViewById(R.id.reviewTitleTextView);
-                reviewDateTextView = (TextView) view.findViewById(R.id.reviewDateTextView);
-                reviewContentsTextView = (TextView) view.findViewById(R.id.reviewContentsTextView);
-                userProfileImageView = (ImageView) view.findViewById(R.id.userProfileImageView);
+            public ViewHolder(final View itemView) {
+                super(itemView);
+                mView =itemView;
+                itemImg = (ImageView) itemView.findViewById(R.id.detail_comment_circleimage);
+                itemText = (TextView) itemView.findViewById(R.id.detail_comment_body);
+                itemText2 = (TextView) itemView.findViewById(R.id.detail_comment_time);
+
+
 
             }
+
+
         }
 
         @Override
-        public ReviewRecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        public TipRecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(parent.getContext()).inflate(
-                    R.layout.mypage_review_recyclerview_item1, parent, false);
+                    R.layout.search_detail_comment_recycler, parent, false);
 
-            return new ReviewRecyclerViewAdapter.ViewHolder(view);
+            return new TipRecyclerViewAdapter.ViewHolder(view);
         }
 
         @Override
-        public void onBindViewHolder(final ReviewRecyclerViewAdapter.ViewHolder holder, final int position) {
+        public void onBindViewHolder(final TipRecyclerViewAdapter.ViewHolder holder, final int position) {
 
 
 //
@@ -109,11 +117,10 @@ public class ReviewFragment extends Fragment {
 //            holder.dateTextView.setText(shoppingListDatas.get(position).travelDate);
 //            holder.productImageView.setImageResource(shoppingListDatas.get(position).productImgae);
 
-            holder.userId.setText("아롱이다롱");
-            holder.reviewTitleTextView.setText("아이디");
-            holder.reviewDateTextView.setText("2016.11.20");
-            holder.reviewContentsTextView.setText("후기후기마이페이지ㅎㅎㅎㅎㅎㅎ");
-            holder.userProfileImageView.setImageResource(R.drawable.profile_empty);
+            holder.itemImg.setImageResource(R.drawable.profile_empty);
+            holder.itemText.setText("팁팁ㅌ빝빝빝비");
+            holder.itemText2.setText("2시간전");
+
 
 //            Glide.with(GirlsApplication.getGirlsContext())
 //                    .load(girlInfo)
@@ -134,6 +141,10 @@ public class ReviewFragment extends Fragment {
 //                                    owner, holder.girlsImage, ViewCompat.getTransitionName(holder.girlsImage));
 //
 //                    ActivityCompat.startActivity(owner, intent, options.toBundle());
+                    Intent intent = new Intent(context, SearchDetail.class);
+                    intent.putExtra("key", holder.itemText.getText());
+                    context.startActivity(intent);
+
 
                 }
             });
@@ -145,4 +156,5 @@ public class ReviewFragment extends Fragment {
             return shoppingListDatas.size();
         }
     }
+
 }

@@ -50,7 +50,7 @@ public class ShoppingListFragment extends Fragment {
 
         Bundle initBundle = getArguments();
 
-        View view = inflater.inflate(R.layout.fragment_shoppinglist, container, false);
+        View view = inflater.inflate(R.layout.shoppinglist_frament_first, container, false);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         RecyclerView  shoppingListRecyclerView = (RecyclerView)view.findViewById(R.id.shoppingListRecyclerView1);
         shoppingListRecyclerView.setLayoutManager(layoutManager);
