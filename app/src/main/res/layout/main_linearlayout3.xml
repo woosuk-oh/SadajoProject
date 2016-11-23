@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginBottom="19dp">
+    android:layout_marginBottom="21dp"
+    >
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -15,18 +16,17 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-
-        android:layout_marginTop="0dp"
-        android:paddingRight="8dp"
+        android:paddingTop="7dp"
         android:orientation="vertical"
         android:background="@color/white"
-        android:paddingBottom="12dp">
+        >
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
         <com.tacademy.sadajo.fonts.NanumBoldTextView
             android:layout_marginLeft="8dp"
+            android:layout_marginBottom="12dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="다른쇼퍼맨의 쇼핑리스트 구경하기"
@@ -37,6 +37,8 @@
             android:layout_height="match_parent"
             android:gravity="right"
             android:orientation="horizontal"
+            android:layout_marginRight="8dp"
+
             >
 
             <ImageView
@@ -46,11 +48,13 @@
                 android:src="@drawable/flag"
                 android:scaleType="center"
                 android:layout_marginRight="3dp"
+                android:layout_marginBottom="12dp"
 
                 />
             <com.tacademy.sadajo.fonts.NanumRegularTextView
 
                 android:id="@+id/card2CountryTv"
+                android:layout_marginBottom="12dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="이탈리아"
@@ -60,7 +64,7 @@
         </LinearLayout>
     </LinearLayout>
         <View
-            android:layout_marginTop="10dp"
+
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@color/whiteGrayFont"
@@ -70,13 +74,15 @@
          android:layout_height="wrap_content"
          android:orientation="horizontal"
          android:paddingTop="20dp"
-         android:layout_marginRight="8dp"
-         android:layout_marginLeft="8dp">
+         >
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+
+            android:layout_marginLeft="18dp"
+            android:layout_marginBottom="4dp">
 
         </android.support.v7.widget.RecyclerView>
       <!--  <LinearLayout

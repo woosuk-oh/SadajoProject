@@ -1,5 +1,6 @@
 package com.tacademy.sadajo.mypage;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -15,6 +16,8 @@ import java.util.ArrayList;
 
 public class MypageBuyActivity extends AppCompatActivity {
 
+    int tabNum;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,6 +26,9 @@ public class MypageBuyActivity extends AppCompatActivity {
         setTitle("");
         Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+
+
 
 //        final ActionBar ab = getSupportActionBar();
 //        ab.setDisplayHomeAsUpEnabled(true);
@@ -33,6 +39,11 @@ public class MypageBuyActivity extends AppCompatActivity {
         }
         TabLayout tabLayout = (TabLayout) findViewById(R.id.mypage_tab);
         tabLayout.setupWithViewPager(viewPager);
+
+        //select될 탭 설정
+        Intent intent= getIntent();
+        tabNum = intent.getExtras().getInt("tabNum");
+        tabLayout.getTabAt(tabNum).select();
     }
 
 

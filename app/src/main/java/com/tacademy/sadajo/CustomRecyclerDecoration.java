@@ -10,15 +10,37 @@ import android.view.View;
 
 public class CustomRecyclerDecoration extends RecyclerView.ItemDecoration {
     private final int divHeight;
+    private final String type;
 
-    public CustomRecyclerDecoration(int divHeight) {
+
+//    private final static int TOP = 0;
+//    private final static int BOTTOM = 1;
+//    private final static int RIGHT = 2;
+//    private final static int LEFT = 3;
+//
+
+
+
+    public CustomRecyclerDecoration(int divHeight,String type) {
         this.divHeight = divHeight;
+        this.type =type;
+
     }
+
 
     @Override
     public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
         super.getItemOffsets(outRect, view, parent, state);
 
-        outRect.bottom = divHeight;
+        if(type.equals("top")){
+            outRect.top = divHeight;
+        }else if(type.equals("left")){
+            outRect.left = divHeight;
+        }else if(type.equals("right")){
+            outRect.right = divHeight;
+        }else{
+            outRect.bottom = divHeight;
+        }
+
     }
 }

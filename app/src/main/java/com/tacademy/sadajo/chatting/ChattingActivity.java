@@ -34,6 +34,7 @@ public class ChattingActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.overridePendingTransition(0,0);
        // setContentView(R.layout.activity_chatting);
         setContentView(R.layout.activity_chatting);
         setTitle("");//툴바 타이틀명공백
@@ -58,7 +59,7 @@ public class ChattingActivity extends AppCompatActivity {
         mypageBtn = (ImageButton)findViewById(R.id.mypageBtn);
         mypageBtn.setOnClickListener(new BottomBarClickListener(this));
 
-        CustomRecyclerDecoration decoration = new CustomRecyclerDecoration(30);
+        CustomRecyclerDecoration decoration = new CustomRecyclerDecoration(30,"bottom");
         RecyclerView recyclerView = (RecyclerView)findViewById(R.id.recyclerView);
         LinearLayoutManager layoutManager = new LinearLayoutManager(ChattingActivity.this, LinearLayoutManager.VERTICAL, false);
 

@@ -31,6 +31,7 @@ public class MyPageActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mypage);
+        this.overridePendingTransition(0,0);
         setTitle("");//툴바 타이틀명공백
         Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -65,6 +66,16 @@ public class MyPageActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
 
 
+//
+//        //탭레이아웃 탭 셀렉터
+//        for (int i = 0; i < tabLayout.getTabCount(); i++) {
+//
+//            tabLayout.getTabAt(i).setIcon(R.drawable.selector_home);
+//            tabLayout.getTabAt(i).setText("");
+//
+//
+//        }
+
         sellCountButton.setOnClickListener(clickListener);
         buyCountButton.setOnClickListener(clickListener);
 
@@ -79,10 +90,12 @@ public class MyPageActivity extends AppCompatActivity {
             switch (view.getId()) {
                 case R.id.sellCountButton:
                      intent = new Intent(MyPageActivity.this,MypageBuyActivity.class);
+                    intent.putExtra("tabNum",1); //select될 tab값 전달
                     startActivity(intent);
                     break;
                 case R.id.buyCountButton:
                     intent = new Intent(MyPageActivity.this,MypageBuyActivity.class);
+                    intent.putExtra("tabNum",0);
                     startActivity(intent);
                     break;
             }
@@ -96,8 +109,8 @@ public class MyPageActivity extends AppCompatActivity {
     private void setupMyPageViewPager(ViewPager viewPager){
         MyPageActivity.MyPagePagerAdapter myPagePagerAdapter = new MyPageActivity.MyPagePagerAdapter(getSupportFragmentManager());
         myPagePagerAdapter.appendFragment(ReviewFragment.newInstance(1), "후기");
-        myPagePagerAdapter.appendFragment(ReviewFragment.newInstance(2), "등록한 TIP");
-        myPagePagerAdapter.appendFragment(ReviewFragment.newInstance(3), "등록한아이템");
+        myPagePagerAdapter.appendFragment(TipFragment.newInstance(2), "등록한 TIP");
+        myPagePagerAdapter.appendFragment(ItemFragment.newInstance(3), "등록한아이템");
         viewPager.setAdapter(myPagePagerAdapter);
     }
 
@@ -111,7 +124,8 @@ public class MyPageActivity extends AppCompatActivity {
 
         public void appendFragment(Fragment fragment, String title) {
             Fragment.add(fragment);
-            tabTitles.add(title);
+          tabTitles.add(title);
+
         }
 
         @Override

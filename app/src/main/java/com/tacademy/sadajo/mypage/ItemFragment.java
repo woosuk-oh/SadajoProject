@@ -2,6 +2,7 @@ package com.tacademy.sadajo.mypage;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,10 +11,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.tacademy.sadajo.CustomRecyclerDecoration;
 import com.tacademy.sadajo.R;
+import com.tacademy.sadajo.search.searchdetail.SearchDetail;
 import com.tacademy.sadajo.shoppinglist.ShoppingListData;
 import com.tacademy.sadajo.shoppinglist.ShoppingListSample;
 
@@ -22,85 +25,84 @@ import java.util.ArrayList;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ReviewFragment extends Fragment {
+public class ItemFragment extends Fragment {
 
 
-    ReviewRecyclerViewAdapter reviewRecyclerViewAdapter;
 
-    public ReviewFragment() {
+    ItemReviewRecyclerViewAdapter itemReviewRecyclerViewAdapter;
+    public ItemFragment() {
         // Required empty public constructor
     }
 
-    public static ReviewFragment newInstance(int initValue){
-        ReviewFragment reviewFragment = new ReviewFragment();
+    public static ItemFragment newInstance(int initValue) {
+        ItemFragment fragment = new ItemFragment();
         Bundle bundle = new Bundle();
         bundle.putInt("value", initValue);
-        reviewFragment.setArguments(bundle);
-        return reviewFragment;
+        fragment.setArguments(bundle);
+        return fragment;
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
 
-        View view = inflater.inflate(R.layout.mypage_fragment_review, container, false);
+        View view = inflater.inflate(R.layout.mypage_fragment_item, container, false);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-        RecyclerView recyclerView = (RecyclerView)view.findViewById(R.id.recyclerView);
+        RecyclerView recyclerView = (RecyclerView)view.findViewById(R.id.itemRecyclerView);
         recyclerView.setLayoutManager(layoutManager);
 
         CustomRecyclerDecoration decoration = new CustomRecyclerDecoration(30,"bottom"); //아이템간 간격
         recyclerView.addItemDecoration(decoration);
 
-        reviewRecyclerViewAdapter = new ReviewRecyclerViewAdapter(getContext(), ShoppingListSample.shoppinList);
-        recyclerView.setAdapter(reviewRecyclerViewAdapter);
+        itemReviewRecyclerViewAdapter = new ItemReviewRecyclerViewAdapter(getContext(), ShoppingListSample.shoppinList);
+        recyclerView.setAdapter(itemReviewRecyclerViewAdapter);
 
         Bundle initBundle = getArguments();
         return  view;
     }
 
-    public static class ReviewRecyclerViewAdapter
-            extends RecyclerView.Adapter<ReviewRecyclerViewAdapter.ViewHolder> {
+    public static class ItemReviewRecyclerViewAdapter
+            extends RecyclerView.Adapter<ItemReviewRecyclerViewAdapter.ViewHolder> {
 
         private ArrayList<ShoppingListData> shoppingListDatas;
         private Context context;
 
-        public ReviewRecyclerViewAdapter(Context context, ArrayList<ShoppingListData> shoppingListDatas) {
+        public ItemReviewRecyclerViewAdapter(Context context, ArrayList<ShoppingListData> shoppingListDatas) {
             this.context = context;
             this.shoppingListDatas = shoppingListDatas;
         }
 
         public static class ViewHolder extends RecyclerView.ViewHolder {
-
             public final View mView;
-            public final TextView userId;
-            public final TextView reviewTitleTextView;
-            public final TextView reviewDateTextView;
-            public final TextView reviewContentsTextView;
-            public final ImageView userProfileImageView;
+            public ImageView itemImage;
+            public TextView itemName;
+            LinearLayout itemContainer;
 
 
-            public ViewHolder(View view) {
-                super(view);
-                mView = view;
-                userId = (TextView) view.findViewById(R.id.userId);
-                reviewTitleTextView = (TextView) view.findViewById(R.id.reviewTitleTextView);
-                reviewDateTextView = (TextView) view.findViewById(R.id.reviewDateTextView);
-                reviewContentsTextView = (TextView) view.findViewById(R.id.reviewContentsTextView);
-                userProfileImageView = (ImageView) view.findViewById(R.id.userProfileImageView);
+
+            public ViewHolder(final View itemView) {
+                super(itemView);
+                mView = itemView;
+                itemImage = (ImageView) itemView.findViewById(R.id.search_item_image);
+                itemName = (TextView) itemView.findViewById(R.id.search_item_name);
+
+
 
             }
         }
 
         @Override
-        public ReviewRecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        public ItemReviewRecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(parent.getContext()).inflate(
-                    R.layout.mypage_review_recyclerview_item1, parent, false);
+                    R.layout.search_list_grid_item, parent, false);
 
-            return new ReviewRecyclerViewAdapter.ViewHolder(view);
+            return new ItemReviewRecyclerViewAdapter.ViewHolder(view);
         }
 
         @Override
-        public void onBindViewHolder(final ReviewRecyclerViewAdapter.ViewHolder holder, final int position) {
+        public void onBindViewHolder(final ItemReviewRecyclerViewAdapter.ViewHolder holder, final int position) {
 
 
 //
@@ -109,11 +111,16 @@ public class ReviewFragment extends Fragment {
 //            holder.dateTextView.setText(shoppingListDatas.get(position).travelDate);
 //            holder.productImageView.setImageResource(shoppingListDatas.get(position).productImgae);
 
-            holder.userId.setText("아롱이다롱");
-            holder.reviewTitleTextView.setText("아이디");
-            holder.reviewDateTextView.setText("2016.11.20");
-            holder.reviewContentsTextView.setText("후기후기마이페이지ㅎㅎㅎㅎㅎㅎ");
-            holder.userProfileImageView.setImageResource(R.drawable.profile_empty);
+            holder.itemImage.setImageResource(R.drawable.sample_img);
+            holder.itemName.setText("치약");
+
+       /* if(position == mItems.size()+1)
+        {
+
+            holder.itemImage.setImageResource(R.drawable.search_button);
+        }*/
+
+
 
 //            Glide.with(GirlsApplication.getGirlsContext())
 //                    .load(girlInfo)
@@ -134,7 +141,9 @@ public class ReviewFragment extends Fragment {
 //                                    owner, holder.girlsImage, ViewCompat.getTransitionName(holder.girlsImage));
 //
 //                    ActivityCompat.startActivity(owner, intent, options.toBundle());
-
+                    Intent intent = new Intent(context, SearchDetail.class);
+                    intent.putExtra("key", holder.itemName.getText());
+                    context.startActivity(intent);
                 }
             });
 
@@ -145,4 +154,5 @@ public class ReviewFragment extends Fragment {
             return shoppingListDatas.size();
         }
     }
+
 }
