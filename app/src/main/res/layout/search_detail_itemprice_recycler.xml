@@ -11,6 +11,7 @@
         android:textSize="13sp"
         android:textColor="@color/grayFont"
         android:layout_marginBottom="12dp"
+        android:layout_marginTop="13dp"
         android:text="test"
         />
 </LinearLayout>

@@ -3,6 +3,7 @@ package com.tacademy.sadajo.search.searchdetail;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
@@ -35,6 +36,7 @@ public class SearchDetail extends AppCompatActivity implements ViewPager.OnPageC
     private DetailPriceItemsRecyclerAdapter mAdapter2;
     private DetailItemLocationRecyclerAdapter mAdapter3;
     private DetailCommentRecyclerAdapter mAdapter4;
+    private CollapsingToolbarLayout collapsingToolbarLayout;
 
     private RecyclerView mRecycler;
     private RecyclerView mRecycler2;
@@ -48,20 +50,33 @@ public class SearchDetail extends AppCompatActivity implements ViewPager.OnPageC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.search_detail_body);
 
-        searchDetailToolbar = (Toolbar) findViewById(R.id.search_detail_body_toolbar);
-        setSupportActionBar(searchDetailToolbar);
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setHomeAsUpIndicator(R.drawable.search_back_icon2);
-        actionBar.setDisplayShowTitleEnabled(false);
-        actionBar.setDisplayHomeAsUpEnabled(true);
+
 
 //        final ImageView itemImage = (ImageView) findViewById(R.id.item_image);
         final TextView itemID = (TextView) findViewById(R.id.search_detail_item_name);
 
         Intent intent = getIntent();
-        String id = intent.getExtras().getString("key"); // searchListActivity에서 넘겨준 키("key") + 값(itemName.getText().toString()) 을 "key"로 받아옴
+        String itemValue; // searchListActivity에서 넘겨준 키("key") + 값(itemName.getText().toString()) 을 "key"로 받아옴
+        itemValue = intent.getExtras().getString("key");
 
-        itemID.setText(id); //itemID로 셋팅한 TextView에 인텐트로부터 받아온 id를 setText해준다.
+        itemID.setText(itemValue); //itemID로 셋팅한 TextView에 인텐트로부터 받아온 id를 setText해준다.
+
+
+
+        collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsingToolbarLayout1);
+        collapsingToolbarLayout.setTitle(itemValue);
+        collapsingToolbarLayout.setExpandedTitleColor(getResources().getColor(android.R.color.transparent));
+        collapsingToolbarLayout.setCollapsedTitleTextColor(getResources().getColor(android.R.color.white));
+
+        searchDetailToolbar = (Toolbar) findViewById(R.id.search_detail_body_toolbar);
+        setSupportActionBar(searchDetailToolbar);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setHomeAsUpIndicator(R.drawable.search_back_icon2);
+       /* actionBar.setTitle(itemValue);*/
+        actionBar.setDisplayShowTitleEnabled(false);
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
+
 
         itemcount = (TextView) findViewById(R.id.itemcount);
         itemcount.setText(String.valueOf(1)+"/4");
@@ -146,11 +161,11 @@ public class SearchDetail extends AppCompatActivity implements ViewPager.OnPageC
 
         ArrayList<ItemArrayList2> items4 = new ArrayList<>();
 
-        items4.add(new ItemArrayList2(R.drawable.sample1, "산타노벨라 향수", "3시간"));
-        items4.add(new ItemArrayList2(R.drawable.sample2, "샘플2", "4시간"));
-        items4.add(new ItemArrayList2(R.drawable.sample3, "샘플3", "4시간"));
-        items4.add(new ItemArrayList2(R.drawable.sample4, "샘플4", "5시간"));
-        items4.add(new ItemArrayList2(R.drawable.sample5, "샘플5", "6시간"));
+        items4.add(new ItemArrayList2(R.drawable.sample1, "이번주에 샀는데 두개 사면 하나 20% 할인해주더라구여!!!!!!!!!!!!!!!!!!!", "3시간"));
+        items4.add(new ItemArrayList2(R.drawable.sample2, "이번주에 샀는데 두개 사면 하나 20% 할인해주더라구여!!!!!!!!!!!!!!!!!!!", "4시간"));
+        items4.add(new ItemArrayList2(R.drawable.sample3, "이번주에 샀는데 두개 사면 하나 20% 할인해주더라구여!!!!!!!!!!!!!!!!!!!", "4시간"));
+        items4.add(new ItemArrayList2(R.drawable.sample4, "이번주에 샀는데 두개 사면 하나 20% 할인해주더라구여!!!!!!!!!!!!!!!!!!!", "5시간"));
+        items4.add(new ItemArrayList2(R.drawable.sample5, "이번주에 샀는데 두개 사면 하나 20% 할인해주더라구여!!!!!!!!!!!!!!!!!!!", "6시간"));
         mAdapter4 = new DetailCommentRecyclerAdapter(items4, this);
 
 
