@@ -7,7 +7,7 @@
     >
 
 
-    <TextView
+    <com.tacademy.sadajo.fonts.NanumRegularTextView
         android:id="@+id/detail_location_itemnames"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

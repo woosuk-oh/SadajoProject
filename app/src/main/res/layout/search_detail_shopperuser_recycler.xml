@@ -20,7 +20,7 @@
         android:layout_marginBottom="9dp"
         android:src="@drawable/search_profile_180" />
 
-    <TextView
+    <com.tacademy.sadajo.fonts.NanumRegularTextView
         android:id="@+id/detail_shopperuser_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

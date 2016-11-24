@@ -28,8 +28,9 @@
 
             <android.support.v4.view.ViewPager
                 android:id="@+id/search_detail_viewpager"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_width="383dp"
+                android:layout_height="203dp"
+
 
                 ></android.support.v4.view.ViewPager>
 
@@ -60,30 +61,30 @@
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:background="@drawable/search_icon_h" />
+
                 <com.tacademy.sadajo.fonts.NanumRegularTextView
                     android:id="@+id/detail_zzim_text"
-                    android:layout_marginLeft="4dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="4dp"
                     android:text="99+"
-                    android:textSize="11sp"
-                    />
+                    android:textSize="11sp" />
+
                 <Button
                     android:id="@+id/detail_shopping_button"
-                    android:layout_marginLeft="7dp"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    android:background="@drawable/search_icon_s"
-                    />
+                    android:layout_marginLeft="7dp"
+                    android:background="@drawable/search_icon_s" />
+
                 <com.tacademy.sadajo.fonts.NanumRegularTextView
                     android:id="@+id/detail_shopping_text"
-                    android:layout_marginLeft="4dp"
-                    android:layout_marginRight="16dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginRight="16dp"
                     android:text="99+"
-                    android:textSize="11sp"
-                    />
+                    android:textSize="11sp" />
 
 
             </LinearLayout>
@@ -131,17 +132,16 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    >
+                    android:layout_weight="1">
                     <!--android:paddingTop="19dp"-->
 
                     <com.tacademy.sadajo.fonts.NanumBoldTextView
                         android:id="@+id/search_detail_item_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                       android:layout_marginTop="19dp"
                         android:layout_marginLeft="16dp"
                         android:layout_marginRight="25dp"
-                        android:layout_gravity="center"
                         android:text="itemName"
                         android:textColor="#232323"
                         android:textSize="17sp" />
@@ -151,17 +151,16 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:gravity="right"
                     android:layout_weight="3"
-                   >
+                    android:gravity="right">
                     <!--android:paddingTop="19dp"-->
 
                     <ImageView
                         android:id="@+id/cuntry_detail_image"
                         android:layout_width="15dp"
                         android:layout_height="15dp"
-                        android:src="@drawable/flag"
                         android:layout_gravity="center"
+                        android:src="@drawable/flag"
 
                         />
 
@@ -284,17 +283,33 @@
                 android:layout_marginTop="1dp"
                 android:background="@color/white">
 
-
-                <ImageView
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
                     android:layout_marginLeft="16dp"
                     android:layout_marginRight="24dp"
-                    android:layout_gravity="center"
+                    android:layout_gravity="center">
 
-                    android:src="@drawable/search_profile_105" />
-                <!--android:layout_marginTop="20dp"-->
+                    <ImageView
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_gravity="center"
 
+
+                        android:src="@drawable/search_profile_105" />
+
+                    <com.tacademy.sadajo.fonts.NanumRegularTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:layout_marginTop="9dp"
+                        android:textSize="12sp"
+                        android:text="아롱이다롱"
+                        />
+                    <!--android:layout_marginTop="20dp"-->
+                </LinearLayout>
 
                 <com.tacademy.sadajo.fonts.NanumRegularTextView
                     android:layout_width="244dp"
@@ -311,12 +326,12 @@
                 android:layout_height="53dp"
                 android:background="@color/white">
 
-                <TextView
+                <com.tacademy.sadajo.fonts.NanumBoldTextView
                     android:id="@+id/textView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="16dp"
-                    android:paddingTop="25dp"
+                    android:paddingTop="19dp"
                     android:text="쇼퍼맨에게 부탁해볼까요?"
                     android:textColor="@color/blackFont"
                     android:textSize="17sp" />
@@ -336,7 +351,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="38dp"
+                android:layout_height="53dp"
                 android:layout_marginTop="21dp"
                 android:background="@color/white"
                 android:orientation="horizontal"
@@ -345,30 +360,37 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
                     android:layout_weight="1">
 
-                    <TextView
+                    <com.tacademy.sadajo.fonts.NanumBoldTextView
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="19dp"
                         android:layout_marginLeft="16dp"
-                        android:layout_marginTop="10dp"
                         android:text="얼마에 구매했어요?"
                         android:textColor="@color/blackFont"
                         android:textSize="17sp" />l
                 </LinearLayout>
 
                 <LinearLayout
+                    android:paddingTop="24dp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:gravity="right">
+                    android:layout_gravity="bottom"
+                    >
 
-                    <TextView
-                        android:layout_width="wrap_content"
+                    <com.tacademy.sadajo.fonts.NanumRegularTextView
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginRight="16dp"
-                        android:gravity="center"
+                        android:layout_marginBottom="11dp"
+
+                        android:layout_gravity="right"
+                        android:gravity="right"
+
                         android:text="2016.11.13 기준 환율"
                         android:textColor="@color/grayFont"
                         android:textSize="13sp" />
@@ -410,7 +432,7 @@
 
                     >
 
-                    <TextView
+                    <com.tacademy.sadajo.fonts.NanumRegularTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="1,000,000HKD"
@@ -429,7 +451,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="38dp"
+                android:layout_height="53dp"
                 android:layout_marginTop="21dp"
                 android:background="@color/white"
                 android:orientation="horizontal"
@@ -441,11 +463,11 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1">
 
-                    <TextView
+                    <com.tacademy.sadajo.fonts.NanumBoldTextView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="16dp"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="19dp"
                         android:text="어디서 살수있어요?"
                         android:textColor="@color/blackFont"
                         android:textSize="17sp" />l
@@ -471,27 +493,24 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="38dp"
+                android:layout_height="53dp"
                 android:layout_marginTop="21dp"
                 android:background="@color/white"
                 android:orientation="horizontal"
 
                 >
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1">
 
-                    <TextView
-                        android:layout_width="wrap_content"
+
+                    <com.tacademy.sadajo.fonts.NanumBoldTextView
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="16dp"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="19dp"
                         android:text="쇼퍼맨이 알려주는 구매 TIP"
                         android:textColor="@color/blackFont"
                         android:textSize="17sp" />l
-                </LinearLayout>
+
 
 
             </LinearLayout>
@@ -515,7 +534,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="45dp"
+        android:layout_height="56dp"
         android:layout_gravity="bottom"
         android:background="@color/white"
 
@@ -524,7 +543,8 @@
         <ImageView
             android:id="@+id/chatt_img"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+
 
             android:src="@drawable/search_chat" />
 
@@ -532,6 +552,8 @@
 
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginLeft="20dp"
+
             android:layout_toRightOf="@+id/chatt_img"
             android:hint="실시간 쇼핑 TIP을 알려주세요!" />
 

@@ -80,11 +80,11 @@ public class SearchListActivity extends AppCompatActivity {
 
         ArrayList<ItemArrayList> items = new ArrayList<>();
 
-      items.add(new ItemArrayList(R.drawable.sample1, "산타노벨라 향수"));
-        items.add(new ItemArrayList(R.drawable.sample2, "샘플2"));
-        items.add(new ItemArrayList(R.drawable.sample3, "샘플3"));
-        items.add(new ItemArrayList(R.drawable.sample4, "샘플4"));
-        items.add(new ItemArrayList(R.drawable.sample5, "샘플5"));
+      items.add(new ItemArrayList(R.drawable.image_1, "산타노벨라 향수"));
+        items.add(new ItemArrayList(R.drawable.image_1, "샘플2"));
+        items.add(new ItemArrayList(R.drawable.image_1, "샘플3"));
+        items.add(new ItemArrayList(R.drawable.image_1, "샘플4"));
+        items.add(new ItemArrayList(R.drawable.image_1, "샘플5"));
 
         mAdapter = new SearchListRecyclerAdapter(items, this);
         mRecycler.setAdapter(mAdapter);

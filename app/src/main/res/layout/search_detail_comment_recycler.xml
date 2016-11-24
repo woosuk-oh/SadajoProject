@@ -32,7 +32,7 @@
 
 
 
-        <TextView
+        <com.tacademy.sadajo.fonts.NanumRegularTextView
             android:id="@+id/detail_comment_body"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

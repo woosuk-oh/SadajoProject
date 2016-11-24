@@ -29,7 +29,7 @@
             android:background="@android:color/white"
             android:scaleType="fitXY"
 
-            android:src="@drawable/sample1" />
+            android:src="@drawable/image_1" />
 
         <LinearLayout
             android:id="@+id/item_expand_area"
@@ -43,7 +43,7 @@
                 android:layout_weight="1"
                 android:paddingTop="20dp">
 
-                <TextView
+                <com.tacademy.sadajo.fonts.NanumRegularTextView
                     android:id="@+id/search_item_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -69,9 +69,9 @@
                     android:layout_height="15dp"
                     android:layout_marginRight="10dp"
 
-                    card_view:srcCompat="@mipmap/ic_launcher" />
+                    card_view:srcCompat="@drawable/flag" />
 
-                <TextView
+                <com.tacademy.sadajo.fonts.NanumRegularTextView
                     android:id="@+id/search_country_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
