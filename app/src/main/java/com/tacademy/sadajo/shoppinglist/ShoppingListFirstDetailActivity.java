@@ -1,4 +1,4 @@
-package com.tacademy.sadajo.home;
+package com.tacademy.sadajo.shoppinglist;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -10,7 +10,6 @@ import android.view.View;
 import com.tacademy.sadajo.CustomRecyclerDecoration;
 import com.tacademy.sadajo.R;
 import com.tacademy.sadajo.mypage.ItemReviewRecyclerViewAdapter;
-import com.tacademy.sadajo.shoppinglist.ShoppingListSample;
 
 public class ShoppingListFirstDetailActivity extends AppCompatActivity {
 

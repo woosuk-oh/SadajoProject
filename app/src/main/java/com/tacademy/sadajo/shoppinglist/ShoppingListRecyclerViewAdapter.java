@@ -7,7 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -45,7 +45,7 @@ public class ShoppingListRecyclerViewAdapter
         public final TextView cityNameTextView;
         public final TextView dateTextView;
         public final ImageView productImageView;
-        public final Button newScheduleButton;
+        public final ImageButton newScheduleButton;
 
 
         public ViewHolder(View view) {
@@ -55,7 +55,7 @@ public class ShoppingListRecyclerViewAdapter
             cityNameTextView = (TextView) view.findViewById(R.id.cityNameTextView);
             dateTextView = (TextView) view.findViewById(R.id.dateTextView);
             productImageView = (ImageView) view.findViewById(R.id.productImageView);
-            newScheduleButton = (Button) view.findViewById(R.id.newScheduleButton);
+            newScheduleButton = (ImageButton) view.findViewById(R.id.newScheduleButton);
 
         }
 

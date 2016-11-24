@@ -10,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.tacademy.sadajo.R;
-import com.tacademy.sadajo.home.ShoppingListFirstDetailActivity;
 
 import java.util.ArrayList;
 

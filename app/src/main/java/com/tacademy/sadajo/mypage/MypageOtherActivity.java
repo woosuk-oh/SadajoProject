@@ -28,15 +28,20 @@ public class MyPageOtherActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
 
+        setContentView(R.layout.activity_mypage_other);
 
-            setContentView(R.layout.activity_mypage_other);
-
-            Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-            setSupportActionBar(toolbar);
-            getSupportActionBar().setDisplayShowTitleEnabled(false);//title hidden
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true); //back icon
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);//title hidden
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true); //back icon
 
 
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() { //뒤로가기
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
 
 
         sellCountButton = (ImageButton) findViewById(R.id.sellCountButton);
@@ -51,11 +56,11 @@ public class MyPageOtherActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
 
 
-        //탭레이아웃 탭 셀렉터
+//        //탭레이아웃 탭 셀렉터
 //        for (int i = 0; i < tabLayout.getTabCount(); i++) {
 //
 //            tabLayout.getTabAt(i).setIcon(R.drawable.selector_home);
-//            tabLayout.getTabAt(i).setText("");
+//
 //
 //
 //        }
