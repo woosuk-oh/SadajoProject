@@ -62,38 +62,19 @@ public class TipRecyclerViewAdapter
     public void onBindViewHolder(final TipRecyclerViewAdapter.ViewHolder holder, final int position) {
 
 
-//
-//            holder.countryNameTextView.setText(shoppingListDatas.get(position).countryName);
-//            holder.cityNameTextView.setText(shoppingListDatas.get(position).cityName);
-//            holder.dateTextView.setText(shoppingListDatas.get(position).travelDate);
-//            holder.productImageView.setImageResource(shoppingListDatas.get(position).productImgae);
 
         holder.itemImg.setImageResource(R.drawable.profile_empty);
         holder.itemText.setText("팁팁ㅌ빝빝빝비");
         holder.itemText2.setText("2시간전");
 
 
-//            Glide.with(GirlsApplication.getGirlsContext())
-//                    .load(girlInfo)
-//                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-//                    .animate(android.R.anim.slide_in_left)
-//                    .into(holder.girlsImage);
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//
-//                    Intent intent = new Intent(GirlsApplication.getGirlsContext(), GirlsMemberDetailActivity.class);
-//                    intent.putExtra("memberImage", girlsImages.get(position));
-//                    intent.putExtra("memberName", holder.memberName.getText().toString());
-//
-//                    ActivityOptionsCompat options =
-//                            ActivityOptionsCompat.makeSceneTransitionAnimation(
-//                                    owner, holder.girlsImage, ViewCompat.getTransitionName(holder.girlsImage));
-//
-//                    ActivityCompat.startActivity(owner, intent, options.toBundle());
+
                 Intent intent = new Intent(context, SearchDetail.class);
-                intent.putExtra("key", holder.itemText.getText());
+                intent.putExtra("key", "산타마리아노벨라 향수"); //상품명 키 전달
                 context.startActivity(intent);
 
 

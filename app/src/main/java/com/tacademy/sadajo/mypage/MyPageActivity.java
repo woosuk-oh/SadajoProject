@@ -50,6 +50,7 @@ public class MyPageActivity extends AppCompatActivity {
             mypageBtn.setOnClickListener(new BottomBarClickListener(this));
             mypageBtn.setSelected(true);
 
+
             Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
             setSupportActionBar(toolbar);
             toolbar.setBackgroundResource(R.drawable.tool_03_mypage); //toolbar image
@@ -67,7 +68,7 @@ public class MyPageActivity extends AppCompatActivity {
         }
 
 
-        sellCountButton = (ImageButton) findViewById(R.id.sellCountButton);
+          sellCountButton = (ImageButton) findViewById(R.id.sellCountButton);
         buyCountButton = (ImageButton) findViewById(R.id.buyCountButton);
 
 
@@ -111,6 +112,7 @@ public class MyPageActivity extends AppCompatActivity {
                     intent.putExtra("tabNum", 0);
                     startActivity(intent);
                     break;
+
             }
         }
     };

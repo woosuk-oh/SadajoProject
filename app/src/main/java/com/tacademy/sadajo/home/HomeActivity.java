@@ -1,6 +1,8 @@
 package com.tacademy.sadajo.home;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
@@ -55,10 +57,9 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        //      this.overridePendingTransition(0,0); //애니메이션효과 제거
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
         toolbar.setBackgroundResource(R.drawable.tool_01_main); //toolbar image
@@ -104,7 +105,17 @@ public class HomeActivity extends AppCompatActivity {
 
         scheduleBtn.setOnClickListener(onClickListener);
 
+        button1.setVisibility(View.VISIBLE);
 
+        button2.setVisibility(View.VISIBLE);
+        button3.setVisibility(View.VISIBLE);
+        button4.setVisibility(View.VISIBLE);
+        button4.setText("어렵다아아");
+        button5.setVisibility(View.VISIBLE);
+
+        button1.setOnClickListener(onClickListener);
+//
+//
 //        FlowLayout flowLayout =(FlowLayout)findViewById(R.id.homeFlowlayout); //두번째 카드뷰 리니어레이아웃
 //        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(MATCH_PARENT,WRAP_CONTENT);
 //
@@ -118,11 +129,13 @@ public class HomeActivity extends AppCompatActivity {
 //
 //            Button button = new Button(this);
 //            button.setLayoutParams(buttonParams);
-//
+//           // button.setBackground();
 //            button.setText("버트으은");
 //            flowLayout.addView(button);
 //
 //        }
+//
+
         //layout3
         CustomRecyclerDecoration decoration = new CustomRecyclerDecoration(45, "bottom");
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
@@ -133,32 +146,26 @@ public class HomeActivity extends AppCompatActivity {
         recyclerView.setAdapter(homeUserRecyclerViewAdapter);
 
 
-        button1.setVisibility(View.VISIBLE);
 
-        button2.setVisibility(View.VISIBLE);
-        button3.setVisibility(View.VISIBLE);
-        button4.setVisibility(View.VISIBLE);
-        button4.setText("어렵다아아");
-        button5.setVisibility(View.VISIBLE);
-
-        button1.setOnClickListener(onClickListener);
     }
 
 
     View.OnClickListener onClickListener = new View.OnClickListener() {
+
+        Intent intent;
+
         @Override
         public void onClick(View view) {
             switch (view.getId()) {
                 case R.id.scheduleBtn:
+                    ScheduleRegisterDialog dialog = new ScheduleRegisterDialog(HomeActivity.this);
+                    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
-
-//                case R.id.profileImageView :
-//                    Intent intent = new Intent(HomeActivity.this, MyPageActivity.class);
-//                    startActivity(intent);
-//                    break;
+                    dialog.show();
+                    break;
 
                 case R.id.button1:
-                    Intent intent = new Intent(HomeActivity.this, SearchListActivity.class);
+                    intent = new Intent(HomeActivity.this, SearchListActivity.class);
                     startActivity(intent);
                     break;
 
