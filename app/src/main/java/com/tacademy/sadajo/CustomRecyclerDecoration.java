@@ -20,10 +20,9 @@ public class CustomRecyclerDecoration extends RecyclerView.ItemDecoration {
 //
 
 
-
-    public CustomRecyclerDecoration(int divHeight,String type) {
+    public CustomRecyclerDecoration(int divHeight, String type) {
         this.divHeight = divHeight;
-        this.type =type;
+        this.type = type;
 
     }
 
@@ -32,13 +31,13 @@ public class CustomRecyclerDecoration extends RecyclerView.ItemDecoration {
     public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
         super.getItemOffsets(outRect, view, parent, state);
 
-        if(type.equals("top")){
+        if (type.equals("top")) {
             outRect.top = divHeight;
-        }else if(type.equals("left")){
+        } else if (type.equals("left")) {
             outRect.left = divHeight;
-        }else if(type.equals("right")){
+        } else if (type.equals("right")) {
             outRect.right = divHeight;
-        }else{
+        } else {
             outRect.bottom = divHeight;
         }
 

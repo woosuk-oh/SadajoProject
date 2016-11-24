@@ -12,11 +12,11 @@ import android.widget.TextView;
 public class NanumBoldTextView extends TextView {
     public NanumBoldTextView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        this.setTypeface(Typeface.createFromAsset(context.getAssets(),"NanumSquareBold.ttf"));
+        this.setTypeface(Typeface.createFromAsset(context.getAssets(), "NanumSquareBold.ttf"));
     }
 
     public NanumBoldTextView(Context context) {
         super(context);
-        this.setTypeface(Typeface.createFromAsset(context.getAssets(),"NanumSquareBold.ttf"));
+        this.setTypeface(Typeface.createFromAsset(context.getAssets(), "NanumSquareBold.ttf"));
     }
 }

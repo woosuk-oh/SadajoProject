@@ -21,13 +21,15 @@
         <item name="colorPrimaryDark">#2fbcea</item>
         <item name="colorAccent">#2fbcea</item>
         <item name="android:windowBackground">@color/window_background</item>
-       <item name="android:windowAnimationStyle">@null</item>  <!-- 액티비티 애니메이션 전환 효과 삭제-->
-
-        <!-- enable window content transitions -->
-
+        <item name="android:windowAnimationStyle">@null</item>  <!-- 액티비티 애니메이션 전환 효과 삭제-->
+        <!--<item name="actionOverflowButtonStyle">@style/OverFlow</item>--> <!--overfow style-->
+        
 
     </style>
 
+    <style name="OverFlow" parent="Widget.AppCompat.ActionButton.Overflow">
+        <item name="android:src">@drawable/mark</item>
+    </style>
 
     <!--TabLayout tabBackground textColor 수정 -->
     <style name="TabLayout" parent="Widget.Design.TabLayout">
@@ -56,9 +58,7 @@
     </style>
 
 
-
-
-  <!--  DatePickerAlert-->
+    <!--  DatePickerAlert-->
     <style name="MyDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
         <!--buttons color-->
         <item name="colorAccent">@color/pink</item>
@@ -80,4 +80,8 @@
         <item name="android:windowIsFloating">true</item>
         <item name="android:windowContentOverlay">@null</item>
     </style>
+
+    <style name="Theme.Sadajo.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.Sadajo.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

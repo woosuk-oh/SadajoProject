@@ -10,13 +10,13 @@ public class ShoppingListData {
     String countryName;
     String travelDate;
     String cityName;
-    int    productImgae;
+    int productImgae;
 
 
     public ShoppingListData() {
     }
 
-    public ShoppingListData(String countryName,String cityName, String travelDate,int productImgae) {
+    public ShoppingListData(String countryName, String cityName, String travelDate, int productImgae) {
         this.cityName = cityName;
         this.countryName = countryName;
         this.travelDate = travelDate;
@@ -26,6 +26,7 @@ public class ShoppingListData {
     public String getCountryName() {
         return countryName;
     }
+
     public String getCityName() {
         return cityName;
     }

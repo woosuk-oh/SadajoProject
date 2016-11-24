@@ -16,9 +16,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".splash.SplashActivity" />
-        <activity android:name=".search.searchlist.SearchListActivity"
-            android:windowSoftInputMode="adjustNothing"
-            /> <!-- 에딧텍스트에서 키보드 올라오면 탭바는 같이 올라오지 않도록 SoftInputMode 적용함. style.xml에서도 가능함.-->
+        <activity
+            android:name=".search.searchlist.SearchListActivity"
+            android:windowSoftInputMode="adjustNothing" /> <!-- 에딧텍스트에서 키보드 올라오면 탭바는 같이 올라오지 않도록 SoftInputMode 적용함. style.xml에서도 가능함. -->
         <activity android:name=".shoppinglist.ShoppingListActivity" />
         <activity android:name=".chatting.ChattingActivity" />
         <activity android:name=".mypage.MyPageActivity" />
@@ -26,7 +26,6 @@
         <activity android:name=".search.searchdetail.SearchDetail" />
         <activity android:name=".chatting.ChattingRoom" />
         <activity android:name=".mypage.MypageBuyActivity" />
-
     </application>
 
 </manifest>

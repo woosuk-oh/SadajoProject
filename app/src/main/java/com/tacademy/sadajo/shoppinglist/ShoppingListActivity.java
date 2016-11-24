@@ -2,18 +2,17 @@ package com.tacademy.sadajo.shoppinglist;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageButton;
 
 import com.tacademy.sadajo.BottomBarClickListener;
+import com.tacademy.sadajo.MyPagerAdapter;
 import com.tacademy.sadajo.R;
-
-import java.util.ArrayList;
 
 public class ShoppingListActivity extends AppCompatActivity {
 
@@ -28,12 +27,21 @@ public class ShoppingListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shoppinglist);
         //     this.overridePendingTransition(0,0);
-        setTitle("");
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
-//        final ActionBar ab = getSupportActionBar();
-//        ab.setDisplayHomeAsUpEnabled(true);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar); //toolbar background image
+        setSupportActionBar(toolbar);
+        toolbar.setBackgroundResource(R.drawable.tool_02_shoppinglist);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);//title hidden
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false); //back icon
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() { //뒤로가기
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
+
 
         ViewPager viewPager = (ViewPager) findViewById(R.id.shopping_viewpager);
         if (viewPager != null) {
@@ -64,38 +72,34 @@ public class ShoppingListActivity extends AppCompatActivity {
 
 
     private void setupShoppingListViewPager(ViewPager viewPager) {
-        ShoppingListPagerAdapter shoppingListAdapter = new ShoppingListPagerAdapter(getSupportFragmentManager());
+        MyPagerAdapter shoppingListAdapter = new MyPagerAdapter(getSupportFragmentManager());
         shoppingListAdapter.appendFragment(ShoppingListFragment2.newInstance(1), "찜");
         shoppingListAdapter.appendFragment(ShoppingListFragment.newInstance(2), "쇼핑리스트");
         viewPager.setAdapter(shoppingListAdapter);
     }
 
-    private static class ShoppingListPagerAdapter extends FragmentPagerAdapter {
-        private final ArrayList<Fragment> Fragment = new ArrayList<>();
-        private final ArrayList<String> tabTitles = new ArrayList<>();
 
-        public ShoppingListPagerAdapter(FragmentManager fm) {
-            super(fm);
-        }
-
-        public void appendFragment(Fragment fragment, String title) {
-            Fragment.add(fragment);
-            tabTitles.add(title);
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            return Fragment.get(position);
-        }
-
-        @Override
-        public int getCount() {
-            return Fragment.size();
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return tabTitles.get(position);
-        }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;//false하면 메뉴아이콘 hidden
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_delete) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+
 }

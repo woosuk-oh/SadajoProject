@@ -11,7 +11,7 @@
     <include layout="@layout/include_toolbar_layout"/> <!--include toolbar -->
     <LinearLayout
         android:layout_below="@+id/frameToolbarHome"
-        android:layout_above="@+id/frameBottomBar"
+        android:layout_above="@+id/mypageUserProfileBottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -147,6 +147,46 @@
 
         </LinearLayout>
     </LinearLayout>
-    <include layout ="@layout/include_bottom_tab_button" /><!--Include Bottom TabBar Button -->
+
+    <FrameLayout android:layout_width="match_parent"
+        android:id="@+id/mypageUserProfileBottom"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        xmlns:android="http://schemas.android.com/apk/res/android" >
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@color/white">
+
+                <ImageButton
+                    android:id="@+id/homeBtn"
+                    android:layout_width="0dp"
+                    android:layout_height="45dp"
+                    android:background="@drawable/selector_mypage_userprofile_sl"
+                    android:scaleType="fitCenter"
+                    android:layout_weight="1"
+                    />
+
+                <ImageButton
+                    android:id="@+id/searchBtn"
+                    android:layout_width="0dp"
+                    android:layout_height="45dp"
+                    android:background="@drawable/selector_mypage_userprofile_chatting"
+                    android:scaleType="fitCenter"
+                    android:layout_weight="1"
+                    />
+
+
+            </LinearLayout>
+        </LinearLayout>
+    </FrameLayout>
 
 </RelativeLayout>

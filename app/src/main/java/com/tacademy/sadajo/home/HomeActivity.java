@@ -1,29 +1,25 @@
 package com.tacademy.sadajo.home;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.tacademy.sadajo.BottomBarClickListener;
 import com.tacademy.sadajo.CustomRecyclerDecoration;
 import com.tacademy.sadajo.R;
 import com.tacademy.sadajo.fonts.NanumRegularTextView;
-import com.tacademy.sadajo.mypage.MyPageActivity;
-import com.tacademy.sadajo.shoppinglist.ShoppingListData;
+import com.tacademy.sadajo.search.searchlist.SearchListActivity;
 import com.tacademy.sadajo.shoppinglist.ShoppingListSample;
 
-import java.util.ArrayList;
+import static android.R.attr.id;
 
 
 public class HomeActivity extends AppCompatActivity {
@@ -60,14 +56,19 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         //      this.overridePendingTransition(0,0); //애니메이션효과 제거
-        setTitle("");//툴바 타이틀명공백
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-//           TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
-//        final ActionBar ab = getSupportActionBar();
-//        ab.setDisplayHomeAsUpEnabled(true);
 
+        toolbar.setBackgroundResource(R.drawable.tool_01_main); //toolbar image
+        getSupportActionBar().setDisplayShowTitleEnabled(false);//title hidden
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false); //back icon
+
+
+        //바텀바 gone
+//        FrameLayout frameLayout = (FrameLayout)findViewById(R.id.frameBottomBar);
+//        frameLayout.setVisibility(View.GONE);
 
         homeBtn = (ImageButton) findViewById(R.id.homeBtn);
         homeBtn.setOnClickListener(new BottomBarClickListener(this));
@@ -133,97 +134,14 @@ public class HomeActivity extends AppCompatActivity {
 
 
         button1.setVisibility(View.VISIBLE);
+
         button2.setVisibility(View.VISIBLE);
         button3.setVisibility(View.VISIBLE);
         button4.setVisibility(View.VISIBLE);
         button4.setText("어렵다아아");
         button5.setVisibility(View.VISIBLE);
 
-
-    }
-
-
-    public static class HomeUserRecyclerViewAdapter
-            extends RecyclerView.Adapter<HomeUserRecyclerViewAdapter.ViewHolder> {
-
-        private ArrayList<ShoppingListData> shoppingListDatas;
-        private Context context;
-
-        public HomeUserRecyclerViewAdapter(Context context, ArrayList<ShoppingListData> shoppingListDatas) {
-            this.context = context;
-            this.shoppingListDatas = shoppingListDatas;
-        }
-
-        public static class ViewHolder extends RecyclerView.ViewHolder {
-
-            public final View mView;
-
-            public final TextView homeUserIdTextView;
-            public final ImageView userProfileImageView;
-
-
-            public ViewHolder(View view) {
-                super(view);
-                mView = view;
-
-                homeUserIdTextView = (TextView) view.findViewById(R.id.homeUserIdTextView);
-                userProfileImageView = (ImageView) view.findViewById(R.id.userProfileImageView);
-
-            }
-        }
-
-        @Override
-        public HomeUserRecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(parent.getContext()).inflate(
-                    R.layout.home_layout3_recyclerview_item, parent, false);
-
-            return new HomeUserRecyclerViewAdapter.ViewHolder(view);
-        }
-
-        @Override
-        public void onBindViewHolder(final HomeUserRecyclerViewAdapter.ViewHolder holder, final int position) {
-
-
-//            holder.shoppinglistCountryNameTextView.setText(shoppingListDatas.get(position).getCountryName().toString());
-//            holder.shoppinglistDateTextView.setText(shoppingListDatas.get(position).getTravelDate().toString());
-//            holder.shoppinglistFolderImageView.setImageResource(R.drawable.mark);
-
-            holder.homeUserIdTextView.setText("닉네임");
-
-            holder.userProfileImageView.setImageResource(R.drawable.profile_empty);
-
-
-//            Glide.with(GirlsApplication.getGirlsContext())
-//                    .load(girlInfo)
-//                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-//                    .animate(android.R.anim.slide_in_left)
-//                    .into(holder.girlsImage);
-
-            holder.userProfileImageView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-//                    Intent intent = new Intent(GirlsApplication.getGirlsContext(), GirlsMemberDetailActivity.class);
-//                    intent.putExtra("memberImage", girlsImages.get(position));
-//                    intent.putExtra("memberName", holder.memberName.getText().toString());
-//
-//                    ActivityOptionsCompat options =
-//                            ActivityOptionsCompat.makeSceneTransitionAnimation(
-//                                    owner, holder.girlsImage, ViewCompat.getTransitionName(holder.girlsImage));
-//
-//                    ActivityCompat.startActivity(owner, intent, options.toBundle());
-                    Intent intent = new Intent(context, MyPageActivity.class);
-                    context.startActivity(intent);
-
-                }
-            });
-
-        }
-
-        @Override
-        public int getItemCount() {
-            return shoppingListDatas.size();
-        }
+        button1.setOnClickListener(onClickListener);
     }
 
 
@@ -239,7 +157,25 @@ public class HomeActivity extends AppCompatActivity {
 //                    startActivity(intent);
 //                    break;
 
+                case R.id.button1:
+                    Intent intent = new Intent(HomeActivity.this, SearchListActivity.class);
+                    startActivity(intent);
+                    break;
+
             }
         }
     };
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if (id == android.R.id.home) {
+            onBackPressed();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+
 }
