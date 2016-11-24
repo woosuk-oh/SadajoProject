@@ -3,10 +3,6 @@ package com.tacademy.sadajo.mypage;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -14,9 +10,8 @@ import android.view.View;
 import android.widget.ImageButton;
 
 import com.tacademy.sadajo.BottomBarClickListener;
+import com.tacademy.sadajo.MyPagerAdapter;
 import com.tacademy.sadajo.R;
-
-import java.util.ArrayList;
 
 public class MyPageActivity extends AppCompatActivity {
 
@@ -105,40 +100,12 @@ public class MyPageActivity extends AppCompatActivity {
 
 
     private void setupMyPageViewPager(ViewPager viewPager){
-        MyPagePagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager());
+        MyPagerAdapter pagerAdapter = new MyPagerAdapter(getSupportFragmentManager());
         pagerAdapter.appendFragment(ReviewFragment.newInstance(1), "후기");
         pagerAdapter.appendFragment(TipFragment.newInstance(2), "등록한 TIP");
         pagerAdapter.appendFragment(ItemFragment.newInstance(3), "등록한아이템");
         viewPager.setAdapter(pagerAdapter);
     }
 
-    private static class MyPagePagerAdapter extends FragmentPagerAdapter {
-        private final ArrayList<Fragment> Fragment = new ArrayList<>();
-        private final ArrayList<String> tabTitles = new ArrayList<>();
 
-        public MyPagePagerAdapter(FragmentManager fm) {
-            super(fm);
-        }
-
-        public void appendFragment(Fragment fragment, String title) {
-            Fragment.add(fragment);
-           tabTitles.add(title);
-
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            return Fragment.get(position);
-        }
-
-        @Override
-        public int getCount() {
-            return Fragment.size();
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return tabTitles.get(position);
-        }
-    }
 }

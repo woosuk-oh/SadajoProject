@@ -10,12 +10,13 @@ import java.util.ArrayList;
  * Created by EUNZY on 2016. 11. 24..
  */
 
+//Tab Viewpager adapter
 
-public class PagerAdapter extends FragmentPagerAdapter {
-    private final ArrayList<android.support.v4.app.Fragment> Fragment = new ArrayList<>();
+public class MyPagerAdapter extends FragmentPagerAdapter {
+    private final ArrayList<Fragment> Fragment = new ArrayList<>();
     private final ArrayList<String> tabTitles = new ArrayList<>();
 
-    public PagerAdapter(FragmentManager fm) {
+    public MyPagerAdapter(FragmentManager fm) {
         super(fm);
     }
 
