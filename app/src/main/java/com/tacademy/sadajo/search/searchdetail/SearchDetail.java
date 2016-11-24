@@ -15,8 +15,10 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.tacademy.sadajo.R;
 
@@ -42,6 +44,9 @@ public class SearchDetail extends AppCompatActivity implements ViewPager.OnPageC
     private RecyclerView mRecycler2;
     private RecyclerView mRecycler3;
     private RecyclerView mRecycler4;
+
+    Button zzim;
+    Button shopping;
 
     Toolbar searchDetailToolbar;
 
@@ -182,7 +187,31 @@ public class SearchDetail extends AppCompatActivity implements ViewPager.OnPageC
         mAdapter4.notifyDataSetChanged();
 
 
+        zzim = (Button) findViewById(R.id.detail_zzim_button);
+        zzim.setOnClickListener(onClickListener);
+
+        shopping = (Button) findViewById(R.id.detail_shopping_button);
+        shopping.setOnClickListener(onClickListener);
+
     }
+
+
+    Button.OnClickListener onClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            switch (view.getId()) {
+                case R.id.detail_zzim_button:
+                    Toast.makeText(SearchDetail.this, "찜하기 완료!", Toast.LENGTH_SHORT).show();
+                    break;
+                case R.id.detail_shopping_button:
+
+                    Toast.makeText(SearchDetail.this, "쇼핑리스트에 담겼습니다", Toast.LENGTH_SHORT).show();
+                    break;
+
+            }
+        }
+    };
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

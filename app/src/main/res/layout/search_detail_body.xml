@@ -56,10 +56,12 @@
                 app:layout_collapseMode="parallax">
 
                 <Button
+                    android:id="@+id/detail_zzim_button"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:background="@drawable/search_icon_h" />
-                <TextView
+                <com.tacademy.sadajo.fonts.NanumRegularTextView
+                    android:id="@+id/detail_zzim_text"
                     android:layout_marginLeft="4dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -67,12 +69,14 @@
                     android:textSize="11sp"
                     />
                 <Button
+                    android:id="@+id/detail_shopping_button"
                     android:layout_marginLeft="7dp"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:background="@drawable/search_icon_s"
                     />
-                <TextView
+                <com.tacademy.sadajo.fonts.NanumRegularTextView
+                    android:id="@+id/detail_shopping_text"
                     android:layout_marginLeft="4dp"
                     android:layout_marginRight="16dp"
                     android:layout_width="wrap_content"
@@ -131,7 +135,7 @@
                     >
                     <!--android:paddingTop="19dp"-->
 
-                    <TextView
+                    <com.tacademy.sadajo.fonts.NanumBoldTextView
                         android:id="@+id/search_detail_item_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -147,6 +151,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:gravity="right"
                     android:layout_weight="3"
                    >
                     <!--android:paddingTop="19dp"-->
