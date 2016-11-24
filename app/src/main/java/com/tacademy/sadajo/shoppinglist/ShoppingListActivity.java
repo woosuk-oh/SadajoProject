@@ -38,11 +38,9 @@ public class ShoppingListActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() { //뒤로가기
             @Override
             public void onClick(View view) {
-               onBackPressed();
+                onBackPressed();
             }
         });
-
-
 
 
         ViewPager viewPager = (ViewPager) findViewById(R.id.shopping_viewpager);
@@ -81,7 +79,6 @@ public class ShoppingListActivity extends AppCompatActivity {
     }
 
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -97,13 +94,12 @@ public class ShoppingListActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_delete) {
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
-
 
 
 }

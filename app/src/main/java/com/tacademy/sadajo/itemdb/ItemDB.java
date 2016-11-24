@@ -15,7 +15,6 @@ public class ItemDB {
     // 11-14. 아이템의 아이디, 이름, 이미지만
 
 
-
     public List<String> getItem_img() {
         return item_img;
     }

@@ -26,7 +26,6 @@
         <activity android:name=".search.searchdetail.SearchDetail" />
         <activity android:name=".chatting.ChattingRoom" />
         <activity android:name=".mypage.MypageBuyActivity" />
-
     </application>
 
 </manifest>

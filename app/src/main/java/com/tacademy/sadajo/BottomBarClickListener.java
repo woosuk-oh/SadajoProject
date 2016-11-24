@@ -16,12 +16,12 @@ import com.tacademy.sadajo.shoppinglist.ShoppingListActivity;
 
 public class BottomBarClickListener extends Activity implements View.OnClickListener {
 
-    private  Activity activity;
+    private Activity activity;
+
 
     public BottomBarClickListener(Activity activity) {
-      this.activity = activity;
+        this.activity = activity;
     }
-
 
 
     @Override
@@ -33,13 +33,11 @@ public class BottomBarClickListener extends Activity implements View.OnClickList
             case R.id.homeBtn:
                 intent = new Intent(activity, HomeActivity.class);
                 activity.startActivity(intent);
-
-                finish();
-
                 break;
             case R.id.searchBtn:
 
                 intent = new Intent(activity, SearchListActivity.class);
+
                 activity.startActivity(intent);
 
                 break;
@@ -47,18 +45,24 @@ public class BottomBarClickListener extends Activity implements View.OnClickList
 
                 intent = new Intent(activity, ShoppingListActivity.class);
                 activity.startActivity(intent);
+
+
                 break;
             case R.id.chattingBtn:
                 intent = new Intent(activity, ChattingActivity.class);
                 activity.startActivity(intent);
+
                 break;
             case R.id.mypageBtn:
 
                 intent = new Intent(activity, MyPageActivity.class);
+                intent.putExtra("viewType", 0);
                 activity.startActivity(intent);
-                break;
-        }}
 
+
+                break;
+        }
+    }
 
 
 }

@@ -1,11 +1,10 @@
-package com.tacademy.sadajo.chatting;
+package com.tacademy.sadajo.mypage;
 
 /**
  * Created by EUNZY on 2016. 11. 24..
  */
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,13 +17,13 @@ import com.tacademy.sadajo.shoppinglist.ShoppingListData;
 
 import java.util.ArrayList;
 
-public class ChattingRecyclerViewAdapter
-        extends RecyclerView.Adapter<ChattingRecyclerViewAdapter.ViewHolder> {
+public class ReviewRecyclerViewAdapter
+        extends RecyclerView.Adapter<ReviewRecyclerViewAdapter.ViewHolder> {
 
     private ArrayList<ShoppingListData> shoppingListDatas;
     private Context context;
 
-    public ChattingRecyclerViewAdapter(Context context, ArrayList<ShoppingListData> shoppingListDatas) {
+    public ReviewRecyclerViewAdapter(Context context, ArrayList<ShoppingListData> shoppingListDatas) {
         this.context = context;
         this.shoppingListDatas = shoppingListDatas;
     }
@@ -32,44 +31,48 @@ public class ChattingRecyclerViewAdapter
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
         public final View mView;
-        public final TextView chattingTitleTextView;
-        public final TextView chattingContentTextView;
-        public final TextView chattingDateTextView;
+        public final TextView userId;
+        public final TextView reviewTitleTextView;
+        public final TextView reviewDateTextView;
+        public final TextView reviewContentsTextView;
         public final ImageView userProfileImageView;
 
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            chattingTitleTextView = (TextView) view.findViewById(R.id.chattingTitleTextView);
-            chattingContentTextView = (TextView) view.findViewById(R.id.chattingContentTextView);
-            chattingDateTextView = (TextView) view.findViewById(R.id.chattingDateTextView);
+            userId = (TextView) view.findViewById(R.id.userId);
+            reviewTitleTextView = (TextView) view.findViewById(R.id.reviewTitleTextView);
+            reviewDateTextView = (TextView) view.findViewById(R.id.reviewDateTextView);
+            reviewContentsTextView = (TextView) view.findViewById(R.id.reviewContentsTextView);
             userProfileImageView = (ImageView) view.findViewById(R.id.userProfileImageView);
 
         }
     }
 
     @Override
-    public ChattingRecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ReviewRecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(
-                R.layout.chatting_recyclerview_item, parent, false);
+                R.layout.mypage_review_recyclerview_item1, parent, false);
 
-        return new ChattingRecyclerViewAdapter.ViewHolder(view);
+        return new ReviewRecyclerViewAdapter.ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(final ChattingRecyclerViewAdapter.ViewHolder holder, final int position) {
+    public void onBindViewHolder(final ReviewRecyclerViewAdapter.ViewHolder holder, final int position) {
 
 
-//            holder.shoppinglistCountryNameTextView.setText(shoppingListDatas.get(position).getCountryName().toString());
-//            holder.shoppinglistDateTextView.setText(shoppingListDatas.get(position).getTravelDate().toString());
-//            holder.shoppinglistFolderImageView.setImageResource(R.drawable.mark);
+//
+//            holder.countryNameTextView.setText(shoppingListDatas.get(position).countryName);
+//            holder.cityNameTextView.setText(shoppingListDatas.get(position).cityName);
+//            holder.dateTextView.setText(shoppingListDatas.get(position).travelDate);
+//            holder.productImageView.setImageResource(shoppingListDatas.get(position).productImgae);
 
-        holder.chattingTitleTextView.setText("채팅제목");
-        holder.chattingContentTextView.setText("안녕하세요");
-        holder.chattingDateTextView.setText("2016.11.20");
+        holder.userId.setText("아롱이다롱");
+        holder.reviewTitleTextView.setText("아이디");
+        holder.reviewDateTextView.setText("2016.11.20");
+        holder.reviewContentsTextView.setText("후기후기마이페이지ㅎㅎㅎㅎㅎㅎ");
         holder.userProfileImageView.setImageResource(R.drawable.profile_empty);
-
 
 //            Glide.with(GirlsApplication.getGirlsContext())
 //                    .load(girlInfo)
@@ -77,10 +80,10 @@ public class ChattingRecyclerViewAdapter
 //                    .animate(android.R.anim.slide_in_left)
 //                    .into(holder.girlsImage);
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
+        holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+//
 //                    Intent intent = new Intent(GirlsApplication.getGirlsContext(), GirlsMemberDetailActivity.class);
 //                    intent.putExtra("memberImage", girlsImages.get(position));
 //                    intent.putExtra("memberName", holder.memberName.getText().toString());
@@ -90,8 +93,6 @@ public class ChattingRecyclerViewAdapter
 //                                    owner, holder.girlsImage, ViewCompat.getTransitionName(holder.girlsImage));
 //
 //                    ActivityCompat.startActivity(owner, intent, options.toBundle());
-                Intent intent = new Intent(context, ChattingRoom.class);
-                context.startActivity(intent);
 
             }
         });

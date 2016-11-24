@@ -1,5 +1,6 @@
 package com.tacademy.sadajo.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
@@ -15,6 +16,7 @@ import com.tacademy.sadajo.BottomBarClickListener;
 import com.tacademy.sadajo.CustomRecyclerDecoration;
 import com.tacademy.sadajo.R;
 import com.tacademy.sadajo.fonts.NanumRegularTextView;
+import com.tacademy.sadajo.search.searchlist.SearchListActivity;
 import com.tacademy.sadajo.shoppinglist.ShoppingListSample;
 
 import static android.R.attr.id;
@@ -62,8 +64,6 @@ public class HomeActivity extends AppCompatActivity {
         toolbar.setBackgroundResource(R.drawable.tool_01_main); //toolbar image
         getSupportActionBar().setDisplayShowTitleEnabled(false);//title hidden
         getSupportActionBar().setDisplayHomeAsUpEnabled(false); //back icon
-
-
 
 
         //바텀바 gone
@@ -134,13 +134,14 @@ public class HomeActivity extends AppCompatActivity {
 
 
         button1.setVisibility(View.VISIBLE);
+
         button2.setVisibility(View.VISIBLE);
         button3.setVisibility(View.VISIBLE);
         button4.setVisibility(View.VISIBLE);
         button4.setText("어렵다아아");
         button5.setVisibility(View.VISIBLE);
 
-
+        button1.setOnClickListener(onClickListener);
     }
 
 
@@ -156,9 +157,15 @@ public class HomeActivity extends AppCompatActivity {
 //                    startActivity(intent);
 //                    break;
 
+                case R.id.button1:
+                    Intent intent = new Intent(HomeActivity.this, SearchListActivity.class);
+                    startActivity(intent);
+                    break;
+
             }
         }
     };
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 

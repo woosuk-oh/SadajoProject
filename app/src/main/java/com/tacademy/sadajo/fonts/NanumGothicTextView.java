@@ -12,11 +12,11 @@ import android.widget.TextView;
 public class NanumGothicTextView extends TextView {
     public NanumGothicTextView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        this.setTypeface(Typeface.createFromAsset(context.getAssets(),"NanumGothic.ttc"));
+        this.setTypeface(Typeface.createFromAsset(context.getAssets(), "NanumGothic.ttc"));
     }
 
     public NanumGothicTextView(Context context) {
         super(context);
-        this.setTypeface(Typeface.createFromAsset(context.getAssets(),"NanumGothic.ttc"));
+        this.setTypeface(Typeface.createFromAsset(context.getAssets(), "NanumGothic.ttc"));
     }
 }

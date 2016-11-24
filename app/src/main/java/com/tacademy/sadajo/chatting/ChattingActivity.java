@@ -14,7 +14,7 @@ import com.tacademy.sadajo.R;
 import com.tacademy.sadajo.shoppinglist.ShoppingListSample;
 
 public class ChattingActivity extends AppCompatActivity {
-///push test
+    ///push test
     ImageButton homeBtn;
     ImageButton searchBtn;
     ImageButton shoppingListBtn;
@@ -22,12 +22,13 @@ public class ChattingActivity extends AppCompatActivity {
     ImageButton mypageBtn;
 
     ChattingRecyclerViewAdapter chattingRecyclerViewAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-      //  this.overridePendingTransition(0,0);
+        //  this.overridePendingTransition(0,0);
         setContentView(R.layout.activity_chatting);
-        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setBackgroundResource(R.drawable.tool_04_chat); //toolbar image
         getSupportActionBar().setDisplayShowTitleEnabled(false);//title hidden
@@ -41,17 +42,16 @@ public class ChattingActivity extends AppCompatActivity {
         });
 
 
-
-        homeBtn = (ImageButton)findViewById(R.id.homeBtn);
+        homeBtn = (ImageButton) findViewById(R.id.homeBtn);
         homeBtn.setOnClickListener(new BottomBarClickListener(this));
-        searchBtn = (ImageButton)findViewById(R.id.searchBtn);
+        searchBtn = (ImageButton) findViewById(R.id.searchBtn);
         searchBtn.setOnClickListener(new BottomBarClickListener(this));
-        shoppingListBtn = (ImageButton)findViewById(R.id.shoppingListBtn);
+        shoppingListBtn = (ImageButton) findViewById(R.id.shoppingListBtn);
         shoppingListBtn.setOnClickListener(new BottomBarClickListener(this));
-        chattingBtn = (ImageButton)findViewById(R.id.chattingBtn);
+        chattingBtn = (ImageButton) findViewById(R.id.chattingBtn);
         chattingBtn.setOnClickListener(new BottomBarClickListener(this));
         chattingBtn.setSelected(true);
-        mypageBtn = (ImageButton)findViewById(R.id.mypageBtn);
+        mypageBtn = (ImageButton) findViewById(R.id.mypageBtn);
         mypageBtn.setOnClickListener(new BottomBarClickListener(this));
 
         CustomRecyclerDecoration decoration = new CustomRecyclerDecoration(30, "bottom");
@@ -62,8 +62,6 @@ public class ChattingActivity extends AppCompatActivity {
         recyclerView.addItemDecoration(decoration);
         chattingRecyclerViewAdapter = new ChattingRecyclerViewAdapter(ChattingActivity.this, ShoppingListSample.shoppinList);
         recyclerView.setAdapter(chattingRecyclerViewAdapter);
-
-
 
 
     }

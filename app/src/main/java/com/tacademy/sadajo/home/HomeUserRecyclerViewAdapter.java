@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.tacademy.sadajo.R;
-import com.tacademy.sadajo.shoppinglist.ShoppingListActivity;
+import com.tacademy.sadajo.mypage.MyPageActivity;
 import com.tacademy.sadajo.shoppinglist.ShoppingListData;
 
 import java.util.ArrayList;
@@ -69,7 +69,8 @@ public  class HomeUserRecyclerViewAdapter
             public void onClick(View v) {
 
 
-                Intent intent = new Intent(context, ShoppingListActivity.class);
+                Intent intent = new Intent(context, MyPageActivity.class);
+                intent.putExtra("viewType",1);
                 context.startActivity(intent);
 
             }
