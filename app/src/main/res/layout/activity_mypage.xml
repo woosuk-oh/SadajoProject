@@ -46,12 +46,15 @@
                         android:textSize="13sp" />
 
                     <com.tacademy.sadajo.fonts.GothamTextView
+                     android:id="@+id/mypageBuyTextView"
+                        android:layout_marginTop="5dp"
+
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:text="47"
-                        android:textColor="@color/white"
-                        android:textSize="21sp" />
+                        android:textColor="@drawable/selector_mypage_buy_button"
+                        android:textSize="25sp" />
 
                 </LinearLayout>
 
@@ -86,6 +89,7 @@
                         android:padding="0dp" />
 
                     <com.tacademy.sadajo.fonts.GothamTextView
+                        android:layout_marginTop="5dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"

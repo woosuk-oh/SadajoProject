@@ -51,6 +51,11 @@ public class ItemFragment extends Fragment {
         recyclerView.setAdapter(itemReviewRecyclerViewAdapter);
 
         Bundle initBundle = getArguments();
+
+        if(itemReviewRecyclerViewAdapter.getItemCount()==0){
+            view = inflater.inflate(R.layout.mypage_item_recyclerview_noitem, container, false);
+
+        }
         return view;
     }
 

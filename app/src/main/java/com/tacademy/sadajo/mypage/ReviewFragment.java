@@ -48,6 +48,10 @@ public class ReviewFragment extends Fragment {
         reviewRecyclerViewAdapter = new ReviewRecyclerViewAdapter(getContext(), ShoppingListSample.shoppinList);
         recyclerView.setAdapter(reviewRecyclerViewAdapter);
 
+
+        if(reviewRecyclerViewAdapter.getItemCount()==0){
+            view =   inflater.inflate(R.layout.mypage_review_recyclerview_noitem, container, false);
+        }
         Bundle initBundle = getArguments();
         return view;
     }

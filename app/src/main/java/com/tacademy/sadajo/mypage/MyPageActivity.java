@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.tacademy.sadajo.BottomBarClickListener;
 import com.tacademy.sadajo.MyPagerAdapter;
@@ -23,6 +24,7 @@ public class MyPageActivity extends AppCompatActivity {
     ImageButton buyCountButton;
     ImageButton sellCountButton;
 
+    TextView mypageBuyTextView;
 
     int viewType;
 
@@ -49,6 +51,7 @@ public class MyPageActivity extends AppCompatActivity {
             mypageBtn = (ImageButton) findViewById(R.id.mypageBtn);
             mypageBtn.setOnClickListener(new BottomBarClickListener(this));
             mypageBtn.setSelected(true);
+
 
 
             Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);

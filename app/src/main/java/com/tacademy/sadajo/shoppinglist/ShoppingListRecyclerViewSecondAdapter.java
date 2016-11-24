@@ -1,6 +1,7 @@
 package com.tacademy.sadajo.shoppinglist;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.tacademy.sadajo.R;
+import com.tacademy.sadajo.home.ShoppingListFirstDetailActivity;
 
 import java.util.ArrayList;
 
@@ -92,6 +94,9 @@ public class ShoppingListRecyclerViewSecondAdapter
 //                                    owner, holder.girlsImage, ViewCompat.getTransitionName(holder.girlsImage));
 //
 //                    ActivityCompat.startActivity(owner, intent, options.toBundle());
+
+                Intent intent = new Intent(context, ShoppingListFirstDetailActivity.class);
+                context.startActivity(intent);
 
             }
         });
