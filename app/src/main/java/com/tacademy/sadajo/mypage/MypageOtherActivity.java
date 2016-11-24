@@ -10,17 +10,11 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.tacademy.sadajo.BottomBarClickListener;
 import com.tacademy.sadajo.MyPagerAdapter;
 import com.tacademy.sadajo.R;
 
-public class MyPageActivity extends AppCompatActivity {
+public class MyPageOtherActivity extends AppCompatActivity {
 
-    ImageButton homeBtn;
-    ImageButton searchBtn;
-    ImageButton shoppingListBtn;
-    ImageButton chattingBtn;
-    ImageButton mypageBtn;
 
     ImageButton buyCountButton;
     ImageButton sellCountButton;
@@ -34,27 +28,13 @@ public class MyPageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
 
-            setContentView(R.layout.activity_mypage);
 
-            homeBtn = (ImageButton) findViewById(R.id.homeBtn);
-            homeBtn.setOnClickListener(new BottomBarClickListener(this));
-            searchBtn = (ImageButton) findViewById(R.id.searchBtn);
-            searchBtn.setOnClickListener(new BottomBarClickListener(this));
-            shoppingListBtn = (ImageButton) findViewById(R.id.shoppingListBtn);
-            shoppingListBtn.setOnClickListener(new BottomBarClickListener(this));
-            chattingBtn = (ImageButton) findViewById(R.id.chattingBtn);
-            chattingBtn.setOnClickListener(new BottomBarClickListener(this));
-            mypageBtn = (ImageButton) findViewById(R.id.mypageBtn);
-            mypageBtn.setOnClickListener(new BottomBarClickListener(this));
-            mypageBtn.setSelected(true);
-
+            setContentView(R.layout.activity_mypage_other);
 
             Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
             setSupportActionBar(toolbar);
-            toolbar.setBackgroundResource(R.drawable.tool_03_mypage); //toolbar image
             getSupportActionBar().setDisplayShowTitleEnabled(false);//title hidden
-            getSupportActionBar().setDisplayHomeAsUpEnabled(false); //back icon
-
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true); //back icon
 
 
 
@@ -94,12 +74,12 @@ public class MyPageActivity extends AppCompatActivity {
         public void onClick(View view) {
             switch (view.getId()) {
                 case R.id.sellCountButton:
-                    intent = new Intent(MyPageActivity.this, MypageBuyActivity.class);
+                    intent = new Intent(MyPageOtherActivity.this, MypageBuyActivity.class);
                     intent.putExtra("tabNum", 1); //select될 tab값 전달
                     startActivity(intent);
                     break;
                 case R.id.buyCountButton:
-                    intent = new Intent(MyPageActivity.this, MypageBuyActivity.class);
+                    intent = new Intent(MyPageOtherActivity.this, MypageBuyActivity.class);
                     intent.putExtra("tabNum", 0);
                     startActivity(intent);
                     break;
