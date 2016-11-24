@@ -139,7 +139,7 @@ public class ShoppingListRecyclerViewAdapter
             holder.newScheduleButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    ScheduleRegisterDialog dialog = new ScheduleRegisterDialog(context, R.style.CustomDialog);
+                    ScheduleRegisterDialog dialog = new ScheduleRegisterDialog(context);
                     dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                     dialog.setCancelable(true);
                     dialog.show();

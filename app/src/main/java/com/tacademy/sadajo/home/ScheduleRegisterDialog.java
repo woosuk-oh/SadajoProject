@@ -40,11 +40,6 @@ public class ScheduleRegisterDialog extends Dialog {
 
     }
 
-    public ScheduleRegisterDialog(Context context, int themeResId) {
-        super(context, themeResId);
-
-
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

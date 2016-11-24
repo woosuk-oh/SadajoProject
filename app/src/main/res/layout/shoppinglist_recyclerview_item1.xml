@@ -66,7 +66,11 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center">
+                android:alpha="0.5"
+                android:background="@drawable/sl_image_black"
+                android:gravity="center"
+
+                >
 
                 <com.tacademy.sadajo.fonts.NanumRegularTextView
                     android:id="@+id/productEmptyTextView"
@@ -74,7 +78,7 @@
                     android:layout_height="wrap_content"
                     android:src="@drawable/sample_img"
                     android:text="쇼핑리스트를 채워주세요!"
-                    android:textColor="@color/grayFont"
+                    android:textColor="@color/blackFont"
                     android:textSize="13sp"
                     android:visibility="visible" />
             </LinearLayout>
@@ -86,12 +90,11 @@
                 android:layout_alignLeft="@id/productImageView"
                 android:layout_alignRight="@id/productImageView"
                 android:layout_alignTop="@id/productImageView"
-                android:alpha="0.5"
-                android:background="@drawable/sl_image_black"
                 android:gravity="center"
                 android:text="99+"
                 android:textColor="@color/white"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:visibility="gone" />
 
         </RelativeLayout>
     </LinearLayout>
