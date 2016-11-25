@@ -10,8 +10,8 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.tacademy.sadajo.R;
@@ -23,12 +23,11 @@ import java.util.Locale;
 public class ScheduleRegisterDialog extends Dialog {
 
 
-    TextView titleTextView;
     Spinner countrySpinner;
     Spinner citySpinner;
     EditText departureEditText;
     EditText arriveEditText;
-    Button registerButton;
+    ImageButton registerButton;
     Button cancelButton;
 
 
@@ -48,12 +47,11 @@ public class ScheduleRegisterDialog extends Dialog {
         setContentView(R.layout.activity_schedule_register_dialog);
 
 
-        titleTextView = (TextView) findViewById(R.id.titleTextView);
         countrySpinner = (Spinner) findViewById(R.id.countrySpinner);
         citySpinner = (Spinner) findViewById(R.id.citySpinner);
         departureEditText = (EditText) findViewById(R.id.departureEditText);
         arriveEditText = (EditText) findViewById(R.id.arriveEditText);
-        registerButton = (Button) findViewById(R.id.registerButton);
+        registerButton = (ImageButton) findViewById(R.id.registerButton);
         cancelButton = (Button) findViewById(R.id.cancelButton);
 
 

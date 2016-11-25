@@ -1,50 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="270dp"
-    android:layout_height="wrap_content"
-    android:background="@drawable/dialog_bg"
-    android:orientation="vertical"
-
-    >
-
-
-
-        <TextView
-            android:id="@+id/titleTextView"
-            android:layout_marginTop="30dp"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:padding="10dp"
-            android:text="여행일정을 알려주세요!"
-            android:textColor="@color/grayFont" />
-
-
+    android:layout_width="266dp"
+    android:layout_height="244dp"
+    android:background="@drawable/sl_pop"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="4dp"
         android:layout_marginRight="4dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_marginTop="98dp">
 
-        <TextView
-            android:id="@+id/txt_modify_edit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingBottom="10dp"
-            android:paddingLeft="20dp"
-            android:paddingTop="20dp"
-            android:text="어디로가세요?"
-            android:textColor="@color/grayFont" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="24dp"
             android:orientation="horizontal">
 
 
@@ -55,8 +29,7 @@
                 android:layout_weight="1"
                 android:paddingRight="5dp"
                 android:entries="@array/country"
-
-
+                android:layout_marginRight="6dp"
                 >
 
             </Spinner>
@@ -66,24 +39,20 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:paddingLeft="5dp">
+                android:layout_marginLeft="6dp"
+                android:entries="@array/city"
+
+                >
 
             </Spinner>
         </LinearLayout>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingBottom="10dp"
-            android:paddingLeft="20dp"
-            android:paddingTop="20dp"
-            android:text="언제가세요?"
-            android:textColor="@color/grayFont" />
+
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
+            android:layout_marginTop="26dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:orientation="horizontal">
@@ -98,7 +67,7 @@
                 android:layout_marginRight="10dp"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:hint="떠나요"
+                android:hint="출발해요"
                 android:textColor="@color/grayFont"
                 android:textColorHint="@color/grayFont"
                 android:textSize="13sp"
@@ -135,15 +104,16 @@
             android:layout_weight="1"
             android:gravity="center">
 
-            <Button
+            <ImageButton
                 android:id="@+id/registerButton"
                 style="?android:attr/borderlessButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="100dp"
+                android:layout_height="23dp"
                 android:layout_marginRight="0.5dp"
                 android:gravity="center"
                 android:text="등록하기"
                 android:textColor="@color/sadajoBackground"
+                android:background="@drawable/sl_pop_button"
                 android:textSize="13sp"
 
 

@@ -7,7 +7,6 @@ import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.NinePatchDrawable;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
@@ -25,7 +24,6 @@ import com.tacademy.sadajo.BottomBarClickListener;
 import com.tacademy.sadajo.CustomRecyclerDecoration;
 import com.tacademy.sadajo.R;
 import com.tacademy.sadajo.fonts.NanumRegularTextView;
-import com.tacademy.sadajo.network.Home.HomeDB;
 import com.tacademy.sadajo.shoppinglist.ShoppingListSample;
 import com.xiaofeng.flowlayoutmanager.FlowLayoutManager;
 
@@ -201,10 +199,9 @@ public class HomeActivity extends AppCompatActivity {
     }
 
 
-    public class AsyncHomeRequest extends AsyncTask<HomeDB>
+ //   public class AsyncHomeRequest extends AsyncTask<HomeDB>
 
-
-    View.OnClickListener onClickListener = new View.OnClickListener() {
+   View.OnClickListener onClickListener = new View.OnClickListener() {
 
         Intent intent;
 

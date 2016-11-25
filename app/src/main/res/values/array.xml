@@ -1,14 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="country">
-        <item >미국</item>
-        <item >일본</item>
-        <item >홍콩</item>
-        <item >프랑스</item>
-        <item >이탈리아</item>
-        <item >태국</item>
-        <item >호주</item>
-        <item >중국</item>
-        <item >필리핀</item>
+        <item>미국</item>
+        <item>일본</item>
+        <item>홍콩</item>
+        <item>프랑스</item>
+        <item>이탈리아</item>
+        <item>태국</item>
+        <item>호주</item>
+        <item>중국</item>
+        <item>필리핀</item>
     </string-array>
+    <string-array name="city">
+        <item>  뉴욕</item>
+        <item>  워싱턴</item>
+        <item>  로즈앤젤레스</item>
+        <item>  보스턴</item>
+        <item>  하와이</item>
+        <item>   괌</item>
+        <item>  도쿄</item>
+        <item>   나고야</item>
+        <item>   오사카</item>
+        <item>  삿포로</item>
+        <item>  홍콩</item>
+        <item>  파리</item>
+        <item> 리용</item>
+        <item> 마르세이유</item>
+        <item>보르도</item>
+        <item> 로마</item>
+        <item>밀라노</item>
+        <item>피렌체</item>
+        <item>베네치아</item>
+        <item>피사</item>
+        <item>나폴리</item>
+        <item>방콕</item>
+        <item>파타야</item>
+        <item> 푸켓</item>
+        <item> 치앙마이</item>
+        <item>코사무이</item>
+        <item>시드니</item>
+        <item>브리즈번</item>
+        <item>캔버라</item>
+        <item> 다윈</item>
+        <item>퍼스</item>
+        <item>베이징</item>
+        <item>상하이</item>
+        <item> 톈진</item>
+        <item>충칭</item>
+        <item>마닐라</item>
+        <item>세부</item>
+        <item> 보라카이</item>
+        <item>타이베이</item>
+        <item> 가오슝</item>
+        <item>타이중</item>
+    </string-array>
+
 </resources>
