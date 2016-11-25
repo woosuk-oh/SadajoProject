@@ -9,120 +9,134 @@
     tools:context="com.tacademy.sadajo.mypage.MyPageOtherActivity">
 
     <include layout="@layout/include_toolbar_layout"/> <!--include toolbar -->
+
     <LinearLayout
-        android:layout_below="@+id/frameToolbarHome"
-        android:layout_above="@+id/mypageUserProfileBottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_below="@+id/frameToolbarHome"
+        android:layout_above="@+id/mypageUserProfileBottom">
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="130dp"
+            android:layout_height="175dp"
+            android:background="@color/sadajoBackground"
+            android:orientation="vertical">
 
-            android:orientation="vertical"
-            android:background="@color/sadajoBackground">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
                 android:orientation="horizontal"
-                >
+                android:paddingTop="28dp">
 
                 <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_marginTop="32dp"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    >
+
+                    android:orientation="vertical">
+
                     <ImageButton
+                        android:layout_marginTop="30dp"
                         android:id="@+id/buyCountButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:background="@drawable/selector_mypage_buy_button"
                         android:padding="0dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:textSize="13sp"
-                        android:background="@drawable/mypage_buy"
-                        android:textColor="@color/whiteGrayFont"/>
+                        android:textColor="@color/whiteGrayFont"
+                        android:textSize="13sp" />
+
                     <com.tacademy.sadajo.fonts.GothamTextView
+                        android:id="@+id/mypageBuyTextView"
+                        android:layout_marginTop="5dp"
+
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="47"
                         android:layout_gravity="center"
-                        android:textSize="21sp"
+                        android:text="47"
                         android:textColor="@color/white"
-                        />
+                        android:textSize="21sp" />
 
                 </LinearLayout>
+
                 <LinearLayout
-                    android:layout_marginTop="14dp"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_marginLeft="33dp"
                     android:layout_marginRight="33dp"
-                    android:layout_marginLeft="33dp">
+                    >
+
                     <de.hdodenhof.circleimageview.CircleImageView
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
-                        android:src="@drawable/profile_empty"
-                        />
+                        android:layout_width="90dp"
+                        android:layout_height="90dp"
+                        android:src="@drawable/sample_profile"
+                        android:id="@+id/imageView" />
                 </LinearLayout>
+
                 <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_marginTop="32dp"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-
+                    android:layout_marginTop="30dp"
+                    android:orientation="vertical"
                     >
+
+
                     <ImageButton
                         android:id="@+id/sellCountButton"
-                        android:padding="0dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:background="@drawable/mypage_sell"
-                        />
+                        android:background="@drawable/selector_mypage_sell_button"
+                        android:padding="0dp" />
+
                     <com.tacademy.sadajo.fonts.GothamTextView
+                        android:layout_marginTop="5dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="47"
                         android:layout_gravity="center"
-                        android:textSize="21sp"
-                        android:textColor="@color/white"/>
+                        android:text="47"
+                        android:textColor="@color/white"
+                        android:textSize="21sp" />
 
                 </LinearLayout>
 
             </LinearLayout>
 
             <LinearLayout
-                android:orientation="horizontal"
+                android:layout_marginTop="9dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center">
+                android:gravity="center"
+                android:orientation="horizontal">
+
                 <com.tacademy.sadajo.fonts.NanumBoldTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="파리지앵"
-                    android:textSize="13sp"
-                    android:textColor="@color/white"/>
+                    android:textColor="@color/white"
+                    android:textSize="13sp" />
 
 
             </LinearLayout>
+
             <LinearLayout
-                android:layout_marginTop="7dp"
-                android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center">
+                android:layout_marginTop="4dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
                 <com.tacademy.sadajo.fonts.NanumRegularTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="미국, 뉴욕(4시간전)"
-                    android:textSize="10sp"
-                    android:textColor="@color/white"/>
+                    android:textColor="@color/white"
+                    android:textSize="10sp" />
 
 
             </LinearLayout>
         </LinearLayout>
-
         <LinearLayout
 
             android:layout_width="match_parent"
