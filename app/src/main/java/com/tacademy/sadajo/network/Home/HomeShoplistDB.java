@@ -7,9 +7,9 @@ package com.tacademy.sadajo.network.Home;
 public class HomeShoplistDB {
 
 
-        String userName;
-        Integer userId;
-        String userImg;
+      public  String userName;
+      public  Integer userId;
+    public String userImg;
 
     public String getUserName() {
         return userName;

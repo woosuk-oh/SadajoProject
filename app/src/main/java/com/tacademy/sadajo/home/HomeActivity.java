@@ -1,5 +1,6 @@
 package com.tacademy.sadajo.home;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -13,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,10 +28,22 @@ import com.tacademy.sadajo.CustomRecyclerDecoration;
 import com.tacademy.sadajo.R;
 import com.tacademy.sadajo.fonts.NanumRegularTextView;
 import com.tacademy.sadajo.network.Home.HomeDB;
+import com.tacademy.sadajo.network.HomeJSONParser;
+import com.tacademy.sadajo.network.NetworkDefineConstant;
+import com.tacademy.sadajo.network.OkHttpInitManager;
 import com.tacademy.sadajo.shoppinglist.ShoppingListSample;
 import com.xiaofeng.flowlayoutmanager.FlowLayoutManager;
 
 import org.apmem.tools.layouts.FlowLayout;
+
+import java.io.IOException;
+import java.net.MalformedURLException;
+
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 import static android.R.attr.id;
 import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
@@ -67,6 +81,7 @@ public class HomeActivity extends AppCompatActivity {
     NinePatchDrawable ninepatch;
     HomeUserRecyclerViewAdapter homeUserRecyclerViewAdapter;
     HomeTagRecyclerViewAdapter homeTagRecyclerViewAdapter;
+    HomeDB homeDB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -196,12 +211,83 @@ public class HomeActivity extends AppCompatActivity {
         homeUserRecyclerViewAdapter = new HomeUserRecyclerViewAdapter(HomeActivity.this, ShoppingListSample.shoppinList);
         recyclerView.setAdapter(homeUserRecyclerViewAdapter);
 
+        new AsyncHomeRequest().execute();
 
 
     }
 
 
-    public class AsyncHomeRequest extends AsyncTask<HomeDB>
+    public class AsyncHomeRequest extends AsyncTask<Void, Void, HomeDB> {
+        private ProgressDialog progressDialog;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+         /*   progressDialog = ProgressDialog.show(HomeActivity.this,
+                    "서버입력중", "잠시만 기다려 주세요 ...", true);*/
+        }
+
+        @Override
+        protected HomeDB doInBackground(Void... homeDBs) {
+            Response response = null; //응답 담당
+            OkHttpClient toServer;
+            homeDB = new HomeDB();
+
+
+            try {
+                toServer = OkHttpInitManager.getOkHttpClient();
+
+
+                RequestBody postBody = new FormBody.Builder()
+                        .add("user", "1")
+                        .build();
+
+
+                Request request = new Request.Builder()
+                        .url(String.format(NetworkDefineConstant.SERVER_URL_REQUEST_HOME))
+                        .post(postBody)
+                        .build();
+
+                //동기 방식
+                response = toServer.newCall(request).execute();
+
+
+                if (response.isSuccessful()) { //연결에 성공하면
+
+                    String returedMessage = response.body().string(); // okhttp로 부터 받아온 데이터 json을 스트링형태로 변환하여 returendMessage에 담아둠. 이때, home부분의 모든 오브젝트를 가져와 담아둠.
+                    Log.e("wooseokLog", returedMessage);
+                    homeDB = HomeJSONParser.getHomeJsonParser(returedMessage); //만들어둔 파서로 returedMessage를 넣어서 파싱하여 homeDB에 값을 넣음.
+
+                } else { // 연결에 실패하면
+                    Log.e("요청/응답", response.message().toString());
+                }
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                if (response != null) {
+                    response.close();
+                }
+            }
+            return homeDB;
+
+
+        }
+
+        @Override
+        protected void onPostExecute(HomeDB s) {
+            super.onPostExecute(s);
+         //   progressDialog.dismiss();
+
+            if(homeDB != null){
+                //TODO 여기서 버튼 Visibility 적용해주고, Tag 배열 사이즈값 가져와서 for문으로 사이즈값만큼 돌리고 버튼 생성
+                cardView2CountryTextView.setText(s.getTravelCountry());
+                cardView3CountryTextView.setText(s.getTravelCountry());
+
+            }
+        }
+    }
 
 
     View.OnClickListener onClickListener = new View.OnClickListener() {
