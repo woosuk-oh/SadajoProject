@@ -13,6 +13,8 @@ public class SadajoContext extends Application {
     public void onCreate() {
         super.onCreate();
         mContext = this;
+
+
     }
 
     public static android.content.Context getContext() {

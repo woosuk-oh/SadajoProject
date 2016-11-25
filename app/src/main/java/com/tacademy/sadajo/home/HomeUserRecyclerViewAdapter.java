@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.tacademy.sadajo.R;
-import com.tacademy.sadajo.mypage.MyPageActivity;
+import com.tacademy.sadajo.mypage.MyPageOtherActivity;
 import com.tacademy.sadajo.shoppinglist.ShoppingListData;
 
 import java.util.ArrayList;
@@ -61,7 +61,7 @@ public  class HomeUserRecyclerViewAdapter
 
 
         holder.homeUserIdTextView.setText("닉네임");
-        holder.userProfileImageView.setImageResource(R.drawable.profile_empty);
+        holder.userProfileImageView.setImageResource(R.drawable.sample_profile);
 
 
         holder.userProfileImageView.setOnClickListener(new View.OnClickListener() {
@@ -69,7 +69,7 @@ public  class HomeUserRecyclerViewAdapter
             public void onClick(View v) {
 
 
-                Intent intent = new Intent(context, MyPageActivity.class);
+                Intent intent = new Intent(context, MyPageOtherActivity.class);
                 intent.putExtra("viewType",1);
                 context.startActivity(intent);
 

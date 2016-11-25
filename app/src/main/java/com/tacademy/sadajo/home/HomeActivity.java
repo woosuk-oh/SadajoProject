@@ -114,6 +114,7 @@ public class HomeActivity extends AppCompatActivity {
         button5.setVisibility(View.VISIBLE);
 
         button1.setOnClickListener(onClickListener);
+
 //
 //
 //        FlowLayout flowLayout =(FlowLayout)findViewById(R.id.homeFlowlayout); //두번째 카드뷰 리니어레이아웃

@@ -50,7 +50,13 @@ public class TipFragment extends Fragment {
         tipRecyclerViewAdapter = new TipRecyclerViewAdapter(getContext(), ShoppingListSample.shoppinList);
         recyclerView.setAdapter(tipRecyclerViewAdapter);
 
+
         Bundle initBundle = getArguments();
+
+        if(tipRecyclerViewAdapter.getItemCount()==0){
+          view = inflater.inflate(R.layout.mypage_tip_recyclerview_noitem, container, false);
+
+        }
         return view;
 
     }

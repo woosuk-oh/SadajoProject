@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:background="@color/white"
+    <item android:drawable="@drawable/mypage_buy_on"
         android:state_pressed="true" />
-    <item android:background="@color/white"
+    <item android:drawable="@drawable/mypage_buy_on"
         android:state_selected="true" />
-    <item android:drawable="@drawable/date_come"/>
+
+    <item android:drawable="@drawable/mypage_buy"/>
 </selector>

@@ -10,17 +10,11 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.tacademy.sadajo.BottomBarClickListener;
 import com.tacademy.sadajo.MyPagerAdapter;
 import com.tacademy.sadajo.R;
 
-public class MyPageActivity extends AppCompatActivity {
+public class MyPageOtherActivity extends AppCompatActivity {
 
-    ImageButton homeBtn;
-    ImageButton searchBtn;
-    ImageButton shoppingListBtn;
-    ImageButton chattingBtn;
-    ImageButton mypageBtn;
 
     ImageButton buyCountButton;
     ImageButton sellCountButton;
@@ -34,29 +28,20 @@ public class MyPageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
 
-            setContentView(R.layout.activity_mypage);
+        setContentView(R.layout.activity_mypage_other);
 
-            homeBtn = (ImageButton) findViewById(R.id.homeBtn);
-            homeBtn.setOnClickListener(new BottomBarClickListener(this));
-            searchBtn = (ImageButton) findViewById(R.id.searchBtn);
-            searchBtn.setOnClickListener(new BottomBarClickListener(this));
-            shoppingListBtn = (ImageButton) findViewById(R.id.shoppingListBtn);
-            shoppingListBtn.setOnClickListener(new BottomBarClickListener(this));
-            chattingBtn = (ImageButton) findViewById(R.id.chattingBtn);
-            chattingBtn.setOnClickListener(new BottomBarClickListener(this));
-            mypageBtn = (ImageButton) findViewById(R.id.mypageBtn);
-            mypageBtn.setOnClickListener(new BottomBarClickListener(this));
-            mypageBtn.setSelected(true);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);//title hidden
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true); //back icon
 
 
-            Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-            setSupportActionBar(toolbar);
-            toolbar.setBackgroundResource(R.drawable.tool_03_mypage); //toolbar image
-            getSupportActionBar().setDisplayShowTitleEnabled(false);//title hidden
-            getSupportActionBar().setDisplayHomeAsUpEnabled(false); //back icon
-
-
-
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() { //뒤로가기
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
 
 
         sellCountButton = (ImageButton) findViewById(R.id.sellCountButton);
@@ -71,11 +56,11 @@ public class MyPageActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
 
 
-        //탭레이아웃 탭 셀렉터
+//        //탭레이아웃 탭 셀렉터
 //        for (int i = 0; i < tabLayout.getTabCount(); i++) {
 //
 //            tabLayout.getTabAt(i).setIcon(R.drawable.selector_home);
-//            tabLayout.getTabAt(i).setText("");
+//
 //
 //
 //        }
@@ -94,12 +79,12 @@ public class MyPageActivity extends AppCompatActivity {
         public void onClick(View view) {
             switch (view.getId()) {
                 case R.id.sellCountButton:
-                    intent = new Intent(MyPageActivity.this, MypageBuyActivity.class);
+                    intent = new Intent(MyPageOtherActivity.this, MypageBuyActivity.class);
                     intent.putExtra("tabNum", 1); //select될 tab값 전달
                     startActivity(intent);
                     break;
                 case R.id.buyCountButton:
-                    intent = new Intent(MyPageActivity.this, MypageBuyActivity.class);
+                    intent = new Intent(MyPageOtherActivity.this, MypageBuyActivity.class);
                     intent.putExtra("tabNum", 0);
                     startActivity(intent);
                     break;
