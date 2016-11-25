@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.tacademy.sadajo.CustomRecyclerDecoration;
 import com.tacademy.sadajo.R;
 import com.tacademy.sadajo.shoppinglist.ShoppingListSample;
 
@@ -44,8 +43,6 @@ public class TipFragment extends Fragment {
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.tipRecyclerView);
         recyclerView.setLayoutManager(layoutManager);
 
-        CustomRecyclerDecoration decoration = new CustomRecyclerDecoration(30, "bottom"); //아이템간 간격
-        recyclerView.addItemDecoration(decoration);
 
         tipRecyclerViewAdapter = new TipRecyclerViewAdapter(getContext(), ShoppingListSample.shoppinList);
         recyclerView.setAdapter(tipRecyclerViewAdapter);

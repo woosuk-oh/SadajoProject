@@ -68,7 +68,7 @@ public class ChattingRecyclerViewAdapter
         holder.chattingTitleTextView.setText("채팅제목");
         holder.chattingContentTextView.setText("안녕하세요");
         holder.chattingDateTextView.setText("2016.11.20");
-        holder.userProfileImageView.setImageResource(R.drawable.profile_empty);
+        holder.userProfileImageView.setImageResource(R.drawable.product_sample);
 
 
 //            Glide.with(GirlsApplication.getGirlsContext())

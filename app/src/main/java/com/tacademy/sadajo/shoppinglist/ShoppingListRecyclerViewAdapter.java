@@ -111,7 +111,7 @@ public class ShoppingListRecyclerViewAdapter
             holder.countryNameTextView.setText(shoppingListDatas.get(position).countryName);
             holder.cityNameTextView.setText(shoppingListDatas.get(position).cityName);
             holder.dateTextView.setText(shoppingListDatas.get(position).travelDate);
-            holder.productImageView.setImageResource(shoppingListDatas.get(position).productImgae);
+            holder.productImageView.setImageResource(R.drawable.product_sample);
 
 //            Glide.with(GirlsApplication.getGirlsContext())
 //                    .load(girlInfo)

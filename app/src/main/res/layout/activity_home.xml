@@ -11,7 +11,7 @@
 
     <include layout="@layout/include_toolbar_layout" /><!--include toolbar -->
 
-    <ScrollView
+    <android.support.v4.widget.NestedScrollView
         android:layout_below="@+id/frameToolbarHome"
         android:layout_above="@+id/frameBottomBar"
         android:layout_width="match_parent"
@@ -30,7 +30,7 @@
 
 
           </LinearLayout>
-   </ScrollView>
+   </android.support.v4.widget.NestedScrollView>
 
 
 <!--

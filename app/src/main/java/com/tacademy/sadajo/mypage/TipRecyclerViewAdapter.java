@@ -63,8 +63,8 @@ public class TipRecyclerViewAdapter
 
 
 
-        holder.itemImg.setImageResource(R.drawable.profile_empty);
-        holder.itemText.setText("팁팁ㅌ빝빝빝비");
+        holder.itemImg.setImageResource(R.drawable.sample_profile);
+        holder.itemText.setText("이번주에 샀는데 두개 사면 하나 20%로 할인 해주더라구여");
         holder.itemText2.setText("2시간전");
 
 

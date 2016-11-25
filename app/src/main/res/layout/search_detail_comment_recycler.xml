@@ -2,64 +2,54 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="53dp"
-    android:orientation="horizontal"
+    android:layout_marginBottom="1dp"
     android:background="@color/white"
-    android:layout_marginBottom="1dp">
+    android:orientation="horizontal">
 
     <LinearLayout
 
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-
-
+        android:layout_height="match_parent"
         android:layout_marginLeft="16dp"
-        android:layout_weight="1">
+        android:layout_marginRight="16dp"
+        android:orientation="horizontal">
 
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/detail_comment_circleimage"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:src="@drawable/airport"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:layout_marginRight="10dp"
             android:layout_gravity="center"
-
-
-
-            />
-
-
+            android:src="@drawable/airport" />
 
 
         <com.tacademy.sadajo.fonts.NanumRegularTextView
             android:id="@+id/detail_comment_body"
-            android:layout_width="wrap_content"
+            android:layout_width="218dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="15dp"
+            android:layout_marginTop="15dp"
             android:text="이번주에 샀는데 두개 사면 하나 20% 할인해주더라구여!!!!!!!!!!!!!!!!!!!"
             android:textSize="11sp"
 
             />
-
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="15dp"
-        android:layout_weight="8"
-        android:gravity="right"
-        >
-
-        <TextView
-            android:id="@+id/detail_comment_time"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="15dp"
+            android:gravity="right">
 
-            android:paddingRight="15dp"
-            android:layout_gravity="center"
-            android:text="3시간"
-            android:textSize="11sp"/>
+            <com.tacademy.sadajo.fonts.NanumRegularTextView
+                android:id="@+id/detail_comment_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="3시간전"
+                android:textColor="@color/grayFont"
+                android:textSize="11sp" />
+        </LinearLayout>
     </LinearLayout>
+
+
 </LinearLayout>

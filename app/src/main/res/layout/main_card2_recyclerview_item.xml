@@ -11,9 +11,7 @@
         android:layout_marginLeft="8dp"
         android:background="@drawable/tag_button"
         android:gravity="center"
-
         android:textSize="13sp"
-        android:text="산타마리아노벨라산타마리아노벨라"
         android:layout_marginRight="15dp"
         android:layout_marginBottom="15dp"/>
 </LinearLayout>

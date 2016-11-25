@@ -19,7 +19,7 @@
             android:orientation="vertical"
            >
             <com.tacademy.sadajo.fonts.GothamTextView
-                android:id="@+id/countryNameTv"
+                android:id="@+id/countryNameTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="40sp"
@@ -41,7 +41,6 @@
                    >
 
                     <com.tacademy.sadajo.fonts.NanumRegularTextView
-                        android:id="@+id/goTv"
                         android:layout_width="90dp"
                         android:layout_height="match_parent"
                         android:text="떠나요"
@@ -59,7 +58,7 @@
                         android:background="@color/sadajoBackground"/>
 
                     <com.tacademy.sadajo.fonts.NanumRegularTextView
-                        android:id="@+id/dateGoTv"
+                        android:id="@+id/departDateTextView"
                         android:layout_width="90dp"
                         android:layout_height="wrap_content"
                         android:text="2016.11.16"
@@ -84,7 +83,6 @@
                     android:layout_height="wrap_content"
                     >
                     <com.tacademy.sadajo.fonts.NanumRegularTextView
-                        android:id="@+id/comeTv"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:text="돌아와요"
@@ -96,13 +94,12 @@
                     <View
                         android:layout_marginTop="8dp"
                         android:layout_marginBottom="8dp"
-
                         android:layout_width="90dp"
                         android:layout_height="1dp"
                         android:background="@color/sadajoBackground"/>
 
                     <com.tacademy.sadajo.fonts.NanumRegularTextView
-                        android:id="@+id/dateComeTv"
+                        android:id="@+id/comeDateTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="2016.11.16"
@@ -141,7 +138,6 @@
                     android:layout_gravity="center"/>
 
                 <com.tacademy.sadajo.fonts.NanumRegularTextView
-                    android:id="@+id/scheduleTv"
                      android:padding="0dp"
                     android:layout_marginLeft="10dp"
                     android:layout_width="wrap_content"
@@ -156,7 +152,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
                 <Button
-                    android:id="@+id/scheduleBtn"
+                    android:id="@+id/scheduleRegisterButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     style="?android:attr/borderlessButtonStyle"
