@@ -1,5 +1,6 @@
 package com.tacademy.sadajo.home;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -20,6 +21,7 @@ import com.tacademy.sadajo.R;
 import com.tacademy.sadajo.fonts.NanumRegularTextView;
 import com.tacademy.sadajo.search.searchlist.SearchListActivity;
 import com.tacademy.sadajo.shoppinglist.ShoppingListSample;
+import com.tsengvn.typekit.TypekitContextWrapper;
 
 import static android.R.attr.id;
 
@@ -114,6 +116,7 @@ public class HomeActivity extends AppCompatActivity {
         button5.setVisibility(View.VISIBLE);
 
         button1.setOnClickListener(onClickListener);
+
 //
 //
 //        FlowLayout flowLayout =(FlowLayout)findViewById(R.id.homeFlowlayout); //두번째 카드뷰 리니어레이아웃
@@ -183,6 +186,9 @@ public class HomeActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(TypekitContextWrapper.wrap(newBase));
+    }
 
 }

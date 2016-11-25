@@ -56,7 +56,6 @@ public class BottomBarClickListener extends Activity implements View.OnClickList
             case R.id.mypageBtn:
 
                 intent = new Intent(activity, MyPageActivity.class);
-                intent.putExtra("viewType", 0);
                 activity.startActivity(intent);
 
 

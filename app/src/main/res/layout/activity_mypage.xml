@@ -154,7 +154,8 @@
                 android:layout_height="wrap_content"
                 android:minHeight="?attr/actionBarSize"
                 android:theme="@style/TabLayout"
-                app:tabBackground="@drawable/selector_tab" />
+                app:tabBackground="@drawable/selector_tab"
+                app:font="custom1"/>
 
             <android.support.v4.view.ViewPager
                 android:id="@+id/mypageViewpager"

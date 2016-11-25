@@ -23,7 +23,7 @@
         <item name="android:windowBackground">@color/window_background</item>
         <item name="android:windowAnimationStyle">@null</item>  <!-- 액티비티 애니메이션 전환 효과 삭제-->
         <!--<item name="actionOverflowButtonStyle">@style/OverFlow</item>--> <!--overfow style-->
-        
+
 
     </style>
 
@@ -49,7 +49,7 @@
     <style name="CustomTabWidgetText" parent="@android:style/TextAppearance.Widget.TabWidget">
         <item name="android:textSize">10sp</item>
         <item name="android:textAlignment">center</item>
-        <!--  <item name="android:textStyle">bold</item>-->
+        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="TextAppearanceSet" parent="@android:style/TextAppearance.Medium">
