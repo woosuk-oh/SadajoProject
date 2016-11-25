@@ -68,15 +68,20 @@ public class ShoppingListActivity extends AppCompatActivity {
         // tabLayout.getTabAt(0).setText("");
 
 
-        //탭레이아웃 탭 셀렉터
-        for (int i = 0; i < tabLayout.getTabCount(); i++) {
+//        //탭레이아웃 탭 셀렉터
+//        for (int i = 0; i < tabLayout.getTabCount(); i++) {
+//
+//
+//            ImageView imageView  = (ImageView)findViewById(R.drawable.selector_tab_sl_1) ;
+//            tabLayout.getTabAt(i).setCustomView(imageView);
+//            tabLayout.getTabAt(i).setText("");
+//
+//
+//
+//        }
+//
 
-            tabLayout.getTabAt(i).setIcon(R.drawable.selector_tab_sl_1);
-            tabLayout.getTabAt(i).setText("");
 
-
-
-        }
 
 
     }
@@ -111,6 +116,7 @@ public class ShoppingListActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
 
 
 }
