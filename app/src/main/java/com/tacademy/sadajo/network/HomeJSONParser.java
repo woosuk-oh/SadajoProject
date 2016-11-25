@@ -44,11 +44,8 @@ public class HomeJSONParser {
             homeTravelDB.setStartDate(travel.getString("start_date"));
             homeTravelDB.setEndDate(travel.getString("end_date"));
 
-            homeDBs.travelInfos.add(homeTravelDB); //travelInfos에 저장은 됨
-
-      /*      for (int i=0; i<homeDBs.getTravelInfos().size(); i++) {
-                Log.d("travel", "" + homeDBs.getTravelInfos().get(i));
-            }*/
+          //  homeDBs.travelInfos.add(homeTravelDB); // 파싱해서 저장한 homeTravelDB를 HomeDB에 있는 travelInfos에 add 시켜줌.
+            homeDBs.setTravelInfos(homeTravelDB);
 
 
 

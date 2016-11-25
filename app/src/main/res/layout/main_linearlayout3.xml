@@ -25,6 +25,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
         <com.tacademy.sadajo.fonts.NanumBoldTextView
+
             android:layout_marginLeft="8dp"
             android:layout_marginBottom="12dp"
             android:layout_width="wrap_content"
@@ -77,7 +78,7 @@
          >
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerView"
+            android:id="@+id/anoter_shoplist_recyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
 

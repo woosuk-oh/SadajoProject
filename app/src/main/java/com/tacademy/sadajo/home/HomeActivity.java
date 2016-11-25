@@ -134,13 +134,7 @@ public class HomeActivity extends AppCompatActivity {
 
         scheduleRegisterButton.setOnClickListener(onClickListener);
 
-        button1.setVisibility(View.VISIBLE);
 
-        button2.setVisibility(View.VISIBLE);
-        button3.setVisibility(View.VISIBLE);
-        button4.setVisibility(View.VISIBLE);
-        button4.setText("어렵다아아");
-        button5.setVisibility(View.VISIBLE);
 
         button1.setOnClickListener(onClickListener);
 
@@ -281,14 +275,33 @@ public class HomeActivity extends AppCompatActivity {
          //   progressDialog.dismiss();
 
             if(homeDB != null){
-                //TODO 여기서 버튼 Visibility 적용해주고, Tag 배열 사이즈값 가져와서 for문으로 사이즈값만큼 돌리고 버튼 생성
-                cardView2CountryTextView.setText(s.getTravelCountry());
-                cardView3CountryTextView.setText(s.getTravelCountry());
-               //TODO    public ArrayList<HomeTravelDB> travelInfos = new ArrayList<>();에서 travelInfos의 titleCountry를 가져와야됨.
-                //  countryNameTextView.setText(s.travelInfos); // 위 TODO확인
+
+                cardView2CountryTextView.setText(s.getTravelCountry()); // 추천리스트 : 해당 국가
+                cardView3CountryTextView.setText(s.getTravelCountry()); // 추천리스트2(다른 쇼퍼맨 쇼핑리스트) : 해당 국가
 
 
-                countryNameTextView.setText(s.travelInfos.get(0).getTitleCountry()); // 국가명 받아옴.
+               // countryNameTextView.setText(s.travelInfos.get(0).getTitleCountry()); // 국가명 받아옴.
+                countryNameTextView.setText(s.travelInfos.getTitleCountry()); // 국가명 받아옴.
+                departDateTextView.setText(s.travelInfos.getStartDate()); // 떠나요
+                comeDateTextView.setText(s.travelInfos.getEndDate()); //돌아와요
+
+                /* TODO 쇼퍼맨 쇼핑리스트 부분 사용자네임 호출방법 찾아야됌.*/
+    //                recyclerView.setAdapter(homeUserRecyclerViewAdapter);
+    //                homeUserRecyclerViewAdapter.holder.homeUserIdTextView.setText("닉네임");
+
+                /* TODO 버튼 동적 할당 필요. 태그 get하는 부분 Tag 배열 사이즈값 가져와서 for문으로 사이즈값만큼 돌리고 버튼 생성 */
+                    button1.setVisibility(View.VISIBLE);
+                    button1.setText(s.tag.get(0).toString());
+                    button2.setVisibility(View.VISIBLE);
+                    button2.setText(s.tag.get(1).toString());
+                    button3.setVisibility(View.VISIBLE);
+                    button3.setText(s.tag.get(2).toString());
+
+                    button4.setVisibility(View.GONE);
+                    //button4.setText("어렵다아아");
+                    button5.setVisibility(View.GONE);
+
+
 
 
                 //countryNameTextView.setText(s.shoplist.get(0).userName);

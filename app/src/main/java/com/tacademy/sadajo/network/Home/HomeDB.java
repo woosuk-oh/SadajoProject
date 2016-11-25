@@ -9,7 +9,8 @@ import java.util.List;
 
 public class HomeDB {
     public String msg;
-    public ArrayList<HomeTravelDB> travelInfos = new ArrayList<>();
+    //public ArrayList<HomeTravelDB> travelInfos = new ArrayList<>();
+    public HomeTravelDB travelInfos;
     public String travelCountry;
     public String countryImg;
     public ArrayList<String> tag = new ArrayList<>();
@@ -57,13 +58,20 @@ public class HomeDB {
         this.shoplist = shoplist;
     }
 
-
+/*
     public ArrayList<HomeTravelDB> getTravelInfos() {
         return travelInfos;
     }
 
     public void setTravelInfos(ArrayList<HomeTravelDB> travelInfos) {
         this.travelInfos = travelInfos;
+    }*/
+
+    public HomeTravelDB getTravelInfos() {
+        return travelInfos;
     }
 
+    public void setTravelInfos(HomeTravelDB travelInfos) {
+        this.travelInfos = travelInfos;
+    }
 }
