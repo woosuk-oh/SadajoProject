@@ -23,7 +23,7 @@ public class HomeJSONParser {
 
 
         HomeDB homeDBs = new HomeDB();
-
+        ArrayList<HomeShoplistDB> homeShopListDBs = new ArrayList<>();
 
         try {
 
@@ -44,16 +44,17 @@ public class HomeJSONParser {
             homeTravelDB.setStartDate(travel.getString("start_date"));
             homeTravelDB.setEndDate(travel.getString("end_date"));
 
-            homeDBs.travelInfos.add(homeTravelDB);
-            for (int i=0; i<homeDBs.getTravelInfos().size(); i++) {
+            homeDBs.travelInfos.add(homeTravelDB); //travelInfos에 저장은 됨
+
+      /*      for (int i=0; i<homeDBs.getTravelInfos().size(); i++) {
                 Log.d("travel", "" + homeDBs.getTravelInfos().get(i));
-            }
+            }*/
 
 
 
             /* shoplist 파싱 부분 . 배열이라 반복문 돌려줌.*/
             JSONArray shoplists = home.getJSONArray("shoplist"); //shoplist의 [] 부분을 가져온다. (JSONArray)
-            for (int i = 0; i < shoplists.length(); i++) {// 서버로 부터 받은 shoplist의 갯수 만큼 돌려줌
+            for (int i = 0; i < shoplists.length(); i++) {// 서버로 부터 받은 shoplist의 갯수 만큼 반복
                 HomeShoplistDB homeShoplistDB = new HomeShoplistDB();
                 JSONObject shoplistsObject = shoplists.getJSONObject(i); //shoplist에서 {} 부분들을 가져온다. (JSONObject)
 
@@ -62,27 +63,32 @@ public class HomeJSONParser {
                 homeShoplistDB.setUserId(shoplistsObject.getInt("user_code"));
                 homeShoplistDB.setUserImg(shoplistsObject.getString("user_img"));
 
-                ArrayList<HomeShoplistDB> homeShopListDBs = new ArrayList<>();
+
                 homeShopListDBs.add(homeShoplistDB);
-                homeDBs.setShoplist(homeShopListDBs);
+
 
 
        //         Log.d("shoplist",""+homeShoplistDB.userName);
 
-               homeDBs.shoplist.add(homeShoplistDB); // 위 3가지 받아온걸 클라이언트 쪽의 ArrayList(homeDB.shoplist)에 add해준다.
+      //         homeDBs.shoplist.add(homeShoplistDB); // 위 3가지 받아온걸 클라이언트 쪽의 ArrayList(homeDB.shoplist)에 add해준다.
 
 
-                for (int a=0; a<homeDBs.getShoplist().size(); a++) {
+           /*     for (int a=0; a<homeDBs.getShoplist().size(); a++) {
                     Log.d("shoplist", "" + homeDBs.getShoplist().get(a));
-                }
+                }*/
             }
+
+            homeDBs.setShoplist(homeShopListDBs);
+
+
+
 
 
             /* tag JSON Array 파싱 부분 */
             JSONArray tagJsonArray = home.getJSONArray("tag");
-   /*         for ( i = 0; i < tagJsonArray.length(); i++) {
-                homeDBs.tag.add(tagJsonArray.getString(i));
-            }*/
+            for (int a = 0; a < tagJsonArray.length(); a++) {
+                homeDBs.tag.add(tagJsonArray.getString(a));
+            }
 
 
         } catch (JSONException e) {

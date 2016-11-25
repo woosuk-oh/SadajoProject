@@ -284,7 +284,14 @@ public class HomeActivity extends AppCompatActivity {
                 //TODO 여기서 버튼 Visibility 적용해주고, Tag 배열 사이즈값 가져와서 for문으로 사이즈값만큼 돌리고 버튼 생성
                 cardView2CountryTextView.setText(s.getTravelCountry());
                 cardView3CountryTextView.setText(s.getTravelCountry());
+               //TODO    public ArrayList<HomeTravelDB> travelInfos = new ArrayList<>();에서 travelInfos의 titleCountry를 가져와야됨.
+                //  countryNameTextView.setText(s.travelInfos); // 위 TODO확인
 
+
+                countryNameTextView.setText(s.travelInfos.get(0).getTitleCountry()); // 국가명 받아옴.
+
+
+                //countryNameTextView.setText(s.shoplist.get(0).userName);
             }
         }
     }
