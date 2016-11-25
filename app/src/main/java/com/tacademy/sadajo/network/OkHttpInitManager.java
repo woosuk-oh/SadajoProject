@@ -1,4 +1,4 @@
-package com.tacademy.sadajo.itemdb;
+package com.tacademy.sadajo.network;
 
 import java.util.concurrent.TimeUnit;
 
@@ -8,7 +8,7 @@ import okhttp3.OkHttpClient;
  * Created by EUNZY on 2016. 11. 24..
  */
 
-public class NetworkManager {
+public class OkHttpInitManager {
 
 
         private static OkHttpClient okHttpClient;
@@ -32,5 +32,6 @@ public class NetworkManager {
             }
             return okHttpClient;
         }
+
 
 }

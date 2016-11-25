@@ -96,7 +96,7 @@ public class Reference_TabDrone extends Fragment {
                 if(get.equals("")){
                     onResume();
                 }else{
-                    NetworkManager.getInstance().getDroneSearch(MyApplication.getContext(),get ,new NetworkManager.OnResultListener<DroneSearchResult>() {
+                    OkHttpInitManager.getInstance().getDroneSearch(MyApplication.getContext(),get ,new OkHttpInitManager.OnResultListener<DroneSearchResult>() {
 
                         @Override
                         public void onSuccess(Request request, DroneSearchResult result) {
@@ -138,8 +138,8 @@ public class Reference_TabDrone extends Fragment {
         gone_text.setVisibility(View.VISIBLE);
         layoutManager.setStackFromEnd(false);
         recyclerView.setLayoutManager(layoutManager);
-        //NetworkManager.getInstance().getDbRecommend(MyApplication.getContext(), new NetworkManager.OnResultListener<DroneRecommendResult>() {
-        NetworkManager.getInstance().getDroneRecommend(MyApplication.getContext(), new NetworkManager.OnResultListener<DroneRecommendResult>() {
+        //OkHttpInitManager.getInstance().getDbRecommend(MyApplication.getContext(), new OkHttpInitManager.OnResultListener<DroneRecommendResult>() {
+        OkHttpInitManager.getInstance().getDroneRecommend(MyApplication.getContext(), new OkHttpInitManager.OnResultListener<DroneRecommendResult>() {
             @Override
             public void onSuccess(Request request, DroneRecommendResult result) {
                 db2.setDb2(result.getResult());

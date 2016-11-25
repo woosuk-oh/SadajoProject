@@ -1,4 +1,4 @@
-package com.tacademy.sadajo.itemdb;
+package com.tacademy.sadajo.network;
 
 /**
  * Created by cbk10 on 2016-11-08.
