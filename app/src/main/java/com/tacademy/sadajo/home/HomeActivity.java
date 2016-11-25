@@ -1,6 +1,5 @@
 package com.tacademy.sadajo.home;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -21,7 +20,6 @@ import com.tacademy.sadajo.R;
 import com.tacademy.sadajo.fonts.NanumRegularTextView;
 import com.tacademy.sadajo.search.searchlist.SearchListActivity;
 import com.tacademy.sadajo.shoppinglist.ShoppingListSample;
-import com.tsengvn.typekit.TypekitContextWrapper;
 
 import static android.R.attr.id;
 
@@ -186,9 +184,6 @@ public class HomeActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-    @Override
-    protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext(TypekitContextWrapper.wrap(newBase));
-    }
+
 
 }
