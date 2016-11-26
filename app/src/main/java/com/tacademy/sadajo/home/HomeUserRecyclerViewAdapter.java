@@ -70,7 +70,6 @@ public class HomeUserRecyclerViewAdapter
 
 
                 Intent intent = new Intent(context, MyPageOtherActivity.class);
-                intent.putExtra("viewType", 1);
                 context.startActivity(intent);
 
             }

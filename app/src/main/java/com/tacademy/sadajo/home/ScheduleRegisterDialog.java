@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
 import android.view.Window;
-import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -28,7 +27,7 @@ public class ScheduleRegisterDialog extends Dialog {
     EditText departureEditText;
     EditText arriveEditText;
     ImageButton registerButton;
-    Button cancelButton;
+    ImageButton cancelButton;
 
 
     private String mode;
@@ -52,7 +51,7 @@ public class ScheduleRegisterDialog extends Dialog {
         departureEditText = (EditText) findViewById(R.id.departureEditText);
         arriveEditText = (EditText) findViewById(R.id.arriveEditText);
         registerButton = (ImageButton) findViewById(R.id.registerButton);
-        cancelButton = (Button) findViewById(R.id.cancelButton);
+        cancelButton = (ImageButton) findViewById(R.id.cancelButton);
 
 
         departureEditText.setInputType(InputType.TYPE_NULL);

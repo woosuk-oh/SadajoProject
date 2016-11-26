@@ -102,6 +102,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:layout_marginLeft="24dp"
             android:gravity="center">
 
             <ImageButton
@@ -112,8 +113,7 @@
                 android:layout_marginRight="0.5dp"
                 android:gravity="center"
                 android:text="등록하기"
-                android:textColor="@color/sadajoBackground"
-                android:background="@drawable/sl_pop_button"
+                android:background="@drawable/selector_schedule_dialog"
                 android:textSize="13sp"
 
 
@@ -121,20 +121,20 @@
         </LinearLayout>
 
         <LinearLayout
+            android:layout_marginRight="24dp"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center">
 
-            <Button
+            <ImageButton
                 android:id="@+id/cancelButton"
                 style="?android:attr/borderlessButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="0.5dp"
+                android:layout_width="100dp"
+                android:layout_height="23dp"
                 android:gravity="center"
                 android:text="취소"
-                android:textColor="@color/sadajoBackground"
+                android:background="@drawable/selector_schedule_dialog_cancel_button"
                 android:textSize="13sp"
 
                 />

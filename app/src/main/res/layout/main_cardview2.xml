@@ -81,104 +81,13 @@
                 android:orientation="vertical">
 
                 <org.apmem.tools.layouts.FlowLayout
+                    android:id="@+id/flowLayout"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp" />
 
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/homeTagRecyclerView"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
 
-                    </android.support.v7.widget.RecyclerView>
-                    <Button
-                        android:id="@+id/button1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="23dp"
-                        android:layout_marginBottom="15dp"
-                        android:layout_marginLeft="8dp"
-                        android:layout_marginRight="15dp"
-                        android:background="@drawable/tag_button"
-                        android:gravity="center"
-                        android:paddingLeft="15dp"
-                        android:paddingRight="15dp"
-                        android:text="산타마리아노벨라산타마리아노벨라"
-                        android:textSize="13sp"
-                        android:visibility="gone" />
-
-                    <Button
-                        android:id="@+id/button2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="23dp"
-                        android:layout_marginBottom="15dp"
-                        android:layout_marginLeft="8dp"
-                        android:layout_marginRight="15dp"
-                        android:background="@drawable/tag_button"
-                        android:gravity="center"
-                        android:paddingLeft="15dp"
-                        android:paddingRight="15dp"
-                        android:text="프라다"
-                        android:textSize="13sp"
-                        android:visibility="gone" />
-
-                    <Button
-                        android:id="@+id/button3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="23dp"
-                        android:layout_marginBottom="15dp"
-                        android:layout_marginLeft="8dp"
-                        android:layout_marginRight="15dp"
-                        android:background="@drawable/tag_button"
-                        android:gravity="center"
-                        android:paddingLeft="15dp"
-                        android:paddingRight="15dp"
-                        android:text="이탈리아"
-                        android:textSize="13sp"
-                        android:visibility="gone" />
-
-                    <Button
-                        android:id="@+id/button4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="23dp"
-                        android:layout_marginBottom="15dp"
-                        android:layout_marginLeft="8dp"
-                        android:layout_marginRight="15dp"
-                        android:background="@drawable/tag_button"
-                        android:gravity="center"
-                        android:paddingLeft="15dp"
-                        android:paddingRight="15dp"
-                        android:text="크루치아니"
-                        android:textSize="13sp"
-                        android:visibility="gone" />
-
-                    <Button
-                        android:id="@+id/button5"
-                        android:layout_width="wrap_content"
-                        android:layout_height="23dp"
-                        android:layout_marginBottom="15dp"
-                        android:layout_marginLeft="8dp"
-                        android:layout_marginRight="15dp"
-                        android:background="@drawable/tag_button"
-                        android:gravity="center"
-                        android:paddingLeft="15dp"
-                        android:paddingRight="15dp"
-                        android:text="초콜렛"
-                        android:textSize="13sp"
-                        android:visibility="gone" />
-
-                    <Button
-                        android:id="@+id/button6"
-                        android:layout_width="wrap_content"
-                        android:layout_height="23dp"
-                        android:layout_marginBottom="15dp"
-                        android:layout_marginLeft="8dp"
-                        android:layout_marginRight="15dp"
-                        android:background="@drawable/tag_button"
-                        android:paddingLeft="15dp"
-                        android:paddingRight="15dp"
-                        android:text="더몰"
-                        android:textSize="13sp"
-                        android:visibility="gone" />
-                </org.apmem.tools.layouts.FlowLayout>
             </LinearLayout>
 
 

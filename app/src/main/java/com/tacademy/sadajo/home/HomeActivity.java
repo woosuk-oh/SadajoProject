@@ -4,7 +4,6 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.NinePatchDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +11,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +29,8 @@ import com.tacademy.sadajo.network.HomeJSONParser;
 import com.tacademy.sadajo.network.NetworkDefineConstant;
 import com.tacademy.sadajo.network.OkHttpInitManager;
 
+import org.apmem.tools.layouts.FlowLayout;
+
 import java.io.IOException;
 import java.net.MalformedURLException;
 
@@ -39,7 +41,6 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 import static android.R.attr.id;
-import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 
 
 public class HomeActivity extends AppCompatActivity {
@@ -63,20 +64,14 @@ public class HomeActivity extends AppCompatActivity {
     TextView cardView2CountryTextView;
     TextView cardView3CountryTextView;
 
-    Button button1;
-    Button button2;
-    Button button3;
-    Button button4;
-    Button button5;
-    Button button6;
-    Button button7;
 
+    FlowLayout flowLayout;
     RecyclerView recyclerView;
-
-    NinePatchDrawable ninepatch;
     HomeUserRecyclerViewAdapter homeUserRecyclerViewAdapter;
-    HomeTagRecyclerViewAdapter homeTagRecyclerViewAdapter;
     HomeDB homeDB;
+
+    int width = ViewGroup.LayoutParams.WRAP_CONTENT;
+    int height = 69;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,28 +115,17 @@ public class HomeActivity extends AppCompatActivity {
         cardView2CountryFlagImageView = (ImageView) findViewById(R.id.cardView2CountryFlagImageView);//두번째 카드뷰 flag이미지
         cardView3CountryFlagImageView = (ImageView) findViewById(R.id.cardView3countryFlagImageView);//세번째 카드뷰 flag이미지
 
-        button1 = (Button) findViewById(R.id.button1);
-        button2 = (Button) findViewById(R.id.button2);
-        button3 = (Button) findViewById(R.id.button3);
-        button4 = (Button) findViewById(R.id.button4);
-        button5 = (Button) findViewById(R.id.button5);
-        button6 = (Button) findViewById(R.id.button6);
-
-        scheduleRegisterButton.setOnClickListener(onClickListener);
+        flowLayout = (FlowLayout) findViewById(R.id.flowLayout); //taglist layout
+        recyclerView = (RecyclerView) findViewById(R.id.anoter_shoplist_recyclerView); //쇼핑리스트 리사이클러뷰
 
 
-
-        button1.setOnClickListener(onClickListener);
+        scheduleRegisterButton.setOnClickListener(onClickListener); //일정등록 다이얼로그 clickListener
 
 
         //layout3
-        CustomRecyclerDecoration decoration = new CustomRecyclerDecoration(45, "bottom");
-         recyclerView = (RecyclerView) findViewById(R.id.anoter_shoplist_recyclerView);
-
         recyclerView.setLayoutManager(new GridLayoutManager(HomeActivity.this, 4));
+        CustomRecyclerDecoration decoration = new CustomRecyclerDecoration(45, "bottom");//리사이클러뷰 아이템간 간격
         recyclerView.addItemDecoration(decoration);
-//        homeUserRecyclerViewAdapter = new HomeUserRecyclerViewAdapter(HomeActivity.this, ShoppingListSample.shoppinList);
-//        recyclerView.setAdapter(homeUserRecyclerViewAdapter);
 
         new AsyncHomeRequest().execute();
 
@@ -210,40 +194,31 @@ public class HomeActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(HomeDB s) {
             super.onPostExecute(s);
-         //   progressDialog.dismiss();
+            //   progressDialog.dismiss();
 
-            if(homeDB != null){
+            if (homeDB != null) {
 
                 cardView2CountryTextView.setText(s.getTravelCountry()); // 추천리스트 : 해당 국가
                 cardView3CountryTextView.setText(s.getTravelCountry()); // 추천리스트2(다른 쇼퍼맨 쇼핑리스트) : 해당 국가
 
 
-               // countryNameTextView.setText(s.travelInfos.get(0).getTitleCountry()); // 국가명 받아옴.
+                // countryNameTextView.setText(s.travelInfos.get(0).getTitleCountry()); // 국가명 받아옴.
                 countryNameTextView.setText(s.travelInfos.getTitleCountry()); // 국가명 받아옴.
                 departDateTextView.setText(s.travelInfos.getStartDate()); // 떠나요
                 comeDateTextView.setText(s.travelInfos.getEndDate()); //돌아와요
 
-                /* TODO 쇼퍼맨 쇼핑리스트 부분 사용자네임 호출방법 찾아야됌.*/
-//                    recyclerView.setAdapter(homeUserRecyclerViewAdapter);
-//                    homeUserRecyclerViewAdapter.holder.homeUserIdTextView.setText("닉네임");
-
-                homeUserRecyclerViewAdapter = new HomeUserRecyclerViewAdapter(HomeActivity.this,s.shoplist);
+                //쇼퍼맨 닉네임 recyclerviewadpater로 전달
+                homeUserRecyclerViewAdapter = new HomeUserRecyclerViewAdapter(HomeActivity.this, s.shoplist);
                 recyclerView.setAdapter(homeUserRecyclerViewAdapter);
 
 
                 /* TODO 버튼 동적 할당 필요. 태그 get하는 부분 Tag 배열 사이즈값 가져와서 for문으로 사이즈값만큼 돌리고 버튼 생성 */
-                    button1.setVisibility(View.VISIBLE);
-                    button1.setText(s.tag.get(0).toString());
-                    button2.setVisibility(View.VISIBLE);
-                    button2.setText(s.tag.get(1).toString());
-                    button3.setVisibility(View.VISIBLE);
-                    button3.setText(s.tag.get(2).toString());
 
-                    button4.setVisibility(View.GONE);
-                    //button4.setText("어렵다아아");
-                    button5.setVisibility(View.GONE);
+                for(int i =0; i < s.getTag().size();i++){
 
+                    createTagButton(s.getTag().get(i));
 
+                }
 
 
                 //countryNameTextView.setText(s.shoplist.get(0).userName);
@@ -266,10 +241,6 @@ public class HomeActivity extends AppCompatActivity {
                     dialog.show();
                     break;
 
-//                case R.id.button1:
-//                    intent = new Intent(HomeActivity.this, SearchListActivity.class);
-//                    startActivity(intent);
-//                    break;
 
             }
         }
@@ -287,19 +258,20 @@ public class HomeActivity extends AppCompatActivity {
     }
 
 
-    private View createDummyTextView(String text, NinePatchDrawable ninePatchDrawable) {
 
+    //Button 생성 메소드
+    public void createTagButton(String str){
         Button button = new Button(this);
-        button.setText(text);
-        button.setTextSize(13);
-        button.setBackground(ninePatchDrawable);
-        button.setTypeface(new NanumRegularTextView(getApplication()).getTypeface());
-        int heigth = 69;
-        ViewGroup.LayoutParams buttonParams = new ViewGroup.LayoutParams(WRAP_CONTENT, 100);
-        button.setLayoutParams(buttonParams);
-
-        return button;
+        button.setText(str);
+        button.setBackgroundResource(R.drawable.tag_button_file); //tag ninepatch background적용
+        FlowLayout.LayoutParams params =  new FlowLayout.LayoutParams(width,height);
+        button.setPadding(15,0,15,0); // left,right padding : 3
+        params.setMargins(0,0,45,45); // top, right margin : 15
+        button.setGravity(Gravity.CENTER); //gravity : center
+        button.setTextSize(13);// textsize : 13sp
+        button.setTypeface((new NanumRegularTextView(getApplication()).getTypeface())); //text font : Nanum M
+        button.setLayoutParams(params);
+        flowLayout.addView(button); // button added
     }
-
 
 }
