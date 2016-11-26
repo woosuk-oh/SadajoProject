@@ -133,7 +133,6 @@ public class HomeActivity extends AppCompatActivity {
         button1.setOnClickListener(onClickListener);
 
 
-
         //layout3
         CustomRecyclerDecoration decoration = new CustomRecyclerDecoration(45, "bottom");
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.anoter_shoplist_recyclerView);
