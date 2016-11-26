@@ -14,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -27,7 +28,6 @@ import com.tacademy.sadajo.network.Home.HomeDB;
 import com.tacademy.sadajo.network.HomeJSONParser;
 import com.tacademy.sadajo.network.NetworkDefineConstant;
 import com.tacademy.sadajo.network.OkHttpInitManager;
-import com.tacademy.sadajo.shoppinglist.ShoppingListSample;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -39,6 +39,7 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 import static android.R.attr.id;
+import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 
 
 public class HomeActivity extends AppCompatActivity {
@@ -69,6 +70,8 @@ public class HomeActivity extends AppCompatActivity {
     Button button5;
     Button button6;
     Button button7;
+
+    RecyclerView recyclerView;
 
     NinePatchDrawable ninepatch;
     HomeUserRecyclerViewAdapter homeUserRecyclerViewAdapter;
@@ -133,12 +136,12 @@ public class HomeActivity extends AppCompatActivity {
 
         //layout3
         CustomRecyclerDecoration decoration = new CustomRecyclerDecoration(45, "bottom");
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.anoter_shoplist_recyclerView);
+         recyclerView = (RecyclerView) findViewById(R.id.anoter_shoplist_recyclerView);
 
         recyclerView.setLayoutManager(new GridLayoutManager(HomeActivity.this, 4));
         recyclerView.addItemDecoration(decoration);
-        homeUserRecyclerViewAdapter = new HomeUserRecyclerViewAdapter(HomeActivity.this, ShoppingListSample.shoppinList);
-        recyclerView.setAdapter(homeUserRecyclerViewAdapter);
+//        homeUserRecyclerViewAdapter = new HomeUserRecyclerViewAdapter(HomeActivity.this, ShoppingListSample.shoppinList);
+//        recyclerView.setAdapter(homeUserRecyclerViewAdapter);
 
         new AsyncHomeRequest().execute();
 
@@ -221,8 +224,12 @@ public class HomeActivity extends AppCompatActivity {
                 comeDateTextView.setText(s.travelInfos.getEndDate()); //돌아와요
 
                 /* TODO 쇼퍼맨 쇼핑리스트 부분 사용자네임 호출방법 찾아야됌.*/
-    //                recyclerView.setAdapter(homeUserRecyclerViewAdapter);
-    //                homeUserRecyclerViewAdapter.holder.homeUserIdTextView.setText("닉네임");
+//                    recyclerView.setAdapter(homeUserRecyclerViewAdapter);
+//                    homeUserRecyclerViewAdapter.holder.homeUserIdTextView.setText("닉네임");
+
+                homeUserRecyclerViewAdapter = new HomeUserRecyclerViewAdapter(HomeActivity.this,s.shoplist);
+                recyclerView.setAdapter(homeUserRecyclerViewAdapter);
+
 
                 /* TODO 버튼 동적 할당 필요. 태그 get하는 부분 Tag 배열 사이즈값 가져와서 for문으로 사이즈값만큼 돌리고 버튼 생성 */
                     button1.setVisibility(View.VISIBLE);
@@ -278,5 +285,21 @@ public class HomeActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
+    private View createDummyTextView(String text, NinePatchDrawable ninePatchDrawable) {
+
+        Button button = new Button(this);
+        button.setText(text);
+        button.setTextSize(13);
+        button.setBackground(ninePatchDrawable);
+        button.setTypeface(new NanumRegularTextView(getApplication()).getTypeface());
+        int heigth = 69;
+        ViewGroup.LayoutParams buttonParams = new ViewGroup.LayoutParams(WRAP_CONTENT, 100);
+        button.setLayoutParams(buttonParams);
+
+        return button;
+    }
+
 
 }

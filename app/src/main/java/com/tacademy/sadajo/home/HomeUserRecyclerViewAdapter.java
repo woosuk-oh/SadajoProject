@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.tacademy.sadajo.R;
 import com.tacademy.sadajo.mypage.MyPageOtherActivity;
-import com.tacademy.sadajo.shoppinglist.ShoppingListData;
+import com.tacademy.sadajo.network.Home.HomeShoplistDB;
 
 import java.util.ArrayList;
 
@@ -19,13 +19,13 @@ import java.util.ArrayList;
  * Created by EUNZY on 2016. 11. 24..
  */
 
-public  class HomeUserRecyclerViewAdapter
+public class HomeUserRecyclerViewAdapter
         extends RecyclerView.Adapter<HomeUserRecyclerViewAdapter.ViewHolder> {
 
-    private ArrayList<ShoppingListData> shoppingListDatas;
+    private ArrayList<HomeShoplistDB> shoppingListDatas;
     private Context context;
 
-    public HomeUserRecyclerViewAdapter(Context context, ArrayList<ShoppingListData> shoppingListDatas) {
+    public HomeUserRecyclerViewAdapter(Context context, ArrayList<HomeShoplistDB> shoppingListDatas) {
         this.context = context;
         this.shoppingListDatas = shoppingListDatas;
     }
@@ -60,7 +60,7 @@ public  class HomeUserRecyclerViewAdapter
     public void onBindViewHolder(final HomeUserRecyclerViewAdapter.ViewHolder holder, final int position) {
 
 
-        holder.homeUserIdTextView.setText("닉네임");
+        holder.homeUserIdTextView.setText(shoppingListDatas.get(position).getUserName());
         holder.userProfileImageView.setImageResource(R.drawable.sample_profile);
 
 
@@ -70,7 +70,7 @@ public  class HomeUserRecyclerViewAdapter
 
 
                 Intent intent = new Intent(context, MyPageOtherActivity.class);
-                intent.putExtra("viewType",1);
+                intent.putExtra("viewType", 1);
                 context.startActivity(intent);
 
             }
