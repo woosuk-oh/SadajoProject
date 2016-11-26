@@ -80,20 +80,9 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <com.zhy.view.flowlayout.TagFlowLayout
-                    android:id="@+id/id_flowlayout"
-                    zhy:max_select="-1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="20dp">
-                </com.zhy.view.flowlayout.TagFlowLayout>
-
                 <org.apmem.tools.layouts.FlowLayout
-                    android:id="@+id/homeFlowlayout"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                   >
+                    android:layout_height="match_parent">
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/homeTagRecyclerView"
@@ -190,7 +179,6 @@
                         android:textSize="13sp"
                         android:visibility="gone" />
                 </org.apmem.tools.layouts.FlowLayout>
-
             </LinearLayout>
 
 

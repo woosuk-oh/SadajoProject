@@ -1,10 +1,7 @@
 package com.tacademy.sadajo.home;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.NinePatchDrawable;
 import android.os.Bundle;
@@ -14,7 +11,6 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -25,12 +21,8 @@ import com.tacademy.sadajo.CustomRecyclerDecoration;
 import com.tacademy.sadajo.R;
 import com.tacademy.sadajo.fonts.NanumRegularTextView;
 import com.tacademy.sadajo.shoppinglist.ShoppingListSample;
-import com.xiaofeng.flowlayoutmanager.FlowLayoutManager;
-
-import org.apmem.tools.layouts.FlowLayout;
 
 import static android.R.attr.id;
-import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 
 
 public class HomeActivity extends AppCompatActivity {
@@ -128,62 +120,7 @@ public class HomeActivity extends AppCompatActivity {
         button1.setOnClickListener(onClickListener);
 
 
-        Bitmap image = BitmapFactory.decodeResource(getResources(), R.drawable.tag_button);
-        if (image.getNinePatchChunk() != null) {
-            byte[] chunk = image.getNinePatchChunk();
-            Rect paddingRectangle = new Rect(5, 5, 5, 5);
 
-            ninepatch = new NinePatchDrawable(getResources(), image, chunk, paddingRectangle, null);
-        }
-
-
-        FlowLayoutManager flowLayoutManager = new FlowLayoutManager();
-        flowLayoutManager.setAutoMeasureEnabled(true);
-        FlowLayout flowLayout = (FlowLayout) findViewById(R.id.homeFlowlayout); //두번째 카드뷰 리니어레이아웃
-        RecyclerView homeTagRecyclerView = (RecyclerView) findViewById(R.id.homeTagRecyclerView);
-        homeTagRecyclerView.setLayoutManager(flowLayoutManager);
-        homeTagRecyclerViewAdapter = new HomeTagRecyclerViewAdapter(HomeActivity.this, ShoppingListSample.shoppinList);
-        homeTagRecyclerView.setAdapter(homeTagRecyclerViewAdapter);
-
-
-//        FlowLayout mFlowLayout =(FlowLayout) findViewById(R.id.id_flowlayout);
-//         mFlowLayout.setAdapter(new TagAdapter<String>(mVals)
-//        {
-//            @Override
-//            public View getView(FlowLayout parent, int position, String s)
-//            {
-//                TextView tv = (TextView) mInflater.inflate(R.layout.tv,
-//                        mFlowLayout, false);
-//                tv.setText(s);
-//                return tv;
-//            }
-//        });
-//
-        flowLayout.addView(createDummyTextView("산타마리아노벨라", ninepatch));
-        flowLayout.addView(createDummyTextView("이탈리아", ninepatch));
-        flowLayout.addView(createDummyTextView("더몰", ninepatch));
-        flowLayout.addView(createDummyTextView("프라다", ninepatch));
-        flowLayout.addView(createDummyTextView("초콜렛", ninepatch));
-        flowLayout.addView(createDummyTextView("로마", ninepatch));
-        flowLayout.addView(createDummyTextView("산타마리아노벨라", ninepatch));
-        flowLayout.addView(createDummyTextView("산타마리아노벨라", ninepatch));
-
-
-        //차일드레이아웃 layoutparams
-        //  ViewGroup.LayoutParams buttonParams =  new ViewGroup.LayoutParams(WRAP_CONTENT,WRAP_CONTENT);
-        //buttonParams
-
-
-//        for(int  i=0; i<10;i++) {
-//
-//            Button button = new Button(this);
-//            button.setLayoutParams(buttonParams);
-//           // button.setBackground();
-//            button.setText("버트으은");
-//            flowLayout.addView(button);
-//
-//        }
-//
 
         //layout3
         CustomRecyclerDecoration decoration = new CustomRecyclerDecoration(45, "bottom");
@@ -235,20 +172,6 @@ public class HomeActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
-    private View createDummyTextView(String text, NinePatchDrawable ninePatchDrawable) {
-
-        Button button = new Button(this);
-        button.setText(text);
-        button.setTextSize(13);
-        button.setBackground(ninePatchDrawable);
-        button.setTypeface(new NanumRegularTextView(getApplication()).getTypeface());
-        int heigth = 69;
-        ViewGroup.LayoutParams buttonParams = new ViewGroup.LayoutParams(WRAP_CONTENT, 100);
-        button.setLayoutParams(buttonParams);
-
-        return button;
-    }
 
 
 }
