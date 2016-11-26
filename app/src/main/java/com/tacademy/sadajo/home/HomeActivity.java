@@ -256,7 +256,6 @@ public class HomeActivity extends AppCompatActivity {
             Intent intent;
             Context context = HomeActivity.this;
             String str;
-
             str = homeDB.getTag().get(view.getId()).toString();
             intent = new Intent(context, SearchListActivity.class);
             intent.putExtra("tag", str); //tag String 넘겨줌
