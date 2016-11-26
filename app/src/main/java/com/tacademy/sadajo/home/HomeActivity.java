@@ -14,7 +14,6 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -40,7 +39,6 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 import static android.R.attr.id;
-import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 
 
 public class HomeActivity extends AppCompatActivity {
@@ -280,21 +278,5 @@ public class HomeActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
-
-    private View createDummyTextView(String text, NinePatchDrawable ninePatchDrawable) {
-
-        Button button = new Button(this);
-        button.setText(text);
-        button.setTextSize(13);
-        button.setBackground(ninePatchDrawable);
-        button.setTypeface(new NanumRegularTextView(getApplication()).getTypeface());
-        int heigth = 69;
-        ViewGroup.LayoutParams buttonParams = new ViewGroup.LayoutParams(WRAP_CONTENT, 100);
-        button.setLayoutParams(buttonParams);
-
-        return button;
-    }
-
 
 }
