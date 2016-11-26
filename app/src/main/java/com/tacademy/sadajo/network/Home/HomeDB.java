@@ -9,11 +9,12 @@ import java.util.List;
 
 public class HomeDB {
     public String msg;
-    public ArrayList<HomeTravelDB> travelInfos;
+    //public ArrayList<HomeTravelDB> travelInfos = new ArrayList<>();
+    public HomeTravelDB travelInfos;
     public String travelCountry;
     public String countryImg;
-    public ArrayList<String> tag;
-    public ArrayList<HomeShoplistDB> shoplist;
+    public ArrayList<String> tag = new ArrayList<>();
+    public ArrayList<HomeShoplistDB> shoplist = new ArrayList<>();
 
     public String getMsg() {
         return msg;
@@ -23,13 +24,7 @@ public class HomeDB {
         this.msg = msg;
     }
 
-    public ArrayList<HomeTravelDB> getTravelInfos() {
-        return travelInfos;
-    }
 
-    public void setTravelInfos(ArrayList<HomeTravelDB> travelInfos) {
-        this.travelInfos = travelInfos;
-    }
 
     public String getTravelCountry() {
         return travelCountry;
@@ -62,8 +57,21 @@ public class HomeDB {
     public void setShoplist(ArrayList<HomeShoplistDB> shoplist) {
         this.shoplist = shoplist;
     }
-    // 나중에 gson 사용시 게터 세터 해줘야할듯?
 
+/*
+    public ArrayList<HomeTravelDB> getTravelInfos() {
+        return travelInfos;
+    }
 
+    public void setTravelInfos(ArrayList<HomeTravelDB> travelInfos) {
+        this.travelInfos = travelInfos;
+    }*/
 
+    public HomeTravelDB getTravelInfos() {
+        return travelInfos;
+    }
+
+    public void setTravelInfos(HomeTravelDB travelInfos) {
+        this.travelInfos = travelInfos;
+    }
 }

@@ -1,16 +1,20 @@
 package com.tacademy.sadajo.home;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.NinePatchDrawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -20,9 +24,23 @@ import com.tacademy.sadajo.BottomBarClickListener;
 import com.tacademy.sadajo.CustomRecyclerDecoration;
 import com.tacademy.sadajo.R;
 import com.tacademy.sadajo.fonts.NanumRegularTextView;
+import com.tacademy.sadajo.network.Home.HomeDB;
+import com.tacademy.sadajo.network.HomeJSONParser;
+import com.tacademy.sadajo.network.NetworkDefineConstant;
+import com.tacademy.sadajo.network.OkHttpInitManager;
 import com.tacademy.sadajo.shoppinglist.ShoppingListSample;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+
 import static android.R.attr.id;
+import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 
 
 public class HomeActivity extends AppCompatActivity {
@@ -57,6 +75,7 @@ public class HomeActivity extends AppCompatActivity {
     NinePatchDrawable ninepatch;
     HomeUserRecyclerViewAdapter homeUserRecyclerViewAdapter;
     HomeTagRecyclerViewAdapter homeTagRecyclerViewAdapter;
+    HomeDB homeDB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,36 +128,127 @@ public class HomeActivity extends AppCompatActivity {
 
         scheduleRegisterButton.setOnClickListener(onClickListener);
 
-        button1.setVisibility(View.VISIBLE);
 
-        button2.setVisibility(View.VISIBLE);
-        button3.setVisibility(View.VISIBLE);
-        button4.setVisibility(View.VISIBLE);
-        button4.setText("어렵다아아");
-        button5.setVisibility(View.VISIBLE);
 
         button1.setOnClickListener(onClickListener);
 
 
 
-
         //layout3
         CustomRecyclerDecoration decoration = new CustomRecyclerDecoration(45, "bottom");
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.anoter_shoplist_recyclerView);
 
         recyclerView.setLayoutManager(new GridLayoutManager(HomeActivity.this, 4));
         recyclerView.addItemDecoration(decoration);
         homeUserRecyclerViewAdapter = new HomeUserRecyclerViewAdapter(HomeActivity.this, ShoppingListSample.shoppinList);
         recyclerView.setAdapter(homeUserRecyclerViewAdapter);
 
+        new AsyncHomeRequest().execute();
 
 
     }
 
 
- //   public class AsyncHomeRequest extends AsyncTask<HomeDB>
+    public class AsyncHomeRequest extends AsyncTask<Void, Void, HomeDB> {
+        private ProgressDialog progressDialog;
 
-   View.OnClickListener onClickListener = new View.OnClickListener() {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+         /*   progressDialog = ProgressDialog.show(HomeActivity.this,
+                    "서버입력중", "잠시만 기다려 주세요 ...", true);*/
+        }
+
+        @Override
+        protected HomeDB doInBackground(Void... homeDBs) {
+            Response response = null; //응답 담당
+            OkHttpClient toServer;
+            homeDB = new HomeDB();
+
+
+            try {
+                toServer = OkHttpInitManager.getOkHttpClient();
+
+
+                RequestBody postBody = new FormBody.Builder()
+                        .add("user", "1")
+                        .build();
+
+
+                Request request = new Request.Builder()
+                        .url(String.format(NetworkDefineConstant.SERVER_URL_REQUEST_HOME))
+                        .post(postBody)
+                        .build();
+
+                //동기 방식
+                response = toServer.newCall(request).execute();
+
+
+                if (response.isSuccessful()) { //연결에 성공하면
+
+                    String returedMessage = response.body().string(); // okhttp로 부터 받아온 데이터 json을 스트링형태로 변환하여 returendMessage에 담아둠. 이때, home부분의 모든 오브젝트를 가져와 담아둠.
+                    Log.e("wooseokLog", returedMessage);
+                    homeDB = HomeJSONParser.getHomeJsonParser(returedMessage); //만들어둔 파서로 returedMessage를 넣어서 파싱하여 homeDB에 값을 넣음.
+
+                } else { // 연결에 실패하면
+                    Log.e("요청/응답", response.message().toString());
+                }
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                if (response != null) {
+                    response.close();
+                }
+            }
+            return homeDB;
+
+
+        }
+
+        @Override
+        protected void onPostExecute(HomeDB s) {
+            super.onPostExecute(s);
+         //   progressDialog.dismiss();
+
+            if(homeDB != null){
+
+                cardView2CountryTextView.setText(s.getTravelCountry()); // 추천리스트 : 해당 국가
+                cardView3CountryTextView.setText(s.getTravelCountry()); // 추천리스트2(다른 쇼퍼맨 쇼핑리스트) : 해당 국가
+
+
+               // countryNameTextView.setText(s.travelInfos.get(0).getTitleCountry()); // 국가명 받아옴.
+                countryNameTextView.setText(s.travelInfos.getTitleCountry()); // 국가명 받아옴.
+                departDateTextView.setText(s.travelInfos.getStartDate()); // 떠나요
+                comeDateTextView.setText(s.travelInfos.getEndDate()); //돌아와요
+
+                /* TODO 쇼퍼맨 쇼핑리스트 부분 사용자네임 호출방법 찾아야됌.*/
+    //                recyclerView.setAdapter(homeUserRecyclerViewAdapter);
+    //                homeUserRecyclerViewAdapter.holder.homeUserIdTextView.setText("닉네임");
+
+                /* TODO 버튼 동적 할당 필요. 태그 get하는 부분 Tag 배열 사이즈값 가져와서 for문으로 사이즈값만큼 돌리고 버튼 생성 */
+                    button1.setVisibility(View.VISIBLE);
+                    button1.setText(s.tag.get(0).toString());
+                    button2.setVisibility(View.VISIBLE);
+                    button2.setText(s.tag.get(1).toString());
+                    button3.setVisibility(View.VISIBLE);
+                    button3.setText(s.tag.get(2).toString());
+
+                    button4.setVisibility(View.GONE);
+                    //button4.setText("어렵다아아");
+                    button5.setVisibility(View.GONE);
+
+
+
+
+                //countryNameTextView.setText(s.shoplist.get(0).userName);
+            }
+        }
+    }
+
+
+    View.OnClickListener onClickListener = new View.OnClickListener() {
 
         Intent intent;
 
@@ -172,6 +282,20 @@ public class HomeActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+
+    private View createDummyTextView(String text, NinePatchDrawable ninePatchDrawable) {
+
+        Button button = new Button(this);
+        button.setText(text);
+        button.setTextSize(13);
+        button.setBackground(ninePatchDrawable);
+        button.setTypeface(new NanumRegularTextView(getApplication()).getTypeface());
+        int heigth = 69;
+        ViewGroup.LayoutParams buttonParams = new ViewGroup.LayoutParams(WRAP_CONTENT, 100);
+        button.setLayoutParams(buttonParams);
+
+        return button;
+    }
 
 
 }

@@ -1,15 +1,13 @@
 package com.tacademy.sadajo.network.Home;
 
-import java.util.Date;
-
 /**
  * Created by woosuk on 2016-11-14.
  */
 
 public class HomeTravelDB {
    public String titleCountry;
-    public Date startDate;
-    public Date endDate;
+    public String startDate;
+    public String endDate;
 
     public String getTitleCountry() {
         return titleCountry;
@@ -19,19 +17,19 @@ public class HomeTravelDB {
         this.titleCountry = titleCountry;
     }
 
-    public Date getStartDate() {
+    public String getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(String startDate) {
         this.startDate = startDate;
     }
 
-    public Date getEndDate() {
+    public String getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(String endDate) {
         this.endDate = endDate;
     }
 
