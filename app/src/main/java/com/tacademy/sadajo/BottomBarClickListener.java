@@ -33,32 +33,30 @@ public class BottomBarClickListener extends Activity implements View.OnClickList
             case R.id.homeBtn:
                 intent = new Intent(activity, HomeActivity.class);
                 activity.startActivity(intent);
+                activity.finish();
                 break;
             case R.id.searchBtn:
 
                 intent = new Intent(activity, SearchListActivity.class);
-
                 activity.startActivity(intent);
-
+                activity.finish();
                 break;
             case R.id.shoppingListBtn:
 
                 intent = new Intent(activity, ShoppingListActivity.class);
                 activity.startActivity(intent);
-
-
+                activity.finish();
                 break;
             case R.id.chattingBtn:
                 intent = new Intent(activity, ChattingActivity.class);
                 activity.startActivity(intent);
-
+                activity.finish();
                 break;
             case R.id.mypageBtn:
 
                 intent = new Intent(activity, MyPageActivity.class);
                 activity.startActivity(intent);
-
-
+                activity.finish();
                 break;
         }
     }

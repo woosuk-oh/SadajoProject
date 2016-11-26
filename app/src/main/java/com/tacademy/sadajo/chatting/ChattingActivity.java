@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.tacademy.sadajo.BottomBarClickListener;
 import com.tacademy.sadajo.CustomRecyclerDecoration;
@@ -14,7 +15,10 @@ import com.tacademy.sadajo.R;
 import com.tacademy.sadajo.shoppinglist.ShoppingListSample;
 
 public class ChattingActivity extends AppCompatActivity {
-    ///push test
+
+    private final long FINSH_INTERVAL_TIME = 2000;
+    private long backPressedTime = 0;
+
     ImageButton homeBtn;
     ImageButton searchBtn;
     ImageButton shoppingListBtn;
@@ -65,6 +69,18 @@ public class ChattingActivity extends AppCompatActivity {
 
 
     }
+    @Override
+    public void onBackPressed() {
+        long currentTime = System.currentTimeMillis();
+        long intervalTime = currentTime - backPressedTime;
 
+        if (0 <= intervalTime && FINSH_INTERVAL_TIME >= intervalTime) {
+            super.onBackPressed();
+        } else {
+            backPressedTime = currentTime;
+            Toast.makeText(getApplicationContext(),
+                    "'뒤로' 버튼 한번 더 누르시면 종료됩니다.", Toast.LENGTH_SHORT).show();
+        }
+    }
 
 }
