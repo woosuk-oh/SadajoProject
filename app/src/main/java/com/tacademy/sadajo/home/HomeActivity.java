@@ -1,6 +1,7 @@
 package com.tacademy.sadajo.home;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -28,6 +29,7 @@ import com.tacademy.sadajo.network.Home.HomeDB;
 import com.tacademy.sadajo.network.HomeJSONParser;
 import com.tacademy.sadajo.network.NetworkDefineConstant;
 import com.tacademy.sadajo.network.OkHttpInitManager;
+import com.tacademy.sadajo.search.searchlist.SearchListActivity;
 
 import org.apmem.tools.layouts.FlowLayout;
 
@@ -211,12 +213,10 @@ public class HomeActivity extends AppCompatActivity {
                 homeUserRecyclerViewAdapter = new HomeUserRecyclerViewAdapter(HomeActivity.this, s.shoplist);
                 recyclerView.setAdapter(homeUserRecyclerViewAdapter);
 
-
-                /* TODO 버튼 동적 할당 필요. 태그 get하는 부분 Tag 배열 사이즈값 가져와서 for문으로 사이즈값만큼 돌리고 버튼 생성 */
-
+                //tag button 동적생성 & setText
                 for(int i =0; i < s.getTag().size();i++){
 
-                    createTagButton(s.getTag().get(i));
+                    createTagButton(s.getTag().get(i),i);
 
                 }
 
@@ -230,6 +230,7 @@ public class HomeActivity extends AppCompatActivity {
     View.OnClickListener onClickListener = new View.OnClickListener() {
 
         Intent intent;
+        Context context = HomeActivity.this;
 
         @Override
         public void onClick(View view) {
@@ -240,6 +241,9 @@ public class HomeActivity extends AppCompatActivity {
 
                     dialog.show();
                     break;
+                case 0 :
+                    intent = new Intent(context, SearchListActivity.class);
+                    startActivity(intent);
 
 
             }
@@ -260,9 +264,9 @@ public class HomeActivity extends AppCompatActivity {
 
 
     //Button 생성 메소드
-    public void createTagButton(String str){
+    public void createTagButton(String str, int i){
         Button button = new Button(this);
-        button.setText(str);
+        button.setText(str); //서버로부터 받아온 tag text set
         button.setBackgroundResource(R.drawable.tag_button_file); //tag ninepatch background적용
         FlowLayout.LayoutParams params =  new FlowLayout.LayoutParams(width,height);
         button.setPadding(15,0,15,0); // left,right padding : 3
@@ -271,6 +275,8 @@ public class HomeActivity extends AppCompatActivity {
         button.setTextSize(13);// textsize : 13sp
         button.setTypeface((new NanumRegularTextView(getApplication()).getTypeface())); //text font : Nanum M
         button.setLayoutParams(params);
+        button.setId(i);
+        button.setOnClickListener(onClickListener);
         flowLayout.addView(button); // button added
     }
 
