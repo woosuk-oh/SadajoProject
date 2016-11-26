@@ -8,12 +8,12 @@
     android:background="#368BCB"
     tools:context="com.tacademy.sadajo.MainActivity">
 
-      <ImageView
-            android:id="@+id/splashImg"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:src="@drawable/splash_img"/>
+    <ImageView
+        android:id="@+id/splashImg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:src="@drawable/splash_img" />
 
 
 </LinearLayout>

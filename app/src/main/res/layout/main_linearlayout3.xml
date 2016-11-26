@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginBottom="21dp"
-    >
+    android:layout_marginBottom="21dp">
+
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/character_main"
         android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"/>
+        android:layout_marginRight="16dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,262 +19,263 @@
         android:layout_marginRight="16dp"
         android:paddingTop="7dp"
         android:orientation="vertical"
-        android:background="@color/white"
-        >
+        android:background="@color/white">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-        <com.tacademy.sadajo.fonts.NanumBoldTextView
 
-            android:layout_marginLeft="8dp"
-            android:layout_marginBottom="12dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="다른쇼퍼맨의 쇼핑리스트 구경하기"
-            android:textSize="17sp"
-            android:textColor="@color/blackFont"/>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="right"
-            android:orientation="horizontal"
-            android:layout_marginRight="8dp"
+            <com.tacademy.sadajo.fonts.NanumBoldTextView
 
-            >
-
-            <ImageView
-                android:id="@+id/cardView3countryFlagImageView"
-                android:layout_width="15dp"
-                android:layout_height="15dp"
-                android:src="@drawable/flag"
-                android:scaleType="center"
-                android:layout_marginRight="3dp"
-                android:layout_marginBottom="12dp"
-
-                />
-            <com.tacademy.sadajo.fonts.NanumRegularTextView
-
-                android:id="@+id/cardView3CountryTextView"
+                android:layout_marginLeft="8dp"
                 android:layout_marginBottom="12dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="이탈리아"
-                android:textSize="13sp"
-                android:textColor="@color/grayFont"/>
+                android:text="다른쇼퍼맨의 쇼핑리스트 구경하기"
+                android:textSize="17sp"
+                android:textColor="@color/blackFont" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:orientation="horizontal"
+                android:layout_marginRight="8dp"
+
+                >
+
+                <ImageView
+                    android:id="@+id/cardView3countryFlagImageView"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:src="@drawable/flag"
+                    android:scaleType="center"
+                    android:layout_marginRight="3dp"
+                    android:layout_marginBottom="12dp"
+
+                    />
+
+                <com.tacademy.sadajo.fonts.NanumRegularTextView
+
+                    android:id="@+id/cardView3CountryTextView"
+                    android:layout_marginBottom="12dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="이탈리아"
+                    android:textSize="13sp"
+                    android:textColor="@color/grayFont" />
+
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
+
         <View
 
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/whiteGrayFont"
-            />
-    <LinearLayout
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content"
-         android:orientation="horizontal"
-         android:paddingTop="20dp"
-         >
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/anoter_shoplist_recyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-
-            android:layout_marginLeft="18dp"
-            android:layout_marginBottom="4dp">
-
-        </android.support.v7.widget.RecyclerView>
-      <!--  <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-            <de.hdodenhof.circleimageview.CircleImageView
-
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:background="@drawable/profile_empty"
-                android:layout_marginRight="24dp"
-                android:id="@+id/profileImageView" />
-
-            <com.tacademy.sadajo.fonts.NanumRegularTextView
-                android:layout_marginTop="9dp"
-                android:layout_width="60dp"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="24dp"
-                android:text=" 이름"
-                android:gravity="center"
-                android:textSize="12sp"
-                />
-
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:background="@drawable/profile_empty"
-                android:layout_marginRight="24dp"
-                />
-
-            <com.tacademy.sadajo.fonts.NanumRegularTextView
-
-                android:layout_marginTop="9dp"
-                android:layout_width="60dp"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="24dp"
-                android:text=" 이름"
-                android:gravity="center"
-                android:textSize="12sp"
-                />
-
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/profile_empty"
-                android:layout_marginRight="24dp"
-                />
-
-            <com.tacademy.sadajo.fonts.NanumRegularTextView
-                android:layout_marginTop="9dp"
-                android:layout_width="60dp"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="24dp"
-                android:text=" 이름"
-                android:gravity="center"
-                android:textSize="12sp"
-                />
-
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/profile_empty"
-
-                />
-            <com.tacademy.sadajo.fonts.NanumRegularTextView
-                android:layout_marginTop="9dp"
-                android:layout_width="60dp"
-                android:layout_height="wrap_content"
-                android:text=" 이름"
-                android:gravity="center"
-                android:textSize="12sp"
-                />
-
-        </LinearLayout>
-
-
-    </LinearLayout>
+            android:background="@color/whiteGrayFont" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginRight="8dp"
-            android:layout_marginLeft="8dp">
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-            <ImageView
-                android:layout_marginTop="15dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/profile_empty"
-                android:layout_marginRight="24dp"
-                />
-                <com.tacademy.sadajo.fonts.NanumRegularTextView
+            android:paddingTop="20dp">
 
-                    android:layout_marginTop="9dp"
-                    android:layout_width="60dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="24dp"
-                    android:text=" 이름"
-                    android:gravity="center"
-                    android:textSize="12sp"
-                    />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-            <ImageView
-                android:layout_marginTop="15dp"
-                android:layout_width="wrap_content"
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/anoter_shoplist_recyclerView"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/profile_empty"
-                android:layout_marginRight="24dp"
-                />
-                <com.tacademy.sadajo.fonts.NanumRegularTextView
-                    android:layout_marginTop="9dp"
-                    android:layout_width="60dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="24dp"
-                    android:text=" 이름"
-                    android:gravity="center"
-                    android:textSize="12sp"
-                    />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-            <ImageView
-                android:layout_marginTop="15dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/profile_empty"
-                android:layout_marginRight="24dp"
 
-                />
-                <com.tacademy.sadajo.fonts.NanumRegularTextView
-                    android:layout_marginTop="9dp"
-                    android:layout_width="60dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="24dp"
-                    android:text=" 이름"
-                    android:gravity="center"
-                    android:textSize="12sp"
-                    />
-                </LinearLayout>
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-            <ImageView
-                android:layout_marginTop="15dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/profile_empty"
+                android:layout_marginLeft="18dp"
+                android:layout_marginBottom="4dp">
 
-                />
-                <com.tacademy.sadajo.fonts.NanumRegularTextView
-                    android:layout_marginTop="9dp"
-                    android:layout_width="60dp"
-                    android:layout_height="wrap_content"
-                    android:text=" 이름"
-                    android:gravity="center"
-                    android:textSize="12sp"
-                    />
-                </LinearLayout>
--->
+            </android.support.v7.widget.RecyclerView>
+            <!--  <LinearLayout
+              android:layout_width="wrap_content"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+                  <de.hdodenhof.circleimageview.CircleImageView
+
+                      android:layout_width="60dp"
+                      android:layout_height="60dp"
+                      android:background="@drawable/profile_empty"
+                      android:layout_marginRight="24dp"
+                      android:id="@+id/profileImageView" />
+
+                  <com.tacademy.sadajo.fonts.NanumRegularTextView
+                      android:layout_marginTop="9dp"
+                      android:layout_width="60dp"
+                      android:layout_height="wrap_content"
+                      android:layout_marginRight="24dp"
+                      android:text=" 이름"
+                      android:gravity="center"
+                      android:textSize="12sp"
+                      />
+
+              </LinearLayout>
+              <LinearLayout
+                  android:layout_width="wrap_content"
+                  android:layout_height="match_parent"
+                  android:orientation="vertical">
+                  <de.hdodenhof.circleimageview.CircleImageView
+                      android:layout_width="60dp"
+                      android:layout_height="60dp"
+                      android:background="@drawable/profile_empty"
+                      android:layout_marginRight="24dp"
+                      />
+
+                  <com.tacademy.sadajo.fonts.NanumRegularTextView
+
+                      android:layout_marginTop="9dp"
+                      android:layout_width="60dp"
+                      android:layout_height="wrap_content"
+                      android:layout_marginRight="24dp"
+                      android:text=" 이름"
+                      android:gravity="center"
+                      android:textSize="12sp"
+                      />
+
+              </LinearLayout>
+              <LinearLayout
+                  android:layout_width="wrap_content"
+                  android:layout_height="match_parent"
+                  android:orientation="vertical">
+                  <ImageView
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:background="@drawable/profile_empty"
+                      android:layout_marginRight="24dp"
+                      />
+
+                  <com.tacademy.sadajo.fonts.NanumRegularTextView
+                      android:layout_marginTop="9dp"
+                      android:layout_width="60dp"
+                      android:layout_height="wrap_content"
+                      android:layout_marginRight="24dp"
+                      android:text=" 이름"
+                      android:gravity="center"
+                      android:textSize="12sp"
+                      />
+
+              </LinearLayout>
+              <LinearLayout
+                  android:layout_width="wrap_content"
+                  android:layout_height="match_parent"
+                  android:orientation="vertical">
+                  <ImageView
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:background="@drawable/profile_empty"
+
+                      />
+                  <com.tacademy.sadajo.fonts.NanumRegularTextView
+                      android:layout_marginTop="9dp"
+                      android:layout_width="60dp"
+                      android:layout_height="wrap_content"
+                      android:text=" 이름"
+                      android:gravity="center"
+                      android:textSize="12sp"
+                      />
+
+              </LinearLayout>
+
+
+          </LinearLayout>
+
+              <LinearLayout
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:orientation="horizontal"
+                  android:layout_marginRight="8dp"
+                  android:layout_marginLeft="8dp">
+                  <LinearLayout
+                      android:layout_width="wrap_content"
+                      android:layout_height="match_parent"
+                      android:orientation="vertical">
+                  <ImageView
+                      android:layout_marginTop="15dp"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:background="@drawable/profile_empty"
+                      android:layout_marginRight="24dp"
+                      />
+                      <com.tacademy.sadajo.fonts.NanumRegularTextView
+
+                          android:layout_marginTop="9dp"
+                          android:layout_width="60dp"
+                          android:layout_height="wrap_content"
+                          android:layout_marginRight="24dp"
+                          android:text=" 이름"
+                          android:gravity="center"
+                          android:textSize="12sp"
+                          />
+                  </LinearLayout>
+                  <LinearLayout
+                      android:layout_width="wrap_content"
+                      android:layout_height="match_parent"
+                      android:orientation="vertical">
+                  <ImageView
+                      android:layout_marginTop="15dp"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:background="@drawable/profile_empty"
+                      android:layout_marginRight="24dp"
+                      />
+                      <com.tacademy.sadajo.fonts.NanumRegularTextView
+                          android:layout_marginTop="9dp"
+                          android:layout_width="60dp"
+                          android:layout_height="wrap_content"
+                          android:layout_marginRight="24dp"
+                          android:text=" 이름"
+                          android:gravity="center"
+                          android:textSize="12sp"
+                          />
+                  </LinearLayout>
+                  <LinearLayout
+                      android:layout_width="wrap_content"
+                      android:layout_height="match_parent"
+                      android:orientation="vertical">
+                  <ImageView
+                      android:layout_marginTop="15dp"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:background="@drawable/profile_empty"
+                      android:layout_marginRight="24dp"
+
+                      />
+                      <com.tacademy.sadajo.fonts.NanumRegularTextView
+                          android:layout_marginTop="9dp"
+                          android:layout_width="60dp"
+                          android:layout_height="wrap_content"
+                          android:layout_marginRight="24dp"
+                          android:text=" 이름"
+                          android:gravity="center"
+                          android:textSize="12sp"
+                          />
+                      </LinearLayout>
+                  <LinearLayout
+                      android:layout_width="wrap_content"
+                      android:layout_height="match_parent"
+                      android:orientation="vertical">
+                  <ImageView
+                      android:layout_marginTop="15dp"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:background="@drawable/profile_empty"
+
+                      />
+                      <com.tacademy.sadajo.fonts.NanumRegularTextView
+                          android:layout_marginTop="9dp"
+                          android:layout_width="60dp"
+                          android:layout_height="wrap_content"
+                          android:text=" 이름"
+                          android:gravity="center"
+                          android:textSize="12sp"
+                          />
+                      </LinearLayout>
+      -->
         </LinearLayout>
-
-
 
 
     </LinearLayout>

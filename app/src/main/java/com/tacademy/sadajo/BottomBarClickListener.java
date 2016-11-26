@@ -28,7 +28,7 @@ public class BottomBarClickListener extends Activity implements View.OnClickList
     public void onClick(View view) {
 
         Intent intent;
-       // view.setSelected(true);
+        // view.setSelected(true);
         switch (view.getId()) {
             case R.id.homeBtn:
                 intent = new Intent(activity, HomeActivity.class);

@@ -74,6 +74,7 @@ public class HomeActivity extends AppCompatActivity {
 
     int width = ViewGroup.LayoutParams.WRAP_CONTENT;
     int height = 69;
+    int tagCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -214,9 +215,10 @@ public class HomeActivity extends AppCompatActivity {
                 recyclerView.setAdapter(homeUserRecyclerViewAdapter);
 
                 //tag button 동적생성 & setText
-                for(int i =0; i < s.getTag().size();i++){
+                tagCount = s.getTag().size();
+                for (int i = 0; i < tagCount; i++) {
 
-                    createTagButton(s.getTag().get(i),i);
+                    createTagButton(s.getTag().get(i), i);
 
                 }
 
@@ -231,6 +233,7 @@ public class HomeActivity extends AppCompatActivity {
 
         Intent intent;
         Context context = HomeActivity.this;
+        String str;
 
         @Override
         public void onClick(View view) {
@@ -238,17 +241,32 @@ public class HomeActivity extends AppCompatActivity {
                 case R.id.scheduleRegisterButton:
                     ScheduleRegisterDialog dialog = new ScheduleRegisterDialog(HomeActivity.this);
                     dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-
                     dialog.show();
                     break;
-                case 0 :
-                    intent = new Intent(context, SearchListActivity.class);
-                    startActivity(intent);
 
 
             }
         }
     };
+
+
+    Button.OnClickListener buttonClickListener = new View.OnClickListener() { //tag Button ClickListener
+        @Override
+        public void onClick(View view) {
+            Intent intent;
+            Context context = HomeActivity.this;
+            String str;
+
+            str = homeDB.getTag().get(view.getId()).toString();
+            intent = new Intent(context, SearchListActivity.class);
+            intent.putExtra("tag", str); //tag String 넘겨줌
+            Log.d("tag", str);
+            startActivity(intent);
+
+
+        }
+    };
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -262,21 +280,21 @@ public class HomeActivity extends AppCompatActivity {
     }
 
 
-
     //Button 생성 메소드
-    public void createTagButton(String str, int i){
+    public void createTagButton(String str, int i) {
         Button button = new Button(this);
         button.setText(str); //서버로부터 받아온 tag text set
         button.setBackgroundResource(R.drawable.tag_button_file); //tag ninepatch background적용
-        FlowLayout.LayoutParams params =  new FlowLayout.LayoutParams(width,height);
-        button.setPadding(15,0,15,0); // left,right padding : 3
-        params.setMargins(0,0,45,45); // top, right margin : 15
+        FlowLayout.LayoutParams params = new FlowLayout.LayoutParams(width, height);
+        button.setPadding(15, 0, 15, 0); // left,right padding : 3
+        params.setMargins(0, 0, 45, 45); // top, right margin : 15
         button.setGravity(Gravity.CENTER); //gravity : center
         button.setTextSize(13);// textsize : 13sp
         button.setTypeface((new NanumRegularTextView(getApplication()).getTypeface())); //text font : Nanum M
         button.setLayoutParams(params);
+        button.setTag("HomeTag");
         button.setId(i);
-        button.setOnClickListener(onClickListener);
+        button.setOnClickListener(buttonClickListener);
         flowLayout.addView(button); // button added
     }
 

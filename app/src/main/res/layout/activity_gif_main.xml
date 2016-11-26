@@ -3,13 +3,13 @@
     android:layout_height="match_parent"
 
     >
+
     <com.tacademy.sadajo.splash.AnimatedGifImageView
 
         android:id="@+id/animatedGifImageView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginRight="0dp"
-        android:layout_centerInParent="true"
-       />
+        android:layout_centerInParent="true" />
 
 </RelativeLayout>

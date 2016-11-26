@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal" android:layout_width="match_parent"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingRight= "16dp"
+    android:paddingRight="16dp"
     android:paddingLeft="16dp"
     android:paddingTop="15dp"
     android:paddingBottom="15dp"
     android:background="@color/white">
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
@@ -16,8 +18,7 @@
             android:id="@+id/userProfileImageView"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:src="@drawable/profile_empty"
-            />
+            android:src="@drawable/profile_empty" />
 
         <com.tacademy.sadajo.fonts.NanumRegularTextView
             android:id="@+id/userId"
@@ -26,7 +27,7 @@
             android:layout_height="match_parent"
             android:text="아롱이다롱"
             android:gravity="center"
-            android:textSize="12sp"/>
+            android:textSize="12sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -34,34 +35,35 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_marginLeft="10dp"
-        >
+        android:layout_marginLeft="10dp">
+
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp">
+
             <com.tacademy.sadajo.fonts.NanumBoldTextView
                 android:id="@+id/reviewTitleTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="아르팅팅"
                 android:textSize="13sp"
-                android:textColor="@color/blackFont"
-                />
+                android:textColor="@color/blackFont" />
+
             <com.tacademy.sadajo.fonts.NanumBoldTextView
 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="님이 후기를 남겼어요!"
                 android:textSize="13sp"
-                android:textColor="@color/blackFont"
-                />
+                android:textColor="@color/blackFont" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="right"
-                >
+                android:gravity="right">
+
                 <com.tacademy.sadajo.fonts.NanumRegularTextView
 
                     android:id="@+id/reviewDateTextView"
@@ -69,9 +71,10 @@
                     android:layout_height="match_parent"
                     android:textColor="@color/grayFont"
                     android:textSize="11sp"
-                    android:text="2016.11.20"/>
+                    android:text="2016.11.20" />
             </LinearLayout>
         </LinearLayout>
+
         <com.tacademy.sadajo.fonts.NanumRegularTextView
             android:id="@+id/reviewContentsTextView"
             android:layout_width="match_parent"
@@ -79,7 +82,7 @@
             android:layout_marginTop="7dp"
             android:text="안녕하세요...."
             android:textSize="11sp"
-            android:textColor="@color/grayFont"/>
+            android:textColor="@color/grayFont" />
 
     </LinearLayout>
 

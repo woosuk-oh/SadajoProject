@@ -8,12 +8,12 @@
     android:background="#368BCB"
     tools:context="com.tacademy.sadajo.splash.SplashActivity">
 
-<!--  이전 gif 스플래시용 레이아웃 파일
+    <!--  이전 gif 스플래시용 레이아웃 파일
 
-  <ImageView
-        android:id="@+id/splashImg"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:src="@drawable/splash"/>-->
+      <ImageView
+            android:id="@+id/splashImg"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:src="@drawable/splash"/>-->
 </LinearLayout>
