@@ -11,7 +11,6 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -41,8 +40,6 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-import static android.R.attr.id;
-
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -50,6 +47,7 @@ public class HomeActivity extends AppCompatActivity {
     private final long FINSH_INTERVAL_TIME = 2000;
     private long backPressedTime = 0;
 
+    Toolbar toolbar;
     ImageButton homeBtn;
     ImageButton searchBtn;
     ImageButton shoppingListBtn;
@@ -84,13 +82,12 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
 
         toolbar.setBackgroundResource(R.drawable.tool_01_main); //toolbar image
         getSupportActionBar().setDisplayShowTitleEnabled(false);//title hidden
-        getSupportActionBar().setDisplayHomeAsUpEnabled(false); //back icon
 
 
         //바텀바 gone
@@ -133,7 +130,7 @@ public class HomeActivity extends AppCompatActivity {
         CustomRecyclerDecoration decoration = new CustomRecyclerDecoration(45, "bottom");//리사이클러뷰 아이템간 간격
         recyclerView.addItemDecoration(decoration);
 
-        new AsyncHomeRequest().execute();
+        //  new AsyncHomeRequest().execute();
 
 
     }
@@ -243,7 +240,7 @@ public class HomeActivity extends AppCompatActivity {
             switch (view.getId()) {
                 case R.id.scheduleRegisterButton:
                     ScheduleDialogFragment dialog = new ScheduleDialogFragment();
-                    dialog.show(getFragmentManager(),"scheduleDialog");
+                    dialog.show(getFragmentManager(), "scheduleDialog");
                     break;
 
 
@@ -269,18 +266,6 @@ public class HomeActivity extends AppCompatActivity {
     };
 
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        if (id == android.R.id.home) {
-            onBackPressed();
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-
     //Button 생성 메소드
     public void createTagButton(String str, int i) {
         Button button = new Button(this);
@@ -299,7 +284,7 @@ public class HomeActivity extends AppCompatActivity {
         flowLayout.addView(button); // button added
     }
 
-     @Override
+    @Override
     public void onBackPressed() {
         long currentTime = System.currentTimeMillis();
         long intervalTime = currentTime - backPressedTime;
@@ -312,5 +297,21 @@ public class HomeActivity extends AppCompatActivity {
                     "'뒤로' 버튼 한번 더 누르시면 종료됩니다.", Toast.LENGTH_SHORT).show();
         }
     }
+
+
+    public void setToolbar(boolean b) {
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(b); //back icon
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() { //클릭시 뒤로가기
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
+
+
+    }
+
 
 }

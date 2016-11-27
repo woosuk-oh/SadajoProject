@@ -103,7 +103,7 @@ public class ShoppingListActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;//false하면 메뉴아이콘 hidden
+        return viewType();//false하면 메뉴아이콘 hidden
     }
 
     @Override
@@ -133,6 +133,12 @@ public class ShoppingListActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(),
                     "'뒤로' 버튼 한번 더 누르시면 종료됩니다.", Toast.LENGTH_SHORT).show();
         }
+    }
+
+
+
+    public boolean viewType(){
+        return false;
     }
 
 }
