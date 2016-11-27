@@ -45,19 +45,19 @@ public class ChattingDetailActivity extends AppCompatActivity {
         chatMessages = new ArrayList<>();
 
 
-        listView =  (ListView)findViewById(R.id.listview);
+        listView =  (ListView)findViewById(R.id.listView);
         sendButton = (ImageButton)findViewById(R.id.sendButton);
         chattingEditText = (EditText)findViewById(R.id.chattingEditText);
 
-        chatMessageArrayAdapter = new ChattingAdapter(ChattingDetailActivity.this,R.layout.chatting_message,chatMessages);
-        listView.setAdapter(chatMessageArrayAdapter);
-        chatMessageArrayAdapter.registerDataSetObserver(new DataSetObserver() {
-            @Override
-            public void onChanged() {
-                super.onChanged();
-                listView.setSelection(chatMessageArrayAdapter.getCount()-1);
-            }
-        });
+       // chatMessageArrayAdapter = new ChattingAdapter(ChattingDetailActivity.this,R.layout.chatting_message,chatMessages);
+ //       listView.setAdapter(chatMessageArrayAdapter);
+//        chatMessageArrayAdapter.registerDataSetObserver(new DataSetObserver() {
+//            @Override
+//            public void onChanged() {
+//                super.onChanged();
+//                listView.setSelection(chatMessageArrayAdapter.getCount()-1);
+//            }
+//        });
         listView.setTranscriptMode(ListView.TRANSCRIPT_MODE_ALWAYS_SCROLL);
 
         requestButton = (ImageButton)findViewById(R.id.requestButton);//사다조 요청하기 버튼

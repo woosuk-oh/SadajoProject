@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_below="@+id/frameToolbarHome"
-        android:layout_above="@id/chattingBottom">
+        android:layout_above="@+id/chattingBottom">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -66,7 +66,6 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/chattingBottom"
             android:layout_below="@+id/frameToolbarHome">
 
             <ListView
