@@ -130,7 +130,7 @@ public class HomeActivity extends AppCompatActivity {
         CustomRecyclerDecoration decoration = new CustomRecyclerDecoration(45, "bottom");//리사이클러뷰 아이템간 간격
         recyclerView.addItemDecoration(decoration);
 
-        //  new AsyncHomeRequest().execute();
+          new AsyncHomeRequest().execute();
 
 
     }
