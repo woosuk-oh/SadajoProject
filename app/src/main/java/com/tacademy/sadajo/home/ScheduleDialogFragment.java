@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.app.DialogFragment;
 import android.os.Bundle;
 import android.text.InputType;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +13,9 @@ import android.view.WindowManager;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.tacademy.sadajo.R;
 
@@ -141,6 +144,16 @@ public class ScheduleDialogFragment extends DialogFragment implements View.OnCli
                 dismiss();
                 break;
             case R.id.registerButton:
+
+                //등록하기 버튼 눌렀을 때 이미지 토스트
+                Toast toast = new Toast(getActivity());
+                ImageView img = new ImageView(getActivity());
+                img.setImageResource(R.drawable.home_toast);
+                toast.setView(img);
+                toast.setDuration(Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.CENTER, 0, 0);
+                toast.show();
+
                 dismiss();
 
         }
