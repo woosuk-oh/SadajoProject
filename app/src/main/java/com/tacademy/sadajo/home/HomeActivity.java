@@ -3,8 +3,6 @@ package com.tacademy.sadajo.home;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -244,9 +242,8 @@ public class HomeActivity extends AppCompatActivity {
         public void onClick(View view) {
             switch (view.getId()) {
                 case R.id.scheduleRegisterButton:
-                    ScheduleRegisterDialog dialog = new ScheduleRegisterDialog(HomeActivity.this);
-                    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                    dialog.show();
+                    ScheduleDialogFragment dialog = new ScheduleDialogFragment();
+                    dialog.show(getFragmentManager(),"scheduleDialog");
                     break;
 
 

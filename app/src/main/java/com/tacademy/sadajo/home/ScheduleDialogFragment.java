@@ -1,17 +1,18 @@
 package com.tacademy.sadajo.home;
 
 import android.app.DatePickerDialog;
-import android.app.Dialog;
-import android.content.Context;
+import android.app.DialogFragment;
 import android.os.Bundle;
 import android.text.InputType;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.tacademy.sadajo.R;
 
@@ -19,8 +20,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
-public class ScheduleRegisterDialog extends Dialog {
 
+public class ScheduleDialogFragment extends DialogFragment implements View.OnClickListener {
 
     Spinner countrySpinner;
     Spinner citySpinner;
@@ -30,37 +31,46 @@ public class ScheduleRegisterDialog extends Dialog {
     ImageButton cancelButton;
 
 
-    private String mode;
-    private String text;
+    public static ScheduleDialogFragment newInstance() {
+        ScheduleDialogFragment fragment = new ScheduleDialogFragment();
 
-    public ScheduleRegisterDialog(Context context) {
-        super(context);
-
+        return fragment;
     }
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setStyle(STYLE_NO_FRAME, R.style.CustomDialog);
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.activity_schedule_register_dialog);
+    public void onStart() {
+        super.onStart();
+        Window window = getDialog().getWindow();
+        WindowManager.LayoutParams params = window.getAttributes();
+        params.dimAmount = 0.6f;
+        window.setAttributes(params);
+        window.setBackgroundDrawableResource(android.R.color.transparent);
+    }
 
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = null;
 
-        countrySpinner = (Spinner) findViewById(R.id.countrySpinner);
-        citySpinner = (Spinner) findViewById(R.id.citySpinner);
-        departureEditText = (EditText) findViewById(R.id.departureEditText);
-        arriveEditText = (EditText) findViewById(R.id.arriveEditText);
-        registerButton = (ImageButton) findViewById(R.id.registerButton);
-        cancelButton = (ImageButton) findViewById(R.id.cancelButton);
+        view = inflater.inflate(R.layout.fragment_schedule_dialog, container, false);
+        countrySpinner = (Spinner) view.findViewById(R.id.countrySpinner);
+        citySpinner = (Spinner) view.findViewById(R.id.citySpinner);
+        departureEditText = (EditText) view.findViewById(R.id.departureEditText);
+        arriveEditText = (EditText) view.findViewById(R.id.arriveEditText);
+        registerButton = (ImageButton) view.findViewById(R.id.registerButton);
+        cancelButton = (ImageButton) view.findViewById(R.id.cancelButton);
 
 
         departureEditText.setInputType(InputType.TYPE_NULL);
+        cancelButton.setOnClickListener(this);
+        registerButton.setOnClickListener(this);
 
-        cancelButton.setOnClickListener(onClickListener);
-        registerButton.setOnClickListener(onClickListener);
 
-
-        //
         final Calendar myCalendar = Calendar.getInstance();
         final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
 
@@ -99,7 +109,7 @@ public class ScheduleRegisterDialog extends Dialog {
         departureEditText.setOnClickListener(new View.OnClickListener() { //edittext 클릭 시 datepickerdialog
             @Override
             public void onClick(View v) {
-                DatePickerDialog dp = new DatePickerDialog(getContext(), R.style.MyDialogTheme, date, myCalendar
+                DatePickerDialog dp = new DatePickerDialog(getActivity(), R.style.MyDialogTheme, date, myCalendar
                         .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                         myCalendar.get(Calendar.DAY_OF_MONTH));
 
@@ -110,7 +120,7 @@ public class ScheduleRegisterDialog extends Dialog {
         arriveEditText.setOnClickListener(new View.OnClickListener() { //edittext 클릭 시 datepickerdialog
             @Override
             public void onClick(View v) {
-                DatePickerDialog dp = new DatePickerDialog(getContext(), R.style.MyDialogTheme, arriveDate, arriveCalendar
+                DatePickerDialog dp = new DatePickerDialog(getActivity(), R.style.MyDialogTheme, arriveDate, arriveCalendar
                         .get(Calendar.YEAR), arriveCalendar.get(Calendar.MONTH),
                         arriveCalendar.get(Calendar.DAY_OF_MONTH));
 
@@ -119,55 +129,22 @@ public class ScheduleRegisterDialog extends Dialog {
         });
 
 
-//        registerButton.setOnTouchListener(new View.OnTouchListener() {
-//            @Override
-//            public boolean onTouch(View v, MotionEvent event) {
-//                //text = txt_modify_edit.getText().toString();
-//                mode = titleTextView.getText().toString();
-//                dismiss();
-//                return false;
-//            }
-//        });
-//
-//    }
-//    public String getMode() {
-//        return mode;
-//    }
-//
-//    public void setMode(String mode) {
-//        this.mode = mode;
-//        titleTextView.setText(mode);
-//    }
-//
-//    public String getText() {
-//        return text;
-//    }
-//
-//    public void setText(String text) {
-//        this.text = text;
-//     //   txt_modify_edit.setText(text);
-//       // txt_modify_edit.setFocusable(true);
-//    }
-//
 
+        return view;
+    }
+
+    @Override
+    public void onClick(View v) {
+        int id = v.getId();
+        switch (v.getId()) {
+            case R.id.cancelButton:
+                dismiss();
+                break;
+            case R.id.registerButton:
+                dismiss();
+
+        }
     }
 
 
-    View.OnClickListener onClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            switch (view.getId()) {
-                case R.id.cancelButton:
-                    dismiss();
-                    break;
-                case R.id.registerButton:
-                    dismiss();
-                    Toast.makeText(getContext(), "여행일정이 등록되었습니다.", Toast.LENGTH_SHORT).show();
-                    break;
-
-            }
-        }
-    };
-
 }
-
