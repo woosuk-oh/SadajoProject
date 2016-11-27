@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.tacademy.sadajo.BottomBarClickListener;
@@ -17,8 +18,6 @@ import com.tacademy.sadajo.R;
 
 public class ShoppingListActivity extends AppCompatActivity {
 
-    private final long FINSH_INTERVAL_TIME = 2000;
-    private long backPressedTime = 0;
 
     ImageButton homeBtn;
     ImageButton searchBtn;
@@ -26,12 +25,16 @@ public class ShoppingListActivity extends AppCompatActivity {
     ImageButton chattingBtn;
     ImageButton mypageBtn;
 
+    TabLayout tabLayout;
+
+    private final long FINSH_INTERVAL_TIME = 2000;
+    private long backPressedTime = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shoppinglist);
-        //     this.overridePendingTransition(0,0);
-
+        setBottomButtonClickListener();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar); //toolbar background image
         setSupportActionBar(toolbar);
         toolbar.setBackgroundResource(R.drawable.tool_02_shoppinglist);
@@ -51,41 +54,36 @@ public class ShoppingListActivity extends AppCompatActivity {
         if (viewPager != null) {
             setupShoppingListViewPager(viewPager);
         }
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.shopping_tab);
+        tabLayout = (TabLayout) findViewById(R.id.shopping_tab);
         tabLayout.setupWithViewPager(viewPager);
 
 
+        setTabImage();
+
+    }
+    private void setBottomButtonClickListener(){
         homeBtn = (ImageButton) findViewById(R.id.homeBtn);
         homeBtn.setOnClickListener(new BottomBarClickListener(this));
         searchBtn = (ImageButton) findViewById(R.id.searchBtn);
         searchBtn.setOnClickListener(new BottomBarClickListener(this));
-
         shoppingListBtn = (ImageButton) findViewById(R.id.shoppingListBtn);
         shoppingListBtn.setOnClickListener(new BottomBarClickListener(this));
-        shoppingListBtn.setSelected(true);
         chattingBtn = (ImageButton) findViewById(R.id.chattingBtn);
         chattingBtn.setOnClickListener(new BottomBarClickListener(this));
         mypageBtn = (ImageButton) findViewById(R.id.mypageBtn);
         mypageBtn.setOnClickListener(new BottomBarClickListener(this));
+        shoppingListBtn.setSelected(true);
 
 
-        // tabLayout.getTabAt(0).setText("");
+    }
+    private void setTabImage() {
 
-
-//        //탭레이아웃 탭 셀렉터
-//        for (int i = 0; i < tabLayout.getTabCount(); i++) {
-//
-//
-//            ImageView imageView  = (ImageView)findViewById(R.drawable.selector_tab_sl_1) ;
-//            tabLayout.getTabAt(i).setCustomView(imageView);
-//            tabLayout.getTabAt(i).setText("");
-//
-//
-//
-//        }
-//
-
-
+        ImageView imageView = new ImageView(this);
+        ImageView imageView2 = new ImageView(this);
+        imageView.setImageResource(R.drawable.selector_tab_sl_1);
+        imageView2.setImageResource(R.drawable.selector_tab_sl_2);
+        tabLayout.getTabAt(0).setCustomView(imageView);
+        tabLayout.getTabAt(1).setCustomView(imageView2);
 
 
     }
@@ -136,8 +134,7 @@ public class ShoppingListActivity extends AppCompatActivity {
     }
 
 
-
-    public boolean viewType(){
+    public boolean viewType() {
         return false;
     }
 

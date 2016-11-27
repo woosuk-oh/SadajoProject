@@ -82,6 +82,8 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        setBottomButtonClickListener();
+
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -95,17 +97,7 @@ public class HomeActivity extends AppCompatActivity {
 //        FrameLayout frameLayout = (FrameLayout)findViewById(R.id.frameBottomBar);
 //        frameLayout.setVisibility(View.GONE);
 
-        homeBtn = (ImageButton) findViewById(R.id.homeBtn);
-        homeBtn.setOnClickListener(new BottomBarClickListener(this));
-        homeBtn.setSelected(true);
-        searchBtn = (ImageButton) findViewById(R.id.searchBtn);
-        searchBtn.setOnClickListener(new BottomBarClickListener(this));
-        shoppingListBtn = (ImageButton) findViewById(R.id.shoppingListBtn);
-        shoppingListBtn.setOnClickListener(new BottomBarClickListener(this));
-        chattingBtn = (ImageButton) findViewById(R.id.chattingBtn);
-        chattingBtn.setOnClickListener(new BottomBarClickListener(this));
-        mypageBtn = (ImageButton) findViewById(R.id.mypageBtn);
-        mypageBtn.setOnClickListener(new BottomBarClickListener(this));
+
 
         countryNameTextView = (TextView) findViewById(R.id.countryNameTextView);//국가명
 
@@ -229,7 +221,21 @@ public class HomeActivity extends AppCompatActivity {
         }
     }
 
+    private void setBottomButtonClickListener(){
+        homeBtn = (ImageButton) findViewById(R.id.homeBtn);
+        homeBtn.setOnClickListener(new BottomBarClickListener(this));
+        searchBtn = (ImageButton) findViewById(R.id.searchBtn);
+        searchBtn.setOnClickListener(new BottomBarClickListener(this));
+        shoppingListBtn = (ImageButton) findViewById(R.id.shoppingListBtn);
+        shoppingListBtn.setOnClickListener(new BottomBarClickListener(this));
+        chattingBtn = (ImageButton) findViewById(R.id.chattingBtn);
+        chattingBtn.setOnClickListener(new BottomBarClickListener(this));
+        mypageBtn = (ImageButton) findViewById(R.id.mypageBtn);
+        mypageBtn.setOnClickListener(new BottomBarClickListener(this));
+        homeBtn.setSelected(true);
 
+
+    }
     View.OnClickListener onClickListener = new View.OnClickListener() {
 
         Intent intent;

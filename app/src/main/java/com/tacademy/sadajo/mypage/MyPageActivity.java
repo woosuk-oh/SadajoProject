@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,6 +34,8 @@ public class MyPageActivity extends AppCompatActivity {
 
     TextView mypageBuyTextView;
 
+    TabLayout tabLayout;
+
     int viewType;
 
     @Override
@@ -40,29 +43,15 @@ public class MyPageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
 
-            setContentView(R.layout.activity_mypage);
+        setContentView(R.layout.activity_mypage);
 
-            homeBtn = (ImageButton) findViewById(R.id.homeBtn);
-            homeBtn.setOnClickListener(new BottomBarClickListener(this));
-            searchBtn = (ImageButton) findViewById(R.id.searchBtn);
-            searchBtn.setOnClickListener(new BottomBarClickListener(this));
-            shoppingListBtn = (ImageButton) findViewById(R.id.shoppingListBtn);
-            shoppingListBtn.setOnClickListener(new BottomBarClickListener(this));
-            chattingBtn = (ImageButton) findViewById(R.id.chattingBtn);
-            chattingBtn.setOnClickListener(new BottomBarClickListener(this));
-            mypageBtn = (ImageButton) findViewById(R.id.mypageBtn);
-            mypageBtn.setOnClickListener(new BottomBarClickListener(this));
-            mypageBtn.setSelected(true);
+        setBottomButtonClickListener();
 
-
-            Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-            setSupportActionBar(toolbar);
-            toolbar.setBackgroundResource(R.drawable.tool_03_mypage); //toolbar image
-            getSupportActionBar().setDisplayShowTitleEnabled(false);//title hidden
-            getSupportActionBar().setDisplayHomeAsUpEnabled(false); //back icon
-
-
-
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        toolbar.setBackgroundResource(R.drawable.tool_03_mypage); //toolbar image
+        getSupportActionBar().setDisplayShowTitleEnabled(false);//title hidden
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false); //back icon
 
 
         sellCountButton = (ImageButton) findViewById(R.id.sellCountButton);
@@ -73,21 +62,42 @@ public class MyPageActivity extends AppCompatActivity {
         if (viewPager != null) {
             setupMyPageViewPager(viewPager);
         }
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.mypageTab);
+        tabLayout = (TabLayout) findViewById(R.id.mypageTab);
         tabLayout.setupWithViewPager(viewPager);
-
-
-        //탭레이아웃 탭 셀렉터
-//        for (int i = 0; i < tabLayout.getTabCount(); i++) {
-//
-//            tabLayout.getTabAt(i).setIcon(R.drawable.selector_home);
-//            tabLayout.getTabAt(i).setText("");
-//
-//
-//        }
+        setTabImage();
 
         sellCountButton.setOnClickListener(clickListener);
         buyCountButton.setOnClickListener(clickListener);
+
+    }
+
+    private void setBottomButtonClickListener(){
+        homeBtn = (ImageButton) findViewById(R.id.homeBtn);
+        homeBtn.setOnClickListener(new BottomBarClickListener(this));
+        searchBtn = (ImageButton) findViewById(R.id.searchBtn);
+        searchBtn.setOnClickListener(new BottomBarClickListener(this));
+        shoppingListBtn = (ImageButton) findViewById(R.id.shoppingListBtn);
+        shoppingListBtn.setOnClickListener(new BottomBarClickListener(this));
+        chattingBtn = (ImageButton) findViewById(R.id.chattingBtn);
+        chattingBtn.setOnClickListener(new BottomBarClickListener(this));
+        mypageBtn = (ImageButton) findViewById(R.id.mypageBtn);
+        mypageBtn.setOnClickListener(new BottomBarClickListener(this));
+        mypageBtn.setSelected(true);
+
+
+    }
+
+    private void setTabImage() {
+
+        ImageView imageView = new ImageView(this);
+        ImageView imageView2 = new ImageView(this);
+        ImageView imageView3 = new ImageView(this);
+        imageView.setImageResource(R.drawable.selector_tab_mypage_1);
+        imageView2.setImageResource(R.drawable.selector_tab_mypage_2);
+        imageView3.setImageResource(R.drawable.selector_tab_mypage_3);
+        tabLayout.getTabAt(0).setCustomView(imageView);
+        tabLayout.getTabAt(1).setCustomView(imageView2);
+        tabLayout.getTabAt(2).setCustomView(imageView3);
 
     }
 

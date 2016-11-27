@@ -32,6 +32,8 @@ public class ChattingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         //  this.overridePendingTransition(0,0);
         setContentView(R.layout.activity_chatting);
+        setBottomButtonClickListener();
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setBackgroundResource(R.drawable.tool_04_chat); //toolbar image
@@ -46,18 +48,6 @@ public class ChattingActivity extends AppCompatActivity {
         });
 
 
-        homeBtn = (ImageButton) findViewById(R.id.homeBtn);
-        homeBtn.setOnClickListener(new BottomBarClickListener(this));
-        searchBtn = (ImageButton) findViewById(R.id.searchBtn);
-        searchBtn.setOnClickListener(new BottomBarClickListener(this));
-        shoppingListBtn = (ImageButton) findViewById(R.id.shoppingListBtn);
-        shoppingListBtn.setOnClickListener(new BottomBarClickListener(this));
-        chattingBtn = (ImageButton) findViewById(R.id.chattingBtn);
-        chattingBtn.setOnClickListener(new BottomBarClickListener(this));
-        chattingBtn.setSelected(true);
-        mypageBtn = (ImageButton) findViewById(R.id.mypageBtn);
-        mypageBtn.setOnClickListener(new BottomBarClickListener(this));
-
         CustomRecyclerDecoration decoration = new CustomRecyclerDecoration(30, "bottom");
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         LinearLayoutManager layoutManager = new LinearLayoutManager(ChattingActivity.this, LinearLayoutManager.VERTICAL, false);
@@ -69,6 +59,24 @@ public class ChattingActivity extends AppCompatActivity {
 
 
     }
+    private void setBottomButtonClickListener(){
+        homeBtn = (ImageButton) findViewById(R.id.homeBtn);
+        homeBtn.setOnClickListener(new BottomBarClickListener(this));
+        searchBtn = (ImageButton) findViewById(R.id.searchBtn);
+        searchBtn.setOnClickListener(new BottomBarClickListener(this));
+        shoppingListBtn = (ImageButton) findViewById(R.id.shoppingListBtn);
+        shoppingListBtn.setOnClickListener(new BottomBarClickListener(this));
+        chattingBtn = (ImageButton) findViewById(R.id.chattingBtn);
+        chattingBtn.setOnClickListener(new BottomBarClickListener(this));
+        mypageBtn = (ImageButton) findViewById(R.id.mypageBtn);
+        mypageBtn.setOnClickListener(new BottomBarClickListener(this));
+
+        chattingBtn.setSelected(true);
+
+
+    }
+
+
     @Override
     public void onBackPressed() {
         long currentTime = System.currentTimeMillis();

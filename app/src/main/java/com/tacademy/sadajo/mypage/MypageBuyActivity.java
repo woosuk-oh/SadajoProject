@@ -9,12 +9,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.tacademy.sadajo.MyPagerAdapter;
 import com.tacademy.sadajo.R;
 
 public class MypageBuyActivity extends AppCompatActivity {
-
+    TabLayout tabLayout;
     int tabNum;
 
     @Override
@@ -41,16 +42,28 @@ public class MypageBuyActivity extends AppCompatActivity {
         if (viewPager != null) {
             setupBuySellViewPager(viewPager);
         }
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.mypage_tab);
+        tabLayout = (TabLayout) findViewById(R.id.mypage_tab);
         tabLayout.setupWithViewPager(viewPager);
+        setTabImage();
 
         //select될 탭 설정
         Intent intent = getIntent();
         tabNum = intent.getExtras().getInt("tabNum");
         tabLayout.getTabAt(tabNum).select();
+
+
     }
 
+    private void setTabImage() {
 
+        ImageView imageView = new ImageView(this);
+        ImageView imageView2 = new ImageView(this);
+        imageView.setImageResource(R.drawable.selector_tab_mypage_4);
+        imageView2.setImageResource(R.drawable.selector_tab_mypage_5);
+        tabLayout.getTabAt(0).setCustomView(imageView);
+        tabLayout.getTabAt(1).setCustomView(imageView2);
+
+    }
     private void setupBuySellViewPager(ViewPager viewPager) {
         MyPagerAdapter buySellPagerAdapter = new MyPagerAdapter(getSupportFragmentManager());
         buySellPagerAdapter.appendFragment(BuyListFragment.newInstance(1), "사다조");

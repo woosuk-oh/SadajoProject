@@ -66,7 +66,7 @@ public class SearchListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
-
+        setBottomButtonClickListener();
 
 
 
@@ -122,20 +122,6 @@ public class SearchListActivity extends AppCompatActivity {
         customTitleText5 = (TextView) findViewById(R.id.latest); //최신순
 
 
-                // 바텀 탭바
-
-        homeBtn = (ImageButton) findViewById(R.id.homeBtn);
-        homeBtn.setOnClickListener(new BottomBarClickListener(this));
-        searchBtn = (ImageButton) findViewById(R.id.searchBtn);
-        searchBtn.setOnClickListener(new BottomBarClickListener(this));
-        searchBtn.setSelected(true);
-        shoppingListBtn = (ImageButton) findViewById(R.id.shoppingListBtn);
-        shoppingListBtn.setOnClickListener(new BottomBarClickListener(this));
-        chattingBtn = (ImageButton) findViewById(R.id.chattingBtn);
-        chattingBtn.setOnClickListener(new BottomBarClickListener(this));
-        mypageBtn = (ImageButton) findViewById(R.id.mypageBtn);
-        mypageBtn.setOnClickListener(new BottomBarClickListener(this));
-
 
 
     } // end OnCreate.
@@ -151,11 +137,21 @@ public class SearchListActivity extends AppCompatActivity {
     }
 
 
+    private void setBottomButtonClickListener(){
+        homeBtn = (ImageButton) findViewById(R.id.homeBtn);
+        homeBtn.setOnClickListener(new BottomBarClickListener(this));
+        searchBtn = (ImageButton) findViewById(R.id.searchBtn);
+        searchBtn.setOnClickListener(new BottomBarClickListener(this));
+        shoppingListBtn = (ImageButton) findViewById(R.id.shoppingListBtn);
+        shoppingListBtn.setOnClickListener(new BottomBarClickListener(this));
+        chattingBtn = (ImageButton) findViewById(R.id.chattingBtn);
+        chattingBtn.setOnClickListener(new BottomBarClickListener(this));
+        mypageBtn = (ImageButton) findViewById(R.id.mypageBtn);
+        mypageBtn.setOnClickListener(new BottomBarClickListener(this));
+        searchBtn.setSelected(true);
 
 
-
-// 하단 탭바 클릭 시
-
+    }
 
 
 
