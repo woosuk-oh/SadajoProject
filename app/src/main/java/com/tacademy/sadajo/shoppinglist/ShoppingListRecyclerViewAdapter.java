@@ -35,6 +35,7 @@ public class ShoppingListRecyclerViewAdapter
 
     public ShoppingListRecyclerViewAdapter(Context context, ArrayList<ShoppingListData> shoppingListDatas) {
         mcontext = context;
+
         this.shoppingListDatas = shoppingListDatas;
     }
 
@@ -66,14 +67,6 @@ public class ShoppingListRecyclerViewAdapter
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-
-//
-//            View view = LayoutInflater.from(parent.getContext()).inflate(
-//                    R.layout.shoppinglist_recyclerview_item1, parent, false);
-//
-//
-//            return new ViewHolder(view);
-//
 
         int layoutRes = 0;
         switch (viewType) {

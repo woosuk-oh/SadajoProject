@@ -6,13 +6,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
 
 import com.tacademy.sadajo.R;
 
 public class ChattingDetailActivity extends AppCompatActivity {
 
     Toolbar toolbar;
-
+    ImageButton requestButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,7 +23,21 @@ public class ChattingDetailActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);//title hidden
         setToolbar(true);
+
+        requestButton = (ImageButton)findViewById(R.id.requestButton);//사다조 요청하기 버튼
+        requestButton.setOnClickListener(clickListener);
     }
+
+    View.OnClickListener clickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            switch (view.getId()) {
+                case R.id.requestButton:
+                    RequestDialogFragment dialog = new RequestDialogFragment();
+                    dialog.show(getFragmentManager(), "requestDialog");
+            }
+        }
+    };
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

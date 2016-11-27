@@ -63,6 +63,7 @@
             android:orientation="vertical">
 
             <ImageButton
+                android:id="@+id/requestButton"
                 android:layout_width="match_parent"
                 android:layout_height="38dp"
                 android:background="@drawable/chat_button" />
