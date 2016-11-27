@@ -14,6 +14,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
         <activity android:name=".splash.SplashActivity" />
         <activity
@@ -22,9 +23,11 @@
         <activity android:name=".shoppinglist.ShoppingListActivity" />
         <activity android:name=".chatting.ChattingActivity" />
         <activity android:name=".mypage.MyPageActivity" />
-        <activity android:name=".MainActivity" />
+        <activity android:name=".MainActivity" >
+
+            </activity>
         <activity android:name=".search.searchdetail.SearchDetail" />
-        <activity android:name=".chatting.ChattingRoom" />
+        <activity android:name=".chatting.ChattingDetailActivity" />
         <activity android:name=".mypage.MypageBuyActivity" />
         <activity android:name=".shoppinglist.ShoppingListFirstDetailActivity" />
         <activity android:name=".mypage.MyPageOtherActivity" />

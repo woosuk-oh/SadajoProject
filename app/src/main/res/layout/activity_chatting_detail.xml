@@ -5,7 +5,7 @@
     android:id="@+id/activity_chatting_room"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.tacademy.sadajo.chatting.ChattingRoom">
+    tools:context="com.tacademy.sadajo.chatting.ChattingDetailActivity">
 
     <include layout="@layout/include_toolbar_layout" /><!--include toolbar -->
 

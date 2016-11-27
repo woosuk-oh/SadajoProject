@@ -88,6 +88,7 @@ public class HomeActivity extends AppCompatActivity {
 
         toolbar.setBackgroundResource(R.drawable.tool_01_main); //toolbar image
         getSupportActionBar().setDisplayShowTitleEnabled(false);//title hidden
+        setToolbar(false);
 
 
         //바텀바 gone
@@ -130,7 +131,7 @@ public class HomeActivity extends AppCompatActivity {
         CustomRecyclerDecoration decoration = new CustomRecyclerDecoration(45, "bottom");//리사이클러뷰 아이템간 간격
         recyclerView.addItemDecoration(decoration);
 
-          new AsyncHomeRequest().execute();
+        new AsyncHomeRequest().execute();
 
 
     }

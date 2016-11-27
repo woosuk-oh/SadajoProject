@@ -23,11 +23,11 @@
             android:orientation="vertical"
             android:layout_marginBottom="50dp">
 
-            <include layout="@layout/main_cardview1" />
+            <include layout="@layout/home_cardview1" />
 
-            <include layout="@layout/main_cardview2" />
+            <include layout="@layout/home_cardview2" />
 
-            <include layout="@layout/main_linearlayout3" />
+            <include layout="@layout/home_linearlayout3" />
 
 
         </LinearLayout>
