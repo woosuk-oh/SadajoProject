@@ -1,19 +1,37 @@
 package com.tacademy.sadajo.chatting;
 
+import android.database.DataSetObserver;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ListView;
 
 import com.tacademy.sadajo.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ChattingDetailActivity extends AppCompatActivity {
 
     Toolbar toolbar;
+
+    ListView listView;
+
     ImageButton requestButton;
+    ImageButton sendButton;
+
+    EditText chattingEditText;
+
+    private List<ChatMessage> chatMessages;
+    ArrayAdapter<ChatMessage> chatMessageArrayAdapter;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,6 +41,24 @@ public class ChattingDetailActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);//title hidden
         setToolbar(true);
+
+        chatMessages = new ArrayList<>();
+
+
+        listView =  (ListView)findViewById(R.id.listview);
+        sendButton = (ImageButton)findViewById(R.id.sendButton);
+        chattingEditText = (EditText)findViewById(R.id.chattingEditText);
+
+        chatMessageArrayAdapter = new ChattingAdapter(ChattingDetailActivity.this,R.layout.chatting_message,chatMessages);
+        listView.setAdapter(chatMessageArrayAdapter);
+        chatMessageArrayAdapter.registerDataSetObserver(new DataSetObserver() {
+            @Override
+            public void onChanged() {
+                super.onChanged();
+                listView.setSelection(chatMessageArrayAdapter.getCount()-1);
+            }
+        });
+        listView.setTranscriptMode(ListView.TRANSCRIPT_MODE_ALWAYS_SCROLL);
 
         requestButton = (ImageButton)findViewById(R.id.requestButton);//사다조 요청하기 버튼
         requestButton.setOnClickListener(clickListener);

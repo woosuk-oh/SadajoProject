@@ -25,6 +25,8 @@ public class ChattingActivity extends AppCompatActivity {
     ImageButton chattingBtn;
     ImageButton mypageBtn;
 
+    Toolbar toolbar;
+
     ChattingRecyclerViewAdapter chattingRecyclerViewAdapter;
 
     @Override
@@ -34,18 +36,11 @@ public class ChattingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_chatting);
         setBottomButtonClickListener();
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setBackgroundResource(R.drawable.tool_04_chat); //toolbar image
         getSupportActionBar().setDisplayShowTitleEnabled(false);//title hidden
-        getSupportActionBar().setDisplayHomeAsUpEnabled(false); //back icon
-
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-            }
-        });
+        setToolbar(false);
 
 
         CustomRecyclerDecoration decoration = new CustomRecyclerDecoration(30, "bottom");
@@ -59,7 +54,8 @@ public class ChattingActivity extends AppCompatActivity {
 
 
     }
-    private void setBottomButtonClickListener(){
+
+    private void setBottomButtonClickListener() {
         homeBtn = (ImageButton) findViewById(R.id.homeBtn);
         homeBtn.setOnClickListener(new BottomBarClickListener(this));
         searchBtn = (ImageButton) findViewById(R.id.searchBtn);
@@ -72,6 +68,20 @@ public class ChattingActivity extends AppCompatActivity {
         mypageBtn.setOnClickListener(new BottomBarClickListener(this));
 
         chattingBtn.setSelected(true);
+
+
+    }
+
+    public void setToolbar(boolean b) {
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(b); //back icon
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() { //클릭시 뒤로가기
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
 
 
     }

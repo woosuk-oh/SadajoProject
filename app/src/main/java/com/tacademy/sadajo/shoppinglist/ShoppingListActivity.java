@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -42,12 +41,6 @@ public class ShoppingListActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(false); //back icon
 
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() { //뒤로가기
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-            }
-        });
 
 
         ViewPager viewPager = (ViewPager) findViewById(R.id.shopping_viewpager);
