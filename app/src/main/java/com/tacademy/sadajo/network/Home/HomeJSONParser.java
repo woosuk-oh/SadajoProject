@@ -1,10 +1,6 @@
-package com.tacademy.sadajo.network;
+package com.tacademy.sadajo.network.Home;
 
 import android.util.Log;
-
-import com.tacademy.sadajo.network.Home.HomeDB;
-import com.tacademy.sadajo.network.Home.HomeShoplistDB;
-import com.tacademy.sadajo.network.Home.HomeTravelDB;
 
 import org.json.JSONArray;
 import org.json.JSONException;

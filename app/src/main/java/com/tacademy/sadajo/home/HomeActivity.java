@@ -25,7 +25,7 @@ import com.tacademy.sadajo.CustomRecyclerDecoration;
 import com.tacademy.sadajo.R;
 import com.tacademy.sadajo.fonts.NanumRegularTextView;
 import com.tacademy.sadajo.network.Home.HomeDB;
-import com.tacademy.sadajo.network.HomeJSONParser;
+import com.tacademy.sadajo.network.Home.HomeJSONParser;
 import com.tacademy.sadajo.network.NetworkDefineConstant;
 import com.tacademy.sadajo.network.OkHttpInitManager;
 
@@ -223,10 +223,7 @@ public class HomeActivity extends AppCompatActivity {
                 departDateTextView.setText(s.travelInfos.getStartDate()); // 떠나요
                 comeDateTextView.setText(s.travelInfos.getEndDate()); //돌아와요
 
-                /* TODO 쇼퍼맨 쇼핑리스트 부분 사용자네임 호출방법 찾아야됌.*/
-//                    recyclerView.setAdapter(homeUserRecyclerViewAdapter);
-//                    homeUserRecyclerViewAdapter.holder.homeUserIdTextView.setText("닉네임");
-
+                //  다른 쇼퍼맨들의 쇼핑리스트 부분. 유저네임 받아옴.
                 homeUserRecyclerViewAdapter = new HomeUserRecyclerViewAdapter(HomeActivity.this,s.shoplist);
                 recyclerView.setAdapter(homeUserRecyclerViewAdapter);
 
