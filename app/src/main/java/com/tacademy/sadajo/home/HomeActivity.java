@@ -122,7 +122,7 @@ public class HomeActivity extends BaseActivity {
         recyclerView.addItemDecoration(decoration);
 
 
-        new AsyncHomeRequest().execute();
+     //   new AsyncHomeRequest().execute();
 
 
     }
@@ -215,7 +215,6 @@ public class HomeActivity extends BaseActivity {
                 }
 
 
-                //countryNameTextView.setText(s.shoplist.get(0).userName);
             }
         }
     }
@@ -238,9 +237,7 @@ public class HomeActivity extends BaseActivity {
 
     View.OnClickListener onClickListener = new View.OnClickListener() {
 
-        Intent intent;
-        Context context = HomeActivity.this;
-        String str;
+
 
         @Override
         public void onClick(View view) {
@@ -283,7 +280,7 @@ public class HomeActivity extends BaseActivity {
         params.setMargins(0, 0, 45, 45); // top, right margin : 15
         button.setGravity(Gravity.CENTER); //gravity : center
         button.setTextSize(13);// textsize : 13sp
-        button.setTypeface(null, Typeface.NORMAL);
+        button.setTypeface(null, Typeface.NORMAL);//textstyle : Nanum M
         button.setLayoutParams(params);
         button.setTag("HomeTag");
         button.setId(i);
