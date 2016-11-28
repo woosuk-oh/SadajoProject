@@ -122,11 +122,13 @@ public class HomeActivity extends BaseActivity {
         recyclerView.addItemDecoration(decoration);
 
 
-     //   new AsyncHomeRequest().execute();
-
 
     }
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        new AsyncHomeRequest().execute();
+    }
 
     public class AsyncHomeRequest extends AsyncTask<Void, Void, HomeDB> {
         private ProgressDialog progressDialog;
@@ -158,6 +160,8 @@ public class HomeActivity extends BaseActivity {
                         .url(String.format(NetworkDefineConstant.SERVER_URL_REQUEST_HOME))
                         .post(postBody)
                         .build();
+
+
 
                 //동기 방식
                 response = toServer.newCall(request).execute();

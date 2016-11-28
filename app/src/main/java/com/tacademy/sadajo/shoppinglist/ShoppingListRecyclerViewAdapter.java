@@ -13,6 +13,8 @@ import android.widget.TextView;
 
 import com.tacademy.sadajo.R;
 import com.tacademy.sadajo.home.ScheduleDialogFragment;
+import com.tacademy.sadajo.network.shoppinglist.CountryEngHashMap;
+import com.tacademy.sadajo.network.shoppinglist.ShopListDB;
 
 import java.util.ArrayList;
 
@@ -24,7 +26,7 @@ import java.util.ArrayList;
 public class ShoppingListRecyclerViewAdapter
         extends RecyclerView.Adapter<ShoppingListRecyclerViewAdapter.ViewHolder> {
 
-    private ArrayList<ShoppingListData> shoppingListDatas;
+    private ArrayList<ShopListDB> shopListDB= new ArrayList<>();
     private Context mcontext;
 
 
@@ -33,10 +35,10 @@ public class ShoppingListRecyclerViewAdapter
     private final static int CONTENT_VIEW = 1;
 
 
-    public ShoppingListRecyclerViewAdapter(Context context, ArrayList<ShoppingListData> shoppingListDatas) {
+    public ShoppingListRecyclerViewAdapter(Context context) {
         mcontext = context;
 
-        this.shoppingListDatas = shoppingListDatas;
+
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -100,10 +102,12 @@ public class ShoppingListRecyclerViewAdapter
 
         //첫번째 아이템이 아닌 경우
         if (viewType == CONTENT_VIEW) {
-
-            holder.countryNameTextView.setText(shoppingListDatas.get(position).countryName);
-            holder.cityNameTextView.setText(shoppingListDatas.get(position).cityName);
-            holder.dateTextView.setText(shoppingListDatas.get(position).travelDate);
+            CountryEngHashMap countryEngHashMap = new CountryEngHashMap();
+            String countryKor  = shopListDB.get(position).countryCode;
+            String countryEng = countryEngHashMap.getCountryEngName(shopListDB.get(position).countryCode);
+            holder.countryNameTextView.setText(countryEng);
+            holder.cityNameTextView.setText(countryKor+", "+shopListDB.get(position).cityCode);
+            holder.dateTextView.setText(shopListDB.get(position).startDate+"~"+shopListDB.get(position).endDate);
             holder.productImageView.setImageResource(R.drawable.product_sample);
 
 //            Glide.with(GirlsApplication.getGirlsContext())
@@ -142,8 +146,13 @@ public class ShoppingListRecyclerViewAdapter
         }
     }
 
+
+    public void addShopList(ArrayList<ShopListDB> shopListDBs){
+        this.shopListDB.addAll(shopListDBs);
+    }
+
     @Override
     public int getItemCount() {
-        return shoppingListDatas.size();
+        return shopListDB.size();
     }
 }

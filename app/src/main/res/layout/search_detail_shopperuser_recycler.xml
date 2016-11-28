@@ -20,11 +20,12 @@
         android:layout_marginBottom="9dp"
         android:src="@drawable/search_profile_180" />
 
-    <com.tacademy.sadajo.fonts.NanumRegularTextView
+    <TextView
         android:id="@+id/detail_shopperuser_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
         android:gravity="center_horizontal"
-        android:text="아롱이다롱" />
+        android:text="아롱이다롱"
+        android:textStyle="normal"/>
 </LinearLayout>
