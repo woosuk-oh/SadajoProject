@@ -10,12 +10,15 @@ import android.util.TypedValue;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.tacademy.sadajo.R;
 import com.tacademy.sadajo.chatting.ChattingActivity;
+import com.tacademy.sadajo.funtion.SearchBarDeleteButton;
 import com.tacademy.sadajo.home.HomeActivity;
 import com.tacademy.sadajo.mypage.MyPageActivity;
 import com.tacademy.sadajo.shoppinglist.ShoppingListActivity;
@@ -27,7 +30,7 @@ import static com.tacademy.sadajo.SadajoContext.getContext;
 public class SearchListActivity extends AppCompatActivity {
 
 
-   // private CollapsingSwipeRefreshLayout swiper;
+    // private CollapsingSwipeRefreshLayout swiper;
     private RecyclerView mRecycler;
 
     RecyclerView.Adapter Adapter;
@@ -40,15 +43,18 @@ public class SearchListActivity extends AppCompatActivity {
     ImageButton chattingBtn;
     ImageButton mypageBtn;
 
+
     private SearchListRecyclerAdapter mAdapter;
 
     //param 1번째는  이미지의 resource 값
-    private ArrayList<Integer> itemsOfData;
+
     private Animation inAnim;
     private Animation outAnim;
     private TextView customTitle;
-    private LinearLayout customBar;
+    private EditText searchBar;
+    private Button searchBarClear;
 
+    private LinearLayout customBar;
 
 
     // 커스텀 바 setting
@@ -69,7 +75,7 @@ public class SearchListActivity extends AppCompatActivity {
         mRecycler = (RecyclerView) findViewById(R.id.search_recycler_view);
 
 
-        layoutManager = new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
+        layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         mRecycler.setLayoutManager(layoutManager); //리싸이클러뷰의 레이아웃매니저 적용
 
         ArrayList<ItemArrayList> items = new ArrayList<>();
@@ -84,16 +90,12 @@ public class SearchListActivity extends AppCompatActivity {
         mRecycler.setAdapter(mAdapter);
         mAdapter.notifyDataSetChanged();
 
+        searchBar = (EditText) findViewById(R.id.search_search_et);
+        searchBarClear = (Button) findViewById(R.id.search_search_bt);
 
+        SearchBarDeleteButton.setRemovableET(searchBar, searchBarClear);  // Search Bar 에딧텍스트에 글자 입력시 x버튼 노출, 누르면 공백을 setText해줌.
 
-
-
-
-
-        //        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
-        //       setSupportActionBar(toolbar);
-//        final ActionBar ab = getSupportActionBar();
-//        ab.setDisplayHomeAsUpEnabled(true);
+        searchBar.setOnFocusChangeListener(FocusListener); // Search Bar 클릭 시, 이미지 변경
 
         //////////////////////
         //  리프레쉬 할때 출력되는 새로고침 애니메이션.
@@ -116,159 +118,89 @@ public class SearchListActivity extends AppCompatActivity {
         customTitle = (TextView) findViewById(R.id.custom_title);
 
 
-
-
-/*
-
-
-
-
-
-
-        //////////////////////////////
-        //  Setup Swipe To Refresh  //
-        //////////////////////////////
-        swiper = (CollapsingSwipeRefreshLayout) findViewById(R.id.swipe_container);
-        */
-/*
-          Swipe Icon 크기 및 컬러설정
-         *//*
-
-        swiper.setSize(SwipeRefreshLayout.LARGE);
-        swiper.setColorSchemeResources(
-
-                android.R.color.holo_blue_bright,
-                android.R.color.holo_orange_light,
-                android.R.color.holo_green_light,
-                android.R.color.holo_red_light
-        );
-        //Swipe 발생시
-        swiper.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                */
-/*
-                  발생시(2000초)
-                 *//*
-
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (itemsOfData != null && mAdapter != null) {
-
-                            // 다시 네트워크로 부터 데이터 가져와야됌.
-
-
-                            mAdapter.notifyDataSetChanged(); // 새로고침 후 데이터 셋 체인지 해준다.
-
-                        }
-                        swiper.setRefreshing(false); // 데이터셋 해주고 리프래쉬
-                    }
-                }, 2000);
-            }
-        });
-
-
-        /////////////////////////////////////////////
-        //  스크롤 리스터 등록 //
-        /////////////////////////////////////////////
-        mRecycler.addOnScrollListener(new RecyclerView.OnScrollListener() {
-
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-            }
-            //스크롤의 수평/수직의 갯수--여기선 Vertical이므로 dy의 값은 수직의 값이 됨(+-값)
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                if (dy > 3) {
-                    if (customBar.getVisibility() == View.VISIBLE)
-                        hideCustomBar();
-
-                } else if (dy < -3) {
-                    if (customBar.getVisibility() == View.GONE)
-                        showCustomBar();
-                }
-            }
-        });
-
-        mRecycler.setAdapter(mAdapter);
-
-        //스크롤될 뷰(여기서는 리사이클러뷰)를 스위프에 등록
-        swiper.setTargetScrollableView(mRecycler);
-
-
-
-*/
-
-
-
         // 바텀 탭바
 
-        homeBtn = (ImageButton)findViewById(R.id.homeBtn);
+        homeBtn = (ImageButton) findViewById(R.id.homeBtn);
         homeBtn.setOnClickListener(mClickListener);
-        searchBtn = (ImageButton)findViewById(R.id.searchBtn);
+        searchBtn = (ImageButton) findViewById(R.id.searchBtn);
         searchBtn.setOnClickListener(mClickListener);
         searchBtn.setSelected(true);
-        shoppingListBtn = (ImageButton)findViewById(R.id.shoppingListBtn);
+        shoppingListBtn = (ImageButton) findViewById(R.id.shoppingListBtn);
         shoppingListBtn.setOnClickListener(mClickListener);
-        chattingBtn = (ImageButton)findViewById(R.id.chattingBtn);
+        chattingBtn = (ImageButton) findViewById(R.id.chattingBtn);
         chattingBtn.setOnClickListener(mClickListener);
-        mypageBtn = (ImageButton)findViewById(R.id.mypageBtn);
+        mypageBtn = (ImageButton) findViewById(R.id.mypageBtn);
         mypageBtn.setOnClickListener(mClickListener);
-
-
 
 
     } // end OnCreate.
 
-        private void hideCustomBar() {
-            customBar.startAnimation(outAnim);
-            customBar.setVisibility(View.GONE);
+    private void hideCustomBar() {
+        customBar.startAnimation(outAnim);
+        customBar.setVisibility(View.GONE);
+    }
+
+    private void showCustomBar() {
+        customBar.startAnimation(inAnim);
+        customBar.setVisibility(View.VISIBLE);
+    }
+
+
+    View.OnFocusChangeListener FocusListener = new View.OnFocusChangeListener() {
+        @Override
+        public void onFocusChange(View view, boolean hasFocus) {
+
+            if (view == searchBar) { // 뷰가 서치바를 가지면
+                if (hasFocus) { //서치바에 포커스가 있을 시
+               /* mTextMessage.setText("Touch-1Set Focus");*/
+                    searchBar.setBackgroundResource(R.drawable.search_bar_onfocus);
+                } else {
+             /*   mTextMessage.setText("Touch-1Kill Focus");*/
+                    searchBar.setBackgroundResource(R.drawable.search_bar);
+                }
+            }
         }
-        private void showCustomBar() {
-            customBar.startAnimation(inAnim);
-            customBar.setVisibility(View.VISIBLE);
-        }
+    };
+
 
 // 하단 탭바 클릭 시
 
-    ImageButton.OnClickListener  mClickListener = new View.OnClickListener() {
+    ImageButton.OnClickListener mClickListener = new View.OnClickListener() {
         Intent intent;
+
         @Override
         public void onClick(View view) {
-            switch (view.getId()){
-                case R.id.homeBtn :
+            switch (view.getId()) {
+                case R.id.homeBtn:
                     searchBtn.setSelected(false);
-                    intent =  new Intent(SearchListActivity.this, HomeActivity.class);
+                    intent = new Intent(SearchListActivity.this, HomeActivity.class);
                     startActivity(intent);
                     break;
-                case R.id.searchBtn :
-                    intent =  new Intent(SearchListActivity.this, SearchListActivity.class);
+                case R.id.searchBtn:
+                    intent = new Intent(SearchListActivity.this, SearchListActivity.class);
                     startActivity(intent);
                     break;
-                case R.id.shoppingListBtn :
+                case R.id.shoppingListBtn:
                     searchBtn.setSelected(false);
 
-                    intent =  new Intent(SearchListActivity.this, ShoppingListActivity.class);
+                    intent = new Intent(SearchListActivity.this, ShoppingListActivity.class);
                     startActivity(intent);
                     break;
                 case R.id.chattingBtn:
                     searchBtn.setSelected(false);
 
-                    intent =  new Intent(SearchListActivity.this, ChattingActivity.class);
+                    intent = new Intent(SearchListActivity.this, ChattingActivity.class);
                     startActivity(intent);
                     break;
-                case R.id.mypageBtn :
+                case R.id.mypageBtn:
                     searchBtn.setSelected(false);
 
-                    intent =  new Intent(SearchListActivity.this, MyPageActivity.class);
+                    intent = new Intent(SearchListActivity.this, MyPageActivity.class);
                     startActivity(intent);
                     break;
             }
         }
     };
-
 
 
 }

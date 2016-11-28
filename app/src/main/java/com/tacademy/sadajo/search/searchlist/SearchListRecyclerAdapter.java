@@ -24,6 +24,13 @@ public class SearchListRecyclerAdapter extends RecyclerView.Adapter<SearchListRe
     private Context context;
     private ArrayList<ItemArrayList> mItems;
 
+
+    private static int TYPE_HEADER = 0;
+    private static int TYPE_BODY = 1;
+    private static int TYPE_FOOTER = 3;
+
+
+
     private int lastPosition = -1;
 
 
@@ -31,6 +38,11 @@ public class SearchListRecyclerAdapter extends RecyclerView.Adapter<SearchListRe
 
         mItems = items;
         context = mCotext;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return super.getItemViewType(position);
     }
 
     @Override
