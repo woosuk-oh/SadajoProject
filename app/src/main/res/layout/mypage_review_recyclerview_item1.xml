@@ -20,14 +20,15 @@
             android:layout_height="60dp"
             android:src="@drawable/profile_empty" />
 
-        <com.tacademy.sadajo.fonts.NanumRegularTextView
+        <TextView
             android:id="@+id/userId"
             android:layout_marginTop="9dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="아롱이다롱"
             android:gravity="center"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            android:textStyle="normal"/>
     </LinearLayout>
 
     <LinearLayout
@@ -43,46 +44,50 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp">
 
-            <com.tacademy.sadajo.fonts.NanumBoldTextView
+            <TextView
                 android:id="@+id/reviewTitleTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="아르팅팅"
                 android:textSize="13sp"
-                android:textColor="@color/blackFont" />
+                android:textColor="@color/blackFont"
+                android:textStyle="bold"/>
 
-            <com.tacademy.sadajo.fonts.NanumBoldTextView
+            <TextView
 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="님이 후기를 남겼어요!"
                 android:textSize="13sp"
-                android:textColor="@color/blackFont" />
+                android:textColor="@color/blackFont"
+                android:textStyle="bold"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="right">
 
-                <com.tacademy.sadajo.fonts.NanumRegularTextView
+                <TextView
 
                     android:id="@+id/reviewDateTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:textColor="@color/grayFont"
                     android:textSize="11sp"
-                    android:text="2016.11.20" />
+                    android:text="2016.11.20"
+                    android:textStyle="normal"/>
             </LinearLayout>
         </LinearLayout>
 
-        <com.tacademy.sadajo.fonts.NanumRegularTextView
+        <TextView
             android:id="@+id/reviewContentsTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="7dp"
             android:text="안녕하세요...."
             android:textSize="11sp"
-            android:textColor="@color/grayFont" />
+            android:textColor="@color/grayFont"
+            android:textStyle="normal"/>
 
     </LinearLayout>
 

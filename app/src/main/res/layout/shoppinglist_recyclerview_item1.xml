@@ -14,7 +14,7 @@
 
         >
 
-        <com.tacademy.sadajo.fonts.GothamTextView
+        <TextView
             android:id="@+id/countryNameTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -22,18 +22,20 @@
             android:layout_marginTop="26dp"
             android:text="ITALY"
             android:textColor="@color/blackFont"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:textStyle="italic"/>
 
-        <com.tacademy.sadajo.fonts.NanumBoldTextView
+        <TextView
             android:id="@+id/cityNameTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="24dp"
             android:text="이탈리아, 피렌체"
             android:textColor="@color/blackFont"
-            android:textSize="13sp" />
+            android:textSize="13sp"
+            android:textStyle="bold"/>
 
-        <com.tacademy.sadajo.fonts.NanumRegularTextView
+        <TextView
             android:id="@+id/dateTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -41,7 +43,8 @@
             android:layout_marginTop="8dp"
             android:text="2016.11.10 ~ 2016.11.20"
             android:textColor="@color/grayFont"
-            android:textSize="10dp" />
+            android:textSize="10dp"
+            android:textStyle="normal"/>
     </LinearLayout>
 
     <LinearLayout
@@ -72,7 +75,7 @@
 
                 >
 
-                <com.tacademy.sadajo.fonts.NanumRegularTextView
+                <TextView
                     android:id="@+id/productEmptyTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -80,10 +83,11 @@
                     android:text="쇼핑리스트를 채워주세요!"
                     android:textColor="@color/blackFont"
                     android:textSize="13sp"
-                    android:visibility="invisible" />
+                    android:visibility="invisible"
+                    android:textStyle="normal"/>
             </LinearLayout>
 
-            <com.tacademy.sadajo.fonts.GothamTextView
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_alignBottom="@id/productImageView"
@@ -94,7 +98,8 @@
                 android:text="99+"
                 android:textColor="@color/white"
                 android:textSize="20sp"
-                android:visibility="visible" />
+                android:visibility="visible"
+                android:textStyle="italic"/>
 
         </RelativeLayout>
     </LinearLayout>

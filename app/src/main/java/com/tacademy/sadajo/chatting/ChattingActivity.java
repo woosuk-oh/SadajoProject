@@ -1,7 +1,6 @@
 package com.tacademy.sadajo.chatting;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -9,12 +8,13 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.tacademy.sadajo.BaseActivity;
 import com.tacademy.sadajo.BottomBarClickListener;
 import com.tacademy.sadajo.CustomRecyclerDecoration;
 import com.tacademy.sadajo.R;
 import com.tacademy.sadajo.shoppinglist.ShoppingListSample;
 
-public class ChattingActivity extends AppCompatActivity {
+public class ChattingActivity extends BaseActivity {
 
     private final long FINSH_INTERVAL_TIME = 2000;
     private long backPressedTime = 0;

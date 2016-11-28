@@ -43,7 +43,7 @@
                 android:layout_weight="1"
                 android:paddingTop="20dp">
 
-                <com.tacademy.sadajo.fonts.NanumRegularTextView
+                <TextView
                     android:id="@+id/search_item_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -51,7 +51,8 @@
 
                     android:text="itemName"
                     android:textColor="#232323"
-                    android:textSize="17sp" />
+                    android:textSize="17sp"
+                    android:textStyle="normal"/>
 
             </LinearLayout>
 
@@ -71,7 +72,7 @@
 
                     card_view:srcCompat="@drawable/flag" />
 
-                <com.tacademy.sadajo.fonts.NanumRegularTextView
+                <TextView
                     android:id="@+id/search_country_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -79,7 +80,8 @@
                     android:layout_marginRight="16dp"
                     android:text="이탈리아"
                     android:textColor="#747474"
-                    android:textSize="13sp" />
+                    android:textSize="13sp"
+                    android:textStyle="normal"/>
 
             </LinearLayout>
         </LinearLayout>

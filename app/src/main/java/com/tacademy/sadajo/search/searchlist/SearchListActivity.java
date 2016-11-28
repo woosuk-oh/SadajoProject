@@ -2,7 +2,6 @@ package com.tacademy.sadajo.search.searchlist;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
@@ -15,6 +14,7 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.tacademy.sadajo.BaseActivity;
 import com.tacademy.sadajo.BottomBarClickListener;
 import com.tacademy.sadajo.R;
 import com.tacademy.sadajo.funtion.SearchBarDeleteButton;
@@ -31,7 +31,7 @@ import okhttp3.Response;
 
 import static com.tacademy.sadajo.network.NetworkDefineConstant.HOST_URL;
 
-public class SearchListActivity extends AppCompatActivity {
+public class SearchListActivity extends BaseActivity {
 
 
     // private CollapsingSwipeRefreshLayout swiper;

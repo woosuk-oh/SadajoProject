@@ -22,13 +22,14 @@
 
         >
 
-        <com.tacademy.sadajo.fonts.NanumBoldTextView
+        <TextView
             android:id="@+id/itemProductNameTextView"
             android:paddingTop="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="산타마리아노벨라 향수"
-            android:textColor="@color/blackFont" />
+            android:textColor="@color/blackFont"
+            android:textStyle="bold"/>
 
 
         <LinearLayout
@@ -45,12 +46,13 @@
                 android:src="@drawable/flag"
                 android:layout_marginRight="3dp" />
 
-            <com.tacademy.sadajo.fonts.NanumRegularTextView
+            <TextView
 
                 android:id="@+id/itemCountryNameTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="이탈리아" />
+                android:text="이탈리아"
+                android:textStyle="normal"/>
         </LinearLayout>
 
     </LinearLayout>

@@ -1,17 +1,17 @@
 package com.tacademy.sadajo.shoppinglist;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import com.tacademy.sadajo.BaseActivity;
 import com.tacademy.sadajo.CustomRecyclerDecoration;
 import com.tacademy.sadajo.R;
 import com.tacademy.sadajo.mypage.ItemReviewRecyclerViewAdapter;
 
-public class ShoppingListFirstDetailActivity extends AppCompatActivity {
+public class ShoppingListFirstDetailActivity extends BaseActivity {
 
 
     ItemReviewRecyclerViewAdapter itemReviewRecyclerViewAdapter;
