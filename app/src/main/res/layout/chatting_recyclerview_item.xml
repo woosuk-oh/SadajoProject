@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal" android:layout_width="match_parent"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingRight= "16dp"
+    android:paddingRight="16dp"
     android:paddingLeft="16dp"
     android:paddingTop="15dp"
     android:paddingBottom="15dp"
@@ -13,32 +14,35 @@
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:src="@drawable/profile_empty"
-        android:layout_marginRight="10dp"/>
+        android:layout_marginRight="10dp" />
 
     <LinearLayout
         android:layout_marginTop="12dp"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        >
+        android:orientation="vertical">
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
+
             <com.tacademy.sadajo.fonts.NanumBoldTextView
                 android:id="@+id/chattingTitleTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="아르팅팅"
                 android:textSize="13sp"
-                android:textColor="@color/blackFont"/>
+                android:textColor="@color/blackFont" />
+
             <com.tacademy.sadajo.fonts.NanumBoldTextView
 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="님이 대화를 원해요!"
                 android:textSize="13sp"
-                android:textColor="@color/blackFont"/>
+                android:textColor="@color/blackFont" />
         </LinearLayout>
+
         <com.tacademy.sadajo.fonts.NanumRegularTextView
             android:id="@+id/chattingContentTextView"
             android:layout_width="wrap_content"
@@ -46,7 +50,7 @@
             android:layout_marginTop="7dp"
             android:text="안녕하세요...."
             android:textSize="11sp"
-            android:textColor="@color/grayFont"/>
+            android:textColor="@color/grayFont" />
 
     </LinearLayout>
 
@@ -55,12 +59,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="right">
+
         <com.tacademy.sadajo.fonts.NanumRegularTextView
             android:id="@+id/chattingDateTextView"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:textColor="@color/grayFont"
-            android:textSize="11sp"/>
+            android:textSize="11sp" />
 
     </LinearLayout>
 

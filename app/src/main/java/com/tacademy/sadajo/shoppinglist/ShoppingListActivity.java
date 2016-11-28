@@ -7,8 +7,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.tacademy.sadajo.BottomBarClickListener;
 import com.tacademy.sadajo.MyPagerAdapter;
@@ -16,18 +17,23 @@ import com.tacademy.sadajo.R;
 
 public class ShoppingListActivity extends AppCompatActivity {
 
+
     ImageButton homeBtn;
     ImageButton searchBtn;
     ImageButton shoppingListBtn;
     ImageButton chattingBtn;
     ImageButton mypageBtn;
 
+    TabLayout tabLayout;
+
+    private final long FINSH_INTERVAL_TIME = 2000;
+    private long backPressedTime = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shoppinglist);
-        //     this.overridePendingTransition(0,0);
-
+        setBottomButtonClickListener();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar); //toolbar background image
         setSupportActionBar(toolbar);
         toolbar.setBackgroundResource(R.drawable.tool_02_shoppinglist);
@@ -35,53 +41,42 @@ public class ShoppingListActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(false); //back icon
 
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() { //뒤로가기
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-            }
-        });
 
 
         ViewPager viewPager = (ViewPager) findViewById(R.id.shopping_viewpager);
         if (viewPager != null) {
             setupShoppingListViewPager(viewPager);
         }
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.shopping_tab);
+        tabLayout = (TabLayout) findViewById(R.id.shopping_tab);
         tabLayout.setupWithViewPager(viewPager);
 
 
+        setTabImage();
+
+    }
+    private void setBottomButtonClickListener(){
         homeBtn = (ImageButton) findViewById(R.id.homeBtn);
         homeBtn.setOnClickListener(new BottomBarClickListener(this));
         searchBtn = (ImageButton) findViewById(R.id.searchBtn);
         searchBtn.setOnClickListener(new BottomBarClickListener(this));
-
         shoppingListBtn = (ImageButton) findViewById(R.id.shoppingListBtn);
         shoppingListBtn.setOnClickListener(new BottomBarClickListener(this));
-        shoppingListBtn.setSelected(true);
         chattingBtn = (ImageButton) findViewById(R.id.chattingBtn);
         chattingBtn.setOnClickListener(new BottomBarClickListener(this));
         mypageBtn = (ImageButton) findViewById(R.id.mypageBtn);
         mypageBtn.setOnClickListener(new BottomBarClickListener(this));
+        shoppingListBtn.setSelected(true);
 
 
-        // tabLayout.getTabAt(0).setText("");
+    }
+    private void setTabImage() {
 
-
-//        //탭레이아웃 탭 셀렉터
-//        for (int i = 0; i < tabLayout.getTabCount(); i++) {
-//
-//
-//            ImageView imageView  = (ImageView)findViewById(R.drawable.selector_tab_sl_1) ;
-//            tabLayout.getTabAt(i).setCustomView(imageView);
-//            tabLayout.getTabAt(i).setText("");
-//
-//
-//
-//        }
-//
-
-
+        ImageView imageView = new ImageView(this);
+        ImageView imageView2 = new ImageView(this);
+        imageView.setImageResource(R.drawable.selector_tab_sl_1);
+        imageView2.setImageResource(R.drawable.selector_tab_sl_2);
+        tabLayout.getTabAt(0).setCustomView(imageView);
+        tabLayout.getTabAt(1).setCustomView(imageView2);
 
 
     }
@@ -99,7 +94,7 @@ public class ShoppingListActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;//false하면 메뉴아이콘 hidden
+        return viewType();//false하면 메뉴아이콘 hidden
     }
 
     @Override
@@ -117,6 +112,23 @@ public class ShoppingListActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onBackPressed() {
+        long currentTime = System.currentTimeMillis();
+        long intervalTime = currentTime - backPressedTime;
 
+        if (0 <= intervalTime && FINSH_INTERVAL_TIME >= intervalTime) {
+            super.onBackPressed();
+        } else {
+            backPressedTime = currentTime;
+            Toast.makeText(getApplicationContext(),
+                    "'뒤로' 버튼 한번 더 누르시면 종료됩니다.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
+    public boolean viewType() {
+        return false;
+    }
 
 }

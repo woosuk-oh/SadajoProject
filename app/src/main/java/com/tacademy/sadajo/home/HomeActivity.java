@@ -1,9 +1,8 @@
 package com.tacademy.sadajo.home;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.NinePatchDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -12,13 +11,14 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.MenuItem;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.tacademy.sadajo.BottomBarClickListener;
 import com.tacademy.sadajo.CustomRecyclerDecoration;
@@ -28,6 +28,9 @@ import com.tacademy.sadajo.network.Home.HomeDB;
 import com.tacademy.sadajo.network.Home.HomeJSONParser;
 import com.tacademy.sadajo.network.NetworkDefineConstant;
 import com.tacademy.sadajo.network.OkHttpInitManager;
+import com.tacademy.sadajo.search.searchlist.SearchListActivity;
+
+import org.apmem.tools.layouts.FlowLayout;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -38,12 +41,14 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-import static android.R.attr.id;
-import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
-
 
 public class HomeActivity extends AppCompatActivity {
 
+
+    private final long FINSH_INTERVAL_TIME = 2000;
+    private long backPressedTime = 0;
+
+    Toolbar toolbar;
     ImageButton homeBtn;
     ImageButton searchBtn;
     ImageButton shoppingListBtn;
@@ -71,6 +76,7 @@ public class HomeActivity extends AppCompatActivity {
     Button button6;
     Button button7;
 
+    FlowLayout flowLayout;
     RecyclerView recyclerView;
 
     NinePatchDrawable ninepatch;
@@ -78,35 +84,31 @@ public class HomeActivity extends AppCompatActivity {
     HomeTagRecyclerViewAdapter homeTagRecyclerViewAdapter;
     HomeDB homeDB;
 
+    int width = ViewGroup.LayoutParams.WRAP_CONTENT;
+    int height = 69;
+    int tagCount;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setBottomButtonClickListener();
+
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
 
         toolbar.setBackgroundResource(R.drawable.tool_01_main); //toolbar image
         getSupportActionBar().setDisplayShowTitleEnabled(false);//title hidden
-        getSupportActionBar().setDisplayHomeAsUpEnabled(false); //back icon
+        setToolbar(false);
 
 
         //바텀바 gone
 //        FrameLayout frameLayout = (FrameLayout)findViewById(R.id.frameBottomBar);
 //        frameLayout.setVisibility(View.GONE);
 
-        homeBtn = (ImageButton) findViewById(R.id.homeBtn);
-        homeBtn.setOnClickListener(new BottomBarClickListener(this));
-        homeBtn.setSelected(true);
-        searchBtn = (ImageButton) findViewById(R.id.searchBtn);
-        searchBtn.setOnClickListener(new BottomBarClickListener(this));
-        shoppingListBtn = (ImageButton) findViewById(R.id.shoppingListBtn);
-        shoppingListBtn.setOnClickListener(new BottomBarClickListener(this));
-        chattingBtn = (ImageButton) findViewById(R.id.chattingBtn);
-        chattingBtn.setOnClickListener(new BottomBarClickListener(this));
-        mypageBtn = (ImageButton) findViewById(R.id.mypageBtn);
-        mypageBtn.setOnClickListener(new BottomBarClickListener(this));
+
 
         countryNameTextView = (TextView) findViewById(R.id.countryNameTextView);//국가명
 
@@ -120,25 +122,16 @@ public class HomeActivity extends AppCompatActivity {
         cardView2CountryFlagImageView = (ImageView) findViewById(R.id.cardView2CountryFlagImageView);//두번째 카드뷰 flag이미지
         cardView3CountryFlagImageView = (ImageView) findViewById(R.id.cardView3countryFlagImageView);//세번째 카드뷰 flag이미지
 
-        button1 = (Button) findViewById(R.id.button1);
-        button2 = (Button) findViewById(R.id.button2);
-        button3 = (Button) findViewById(R.id.button3);
-        button4 = (Button) findViewById(R.id.button4);
-        button5 = (Button) findViewById(R.id.button5);
-        button6 = (Button) findViewById(R.id.button6);
+        flowLayout = (FlowLayout) findViewById(R.id.flowLayout); //taglist layout
+        recyclerView = (RecyclerView) findViewById(R.id.anoter_shoplist_recyclerView); //쇼핑리스트 리사이클러뷰
 
         scheduleRegisterButton.setOnClickListener(onClickListener);
 
 
 
-        button1.setOnClickListener(onClickListener);
-
-
         //layout3
-        CustomRecyclerDecoration decoration = new CustomRecyclerDecoration(45, "bottom");
-         recyclerView = (RecyclerView) findViewById(R.id.anoter_shoplist_recyclerView);
-
         recyclerView.setLayoutManager(new GridLayoutManager(HomeActivity.this, 4));
+        CustomRecyclerDecoration decoration = new CustomRecyclerDecoration(45, "bottom");//리사이클러뷰 아이템간 간격
         recyclerView.addItemDecoration(decoration);
 //        homeUserRecyclerViewAdapter = new HomeUserRecyclerViewAdapter(HomeActivity.this, ShoppingListSample.shoppinList);
 //        recyclerView.setAdapter(homeUserRecyclerViewAdapter);
@@ -223,24 +216,20 @@ public class HomeActivity extends AppCompatActivity {
                 departDateTextView.setText(s.travelInfos.getStartDate()); // 떠나요
                 comeDateTextView.setText(s.travelInfos.getEndDate()); //돌아와요
 
-                //  다른 쇼퍼맨들의 쇼핑리스트 부분. 유저네임 받아옴.
+                /* TODO 쇼퍼맨 쇼핑리스트 부분 사용자네임 호출방법 찾아야됌.*/
+//                    recyclerView.setAdapter(homeUserRecyclerViewAdapter);
+//                    homeUserRecyclerViewAdapter.holder.homeUserIdTextView.setText("닉네임");
+
                 homeUserRecyclerViewAdapter = new HomeUserRecyclerViewAdapter(HomeActivity.this,s.shoplist);
                 recyclerView.setAdapter(homeUserRecyclerViewAdapter);
 
+                //tag button 동적생성 & setText
+                tagCount = s.getTag().size();
+                for (int i = 0; i < tagCount; i++) {
 
-                /* TODO 버튼 동적 할당 필요. 태그 get하는 부분 Tag 배열 사이즈값 가져와서 for문으로 사이즈값만큼 돌리고 버튼 생성 */
-                    button1.setVisibility(View.VISIBLE);
-                    button1.setText(s.tag.get(0).toString());
-                    button2.setVisibility(View.VISIBLE);
-                    button2.setText(s.tag.get(1).toString());
-                    button3.setVisibility(View.VISIBLE);
-                    button3.setText(s.tag.get(2).toString());
+                    createTagButton(s.getTag().get(i), i);
 
-                    button4.setVisibility(View.GONE);
-                    //button4.setText("어렵다아아");
-                    button5.setVisibility(View.GONE);
-
-
+                }
 
 
                 //countryNameTextView.setText(s.shoplist.get(0).userName);
@@ -248,54 +237,104 @@ public class HomeActivity extends AppCompatActivity {
         }
     }
 
+    private void setBottomButtonClickListener(){
+        homeBtn = (ImageButton) findViewById(R.id.homeBtn);
+        homeBtn.setOnClickListener(new BottomBarClickListener(this));
+        searchBtn = (ImageButton) findViewById(R.id.searchBtn);
+        searchBtn.setOnClickListener(new BottomBarClickListener(this));
+        shoppingListBtn = (ImageButton) findViewById(R.id.shoppingListBtn);
+        shoppingListBtn.setOnClickListener(new BottomBarClickListener(this));
+        chattingBtn = (ImageButton) findViewById(R.id.chattingBtn);
+        chattingBtn.setOnClickListener(new BottomBarClickListener(this));
+        mypageBtn = (ImageButton) findViewById(R.id.mypageBtn);
+        mypageBtn.setOnClickListener(new BottomBarClickListener(this));
+        homeBtn.setSelected(true);
 
+
+    }
     View.OnClickListener onClickListener = new View.OnClickListener() {
 
         Intent intent;
+        Context context = HomeActivity.this;
+        String str;
 
         @Override
         public void onClick(View view) {
             switch (view.getId()) {
                 case R.id.scheduleRegisterButton:
-                    ScheduleRegisterDialog dialog = new ScheduleRegisterDialog(HomeActivity.this);
-                    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-
-                    dialog.show();
+                    ScheduleDialogFragment dialog = new ScheduleDialogFragment();
+                    dialog.show(getFragmentManager(), "scheduleDialog");
                     break;
 
-//                case R.id.button1:
-//                    intent = new Intent(HomeActivity.this, SearchListActivity.class);
-//                    startActivity(intent);
-//                    break;
 
             }
         }
     };
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
 
-        if (id == android.R.id.home) {
-            onBackPressed();
-            return true;
+    Button.OnClickListener buttonClickListener = new View.OnClickListener() { //tag Button ClickListener
+        @Override
+        public void onClick(View view) {
+            Intent intent;
+            Context context = HomeActivity.this;
+            String str;
+            str = homeDB.getTag().get(view.getId()).toString();
+            intent = new Intent(context, SearchListActivity.class);
+            intent.putExtra("tag", str); //tag String 넘겨줌
+            Log.d("tag", str);
+            startActivity(intent);
+
+
+
         }
+    };
 
-        return super.onOptionsItemSelected(item);
+
+    //Button 생성 메소드
+    public void createTagButton(String str, int i) {
+        Button button = new Button(this);
+        button.setText(str); //서버로부터 받아온 tag text set
+        button.setBackgroundResource(R.drawable.tag_button_file); //tag ninepatch background적용
+        FlowLayout.LayoutParams params = new FlowLayout.LayoutParams(width, height);
+        button.setPadding(15, 0, 15, 0); // left,right padding : 3
+        params.setMargins(0, 0, 45, 45); // top, right margin : 15
+        button.setGravity(Gravity.CENTER); //gravity : center
+        button.setTextSize(13);// textsize : 13sp
+        button.setTypeface((new NanumRegularTextView(getApplication()).getTypeface())); //text font : Nanum M
+        button.setLayoutParams(params);
+        button.setTag("HomeTag");
+        button.setId(i);
+        button.setOnClickListener(buttonClickListener);
+        flowLayout.addView(button); // button added
+    }
+
+    @Override
+    public void onBackPressed() {
+        long currentTime = System.currentTimeMillis();
+        long intervalTime = currentTime - backPressedTime;
+
+        if (0 <= intervalTime && FINSH_INTERVAL_TIME >= intervalTime) {
+            super.onBackPressed();
+        } else {
+            backPressedTime = currentTime;
+            Toast.makeText(getApplicationContext(),
+                    "'뒤로' 버튼 한번 더 누르시면 종료됩니다.", Toast.LENGTH_SHORT).show();
+        }
     }
 
 
-    private View createDummyTextView(String text, NinePatchDrawable ninePatchDrawable) {
+    public void setToolbar(boolean b) {
 
-        Button button = new Button(this);
-        button.setText(text);
-        button.setTextSize(13);
-        button.setBackground(ninePatchDrawable);
-        button.setTypeface(new NanumRegularTextView(getApplication()).getTypeface());
-        int heigth = 69;
-        ViewGroup.LayoutParams buttonParams = new ViewGroup.LayoutParams(WRAP_CONTENT, 100);
-        button.setLayoutParams(buttonParams);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(b); //back icon
 
-        return button;
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() { //클릭시 뒤로가기
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
+
+
     }
 
 

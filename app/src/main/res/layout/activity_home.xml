@@ -16,39 +16,40 @@
         android:layout_above="@+id/frameBottomBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-          <LinearLayout
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:orientation="vertical"
-              android:layout_marginBottom="50dp">
 
-              <include layout="@layout/main_cardview1"/>
-
-              <include layout="@layout/main_cardview2"/>
-
-              <include layout="@layout/main_linearlayout3"/>
-
-
-          </LinearLayout>
-   </android.support.v4.widget.NestedScrollView>
-
-
-<!--
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true">
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            android:layout_margin="@dimen/fab_margin"
-           app:srcCompat="@drawable/search_floating_plus" />
+            android:orientation="vertical"
+            android:layout_marginBottom="50dp">
 
-    </RelativeLayout>-->
-    <include layout ="@layout/include_bottom_tab_button" />
+            <include layout="@layout/home_cardview1" />
+
+            <include layout="@layout/home_cardview2" />
+
+            <include layout="@layout/home_linearlayout3" />
+
+
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+
+    <!--
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true">
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/fab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:layout_margin="@dimen/fab_margin"
+               app:srcCompat="@drawable/search_floating_plus" />
+
+        </RelativeLayout>-->
+    <include layout="@layout/include_bottom_tab_button" />
 
     <!--Include Bottom TabBar Button -->
 </RelativeLayout>

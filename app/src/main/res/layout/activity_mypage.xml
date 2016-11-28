@@ -12,8 +12,6 @@
     <include layout="@layout/include_toolbar_layout" />
 
 
-
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -52,7 +50,7 @@
                         android:textSize="13sp" />
 
                     <com.tacademy.sadajo.fonts.GothamTextView
-                     android:id="@+id/mypageBuyTextView"
+                        android:id="@+id/mypageBuyTextView"
                         android:layout_marginTop="5dp"
 
                         android:layout_width="wrap_content"
@@ -68,8 +66,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="33dp"
-                    android:layout_marginRight="33dp"
-                    >
+                    android:layout_marginRight="33dp">
 
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:layout_width="90dp"
@@ -82,8 +79,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginTop="30dp"
-                    android:orientation="vertical"
-                    >
+                    android:orientation="vertical">
 
 
                     <ImageButton
@@ -154,8 +150,7 @@
                 android:layout_height="wrap_content"
                 android:minHeight="?attr/actionBarSize"
                 android:theme="@style/TabLayout"
-                app:tabBackground="@drawable/selector_tab"
-                />
+                app:tabBackground="@drawable/selector_tab" />
 
             <android.support.v4.view.ViewPager
                 android:id="@+id/mypageViewpager"

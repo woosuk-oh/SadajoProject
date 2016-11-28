@@ -1,45 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="266dp"
     android:layout_height="244dp"
     android:background="@drawable/sl_pop"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context="com.tacademy.sadajo.home.ScheduleDialogFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="4dp"
-        android:layout_marginRight="4dp"
-        android:orientation="vertical"
-        android:layout_marginTop="98dp">
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginTop="98dp"
+        android:orientation="vertical">
 
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:layout_marginLeft="24dp"
-            android:layout_marginRight="24dp"
+            android:layout_marginTop="11dp"
             android:orientation="horizontal">
 
 
             <Spinner
                 android:id="@+id/countrySpinner"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:paddingRight="5dp"
-                android:entries="@array/country"
-                android:layout_marginRight="6dp"
-                >
+                android:layout_width="103dp"
+                android:layout_height="23dp"
+                android:layout_marginRight="12dp"
+                android:background="@drawable/sl_dialog_button"
+                android:entries="@array/country">
 
             </Spinner>
 
             <Spinner
                 android:id="@+id/citySpinner"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:layout_marginLeft="6dp"
+                android:layout_width="103dp"
+                android:layout_height="23dp"
+                android:background="@drawable/sl_dialog_button"
                 android:entries="@array/city"
 
                 >
@@ -48,24 +46,21 @@
         </LinearLayout>
 
 
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="26dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
+            android:layout_marginTop="38dp"
+            android:gravity="center"
             android:orientation="horizontal">
 
 
             <EditText
 
                 android:id="@+id/departureEditText"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_weight="1"
+                android:layout_width="103dp"
+                android:layout_height="23dp"
+                android:layout_marginRight="12dp"
+                android:background="@drawable/sl_dialog_button"
                 android:gravity="center"
                 android:hint="출발해요"
                 android:textColor="@color/grayFont"
@@ -77,30 +72,29 @@
 
 
             <EditText
-                android:id="@+id/arriveEditText"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_weight="1"
+                android:id="@+id/returnEditText"
+                android:layout_width="103dp"
+                android:layout_height="23dp"
+
+                android:background="@drawable/sl_dialog_button"
                 android:gravity="center"
                 android:hint="돌아와요"
                 android:textColorHint="@color/grayFont"
+
                 android:textSize="13sp" />
         </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_margin="2dp"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
-
-        >
+        android:paddingTop="25dp">
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_marginLeft="24dp"
             android:layout_weight="1"
             android:gravity="center">
 
@@ -110,10 +104,9 @@
                 android:layout_width="100dp"
                 android:layout_height="23dp"
                 android:layout_marginRight="0.5dp"
+                android:background="@drawable/selector_schedule_dialog"
                 android:gravity="center"
                 android:text="등록하기"
-                android:textColor="@color/sadajoBackground"
-                android:background="@drawable/sl_pop_button"
                 android:textSize="13sp"
 
 
@@ -123,18 +116,20 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_marginRight="24dp"
             android:layout_weight="1"
+            android:orientation="horizontal"
+
             android:gravity="center">
 
-            <Button
+            <ImageButton
                 android:id="@+id/cancelButton"
                 style="?android:attr/borderlessButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="0.5dp"
+                android:layout_width="100dp"
+                android:layout_height="23dp"
+                android:background="@drawable/selector_schedule_dialog_cancel_button"
                 android:gravity="center"
                 android:text="취소"
-                android:textColor="@color/sadajoBackground"
                 android:textSize="13sp"
 
                 />

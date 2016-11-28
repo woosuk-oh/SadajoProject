@@ -1,8 +1,8 @@
 package com.tacademy.sadajo.shoppinglist;
 
+import android.app.FragmentManager;
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,7 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.tacademy.sadajo.R;
-import com.tacademy.sadajo.home.ScheduleRegisterDialog;
+import com.tacademy.sadajo.home.ScheduleDialogFragment;
 
 import java.util.ArrayList;
 
@@ -25,7 +25,7 @@ public class ShoppingListRecyclerViewAdapter
         extends RecyclerView.Adapter<ShoppingListRecyclerViewAdapter.ViewHolder> {
 
     private ArrayList<ShoppingListData> shoppingListDatas;
-    private Context context;
+    private Context mcontext;
 
 
     //item viewType
@@ -34,7 +34,8 @@ public class ShoppingListRecyclerViewAdapter
 
 
     public ShoppingListRecyclerViewAdapter(Context context, ArrayList<ShoppingListData> shoppingListDatas) {
-        this.context = context;
+        mcontext = context;
+
         this.shoppingListDatas = shoppingListDatas;
     }
 
@@ -66,14 +67,6 @@ public class ShoppingListRecyclerViewAdapter
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-
-//
-//            View view = LayoutInflater.from(parent.getContext()).inflate(
-//                    R.layout.shoppinglist_recyclerview_item1, parent, false);
-//
-//
-//            return new ViewHolder(view);
-//
 
         int layoutRes = 0;
         switch (viewType) {
@@ -139,10 +132,10 @@ public class ShoppingListRecyclerViewAdapter
             holder.newScheduleButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    ScheduleRegisterDialog dialog = new ScheduleRegisterDialog(context);
-                    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                    dialog.setCancelable(true);
-                    dialog.show();
+
+                    FragmentManager fragmentManager = ((AppCompatActivity)mcontext).getFragmentManager();
+                    ScheduleDialogFragment dialog = new ScheduleDialogFragment();
+                    dialog.show(fragmentManager,"scheduleDialog");
 
                 }
             });

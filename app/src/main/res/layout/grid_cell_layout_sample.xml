@@ -9,46 +9,48 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin">
-<android.support.v7.widget.CardView
 
-    android:id="@+id/cvItemCard"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_gravity="center"
-    card_view:cardCornerRadius="30dp"
-    card_view:cardUseCompatPadding="true">
+    <android.support.v7.widget.CardView
 
-    <LinearLayout
-        android:id="@+id/card_back"
+        android:id="@+id/cvItemCard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:animateLayoutChanges="true"
-        android:padding="4dp"
-        android:orientation="vertical">
+        android:layout_gravity="center"
+        card_view:cardCornerRadius="30dp"
+        card_view:cardUseCompatPadding="true">
 
-        <ImageView
-            android:id="@+id/extinction_imageView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:color/white"
-            android:padding="2dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/airport"
-             />
         <LinearLayout
-            android:id="@+id/item_expand_area"
-            android:visibility="gone"
+            android:id="@+id/card_back"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal">
-            <TextView
-                android:id="@+id/extinction_name"
-                android:layout_width="wrap_content"
+            android:animateLayoutChanges="true"
+            android:padding="4dp"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/extinction_imageView"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="4dp"
-                android:text="이름" />
+                android:background="@android:color/white"
+                android:padding="2dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/airport" />
+
+            <LinearLayout
+                android:id="@+id/item_expand_area"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/extinction_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:text="이름" />
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
-</android.support.v7.widget.CardView>
+    </android.support.v7.widget.CardView>
 </FrameLayout>

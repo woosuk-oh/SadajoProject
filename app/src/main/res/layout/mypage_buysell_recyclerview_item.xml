@@ -3,16 +3,16 @@
     android:orientation="vertical"
     android:layout_width="264dp"
     android:layout_height="wrap_content"
-    android:background="@color/white"
-    >
-    
+    android:background="@color/white">
+
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/productImageView"
         android:layout_marginTop="30dp"
         android:layout_width="204dp"
         android:layout_height="204dp"
         android:layout_gravity="center"
-        android:src="@drawable/profile_empty"/>
+        android:src="@drawable/profile_empty" />
+
     <com.tacademy.sadajo.fonts.GothamTextView
         android:id="@+id/countryEngName"
         android:layout_marginTop="20dp"
@@ -21,7 +21,8 @@
         android:layout_gravity="center"
         android:text="PHILIPPINES"
         android:textSize="30sp"
-        android:textColor="@color/blackFont"/>
+        android:textColor="@color/blackFont" />
+
     <com.tacademy.sadajo.fonts.NanumRegularTextView
         android:id="@+id/countryKorName"
         android:layout_marginTop="9dp"
@@ -30,23 +31,27 @@
         android:text="필리핀, 마닐라"
         android:textSize="11sp"
         android:textColor="@color/grayFont"
-        android:layout_gravity="center"/>
+        android:layout_gravity="center" />
+
     <LinearLayout
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+
         <LinearLayout
             android:layout_marginTop="14dp"
             android:orientation="vertical"
             android:layout_width="wrap_content"
             android:layout_height="match_parent">
-        <ImageView
-            android:id="@+id/profileImageView"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:src="@drawable/profile_empty"/>
+
+            <ImageView
+                android:id="@+id/profileImageView"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/profile_empty" />
+
             <com.tacademy.sadajo.fonts.NanumRegularTextView
                 android:id="@+id/userNameTextView"
                 android:layout_marginTop="5dp"
@@ -54,21 +59,24 @@
                 android:layout_height="wrap_content"
                 android:text="닉네임"
                 android:layout_gravity="center"
-                android:textSize="11sp"/>
+                android:textSize="11sp" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_marginTop="20dp"
             android:layout_marginLeft="10dp"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <com.tacademy.sadajo.fonts.NanumRegularTextView
                 android:id="@+id/productTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="상품명"
                 android:textSize="11sp"
-                android:textColor="@color/grayFont"/>
+                android:textColor="@color/grayFont" />
+
             <com.tacademy.sadajo.fonts.NanumBoldTextView
                 android:id="@+id/productNameTextView"
                 android:layout_marginTop="7dp"
@@ -76,12 +84,13 @@
                 android:layout_height="wrap_content"
                 android:text="산타마리아노벨라 향수 최대여기까"
                 android:textColor="@color/blackFont"
-                android:textSize="13sp"/>
+                android:textSize="13sp" />
 
         </LinearLayout>
 
 
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -89,26 +98,28 @@
         android:layout_marginTop="25dp"
         android:layout_marginLeft="128dp"
         android:layout_marginRight="24dp">
+
         <com.tacademy.sadajo.fonts.NanumRegularTextView
             android:id="@+id/dateTextTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="거래날짜"
             android:textSize="10sp"
-            android:textColor="@color/grayFont"/>
+            android:textColor="@color/grayFont" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="right">
-        <com.tacademy.sadajo.fonts.NanumRegularTextView
-            android:id="@+id/dateTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="2016.11.20"
-            android:textSize="11sp"
-            android:textColor="@color/grayFont"
-           />
-            </LinearLayout>
+
+            <com.tacademy.sadajo.fonts.NanumRegularTextView
+                android:id="@+id/dateTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2016.11.20"
+                android:textSize="11sp"
+                android:textColor="@color/grayFont" />
+        </LinearLayout>
 
     </LinearLayout>
 
@@ -118,6 +129,7 @@
         android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="46dp">
+
         <Button
             android:id="@+id/okButton"
             android:layout_width="match_parent"
@@ -125,18 +137,19 @@
             android:text="사다조 요청 수락"
             android:textColor="@color/white"
             android:textSize="13sp"
-            android:background="@color/sadajoBackground"/>
+            android:background="@color/sadajoBackground" />
 
 
         <ImageButton
             android:id="@+id/testReview"
             android:layout_width="133dp"
             android:layout_height="match_parent"
-            android:background="@drawable/selector_my_buylist_review"/>
+            android:background="@drawable/selector_my_buylist_review" />
+
         <ImageButton
             android:id="@+id/testRequest"
             android:layout_width="133dp"
             android:layout_height="match_parent"
-            android:background="@drawable/my_offer"/>
+            android:background="@drawable/my_offer" />
     </LinearLayout>
 </LinearLayout>

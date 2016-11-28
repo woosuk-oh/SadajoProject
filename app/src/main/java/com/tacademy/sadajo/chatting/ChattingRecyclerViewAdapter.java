@@ -90,7 +90,7 @@ public class ChattingRecyclerViewAdapter
 //                                    owner, holder.girlsImage, ViewCompat.getTransitionName(holder.girlsImage));
 //
 //                    ActivityCompat.startActivity(owner, intent, options.toBundle());
-                Intent intent = new Intent(context, ChattingRoom.class);
+                Intent intent = new Intent(context, ChattingDetailActivity.class);
                 context.startActivity(intent);
 
             }

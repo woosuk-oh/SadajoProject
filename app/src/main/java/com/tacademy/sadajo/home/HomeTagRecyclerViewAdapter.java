@@ -48,7 +48,7 @@ public  class HomeTagRecyclerViewAdapter
     @Override
     public HomeTagRecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(
-                R.layout.main_card2_recyclerview_item, parent, false);
+                R.layout.home_card2_recyclerview_item, parent, false);
 
         return new HomeTagRecyclerViewAdapter.ViewHolder(view);
     }
@@ -66,7 +66,6 @@ public  class HomeTagRecyclerViewAdapter
 
 
                 Intent intent = new Intent(context, MyPageOtherActivity.class);
-                intent.putExtra("viewType",1);
                 context.startActivity(intent);
 
             }
