@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.animation.Animation;
@@ -29,7 +30,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-import static com.tacademy.sadajo.network.NetworkDefineConstant.HOST_URL;
+import static com.tacademy.sadajo.network.NetworkDefineConstant.HOST_URL2;
 
 public class SearchListActivity extends AppCompatActivity {
 
@@ -81,7 +82,6 @@ public class SearchListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
         setBottomButtonClickListener();
-
 
 
         // 리싸이클러뷰 xml 붙이기.
@@ -136,7 +136,7 @@ public class SearchListActivity extends AppCompatActivity {
         customTitleText5 = (TextView) findViewById(R.id.latest); //최신순
 
 
-                // 바텀 탭바
+        // 바텀 탭바
 
         homeBtn = (ImageButton) findViewById(R.id.homeBtn);
         homeBtn.setOnClickListener(new BottomBarClickListener(this));
@@ -152,7 +152,25 @@ public class SearchListActivity extends AppCompatActivity {
         searchBtn.setSelected(true);
 
 
+       new AsyncSearchRequest().execute();
+
     } // end OnCreate.
+
+    private void setBottomButtonClickListener() {
+        homeBtn = (ImageButton) findViewById(R.id.homeBtn);
+        homeBtn.setOnClickListener(new BottomBarClickListener(this));
+        searchBtn = (ImageButton) findViewById(R.id.searchBtn);
+        searchBtn.setOnClickListener(new BottomBarClickListener(this));
+        shoppingListBtn = (ImageButton) findViewById(R.id.shoppingListBtn);
+        shoppingListBtn.setOnClickListener(new BottomBarClickListener(this));
+        chattingBtn = (ImageButton) findViewById(R.id.chattingBtn);
+        chattingBtn.setOnClickListener(new BottomBarClickListener(this));
+        mypageBtn = (ImageButton) findViewById(R.id.mypageBtn);
+        mypageBtn.setOnClickListener(new BottomBarClickListener(this));
+        homeBtn.setSelected(true);
+
+
+    }
 
 
     public interface OnResultListener<T> {
@@ -166,7 +184,7 @@ public class SearchListActivity extends AppCompatActivity {
         //첫번째 Void: doInBackgorund로 보내는
         //두번째 Void: Progress
         //세번째 onPostExecute에서 사용할 파라미터값.
-        private static final String SEARCH_LIST = HOST_URL + "/goods/%s";
+        private static final String SEARCH_LIST = HOST_URL2 + "/goods/%s";
         OkHttpClient mClient;
 
         @Override
@@ -178,16 +196,14 @@ public class SearchListActivity extends AppCompatActivity {
         @Override
         protected SearchDB doInBackground(Void... voids) {
             Response response = null; // 응답
-            OkHttpClient toServer;
             searchDB = new SearchDB();
             OkHttpClient client = new OkHttpClient();
 
+            try {
             /* get 방식으로 받기 */
-
-      /*      toServer = OkHttpInitManager.getOkHttpClient();*/
-            String url_test = "1"; // get방식에서 마지막에 넣는 id값. 테스트.
-            String url = String.format(SEARCH_LIST, url_test); //TODO 변수명 수정.
-            //get 방식이므로 FormBody는 없고, 정보를 url에만 담음.
+                String url_test = "1"; // get방식에서 마지막에 넣는 id값. 테스트.
+                String url = String.format(SEARCH_LIST, url_test); //TODO 변수명 수정.
+                //get 방식이므로 FormBody는 없고, 정보를 url에만 담음.
 
 
                 Request request = new Request.Builder()
@@ -202,17 +218,17 @@ public class SearchListActivity extends AppCompatActivity {
 
                     @Override
                     public void onResponse(Call call, Response response) throws IOException {
+                        String returedMessage = response.body().string(); // okhttp로 부터 받아온 데이터 json을 스트링형태로 변환하여 returendMessage에 담아둠. 이때, home부분의 모든 오브젝트를 가져와 담아둠.
+                        Log.e("searchActivity", returedMessage);
+                        //searchDB = SearchJSONParser.getSearchJsonParser(returedMessage); //만들어둔 파서로 returedMessage를 넣어서 파싱하여 homeDB에 값을 넣음.
 
                     }
                 });
-
-                /*
-
-                Response response = client.newCall(request).execute();
-                return response.body().string();
-
-            Response response = client.newCall(request).execute();*/
-
+            } finally {
+                if (response != null) {
+                    response.close();
+                }
+            }
             return searchDB;
 
 
@@ -237,12 +253,7 @@ public class SearchListActivity extends AppCompatActivity {
     }
 
 
-
-
-
 // 하단 탭바 클릭 시
-
-
 
 
 }
