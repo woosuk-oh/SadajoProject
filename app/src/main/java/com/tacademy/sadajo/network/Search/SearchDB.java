@@ -7,80 +7,71 @@ import java.util.ArrayList;
  */
 
 public class SearchDB { //TODO 데이터 모델 작성필요
-    public String item_id;
-    public String goods_code;
-    public String country;
-    public String goods_name;
-    public String item_content;
-    public String unit;
+    public int count;
     public ArrayList<String> hashtag;
-    public ArrayList<String>
+    public ArrayList<String> sell_place;
+    public ArrayList<String> tag_price;
 
 
-   /* public String msg;
-    //public ArrayList<HomeTravelDB> travelInfos = new ArrayList<>();
-    public HomeTravelDB travelInfos;
-    public String travelCountry;
-    public String countryImg;
-    public ArrayList<String> tag = new ArrayList<>();
-    public ArrayList<HomeShoplistDB> shoplist = new ArrayList<>();
+    public ArrayList<SearchDB> searchDBs; // 재귀호출
+    public ArrayList<SearchGoodsDB> searchGoodsDBs; //goods에서 data 제이슨 어레이리스트.
 
-    public String getMsg() {
-        return msg;
+
+
+    public ArrayList<SearchGoodsDB> getSearchGoodsDBs() {
+        return searchGoodsDBs;
     }
 
-    public void setMsg(String msg) {
-        this.msg = msg;
+    public void setSearchGoodsDBs(ArrayList<SearchGoodsDB> searchGoodsDBs) {
+        this.searchGoodsDBs = searchGoodsDBs;
+    }
+
+    public void setSearchDBs(ArrayList<SearchDB> searchDBs){
+        this.searchDBs = searchDBs;
+
+    }
+    public ArrayList<SearchDB> getSearchDBs(){
+        return searchDBs;
     }
 
 
 
-    public String getTravelCountry() {
-        return travelCountry;
+
+    public int getCount() {
+        return count;
     }
 
-    public void setTravelCountry(String travelCountry) {
-        this.travelCountry = travelCountry;
+    public void setCount(int count) {
+        this.count = count;
     }
 
-    public String getCountryImg() {
-        return countryImg;
+
+
+
+    public ArrayList<String> getHashtag() {
+        return hashtag;
     }
 
-    public void setCountryImg(String countryImg) {
-        this.countryImg = countryImg;
+    public void setHashtag(ArrayList<String> hashtag) {
+        this.hashtag = hashtag;
     }
 
-    public List<String> getTag() {
-        return tag;
+    public ArrayList<String> getSell_place() {
+        return sell_place;
     }
 
-    public void setTag(ArrayList<String> tag) {
-        this.tag = tag;
+    public void setSell_place(ArrayList<String> sell_place) {
+        this.sell_place = sell_place;
     }
 
-    public ArrayList<HomeShoplistDB> getShoplist() {
-        return shoplist;
+    public ArrayList<String> getTag_price() {
+        return tag_price;
     }
 
-    public void setShoplist(ArrayList<HomeShoplistDB> shoplist) {
-        this.shoplist = shoplist;
+    public void setTag_price(ArrayList<String> tag_price) {
+        this.tag_price = tag_price;
     }
 
-*//*
-    public ArrayList<HomeTravelDB> getTravelInfos() {
-        return travelInfos;
-    }
 
-    public void setTravelInfos(ArrayList<HomeTravelDB> travelInfos) {
-        this.travelInfos = travelInfos;
-    }*//*
 
-    public HomeTravelDB getTravelInfos() {
-        return travelInfos;
-    }
-
-    public void setTravelInfos(HomeTravelDB travelInfos) {
-        this.travelInfos = travelInfos;
-    }*/
 }

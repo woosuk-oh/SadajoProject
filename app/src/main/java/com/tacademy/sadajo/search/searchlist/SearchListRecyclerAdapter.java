@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.tacademy.sadajo.R;
+import com.tacademy.sadajo.network.Search.SearchGoodsDB;
 import com.tacademy.sadajo.search.searchdetail.SearchDetail;
 
 import java.util.ArrayList;
@@ -27,7 +28,8 @@ import java.util.ArrayList;
 
 public class SearchListRecyclerAdapter extends RecyclerView.Adapter<SearchListRecyclerAdapter.ViewHolder>{
     private Context context;
-    private ArrayList<ItemArrayList> mItems;
+
+    private ArrayList<SearchGoodsDB> searchgoodsDBs =  new ArrayList<>();
 
 
 
@@ -41,11 +43,12 @@ public class SearchListRecyclerAdapter extends RecyclerView.Adapter<SearchListRe
     private int lastPosition2 = +1;
 
 
-    public SearchListRecyclerAdapter(ArrayList<ItemArrayList> items, Context mCotext) {
+    public SearchListRecyclerAdapter(Context mCotext, ArrayList<SearchGoodsDB> searchDBs) {
 
-        mItems = items;
+/*        mItems = items;*/
         context = mCotext;
-        TYPE_FOOTER = items.size() + 1;
+        this.searchgoodsDBs = searchDBs;
+    /*    TYPE_FOOTER = items.size() + 1;*/
     }
 
     @Override
@@ -58,7 +61,7 @@ public class SearchListRecyclerAdapter extends RecyclerView.Adapter<SearchListRe
 
         // 레이아웃을 뷰(홀더)에 붙이기 위한 인플레이터임.
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.search_list_grid_item, parent, false);
-        Log.d("ItemSize", ""+mItems.size());
+        Log.d("ItemSize", ""+searchgoodsDBs.size());
       /*  if(mItems.size() == lastPosition2){
             v = LayoutInflater.from(parent.getContext()).inflate(R.layout.search_detail_view_pager_item, parent, false);
             Log.d("ItemSize", ""+mItems.size());
@@ -74,14 +77,14 @@ public class SearchListRecyclerAdapter extends RecyclerView.Adapter<SearchListRe
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
 
-        holder.itemImage.setImageResource(mItems.get(position).image);
-        holder.itemName.setText(mItems.get(position).itemname);
-        setAnimation(holder.itemImage, position);
-       /* if(position == mItems.size()+1)
-        {
 
-            holder.itemImage.setImageResource(R.drawable.search_button);
-        }*/
+        //TODO 서치리스트 리싸이클러 어댑터 홀더부분 수정,
+    //    holder.itemImage.setImageResource(mItems.get(position).image);
+        holder.itemName.setText(searchgoodsDBs.get(position).getGoods_name());
+
+
+        setAnimation(holder.itemContainer, position);
+
 
 
         holder.itemContainer.setOnClickListener(new View.OnClickListener() {
@@ -98,7 +101,7 @@ public class SearchListRecyclerAdapter extends RecyclerView.Adapter<SearchListRe
 
     @Override
     public int getItemCount() {
-        return mItems.size();
+        return searchgoodsDBs.size();
 
     }
 

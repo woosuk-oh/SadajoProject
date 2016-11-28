@@ -5,8 +5,8 @@ package com.tacademy.sadajo.network;
  */
 
 public class NetworkDefineConstant {
-    public static final String HOST_URL = "http://52.78.234.20:3000";
-    public static final String HOST_URL2 = "http://52.78.89.88:3000";
+
+    public static final String HOST_URL = "http://52.78.89.88:3000";
    // public static final String GENRE_REQUEST_URL= "http://apis.skplanetx.com/melon/genres?version=1";
 
     //요청 URL path

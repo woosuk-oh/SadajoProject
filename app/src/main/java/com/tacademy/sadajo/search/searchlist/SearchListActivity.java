@@ -20,9 +20,10 @@ import com.tacademy.sadajo.BottomBarClickListener;
 import com.tacademy.sadajo.R;
 import com.tacademy.sadajo.funtion.SearchBarDeleteButton;
 import com.tacademy.sadajo.network.Search.SearchDB;
+import com.tacademy.sadajo.network.Search.SearchGoodsDB;
+import com.tacademy.sadajo.network.Search.SearchJSONParser;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -30,7 +31,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-import static com.tacademy.sadajo.network.NetworkDefineConstant.HOST_URL2;
+import static com.tacademy.sadajo.network.NetworkDefineConstant.HOST_URL;
 
 public class SearchListActivity extends AppCompatActivity {
 
@@ -46,7 +47,10 @@ public class SearchListActivity extends AppCompatActivity {
     ImageButton shoppingListBtn;
     ImageButton chattingBtn;
     ImageButton mypageBtn;
+   // ArrayList<SearchDB> searchDBs;
     SearchDB searchDB;
+    SearchGoodsDB searchGoodsDBs;
+
 
 
     private SearchListRecyclerAdapter mAdapter;
@@ -67,6 +71,8 @@ public class SearchListActivity extends AppCompatActivity {
     private Button searchBarClear;
 
     private LinearLayout customBar;
+  //  SearchDB searchDB;
+
 
 
     OkHttpClient client = new OkHttpClient();
@@ -92,17 +98,9 @@ public class SearchListActivity extends AppCompatActivity {
         mRecycler.setLayoutManager(layoutManager); //리싸이클러뷰의 레이아웃매니저 적용
 
 
-        ArrayList<ItemArrayList> items = new ArrayList<>();
 
-        items.add(new ItemArrayList(R.drawable.image_1, "산타노벨라 향수"));
-        items.add(new ItemArrayList(R.drawable.image_1, "샘플2"));
-        items.add(new ItemArrayList(R.drawable.image_1, "샘플3"));
-        items.add(new ItemArrayList(R.drawable.image_1, "샘플4"));
-        items.add(new ItemArrayList(R.drawable.image_1, "샘플5"));
 
-        mAdapter = new SearchListRecyclerAdapter(items, this);
-        mRecycler.setAdapter(mAdapter);
-        mAdapter.notifyDataSetChanged();
+
 
         searchBar = (EditText) findViewById(R.id.search_search_et);
         searchBarClear = (Button) findViewById(R.id.search_search_bt);
@@ -181,10 +179,12 @@ public class SearchListActivity extends AppCompatActivity {
 
 
     public class AsyncSearchRequest extends AsyncTask<Void, Void, SearchDB> {
+
+
         //첫번째 Void: doInBackgorund로 보내는
         //두번째 Void: Progress
         //세번째 onPostExecute에서 사용할 파라미터값.
-        private static final String SEARCH_LIST = HOST_URL2 + "/goods/%s";
+        private static final String SEARCH_LIST = HOST_URL + "/goods/%s";
         OkHttpClient mClient;
 
         @Override
@@ -194,15 +194,16 @@ public class SearchListActivity extends AppCompatActivity {
 
 
         @Override
-        protected SearchDB doInBackground(Void... voids) {
+        protected SearchDB doInBackground(Void... searchDBs) {
             Response response = null; // 응답
-            searchDB = new SearchDB();
+            searchDB = new SearchDB(); //TODO 변수명 수정 필요
             OkHttpClient client = new OkHttpClient();
 
             try {
             /* get 방식으로 받기 */
-                String url_test = "1"; // get방식에서 마지막에 넣는 id값. 테스트.
-                String url = String.format(SEARCH_LIST, url_test); //TODO 변수명 수정.
+              //  String url_test = "1"; // get방식에서 마지막에 넣는 id값. 테스트.
+                /*String url = String.format(SEARCH_LIST, url_test); //TODO 변수명 수정.*/
+                String url = String.format(SEARCH_LIST);
                 //get 방식이므로 FormBody는 없고, 정보를 url에만 담음.
 
 
@@ -220,8 +221,8 @@ public class SearchListActivity extends AppCompatActivity {
                     public void onResponse(Call call, Response response) throws IOException {
                         String returedMessage = response.body().string(); // okhttp로 부터 받아온 데이터 json을 스트링형태로 변환하여 returendMessage에 담아둠. 이때, home부분의 모든 오브젝트를 가져와 담아둠.
                         Log.e("searchActivity", returedMessage);
-                        //searchDB = SearchJSONParser.getSearchJsonParser(returedMessage); //만들어둔 파서로 returedMessage를 넣어서 파싱하여 homeDB에 값을 넣음.
 
+                        searchDB = SearchJSONParser.getSearchJsonParser(returedMessage); //만들어둔 파서로 returedMessage를 넣어서 파싱하여 homeDB에 값을 넣음.
                     }
                 });
             } finally {
@@ -237,6 +238,12 @@ public class SearchListActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(SearchDB searchDB) {
             super.onPostExecute(searchDB);
+
+
+
+            mAdapter = new SearchListRecyclerAdapter(SearchListActivity.this, searchDB.searchGoodsDBs);
+            mRecycler.setAdapter(mAdapter);
+            mAdapter.notifyDataSetChanged();
         }
 
 
