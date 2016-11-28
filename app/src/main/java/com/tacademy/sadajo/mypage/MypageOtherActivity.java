@@ -56,15 +56,6 @@ public class MyPageOtherActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
 
 
-//        //탭레이아웃 탭 셀렉터
-//        for (int i = 0; i < tabLayout.getTabCount(); i++) {
-//
-//            tabLayout.getTabAt(i).setIcon(R.drawable.selector_home);
-//
-//
-//
-//        }
-
         sellCountButton.setOnClickListener(clickListener);
         buyCountButton.setOnClickListener(clickListener);
 

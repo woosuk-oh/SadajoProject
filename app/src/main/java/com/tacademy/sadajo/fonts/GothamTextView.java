@@ -12,11 +12,11 @@ import android.widget.TextView;
 public class GothamTextView extends TextView {
     public GothamTextView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        this.setTypeface(Typeface.createFromAsset(context.getAssets(), "Gotham-Black.otf"));
+        this.setTypeface(Typeface.createFromAsset(context.getAssets(), "fonts/Gotham-Black.otf"));
     }
 
     public GothamTextView(Context context) {
         super(context);
-        this.setTypeface(Typeface.createFromAsset(context.getAssets(), "Gotham-Black.otf"));
+        this.setTypeface(Typeface.createFromAsset(context.getAssets(), "fonts/Gotham-Black.otf"));
     }
 }

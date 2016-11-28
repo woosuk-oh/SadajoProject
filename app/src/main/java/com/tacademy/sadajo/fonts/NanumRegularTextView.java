@@ -12,11 +12,11 @@ import android.widget.TextView;
 public class NanumRegularTextView extends TextView {
     public NanumRegularTextView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        this.setTypeface(Typeface.createFromAsset(context.getAssets(), "NanumSquareRegular.ttf"));
+        this.setTypeface(Typeface.createFromAsset(context.getAssets(), "fonts/NanumSquareRegular.ttf"));
     }
 
     public NanumRegularTextView(Context context) {
         super(context);
-        this.setTypeface(Typeface.createFromAsset(context.getAssets(), "NanumSquareRegular.ttf"));
+        this.setTypeface(Typeface.createFromAsset(context.getAssets(), "fonts/NanumSquareRegular.ttf"));
     }
 }

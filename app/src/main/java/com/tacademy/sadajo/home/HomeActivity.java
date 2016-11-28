@@ -3,9 +3,9 @@ package com.tacademy.sadajo.home;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -19,10 +19,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.tacademy.sadajo.BaseActivity;
 import com.tacademy.sadajo.BottomBarClickListener;
 import com.tacademy.sadajo.CustomRecyclerDecoration;
 import com.tacademy.sadajo.R;
-import com.tacademy.sadajo.fonts.NanumRegularTextView;
 import com.tacademy.sadajo.network.Home.HomeDB;
 import com.tacademy.sadajo.network.Home.HomeJSONParser;
 import com.tacademy.sadajo.network.NetworkDefineConstant;
@@ -41,7 +41,7 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends BaseActivity {
 
 
     private final long FINSH_INTERVAL_TIME = 2000;
@@ -99,13 +99,11 @@ public class HomeActivity extends AppCompatActivity {
 //        frameLayout.setVisibility(View.GONE);
 
 
-
         countryNameTextView = (TextView) findViewById(R.id.countryNameTextView);//국가명
 
         departDateTextView = (TextView) findViewById(R.id.departDateTextView); //떠나요날짜
         comeDateTextView = (TextView) findViewById(R.id.comeDateTextView); //돌아와요날짜
         scheduleRegisterButton = (Button) findViewById(R.id.scheduleRegisterButton); //일정등록버튼
-        scheduleRegisterButton.setTypeface(new NanumRegularTextView(getApplication()).getTypeface());
 
         cardView2CountryTextView = (TextView) findViewById(R.id.cardView2CountryTextView);//두번째카드뷰 국가명
         cardView3CountryTextView = (TextView) findViewById(R.id.cardView3CountryTextView);//세번째카드뷰 국가명
@@ -116,7 +114,6 @@ public class HomeActivity extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.anoter_shoplist_recyclerView); //쇼핑리스트 리사이클러뷰
 
         scheduleRegisterButton.setOnClickListener(onClickListener);
-
 
 
         //layout3
@@ -192,21 +189,21 @@ public class HomeActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(HomeDB s) {
             super.onPostExecute(s);
-         //   progressDialog.dismiss();
+            //   progressDialog.dismiss();
 
-            if(homeDB != null){
+            if (homeDB != null) {
 
                 cardView2CountryTextView.setText(s.getTravelCountry()); // 추천리스트 : 해당 국가
                 cardView3CountryTextView.setText(s.getTravelCountry()); // 추천리스트2(다른 쇼퍼맨 쇼핑리스트) : 해당 국가
 
 
-               // countryNameTextView.setText(s.travelInfos.get(0).getTitleCountry()); // 국가명 받아옴.
+                // countryNameTextView.setText(s.travelInfos.get(0).getTitleCountry()); // 국가명 받아옴.
                 countryNameTextView.setText(s.travelInfos.getTitleCountry()); // 국가명 받아옴.
                 departDateTextView.setText(s.travelInfos.getStartDate()); // 떠나요
                 comeDateTextView.setText(s.travelInfos.getEndDate()); //돌아와요
 
 
-                homeUserRecyclerViewAdapter = new HomeUserRecyclerViewAdapter(HomeActivity.this,s.shoplist);
+                homeUserRecyclerViewAdapter = new HomeUserRecyclerViewAdapter(HomeActivity.this, s.shoplist);
                 recyclerView.setAdapter(homeUserRecyclerViewAdapter);
 
                 //tag button 동적생성 & setText
@@ -223,7 +220,7 @@ public class HomeActivity extends AppCompatActivity {
         }
     }
 
-    private void setBottomButtonClickListener(){
+    private void setBottomButtonClickListener() {
         homeBtn = (ImageButton) findViewById(R.id.homeBtn);
         homeBtn.setOnClickListener(new BottomBarClickListener(this));
         searchBtn = (ImageButton) findViewById(R.id.searchBtn);
@@ -238,6 +235,7 @@ public class HomeActivity extends AppCompatActivity {
 
 
     }
+
     View.OnClickListener onClickListener = new View.OnClickListener() {
 
         Intent intent;
@@ -271,7 +269,6 @@ public class HomeActivity extends AppCompatActivity {
             startActivity(intent);
 
 
-
         }
     };
 
@@ -286,7 +283,7 @@ public class HomeActivity extends AppCompatActivity {
         params.setMargins(0, 0, 45, 45); // top, right margin : 15
         button.setGravity(Gravity.CENTER); //gravity : center
         button.setTextSize(13);// textsize : 13sp
-        button.setTypeface((new NanumRegularTextView(getApplication()).getTypeface())); //text font : Nanum M
+        button.setTypeface(null, Typeface.NORMAL);
         button.setLayoutParams(params);
         button.setTag("HomeTag");
         button.setId(i);
