@@ -29,7 +29,7 @@ import java.util.ArrayList;
 public class SearchListRecyclerAdapter extends RecyclerView.Adapter<SearchListRecyclerAdapter.ViewHolder>{
     private Context context;
 
-    private ArrayList<SearchGoodsDB> searchgoodsDBs =  new ArrayList<>();
+    private ArrayList<SearchGoodsDB> searchgoodsDBs;
 
 
 
@@ -43,11 +43,11 @@ public class SearchListRecyclerAdapter extends RecyclerView.Adapter<SearchListRe
     private int lastPosition2 = +1;
 
 
-    public SearchListRecyclerAdapter(Context mCotext, ArrayList<SearchGoodsDB> searchDBs) {
+    public SearchListRecyclerAdapter(Context mCotext, ArrayList<SearchGoodsDB> searchGoodsDBs) {
 
 /*        mItems = items;*/
         context = mCotext;
-        this.searchgoodsDBs = searchDBs;
+        this.searchgoodsDBs = searchGoodsDBs;
     /*    TYPE_FOOTER = items.size() + 1;*/
     }
 
@@ -81,7 +81,7 @@ public class SearchListRecyclerAdapter extends RecyclerView.Adapter<SearchListRe
         //TODO 서치리스트 리싸이클러 어댑터 홀더부분 수정,
     //    holder.itemImage.setImageResource(mItems.get(position).image);
         holder.itemName.setText(searchgoodsDBs.get(position).getGoods_name());
-
+        holder.
 
         setAnimation(holder.itemContainer, position);
 
@@ -101,13 +101,14 @@ public class SearchListRecyclerAdapter extends RecyclerView.Adapter<SearchListRe
 
     @Override
     public int getItemCount() {
-        return searchgoodsDBs.size();
+         return searchgoodsDBs.size();
 
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         public ImageView itemImage;
         public TextView itemName;
+        public TextView countryName;
         LinearLayout itemContainer;
 
 

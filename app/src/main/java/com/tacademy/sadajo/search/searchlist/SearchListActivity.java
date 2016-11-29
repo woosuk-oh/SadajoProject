@@ -1,5 +1,6 @@
 package com.tacademy.sadajo.search.searchlist;
 
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -16,17 +17,20 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.appindexing.Thing;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.tacademy.sadajo.BottomBarClickListener;
 import com.tacademy.sadajo.R;
 import com.tacademy.sadajo.funtion.SearchBarDeleteButton;
+import com.tacademy.sadajo.network.OkHttpInitManager;
 import com.tacademy.sadajo.network.Search.SearchDB;
-import com.tacademy.sadajo.network.Search.SearchGoodsDB;
 import com.tacademy.sadajo.network.Search.SearchJSONParser;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
-import okhttp3.Call;
-import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -47,10 +51,9 @@ public class SearchListActivity extends AppCompatActivity {
     ImageButton shoppingListBtn;
     ImageButton chattingBtn;
     ImageButton mypageBtn;
-   // ArrayList<SearchDB> searchDBs;
+    ArrayList<SearchDB> searchDBs;
     SearchDB searchDB;
-    SearchGoodsDB searchGoodsDBs;
-
+  /*  SearchGoodsDB searchGoodsDBs;*/
 
 
     private SearchListRecyclerAdapter mAdapter;
@@ -71,8 +74,7 @@ public class SearchListActivity extends AppCompatActivity {
     private Button searchBarClear;
 
     private LinearLayout customBar;
-  //  SearchDB searchDB;
-
+    //  SearchDB searchDB;
 
 
     OkHttpClient client = new OkHttpClient();
@@ -81,6 +83,11 @@ public class SearchListActivity extends AppCompatActivity {
     private int columnCount;
     //커스텀 바의 현재 단말기 화면의 높이에 적절히 세팅
     private int customBarHeight;
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    private GoogleApiClient client2;
 
 
     @Override
@@ -96,10 +103,6 @@ public class SearchListActivity extends AppCompatActivity {
 
         layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         mRecycler.setLayoutManager(layoutManager); //리싸이클러뷰의 레이아웃매니저 적용
-
-
-
-
 
 
         searchBar = (EditText) findViewById(R.id.search_search_et);
@@ -150,8 +153,11 @@ public class SearchListActivity extends AppCompatActivity {
         searchBtn.setSelected(true);
 
 
-       new AsyncSearchRequest().execute();
+        new AsyncSearchRequest().execute();
 
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client2 = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     } // end OnCreate.
 
     private void setBottomButtonClickListener() {
@@ -168,6 +174,42 @@ public class SearchListActivity extends AppCompatActivity {
         homeBtn.setSelected(true);
 
 
+    }
+
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    public Action getIndexApiAction() {
+        Thing object = new Thing.Builder()
+                .setName("SearchList Page") // TODO: Define a title for the content shown.
+                // TODO: Make sure this auto-generated URL is correct.
+                .setUrl(Uri.parse("http://[ENTER-YOUR-URL-HERE]"))
+                .build();
+        return new Action.Builder(Action.TYPE_VIEW)
+                .setObject(object)
+                .setActionStatus(Action.STATUS_TYPE_COMPLETED)
+                .build();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client2.connect();
+        AppIndex.AppIndexApi.start(client2, getIndexApiAction());
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        AppIndex.AppIndexApi.end(client2, getIndexApiAction());
+        client2.disconnect();
     }
 
 
@@ -194,16 +236,20 @@ public class SearchListActivity extends AppCompatActivity {
 
 
         @Override
-        protected SearchDB doInBackground(Void... searchDBs) {
+        protected SearchDB doInBackground(Void... params) {
+            OkHttpClient toServer;
+            toServer = OkHttpInitManager.getOkHttpClient();
             Response response = null; // 응답
-            searchDB = new SearchDB(); //TODO 변수명 수정 필요
+            searchDB = new SearchDB();
+
+
             OkHttpClient client = new OkHttpClient();
 
             try {
             /* get 방식으로 받기 */
-              //  String url_test = "1"; // get방식에서 마지막에 넣는 id값. 테스트.
+                //  String url_test = "1"; // get방식에서 마지막에 넣는 id값. 테스트.
                 /*String url = String.format(SEARCH_LIST, url_test); //TODO 변수명 수정.*/
-                String url = String.format(SEARCH_LIST);
+                String url = String.format(SEARCH_LIST, "");
                 //get 방식이므로 FormBody는 없고, 정보를 url에만 담음.
 
 
@@ -211,7 +257,18 @@ public class SearchListActivity extends AppCompatActivity {
                         .url(url)
                         .build();
 
-                client.newCall(request).enqueue(new Callback() {
+                response = toServer.newCall(request).execute();
+
+                if (response.isSuccessful()) { //연결에 성공하면
+                    String returedMessage = response.body().string(); // okhttp로 부터 받아온 데이터 json을 스트링형태로 변환하여 returendMessage에 담아둠. 이때, home부분의 모든 오브젝트를 가져와 담아둠.
+                    Log.e("searchActivity", returedMessage);
+
+                    searchDB = SearchJSONParser.getSearchJsonParser(returedMessage); //만들어둔 파서로 returedMessage를 넣어서 파싱하여 homeDB에 값을 넣음.
+
+                }else { // 연결에 실패하면
+                    Log.e("요청/응답", response.message().toString());
+                }
+          /*      client.newCall(request).enqueue(new Callback() {
                     @Override
                     public void onFailure(Call call, IOException e) {
 
@@ -219,12 +276,11 @@ public class SearchListActivity extends AppCompatActivity {
 
                     @Override
                     public void onResponse(Call call, Response response) throws IOException {
-                        String returedMessage = response.body().string(); // okhttp로 부터 받아온 데이터 json을 스트링형태로 변환하여 returendMessage에 담아둠. 이때, home부분의 모든 오브젝트를 가져와 담아둠.
-                        Log.e("searchActivity", returedMessage);
 
-                        searchDB = SearchJSONParser.getSearchJsonParser(returedMessage); //만들어둔 파서로 returedMessage를 넣어서 파싱하여 homeDB에 값을 넣음.
                     }
-                });
+                });*/
+            } catch (IOException e) {
+                e.printStackTrace();
             } finally {
                 if (response != null) {
                     response.close();
@@ -239,7 +295,9 @@ public class SearchListActivity extends AppCompatActivity {
         protected void onPostExecute(SearchDB searchDB) {
             super.onPostExecute(searchDB);
 
+            customTitleText2.setText(String.valueOf(searchDB.getCount()));
 
+           // Log.d("searchDB",""+searchDB.getSearchGoodsDBs().get(0).toString());
 
             mAdapter = new SearchListRecyclerAdapter(SearchListActivity.this, searchDB.searchGoodsDBs);
             mRecycler.setAdapter(mAdapter);

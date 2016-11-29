@@ -30,7 +30,11 @@
         <activity android:name=".chatting.ChattingDetailActivity" />
         <activity android:name=".mypage.MypageBuyActivity" />
         <activity android:name=".shoppinglist.ShoppingListFirstDetailActivity" />
-        <activity android:name=".mypage.MyPageOtherActivity" />
+        <activity android:name=".mypage.MyPageOtherActivity" /><!-- ATTENTION: This was auto-generated to add Google Play services to your project for
+     App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
     </application>
     <uses-permission android:name="android.permission.INTERNET" />
 </manifest>

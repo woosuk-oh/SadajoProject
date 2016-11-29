@@ -30,22 +30,23 @@ public class SearchJSONParser {
             searchDBs.setCount(search.getInt("count"));
 
             JSONArray datas = search.getJSONArray("data"); //data의 [] 부분을 가져온다. (JSONArray)
+
             for (int i = 0; i < datas.length(); i++) {// 서버로 부터 받은 data의 갯수 만큼 반복
                 SearchGoodsDB searchGoodsDB = new SearchGoodsDB();
                 JSONObject data = datas.getJSONObject(i); //datas를 data 단위로 쪼갬. (제이슨 오브젝트를 꺼내옴)
 
-                searchGoodsDB.setItem_id(data.getInt("id"));
-                searchGoodsDB.setGoods_code(data.getString("goods_code"));
-                searchGoodsDB.setGoods_name(data.getString("goods_name"));
-                searchGoodsDB.setCountry(data.getString("country"));
-                searchGoodsDB.setClick(data.getInt("click"));
-                searchGoodsDB.setRegdate(data.getString("regdate"));
+                searchGoodsDB.setItem_id(data.optInt("id"));
+                searchGoodsDB.setGoods_code(data.optString("goods_code"));
+                searchGoodsDB.setGoods_name(data.optString("goods_name"));
+                searchGoodsDB.setCountry(data.optString("country"));
+                searchGoodsDB.setClick(data.optInt("click"));
+                searchGoodsDB.setRegdate(data.optString("regdate"));
 
                 searchGoodsDBs.add(searchGoodsDB);
             }
             searchDBs.setSearchGoodsDBs(searchGoodsDBs);
 
-
+            String test = searchDBs.getSearchGoodsDBs().get(0).getGoods_name();
 
 
 

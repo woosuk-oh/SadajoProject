@@ -13,7 +13,7 @@ public class SearchDB { //TODO 데이터 모델 작성필요
     public ArrayList<String> tag_price;
 
 
-    public ArrayList<SearchDB> searchDBs; // 재귀호출
+  //  public ArrayList<SearchDB> searchDBs; // 재귀호출
     public ArrayList<SearchGoodsDB> searchGoodsDBs; //goods에서 data 제이슨 어레이리스트.
 
 
@@ -26,13 +26,13 @@ public class SearchDB { //TODO 데이터 모델 작성필요
         this.searchGoodsDBs = searchGoodsDBs;
     }
 
-    public void setSearchDBs(ArrayList<SearchDB> searchDBs){
+    /*public void setSearchDBs(ArrayList<SearchDB> searchDBs){
         this.searchDBs = searchDBs;
 
     }
     public ArrayList<SearchDB> getSearchDBs(){
         return searchDBs;
-    }
+    }*/
 
 
 
