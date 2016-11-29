@@ -105,7 +105,7 @@ public class ShoppingListFragment extends Fragment {
 
 
                 RequestBody postBody = new FormBody.Builder()
-                        .add("user", "3")
+                        .add("user", "1")
                         .build();
 
                 Request request = new Request.Builder()
@@ -140,10 +140,9 @@ public class ShoppingListFragment extends Fragment {
             super.onPostExecute(shopListDBs);
 
 
-            if (shopListDBs != null && shopListDBs.size() > 0) {
+
                 recyclerViewAdapter.addShopList(shopListDBs);
                 recyclerViewAdapter.notifyDataSetChanged();
-            }
         }
     }
 

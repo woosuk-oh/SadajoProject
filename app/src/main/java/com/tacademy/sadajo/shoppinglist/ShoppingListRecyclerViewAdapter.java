@@ -98,7 +98,7 @@ public class ShoppingListRecyclerViewAdapter
 
     @Override
     public int getItemViewType(int position) {
-        if (getItemCount() == 0) {
+        if (getItemCount() == 1) {
             return NO_ITEM_VIEW;
         } else if (position == 0) {
 
@@ -153,7 +153,7 @@ public class ShoppingListRecyclerViewAdapter
                     mContext.startActivity(intent);
                 }
             });
-        } else {
+        } else if(viewType ==HEADER_VIEW){
             holder.newScheduleButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
