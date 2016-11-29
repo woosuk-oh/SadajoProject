@@ -12,7 +12,7 @@ public class ShopListDB {
     public String cityCode;
     public String startDate;
     public String endDate;
-    public int img;
+    public String img;
 
 
 

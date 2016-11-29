@@ -235,7 +235,7 @@ public class SearchListActivity extends BaseActivity {
         chattingBtn.setOnClickListener(new BottomBarClickListener(this));
         mypageBtn = (ImageButton) findViewById(R.id.mypageBtn);
         mypageBtn.setOnClickListener(new BottomBarClickListener(this));
-        homeBtn.setSelected(true);
+        searchBtn.setSelected(true);
 
 
     }
