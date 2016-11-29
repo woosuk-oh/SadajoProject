@@ -9,6 +9,7 @@ import android.util.TypedValue;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -31,6 +32,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
+import static android.util.Log.e;
 import static com.tacademy.sadajo.network.NetworkDefineConstant.HOST_URL;
 
 public class SearchListActivity extends BaseActivity {
@@ -82,10 +84,6 @@ public class SearchListActivity extends BaseActivity {
     private int columnCount;
     //커스텀 바의 현재 단말기 화면의 높이에 적절히 세팅
     private int customBarHeight;
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
 
 
 
@@ -135,9 +133,26 @@ public class SearchListActivity extends BaseActivity {
         customTitleText4 = (TextView) findViewById(R.id.popularity); // 인기순
         customTitleText5 = (TextView) findViewById(R.id.latest); //최신순
 
+        countrySpinner = (Spinner) findViewById(R.id.search_toolbar_spinner1); //국가별 선택 스피너
+        countrySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
+            /*    String selectItem = countrySpinner.getSelectedItem().toString();
+                String selectItem2 = "전세계";
 
-        new AsyncSearchRequest().execute();
+                if("전세계" != countrySpinner.getSelectedItem().toString()) {
+
+                }*/
+                new AsyncSearchRequest().execute(countrySpinner.getSelectedItem().toString());
+                Log.e("spinner:", "" + countrySpinner.getSelectedItem().toString());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
 
     } // end OnCreate.
@@ -160,8 +175,6 @@ public class SearchListActivity extends BaseActivity {
     }
 
 
-
-
     public interface OnResultListener<T> {
         public void onSuccess(Request request, T result);
 
@@ -169,14 +182,15 @@ public class SearchListActivity extends BaseActivity {
     }
 
 
-    public class AsyncSearchRequest extends AsyncTask<Void, Void, SearchDB> {
+    public class AsyncSearchRequest extends AsyncTask<String, Void, SearchDB> {
 
 
         //첫번째 Void: doInBackgorund로 보내는
         //두번째 Void: Progress
         //세번째 onPostExecute에서 사용할 파라미터값.
-        private static final String SEARCH_LIST = HOST_URL + "/goods/%s";
-        OkHttpClient mClient;
+        private static final String SEARCH_LIST = HOST_URL + "/goods";
+        private static final String SEARCH_LIST2 = HOST_URL + "/good?country=%s";
+        String url;
 
         @Override
         protected void onPreExecute() {
@@ -185,38 +199,48 @@ public class SearchListActivity extends BaseActivity {
 
 
         @Override
-        protected SearchDB doInBackground(Void... params) {
+        protected SearchDB doInBackground(String... params) {
             OkHttpClient toServer;
             toServer = OkHttpInitManager.getOkHttpClient();
             Response response = null; // 응답
+
             searchDB = new SearchDB();
+            String countryId;
+
+            Log.e("param", "" + params[0].toString());
 
 
-            OkHttpClient client = new OkHttpClient();
+            if (params[0].equals("전세계")) { //스피너에서 선택한 값이 "전세계" 이면
+                url = SEARCH_LIST; //url에 /goods를 넣어줌.
+
+
+            } else { // 스피너에서 선택한 값이
+                countryId = params[0].toString();
+                url = String.format(SEARCH_LIST2, countryId); //get 방식이므로 FormBody는 없고, 정보를 url에만 담음.
+
+            }
 
             try {
             /* get 방식으로 받기 */
-                //  String url_test = "1"; // get방식에서 마지막에 넣는 id값. 테스트.
-                /*String url = String.format(SEARCH_LIST, url_test); //TODO 변수명 수정.*/
-                String url = String.format(SEARCH_LIST, "");
-                //get 방식이므로 FormBody는 없고, 정보를 url에만 담음.
+                //String url = String.format(SEARCH_LIST, countryId);
 
 
                 Request request = new Request.Builder()
                         .url(url)
                         .build();
-
+                Log.e("url3", "" + url);
                 response = toServer.newCall(request).execute();
 
                 if (response.isSuccessful()) { //연결에 성공하면
                     String returedMessage = response.body().string(); // okhttp로 부터 받아온 데이터 json을 스트링형태로 변환하여 returendMessage에 담아둠. 이때, home부분의 모든 오브젝트를 가져와 담아둠.
-                    Log.e("searchActivity", returedMessage);
+                    e("searchActivity", returedMessage);
 
                     searchDB = SearchJSONParser.getSearchJsonParser(returedMessage); //만들어둔 파서로 returedMessage를 넣어서 파싱하여 homeDB에 값을 넣음.
 
                 } else { // 연결에 실패하면
-                    Log.e("요청/응답", response.message().toString());
+                    e("요청/응답", response.message().toString());
                 }
+
           /*      client.newCall(request).enqueue(new Callback() {
                     @Override
                     public void onFailure(Call call, IOException e) {

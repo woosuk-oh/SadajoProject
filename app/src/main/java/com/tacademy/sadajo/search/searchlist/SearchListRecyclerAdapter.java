@@ -101,7 +101,10 @@ public class SearchListRecyclerAdapter extends RecyclerView.Adapter<SearchListRe
 
     @Override
     public int getItemCount() {
-         return searchgoodsDBs.size();
+        if(searchgoodsDBs.size() == 0) {
+        return 0;
+        }
+        return searchgoodsDBs.size();
 
     }
 
