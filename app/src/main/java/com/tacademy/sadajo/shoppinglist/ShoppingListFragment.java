@@ -105,7 +105,7 @@ public class ShoppingListFragment extends Fragment {
 
 
                 RequestBody postBody = new FormBody.Builder()
-                        .add("user", "1")
+                        .add("user", "3")
                         .build();
 
                 Request request = new Request.Builder()

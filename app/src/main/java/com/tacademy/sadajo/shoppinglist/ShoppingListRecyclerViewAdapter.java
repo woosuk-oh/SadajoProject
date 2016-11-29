@@ -120,27 +120,26 @@ public class ShoppingListRecyclerViewAdapter
 
         //첫번째 아이템이 아닌 경우
         if (viewType == CONTENT_VIEW) {
-
-            String countryKor = shopListDB.get(position).countryNameKor;
-            holder.countryNameTextView.setText( shopListDB.get(position).countryNameEng);
-            holder.cityNameTextView.setText(countryKor + ", " + shopListDB.get(position).cityName);
-            holder.dateTextView.setText(shopListDB.get(position).startDate + "~" + shopListDB.get(position).endDate);
+            String countryKor = shopListDB.get(position-1).countryNameKor;
+            holder.countryNameTextView.setText( shopListDB.get(position-1).countryNameEng);
+            holder.cityNameTextView.setText(countryKor + ", " + shopListDB.get(position-1).cityName);
+            holder.dateTextView.setText(shopListDB.get(position-1).startDate + "~" + shopListDB.get(position-1).endDate);
             //           holder.productImageView.setImageResource(R.drawable.product_sample);
             // holder.shoplistCountTextView.setText("99+");
 
 
-            if (shopListDB.get(position).goodsCount == 0) { //goods count가 0일 때 widget Visibility설정
+            if (shopListDB.get(position-1).goodsCount == 0) { //goods count가 0일 때 widget Visibility설정
                 holder.shoplistCountTextView.setVisibility(View.GONE);
                 holder.productEmptyTextView.setVisibility(View.VISIBLE);
             } else {
-                holder.shoplistCountTextView.setText(String.valueOf(shopListDB.get(position).goodsCount));
+                holder.shoplistCountTextView.setText(String.valueOf(shopListDB.get(position-1).goodsCount));
 
 
             }
 
 
             Glide.with(SadajoContext.getContext())//productImage
-                    .load(shopListDB.get(position).img)
+                    .load(shopListDB.get(position-1).img)
                     .into(holder.productImageView);
 
 
@@ -150,7 +149,7 @@ public class ShoppingListRecyclerViewAdapter
                 public void onClick(View v) {
 
                     Intent intent = new Intent(mContext,LikeListDetailActivity.class);
-                    intent.putExtra("listCode",shopListDB.get(position).listCode); //listCode넘겨줌
+                    intent.putExtra("listCode",shopListDB.get(position-1).listCode); //listCode넘겨줌
                     mContext.startActivity(intent);
                 }
             });
@@ -175,6 +174,6 @@ public class ShoppingListRecyclerViewAdapter
 
     @Override
     public int getItemCount() {
-        return shopListDB.size();
+        return shopListDB.size()+1;
     }
 }
