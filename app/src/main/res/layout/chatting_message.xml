@@ -2,14 +2,17 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/whiteGrayFont">
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/chatMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="Chat message"
-        android:id="@+id/chatmessage"
+        android:background="@drawable/chat_bubble"
         android:gravity="left|center_vertical|center_horizontal"
-        android:layout_marginLeft="20dp" />
+        android:layout_marginLeft="20dp"
+        android:textSize="12sp"
+        android:textColor="@color/blackFont"/>
 </LinearLayout>

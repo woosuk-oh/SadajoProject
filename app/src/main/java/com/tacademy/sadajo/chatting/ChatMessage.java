@@ -9,7 +9,7 @@ public class ChatMessage {
     private String content;
     private boolean isMine;
 
-    public ChatMessage(String content, boolean isMine) {
+    public ChatMessage( boolean isMine,String content) {
         this.content = content;
         this.isMine = isMine;
     }
