@@ -9,7 +9,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.tacademy.sadajo.R;
+import com.tacademy.sadajo.SadajoContext;
 import com.tacademy.sadajo.mypage.MyPageOtherActivity;
 import com.tacademy.sadajo.network.Home.HomeShoplistDB;
 
@@ -45,6 +47,7 @@ public class HomeUserRecyclerViewAdapter
             homeUserIdTextView = (TextView) view.findViewById(R.id.homeUserIdTextView);
             userProfileImageView = (ImageView) view.findViewById(R.id.userProfileImageView);
 
+
         }
     }
 
@@ -61,7 +64,12 @@ public class HomeUserRecyclerViewAdapter
 
 
         holder.homeUserIdTextView.setText(shoppingListDatas.get(position).getUserName());
-        holder.userProfileImageView.setImageResource(R.drawable.sample_profile);
+        //holder.userProfileImageView.setImageResource(R.drawable.sample_profile);
+
+        Glide.with(SadajoContext.getContext())
+                .load(shoppingListDatas.get(position).getUserImg())
+                .into(holder.userProfileImageView);
+
 
 
         holder.userProfileImageView.setOnClickListener(new View.OnClickListener() {

@@ -11,7 +11,9 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.tacademy.sadajo.R;
+import com.tacademy.sadajo.SadajoContext;
 import com.tacademy.sadajo.home.ScheduleDialogFragment;
 import com.tacademy.sadajo.network.shoppinglist.CountryEngHashMap;
 import com.tacademy.sadajo.network.shoppinglist.ShopListDB;
@@ -42,12 +44,14 @@ public class ShoppingListRecyclerViewAdapter
 
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public  class ViewHolder extends RecyclerView.ViewHolder {
 
         public final View mView;
         public final TextView countryNameTextView;
         public final TextView cityNameTextView;
         public final TextView dateTextView;
+        public final TextView shoplistCountTextView;
+        public final TextView productEmptyTextView;
         public final ImageView productImageView;
         public final ImageButton newScheduleButton;
 
@@ -58,6 +62,8 @@ public class ShoppingListRecyclerViewAdapter
             countryNameTextView = (TextView) view.findViewById(R.id.countryNameTextView);
             cityNameTextView = (TextView) view.findViewById(R.id.cityNameTextView);
             dateTextView = (TextView) view.findViewById(R.id.dateTextView);
+            shoplistCountTextView = (TextView) view.findViewById(R.id.shoplistCountTextView);
+            productEmptyTextView = (TextView) view.findViewById(R.id.productEmptyTextView);
             productImageView = (ImageView) view.findViewById(R.id.productImageView);
             newScheduleButton = (ImageButton) view.findViewById(R.id.newScheduleButton);
 
@@ -118,27 +124,29 @@ public class ShoppingListRecyclerViewAdapter
             holder.countryNameTextView.setText(countryEng);
             holder.cityNameTextView.setText(countryKor + ", " + shopListDB.get(position).cityCode);
             holder.dateTextView.setText(shopListDB.get(position).startDate + "~" + shopListDB.get(position).endDate);
-            holder.productImageView.setImageResource(R.drawable.product_sample);
+            //           holder.productImageView.setImageResource(R.drawable.product_sample);
+            // holder.shoplistCountTextView.setText("99+");
 
-//            Glide.with(GirlsApplication.getGirlsContext())
-//                    .load(girlInfo)
-//                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-//                    .animate(android.R.anim.slide_in_left)
-//                    .into(holder.girlsImage);
+
+            if (shopListDB.get(position).goodsCount == 0) { //goods count가 0일 때 widget Visibility설정
+                holder.shoplistCountTextView.setVisibility(View.GONE);
+                holder.productEmptyTextView.setVisibility(View.VISIBLE);
+            } else {
+                holder.shoplistCountTextView.setText(String.valueOf(shopListDB.get(position).goodsCount));
+
+
+            }
+
+
+            Glide.with(SadajoContext.getContext())//productImage
+                    .load(shopListDB.get(position).img)
+                    .into(holder.productImageView);
+
+
 
             holder.mView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-//
-//                    Intent intent = new Intent(GirlsApplication.getGirlsContext(), GirlsMemberDetailActivity.class);
-//                    intent.putExtra("memberImage", girlsImages.get(position));
-//                    intent.putExtra("memberName", holder.memberName.getText().toString());
-//
-//                    ActivityOptionsCompat options =
-//                            ActivityOptionsCompat.makeSceneTransitionAnimation(
-//                                    owner, holder.girlsImage, ViewCompat.getTransitionName(holder.girlsImage));
-//
-//                    ActivityCompat.startActivity(owner, intent, options.toBundle());
 
                 }
             });

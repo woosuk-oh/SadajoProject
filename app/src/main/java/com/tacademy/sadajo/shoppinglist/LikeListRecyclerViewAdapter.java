@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.tacademy.sadajo.R;
+import com.tacademy.sadajo.network.shoppinglist.ShopListDB;
 
 import java.util.ArrayList;
 
@@ -17,14 +18,14 @@ import java.util.ArrayList;
  * Created by EUNZY on 2016. 11. 24..
  */
 
-public class ShoppingListRecyclerViewSecondAdapter
-        extends RecyclerView.Adapter<ShoppingListRecyclerViewSecondAdapter.ViewHolder> {
+public class LikeListRecyclerViewAdapter
+        extends RecyclerView.Adapter<LikeListRecyclerViewAdapter.ViewHolder> {
 
     private ArrayList<ShoppingListData> shoppingListDatas;
     private Context context;
 
 
-    public ShoppingListRecyclerViewSecondAdapter(Context context, ArrayList<ShoppingListData> shoppingListDatas) {
+    public LikeListRecyclerViewAdapter(Context context, ArrayList<ShoppingListData> shoppingListDatas) {
         this.context = context;
         this.shoppingListDatas = shoppingListDatas;
     }
@@ -42,7 +43,6 @@ public class ShoppingListRecyclerViewSecondAdapter
             mView = view;
             countryNameTextView = (TextView) view.findViewById(R.id.countryNameTextView);
             cityNameTextView = (TextView) view.findViewById(R.id.cityNameTextView);
-
             productImageView = (ImageView) view.findViewById(R.id.productImageView);
 
 
@@ -101,6 +101,12 @@ public class ShoppingListRecyclerViewSecondAdapter
         });
 
     }
+
+
+    public void addLi(ArrayList<ShopListDB> shopListDBs) {
+        //this.shopListDB.addAll(shopListDBs);
+    }
+
 
 
     @Override
