@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.tacademy.sadajo.home.ShoppingListFirstDetailActivity">
+    tools:context="com.tacademy.sadajo.shoppinglist.ShoppingListFirstDetailActivity">
 
     <include layout="@layout/include_toolbar_layout" />
 

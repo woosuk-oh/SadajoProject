@@ -47,7 +47,8 @@ public class HomeJSONParser {
 
             /* shoplist 파싱 부분 . 배열이라 반복문 돌려줌.*/
             JSONArray shoplists = home.getJSONArray("shoplist"); //shoplist의 [] 부분을 가져온다. (JSONArray)
-            for (int i = 0; i < shoplists.length(); i++) {// 서버로 부터 받은 shoplist의 갯수 만큼 반복
+            int shopSize = shoplists.length();
+            for (int i = 0; i < shopSize; i++) {// 서버로 부터 받은 shoplist의 갯수 만큼 반복
                 HomeShoplistDB homeShoplistDB = new HomeShoplistDB();
                 JSONObject shoplistsObject = shoplists.getJSONObject(i); //shoplist에서 {} 부분들을 가져온다. (JSONObject)
 
@@ -79,7 +80,8 @@ public class HomeJSONParser {
 
             /* tag JSON Array 파싱 부분 */
             JSONArray tagJsonArray = home.getJSONArray("tag");
-            for (int a = 0; a < tagJsonArray.length(); a++) {
+            int tagSize = tagJsonArray.length();
+            for (int a = 0; a < tagSize; a++) {
                 homeDBs.tag.add(tagJsonArray.getString(a));
             }
 

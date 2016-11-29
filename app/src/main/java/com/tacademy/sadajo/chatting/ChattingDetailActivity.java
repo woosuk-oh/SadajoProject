@@ -1,8 +1,6 @@
 package com.tacademy.sadajo.chatting;
 
-import android.database.DataSetObserver;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -12,12 +10,13 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
+import com.tacademy.sadajo.BaseActivity;
 import com.tacademy.sadajo.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ChattingDetailActivity extends AppCompatActivity {
+public class ChattingDetailActivity extends BaseActivity {
 
     Toolbar toolbar;
 

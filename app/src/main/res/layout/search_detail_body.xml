@@ -62,13 +62,14 @@
                     android:layout_height="20dp"
                     android:background="@drawable/search_icon_h" />
 
-                <com.tacademy.sadajo.fonts.NanumRegularTextView
+                <TextView
                     android:id="@+id/detail_zzim_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="4dp"
                     android:text="99+"
-                    android:textSize="11sp" />
+                    android:textSize="11sp"
+                    android:textStyle="normal"/>
 
                 <Button
                     android:id="@+id/detail_shopping_button"
@@ -77,14 +78,15 @@
                     android:layout_marginLeft="7dp"
                     android:background="@drawable/search_icon_s" />
 
-                <com.tacademy.sadajo.fonts.NanumRegularTextView
+                <TextView
                     android:id="@+id/detail_shopping_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="4dp"
                     android:layout_marginRight="16dp"
                     android:text="99+"
-                    android:textSize="11sp" />
+                    android:textSize="11sp"
+                    android:textStyle="normal"/>
 
 
             </LinearLayout>
@@ -135,7 +137,7 @@
                     android:layout_weight="1">
                     <!--android:paddingTop="19dp"-->
 
-                    <com.tacademy.sadajo.fonts.NanumBoldTextView
+                    <TextView
                         android:id="@+id/search_detail_item_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -144,7 +146,8 @@
                         android:layout_marginRight="25dp"
                         android:text="itemName"
                         android:textColor="#232323"
-                        android:textSize="17sp" />
+                        android:textSize="17sp"
+                        android:textStyle="bold"/>
 
                 </LinearLayout>
 
@@ -299,23 +302,25 @@
 
                         android:src="@drawable/search_profile_105" />
 
-                    <com.tacademy.sadajo.fonts.NanumRegularTextView
+                    <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:gravity="center"
                         android:layout_marginTop="9dp"
                         android:textSize="12sp"
-                        android:text="아롱이다롱" />
+                        android:text="아롱이다롱"
+                        android:textStyle="normal"/>
                     <!--android:layout_marginTop="20dp"-->
                 </LinearLayout>
 
-                <com.tacademy.sadajo.fonts.NanumRegularTextView
+                <TextView
                     android:layout_width="244dp"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="17dp"
                     android:layout_marginTop="20dp"
-                    android:text="텍스트텍스트텍스트텍스트" />
+                    android:text="텍스트텍스트텍스트텍스트"
+                    android:textStyle="normal"/>
 
 
             </LinearLayout>
@@ -325,7 +330,7 @@
                 android:layout_height="53dp"
                 android:background="@color/white">
 
-                <com.tacademy.sadajo.fonts.NanumBoldTextView
+                <TextView
                     android:id="@+id/textView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -333,7 +338,8 @@
                     android:paddingTop="19dp"
                     android:text="쇼퍼맨에게 부탁해볼까요?"
                     android:textColor="@color/blackFont"
-                    android:textSize="17sp" />
+                    android:textSize="17sp"
+                    android:textStyle="bold"/>
 
             </LinearLayout>
 
@@ -363,14 +369,15 @@
                     android:layout_gravity="bottom"
                     android:layout_weight="1">
 
-                    <com.tacademy.sadajo.fonts.NanumBoldTextView
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingTop="19dp"
                         android:layout_marginLeft="16dp"
                         android:text="얼마에 구매했어요?"
                         android:textColor="@color/blackFont"
-                        android:textSize="17sp" />l
+                        android:textSize="17sp"
+                        android:textStyle="bold"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -380,7 +387,7 @@
                     android:layout_weight="1"
                     android:layout_gravity="bottom">
 
-                    <com.tacademy.sadajo.fonts.NanumRegularTextView
+                    <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginRight="16dp"
@@ -391,7 +398,8 @@
 
                         android:text="2016.11.13 기준 환율"
                         android:textColor="@color/grayFont"
-                        android:textSize="13sp" />
+                        android:textSize="13sp"
+                        android:textStyle="normal"/>
                 </LinearLayout>
 
 
@@ -430,13 +438,14 @@
 
                     >
 
-                    <com.tacademy.sadajo.fonts.NanumRegularTextView
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="1,000,000HKD"
 
                         android:textColor="@color/blackFont"
-                        android:textSize="13sp" />
+                        android:textSize="13sp"
+                        android:textStyle="normal"/>
 
                     <Button
                         android:layout_width="15dp"
@@ -461,14 +470,15 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1">
 
-                    <com.tacademy.sadajo.fonts.NanumBoldTextView
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="16dp"
                         android:layout_marginTop="19dp"
                         android:text="어디서 살수있어요?"
                         android:textColor="@color/blackFont"
-                        android:textSize="17sp" />l
+                        android:textSize="17sp"
+                        android:textStyle="bold"/>
                 </LinearLayout>
 
 
@@ -499,14 +509,15 @@
                 >
 
 
-                <com.tacademy.sadajo.fonts.NanumBoldTextView
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="16dp"
                     android:layout_marginTop="19dp"
                     android:text="쇼퍼맨이 알려주는 구매 TIP"
                     android:textColor="@color/blackFont"
-                    android:textSize="17sp" />l
+                    android:textSize="17sp"
+                    android:textStyle="bold"/>
 
 
             </LinearLayout>

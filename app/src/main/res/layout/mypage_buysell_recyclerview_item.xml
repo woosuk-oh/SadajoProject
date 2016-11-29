@@ -13,7 +13,7 @@
         android:layout_gravity="center"
         android:src="@drawable/profile_empty" />
 
-    <com.tacademy.sadajo.fonts.GothamTextView
+    <TextView
         android:id="@+id/countryEngName"
         android:layout_marginTop="20dp"
         android:layout_width="wrap_content"
@@ -21,9 +21,10 @@
         android:layout_gravity="center"
         android:text="PHILIPPINES"
         android:textSize="30sp"
-        android:textColor="@color/blackFont" />
+        android:textColor="@color/blackFont"
+        android:textStyle="italic"/>
 
-    <com.tacademy.sadajo.fonts.NanumRegularTextView
+    <TextView
         android:id="@+id/countryKorName"
         android:layout_marginTop="9dp"
         android:layout_width="wrap_content"
@@ -31,7 +32,8 @@
         android:text="필리핀, 마닐라"
         android:textSize="11sp"
         android:textColor="@color/grayFont"
-        android:layout_gravity="center" />
+        android:layout_gravity="center"
+        android:textStyle="normal"/>
 
     <LinearLayout
         android:layout_marginLeft="16dp"
@@ -52,14 +54,15 @@
                 android:layout_height="35dp"
                 android:src="@drawable/profile_empty" />
 
-            <com.tacademy.sadajo.fonts.NanumRegularTextView
+            <TextView
                 android:id="@+id/userNameTextView"
                 android:layout_marginTop="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="닉네임"
                 android:layout_gravity="center"
-                android:textSize="11sp" />
+                android:textSize="11sp"
+                android:textStyle="normal"/>
         </LinearLayout>
 
         <LinearLayout
@@ -69,22 +72,24 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <com.tacademy.sadajo.fonts.NanumRegularTextView
+            <TextView
                 android:id="@+id/productTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="상품명"
                 android:textSize="11sp"
-                android:textColor="@color/grayFont" />
+                android:textColor="@color/grayFont"
+                android:textStyle="normal"/>
 
-            <com.tacademy.sadajo.fonts.NanumBoldTextView
+            <TextView
                 android:id="@+id/productNameTextView"
                 android:layout_marginTop="7dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="산타마리아노벨라 향수 최대여기까"
                 android:textColor="@color/blackFont"
-                android:textSize="13sp" />
+                android:textSize="13sp"
+                android:textStyle="bold"/>
 
         </LinearLayout>
 
@@ -99,26 +104,28 @@
         android:layout_marginLeft="128dp"
         android:layout_marginRight="24dp">
 
-        <com.tacademy.sadajo.fonts.NanumRegularTextView
+        <TextView
             android:id="@+id/dateTextTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="거래날짜"
             android:textSize="10sp"
-            android:textColor="@color/grayFont" />
+            android:textColor="@color/grayFont"
+            android:textStyle="normal"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="right">
 
-            <com.tacademy.sadajo.fonts.NanumRegularTextView
+            <TextView
                 android:id="@+id/dateTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="2016.11.20"
                 android:textSize="11sp"
-                android:textColor="@color/grayFont" />
+                android:textColor="@color/grayFont"
+                android:textStyle="normal"/>
         </LinearLayout>
 
     </LinearLayout>

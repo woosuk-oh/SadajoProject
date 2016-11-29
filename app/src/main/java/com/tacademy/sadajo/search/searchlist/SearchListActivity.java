@@ -1,9 +1,7 @@
 package com.tacademy.sadajo.search.searchlist;
 
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -18,10 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.google.android.gms.appindexing.Action;
-import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.appindexing.Thing;
-import com.google.android.gms.common.api.GoogleApiClient;
+import com.tacademy.sadajo.BaseActivity;
 import com.tacademy.sadajo.BottomBarClickListener;
 import com.tacademy.sadajo.R;
 import com.tacademy.sadajo.funtion.SearchBarDeleteButton;
@@ -38,7 +33,7 @@ import okhttp3.Response;
 
 import static com.tacademy.sadajo.network.NetworkDefineConstant.HOST_URL;
 
-public class SearchListActivity extends AppCompatActivity {
+public class SearchListActivity extends BaseActivity {
 
 
     // private CollapsingSwipeRefreshLayout swiper;
@@ -91,7 +86,7 @@ public class SearchListActivity extends AppCompatActivity {
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
-    private GoogleApiClient client2;
+
 
 
     @Override
@@ -141,29 +136,13 @@ public class SearchListActivity extends AppCompatActivity {
         customTitleText5 = (TextView) findViewById(R.id.latest); //최신순
 
 
-        // 바텀 탭바
-
-        homeBtn = (ImageButton) findViewById(R.id.homeBtn);
-        homeBtn.setOnClickListener(new BottomBarClickListener(this));
-        searchBtn = (ImageButton) findViewById(R.id.searchBtn);
-        searchBtn.setOnClickListener(new BottomBarClickListener(this));
-        searchBtn.setSelected(true);
-        shoppingListBtn = (ImageButton) findViewById(R.id.shoppingListBtn);
-        shoppingListBtn.setOnClickListener(new BottomBarClickListener(this));
-        chattingBtn = (ImageButton) findViewById(R.id.chattingBtn);
-        chattingBtn.setOnClickListener(new BottomBarClickListener(this));
-        mypageBtn = (ImageButton) findViewById(R.id.mypageBtn);
-        mypageBtn.setOnClickListener(new BottomBarClickListener(this));
-        searchBtn.setSelected(true);
-
 
         new AsyncSearchRequest().execute();
 
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client2 = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+
     } // end OnCreate.
 
+    //bottom Tabbar
     private void setBottomButtonClickListener() {
         homeBtn = (ImageButton) findViewById(R.id.homeBtn);
         homeBtn.setOnClickListener(new BottomBarClickListener(this));
@@ -175,46 +154,12 @@ public class SearchListActivity extends AppCompatActivity {
         chattingBtn.setOnClickListener(new BottomBarClickListener(this));
         mypageBtn = (ImageButton) findViewById(R.id.mypageBtn);
         mypageBtn.setOnClickListener(new BottomBarClickListener(this));
-        homeBtn.setSelected(true);
+        searchBtn.setSelected(true);
 
 
     }
 
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
-    public Action getIndexApiAction() {
-        Thing object = new Thing.Builder()
-                .setName("SearchList Page") // TODO: Define a title for the content shown.
-                // TODO: Make sure this auto-generated URL is correct.
-                .setUrl(Uri.parse("http://[ENTER-YOUR-URL-HERE]"))
-                .build();
-        return new Action.Builder(Action.TYPE_VIEW)
-                .setObject(object)
-                .setActionStatus(Action.STATUS_TYPE_COMPLETED)
-                .build();
-    }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client2.connect();
-        AppIndex.AppIndexApi.start(client2, getIndexApiAction());
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        AppIndex.AppIndexApi.end(client2, getIndexApiAction());
-        client2.disconnect();
-    }
 
 
     public interface OnResultListener<T> {

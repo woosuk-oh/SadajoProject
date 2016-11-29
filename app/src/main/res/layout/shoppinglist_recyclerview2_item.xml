@@ -14,7 +14,7 @@
 
         >
 
-        <com.tacademy.sadajo.fonts.GothamTextView
+        <TextView
             android:id="@+id/countryNameTextView"
             android:layout_marginTop="26dp"
             android:layout_marginLeft="24dp"
@@ -22,16 +22,18 @@
             android:layout_height="wrap_content"
             android:textSize="20sp"
             android:text="ITALY"
-            android:textColor="@color/blackFont" />
+            android:textColor="@color/blackFont"
+            android:textStyle="italic"/>
 
-        <com.tacademy.sadajo.fonts.NanumBoldTextView
+        <TextView
             android:id="@+id/cityNameTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="24dp"
             android:text="이탈리아"
             android:textSize="13sp"
-            android:textColor="@color/blackFont" />
+            android:textColor="@color/blackFont"
+            android:textStyle="bold"/>
 
     </LinearLayout>
 
@@ -52,7 +54,7 @@
                 android:src="@drawable/sample_img"
                 android:scaleType="fitXY" />
 
-            <com.tacademy.sadajo.fonts.GothamTextView
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_alignBottom="@id/productImageView"
@@ -64,7 +66,8 @@
                 android:textSize="20sp"
                 android:textColor="@color/white"
                 android:background="@drawable/sl_image_black"
-                android:alpha="0.5" />
+                android:alpha="0.5"
+                android:textStyle="italic"/>
 
         </RelativeLayout>
     </LinearLayout>

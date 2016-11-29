@@ -7,7 +7,6 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -20,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.tacademy.sadajo.BaseActivity;
 import com.tacademy.sadajo.R;
 
 import java.util.ArrayList;
@@ -28,7 +28,7 @@ import java.util.ArrayList;
  * Created by woosuk on 2016-11-14.
  */
 
-public class SearchDetail extends AppCompatActivity implements ViewPager.OnPageChangeListener{
+public class SearchDetail extends BaseActivity implements ViewPager.OnPageChangeListener{
     ViewPager searchDetailViewPager;
     TextView itemcount;
     //푸쉬 테스트

@@ -3,7 +3,6 @@ package com.tacademy.sadajo.shoppinglist;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -11,11 +10,12 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.tacademy.sadajo.BaseActivity;
 import com.tacademy.sadajo.BottomBarClickListener;
 import com.tacademy.sadajo.MyPagerAdapter;
 import com.tacademy.sadajo.R;
 
-public class ShoppingListActivity extends AppCompatActivity {
+public class ShoppingListActivity extends BaseActivity {
 
 
     ImageButton homeBtn;

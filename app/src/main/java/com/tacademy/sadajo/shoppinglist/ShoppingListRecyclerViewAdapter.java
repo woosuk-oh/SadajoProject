@@ -13,6 +13,8 @@ import android.widget.TextView;
 
 import com.tacademy.sadajo.R;
 import com.tacademy.sadajo.home.ScheduleDialogFragment;
+import com.tacademy.sadajo.network.shoppinglist.CountryEngHashMap;
+import com.tacademy.sadajo.network.shoppinglist.ShopListDB;
 
 import java.util.ArrayList;
 
@@ -24,19 +26,20 @@ import java.util.ArrayList;
 public class ShoppingListRecyclerViewAdapter
         extends RecyclerView.Adapter<ShoppingListRecyclerViewAdapter.ViewHolder> {
 
-    private ArrayList<ShoppingListData> shoppingListDatas;
+    private ArrayList<ShopListDB> shopListDB = new ArrayList<>();
     private Context mcontext;
 
 
     //item viewType
-    private final static int HEADER_VIEW = 0;
-    private final static int CONTENT_VIEW = 1;
+    private final static int NO_ITEM_VIEW = 0;
+    private final static int HEADER_VIEW = 1;
+    private final static int CONTENT_VIEW = 2;
 
 
-    public ShoppingListRecyclerViewAdapter(Context context, ArrayList<ShoppingListData> shoppingListDatas) {
+    public ShoppingListRecyclerViewAdapter(Context context) {
         mcontext = context;
 
-        this.shoppingListDatas = shoppingListDatas;
+
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -69,7 +72,11 @@ public class ShoppingListRecyclerViewAdapter
 
 
         int layoutRes = 0;
+
         switch (viewType) {
+            case NO_ITEM_VIEW:
+                layoutRes = R.layout.shoppinglist_noitem_layout;
+                break;
             case HEADER_VIEW:
                 layoutRes = R.layout.shoppinglist_recyclerview_item1_first; //첫번째 item layout
                 break;
@@ -85,13 +92,18 @@ public class ShoppingListRecyclerViewAdapter
 
     @Override
     public int getItemViewType(int position) {
-        switch (position) {
-            case 0:
-                return HEADER_VIEW; //첫번째 아이템 viewType
-            default:
-                return CONTENT_VIEW;
+        if (getItemCount() == 0) {
+            return NO_ITEM_VIEW;
+        } else if (position == 0) {
+
+            return HEADER_VIEW; //첫번째 아이템 viewType
+        } else {
+            return CONTENT_VIEW;
+
         }
+
     }
+
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
@@ -100,10 +112,12 @@ public class ShoppingListRecyclerViewAdapter
 
         //첫번째 아이템이 아닌 경우
         if (viewType == CONTENT_VIEW) {
-
-            holder.countryNameTextView.setText(shoppingListDatas.get(position).countryName);
-            holder.cityNameTextView.setText(shoppingListDatas.get(position).cityName);
-            holder.dateTextView.setText(shoppingListDatas.get(position).travelDate);
+            CountryEngHashMap countryEngHashMap = new CountryEngHashMap();
+            String countryKor = shopListDB.get(position).countryCode;
+            String countryEng = countryEngHashMap.getCountryEngName(shopListDB.get(position).countryCode);
+            holder.countryNameTextView.setText(countryEng);
+            holder.cityNameTextView.setText(countryKor + ", " + shopListDB.get(position).cityCode);
+            holder.dateTextView.setText(shopListDB.get(position).startDate + "~" + shopListDB.get(position).endDate);
             holder.productImageView.setImageResource(R.drawable.product_sample);
 
 //            Glide.with(GirlsApplication.getGirlsContext())
@@ -133,17 +147,22 @@ public class ShoppingListRecyclerViewAdapter
                 @Override
                 public void onClick(View view) {
 
-                    FragmentManager fragmentManager = ((AppCompatActivity)mcontext).getFragmentManager();
+                    FragmentManager fragmentManager = ((AppCompatActivity) mcontext).getFragmentManager();
                     ScheduleDialogFragment dialog = new ScheduleDialogFragment();
-                    dialog.show(fragmentManager,"scheduleDialog");
+                    dialog.show(fragmentManager, "scheduleDialog");
 
                 }
             });
         }
     }
 
+
+    public void addShopList(ArrayList<ShopListDB> shopListDBs) {
+        this.shopListDB.addAll(shopListDBs);
+    }
+
     @Override
     public int getItemCount() {
-        return shoppingListDatas.size();
+        return shopListDB.size();
     }
 }

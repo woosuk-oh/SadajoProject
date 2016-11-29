@@ -17,7 +17,7 @@ import static com.tacademy.sadajo.shoppinglist.ShoppingListSample.shoppinList;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ShoppingListFragment2 extends Fragment {
+public class ShoppingListFragment2 extends Fragment{
     public static int increment;
 
 

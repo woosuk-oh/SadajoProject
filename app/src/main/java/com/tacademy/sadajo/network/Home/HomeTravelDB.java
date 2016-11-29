@@ -5,7 +5,7 @@ package com.tacademy.sadajo.network.Home;
  */
 
 public class HomeTravelDB {
-   public String titleCountry;
+    public String titleCountry;
     public String startDate;
     public String endDate;
 

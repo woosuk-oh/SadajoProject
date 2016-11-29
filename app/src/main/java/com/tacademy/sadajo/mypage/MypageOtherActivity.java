@@ -4,16 +4,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.tacademy.sadajo.BaseActivity;
 import com.tacademy.sadajo.MyPagerAdapter;
 import com.tacademy.sadajo.R;
 
-public class MyPageOtherActivity extends AppCompatActivity {
+public class MyPageOtherActivity extends BaseActivity {
 
 
     ImageButton buyCountButton;
@@ -55,15 +55,6 @@ public class MyPageOtherActivity extends AppCompatActivity {
         TabLayout tabLayout = (TabLayout) findViewById(R.id.mypageTab);
         tabLayout.setupWithViewPager(viewPager);
 
-
-//        //탭레이아웃 탭 셀렉터
-//        for (int i = 0; i < tabLayout.getTabCount(); i++) {
-//
-//            tabLayout.getTabAt(i).setIcon(R.drawable.selector_home);
-//
-//
-//
-//        }
 
         sellCountButton.setOnClickListener(clickListener);
         buyCountButton.setOnClickListener(clickListener);

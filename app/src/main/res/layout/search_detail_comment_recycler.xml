@@ -24,7 +24,7 @@
             android:src="@drawable/airport" />
 
 
-        <com.tacademy.sadajo.fonts.NanumRegularTextView
+        <TextView
             android:id="@+id/detail_comment_body"
             android:layout_width="218dp"
             android:layout_height="wrap_content"
@@ -33,6 +33,7 @@
             android:layout_marginTop="15dp"
             android:text="이번주에 샀는데 두개 사면 하나 20% 할인해주더라구여!!!!!!!!!!!!!!!!!!!"
             android:textSize="11sp"
+            android:textStyle="normal"
 
             />
 
@@ -42,13 +43,14 @@
             android:layout_marginTop="15dp"
             android:gravity="right">
 
-            <com.tacademy.sadajo.fonts.NanumRegularTextView
+            <TextView
                 android:id="@+id/detail_comment_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="3시간전"
                 android:textColor="@color/grayFont"
-                android:textSize="11sp" />
+                android:textSize="11sp"
+                android:textStyle="normal"/>
         </LinearLayout>
     </LinearLayout>
 

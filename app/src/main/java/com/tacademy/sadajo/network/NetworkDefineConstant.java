@@ -11,12 +11,14 @@ public class NetworkDefineConstant {
 
     //요청 URL path
     public static String SERVER_URL_REQUEST_HOME;
+    public static String SERVER_URL_REQUEST_SHOPLIST;
     /*public static String SERVER_URL_REQUEST_GENRE_CHART;*/
 
     static{
         SERVER_URL_REQUEST_HOME =
                 HOST_URL + "/home";
-//        SERVER_URL_REQUEST_GENRE_CHART =
-//                HOST_URL + "/%s?version=1&page=%s&count=10";
-    }
+    SERVER_URL_REQUEST_SHOPLIST =
+    HOST_URL + "/shoplist";
+
+}
 }
