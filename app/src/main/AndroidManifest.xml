@@ -19,20 +19,32 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".splash.SplashActivity" />
+        <activity android:name=".splash.SplashActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".search.searchlist.SearchListActivity"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustNothing" /> <!-- 에딧텍스트에서 키보드 올라오면 탭바는 같이 올라오지 않도록 SoftInputMode 적용함. style.xml에서도 가능함. -->
-        <activity android:name=".shoppinglist.ShoppingListActivity" />
-        <activity android:name=".chatting.ChattingActivity" />
-        <activity android:name=".mypage.MyPageActivity" />
-        <activity android:name=".MainActivity"></activity>
-        <activity android:name=".search.searchdetail.SearchDetail" />
-        <activity android:name=".chatting.ChattingDetailActivity" />
-        <activity android:name=".mypage.MypageBuyActivity" />
-        <activity android:name=".shoppinglist.ShoppingListFirstDetailActivity" />
-        <activity android:name=".mypage.MyPageOtherActivity" />
-        <activity android:name=".BaseActivity"/>
+        <activity android:name=".shoppinglist.ShoppingListActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".chatting.ChattingActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".mypage.MyPageActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".MainActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".search.searchdetail.SearchDetail"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".chatting.ChattingDetailActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".mypage.MypageBuyActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".shoppinglist.ShoppingListFirstDetailActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".mypage.MyPageOtherActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".BaseActivity"
+            android:screenOrientation="portrait"/>
         <meta-data android:name="com.tacademy.sadajo.SadajoGlideModule"
             android:value="GlideModule"/>
 
