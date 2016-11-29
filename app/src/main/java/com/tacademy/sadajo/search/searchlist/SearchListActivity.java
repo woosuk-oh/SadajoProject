@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -32,7 +33,6 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-import static android.util.Log.e;
 import static com.tacademy.sadajo.network.NetworkDefineConstant.HOST_URL;
 
 public class SearchListActivity extends BaseActivity {
@@ -138,12 +138,7 @@ public class SearchListActivity extends BaseActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-            /*    String selectItem = countrySpinner.getSelectedItem().toString();
-                String selectItem2 = "전세계";
 
-                if("전세계" != countrySpinner.getSelectedItem().toString()) {
-
-                }*/
                 new AsyncSearchRequest().execute(countrySpinner.getSelectedItem().toString());
                 Log.e("spinner:", "" + countrySpinner.getSelectedItem().toString());
             }
@@ -153,6 +148,20 @@ public class SearchListActivity extends BaseActivity {
 
             }
         });
+
+/*
+        ArrayList<String> spinnerArray;
+        spinnerArray = new ArrayList<String>();
+        spinnerArray.add("전세계");
+        spinnerArray.add("일본");
+        spinnerArray.add("미국");
+        spinnerArray.add("data3");
+*/
+
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this,
+                R.layout.select_scheduledialog_item, getResources().getStringArray(R.array.country)); // 스피너 레이아웃 기본으로 제공.
+
+        countrySpinner.setAdapter(spinnerAdapter);
 
 
     } // end OnCreate.
@@ -207,7 +216,7 @@ public class SearchListActivity extends BaseActivity {
             searchDB = new SearchDB();
             String countryId;
 
-            Log.e("param", "" + params[0].toString());
+            Log.e("선택한 스피너", "" + params[0].toString());
 
 
             if (params[0].equals("전세계")) { //스피너에서 선택한 값이 "전세계" 이면
@@ -233,21 +242,19 @@ public class SearchListActivity extends BaseActivity {
 
                 if (response.isSuccessful()) { //연결에 성공하면
                     String returedMessage = response.body().string(); // okhttp로 부터 받아온 데이터 json을 스트링형태로 변환하여 returendMessage에 담아둠. 이때, home부분의 모든 오브젝트를 가져와 담아둠.
-                    e("searchActivity", returedMessage);
+                    Log.e("searchActivity", returedMessage);
 
                     searchDB = SearchJSONParser.getSearchJsonParser(returedMessage); //만들어둔 파서로 returedMessage를 넣어서 파싱하여 homeDB에 값을 넣음.
 
                 } else { // 연결에 실패하면
-                    e("요청/응답", response.message().toString());
+                    Log.e("요청/응답", response.message().toString());
                 }
 
           /*      client.newCall(request).enqueue(new Callback() {
                     @Override
                     public void onFailure(Call call, IOException e) {
 
-                    }
-
-                    @Override
+                    }                    @Override
                     public void onResponse(Call call, Response response) throws IOException {
 
                     }

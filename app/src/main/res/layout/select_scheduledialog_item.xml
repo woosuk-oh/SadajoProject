@@ -9,7 +9,7 @@
     android:textColor="@color/grayFont"
     android:textSize="13dp"
     android:gravity="center"
-    android:paddingStart="14dip"
-    android:paddingEnd="15dip"
+    android:paddingStart="14dp"
+    android:paddingEnd="15dp"
     android:ellipsize="marquee"
     />
