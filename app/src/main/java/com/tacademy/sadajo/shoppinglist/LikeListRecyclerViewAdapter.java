@@ -9,7 +9,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.tacademy.sadajo.R;
+import com.tacademy.sadajo.SadajoContext;
 import com.tacademy.sadajo.network.shoppinglist.ShopListDB;
 
 import java.util.ArrayList;
@@ -93,6 +95,9 @@ public class LikeListRecyclerViewAdapter
         }
 
 
+            Glide.with(SadajoContext.getContext())
+                    .load(listDBs.get(position).img)
+                    .into(holder.productImageView);
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

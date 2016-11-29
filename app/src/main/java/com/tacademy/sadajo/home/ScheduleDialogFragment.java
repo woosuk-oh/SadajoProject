@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -34,6 +35,14 @@ public class ScheduleDialogFragment extends DialogFragment implements View.OnCli
 
     ImageButton registerButton; //등록하기 버튼
     ImageButton cancelButton; //취소하기 버튼
+
+    ArrayAdapter<String> spinnerAdapter;
+    ArrayAdapter<String> spinnerAdapter2;
+
+    String countryName;
+    String cityName;
+    String departureDate;
+    String returnDate;
 
 
     public static ScheduleDialogFragment newInstance() {
@@ -79,6 +88,14 @@ public class ScheduleDialogFragment extends DialogFragment implements View.OnCli
         departureEditText.setOnClickListener(this);
 
 
+        //spinner adapter
+        spinnerAdapter =  new ArrayAdapter<String>(getActivity(),
+                R.layout.select_scheduledialog_item, getResources().getStringArray(R.array.scheduleCountry)); // 스피너 레이아웃 기본으로 제공.
+        spinnerAdapter2 = new ArrayAdapter<String>(getActivity(),
+                R.layout.select_scheduledialog_item, getResources().getStringArray(R.array.city)); // 스피너 레이아웃 기본으로 제공.
+
+        countrySpinner.setAdapter(spinnerAdapter);
+        citySpinner.setAdapter(spinnerAdapter2);
 
 
         final Calendar myCalendar = Calendar.getInstance();
@@ -137,7 +154,6 @@ public class ScheduleDialogFragment extends DialogFragment implements View.OnCli
         });
 
 
-
         return view;
     }
 
@@ -149,6 +165,8 @@ public class ScheduleDialogFragment extends DialogFragment implements View.OnCli
                 dismiss();
                 break;
             case R.id.registerButton:
+
+
 
                 //등록하기 버튼 눌렀을 때 이미지 토스트
                 Toast toast = new Toast(getActivity());

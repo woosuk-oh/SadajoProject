@@ -29,7 +29,7 @@
                 android:layout_height="23dp"
                 android:layout_marginRight="12dp"
                 android:background="@drawable/sl_dialog_button"
-                android:entries="@array/country">
+                android:entries="@array/scheduleCountry">
 
             </Spinner>
 
@@ -118,9 +118,9 @@
             android:layout_height="match_parent"
             android:layout_marginRight="24dp"
             android:layout_weight="1"
-            android:orientation="horizontal"
+            android:gravity="center"
 
-            android:gravity="center">
+            android:orientation="horizontal">
 
             <ImageButton
                 android:id="@+id/cancelButton"
