@@ -2,6 +2,7 @@ package com.tacademy.sadajo.shoppinglist;
 
 import android.app.FragmentManager;
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -15,7 +16,6 @@ import com.bumptech.glide.Glide;
 import com.tacademy.sadajo.R;
 import com.tacademy.sadajo.SadajoContext;
 import com.tacademy.sadajo.home.ScheduleDialogFragment;
-import com.tacademy.sadajo.network.shoppinglist.CountryEngHashMap;
 import com.tacademy.sadajo.network.shoppinglist.ShopListDB;
 
 import java.util.ArrayList;
@@ -29,7 +29,7 @@ public class ShoppingListRecyclerViewAdapter
         extends RecyclerView.Adapter<ShoppingListRecyclerViewAdapter.ViewHolder> {
 
     private ArrayList<ShopListDB> shopListDB = new ArrayList<>();
-    private Context mcontext;
+    private Context mContext;
 
 
     //item viewType
@@ -39,7 +39,7 @@ public class ShoppingListRecyclerViewAdapter
 
 
     public ShoppingListRecyclerViewAdapter(Context context) {
-        mcontext = context;
+        mContext = context;
 
 
     }
@@ -114,15 +114,16 @@ public class ShoppingListRecyclerViewAdapter
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
 
+
         int viewType = getItemViewType(position); //viewType 체크
+
 
         //첫번째 아이템이 아닌 경우
         if (viewType == CONTENT_VIEW) {
-            CountryEngHashMap countryEngHashMap = new CountryEngHashMap();
-            String countryKor = shopListDB.get(position).countryCode;
-            String countryEng = countryEngHashMap.getCountryEngName(shopListDB.get(position).countryCode);
-            holder.countryNameTextView.setText(countryEng);
-            holder.cityNameTextView.setText(countryKor + ", " + shopListDB.get(position).cityCode);
+
+            String countryKor = shopListDB.get(position).countryNameKor;
+            holder.countryNameTextView.setText( shopListDB.get(position).countryNameEng);
+            holder.cityNameTextView.setText(countryKor + ", " + shopListDB.get(position).cityName);
             holder.dateTextView.setText(shopListDB.get(position).startDate + "~" + shopListDB.get(position).endDate);
             //           holder.productImageView.setImageResource(R.drawable.product_sample);
             // holder.shoplistCountTextView.setText("99+");
@@ -148,6 +149,9 @@ public class ShoppingListRecyclerViewAdapter
                 @Override
                 public void onClick(View v) {
 
+                    Intent intent = new Intent(mContext,LikeListDetailActivity.class);
+                    intent.putExtra("listCode",shopListDB.get(position).listCode); //listCode넘겨줌
+                    mContext.startActivity(intent);
                 }
             });
         } else {
@@ -155,7 +159,7 @@ public class ShoppingListRecyclerViewAdapter
                 @Override
                 public void onClick(View view) {
 
-                    FragmentManager fragmentManager = ((AppCompatActivity) mcontext).getFragmentManager();
+                    FragmentManager fragmentManager = ((AppCompatActivity) mContext).getFragmentManager();
                     ScheduleDialogFragment dialog = new ScheduleDialogFragment();
                     dialog.show(fragmentManager, "scheduleDialog");
 

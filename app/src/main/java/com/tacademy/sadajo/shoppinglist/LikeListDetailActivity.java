@@ -11,7 +11,7 @@ import com.tacademy.sadajo.CustomRecyclerDecoration;
 import com.tacademy.sadajo.R;
 import com.tacademy.sadajo.mypage.ItemReviewRecyclerViewAdapter;
 
-public class ShoppingListFirstDetailActivity extends BaseActivity {
+public class LikeListDetailActivity extends BaseActivity {
 
 
     ItemReviewRecyclerViewAdapter itemReviewRecyclerViewAdapter;
@@ -35,11 +35,11 @@ public class ShoppingListFirstDetailActivity extends BaseActivity {
 
         CustomRecyclerDecoration decoration = new CustomRecyclerDecoration(30, "bottom");
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.shoppinListFirstDetailRecyclerView);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(ShoppingListFirstDetailActivity.this, LinearLayoutManager.VERTICAL, false);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(LikeListDetailActivity.this, LinearLayoutManager.VERTICAL, false);
 
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.addItemDecoration(decoration);
-        itemReviewRecyclerViewAdapter = new ItemReviewRecyclerViewAdapter(ShoppingListFirstDetailActivity.this, ShoppingListSample.shoppinList);
+        itemReviewRecyclerViewAdapter = new ItemReviewRecyclerViewAdapter(LikeListDetailActivity.this, ShoppingListSample.shoppinList);
         recyclerView.setAdapter(itemReviewRecyclerViewAdapter);
 
     }

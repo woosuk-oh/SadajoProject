@@ -73,14 +73,15 @@ public class ShoppingListFragment extends Fragment {
 //            }
 //
 //            @Override
-//            public void onLoadMore() {
+//            public void onLoadMore(int page) {
 //
 //                new AsyncTaskShopList().execute();
 //            }
 //        });
 
 
-
+//
+//
 //        if (recyclerViewAdapter.getItemCount() == 0) {
 //            view = inflater.inflate(R.layout.shoppinglist_noitem_layout, container, false);
 //        }//쇼핑리스트 아이템이 하나도 없을 경우

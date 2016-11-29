@@ -49,12 +49,36 @@
 
             <ImageView
                 android:id="@+id/productImageView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY"
                 android:src="@drawable/sample_img"
-                android:scaleType="fitXY" />
+                android:visibility="visible" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:alpha="0.5"
+                android:background="@drawable/sl_image_black"
+                android:gravity="center"
+
+                >
+
+                <TextView
+                    android:id="@+id/listEmptyTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/sample_img"
+                    android:text="쇼핑리스트를 채워주세요!"
+                    android:textColor="@color/blackFont"
+                    android:textSize="13sp"
+                    android:visibility="invisible"
+                    android:textStyle="normal"/>
+            </LinearLayout>
 
             <TextView
+                android:id="@+id/productCountTextView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_alignBottom="@id/productImageView"
@@ -63,13 +87,13 @@
                 android:layout_alignTop="@id/productImageView"
                 android:gravity="center"
                 android:text="99+"
-                android:textSize="20sp"
                 android:textColor="@color/white"
-                android:background="@drawable/sl_image_black"
-                android:alpha="0.5"
+                android:textSize="20sp"
+                android:visibility="visible"
                 android:textStyle="italic"/>
 
         </RelativeLayout>
     </LinearLayout>
+
 
 </LinearLayout>

@@ -25,8 +25,6 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-import static com.tacademy.sadajo.shoppinglist.ShoppingListSample.shoppinList;
-
 
 /**
  * A simple {@link Fragment} subclass.
@@ -36,6 +34,7 @@ public class LikeListFragment extends Fragment{
 
 
     LikeListRecyclerViewAdapter recyclerViewAdapter;
+    ArrayList<ShopListDB> listDBs = new ArrayList<>();
 
     public LikeListFragment() {
         // Required empty public constructor
@@ -64,17 +63,21 @@ public class LikeListFragment extends Fragment{
         CustomRecyclerDecoration decoration = new CustomRecyclerDecoration(30, "bottom"); //아이템간 간격
         shoppingListRecyclerView.addItemDecoration(decoration);
 
-        recyclerViewAdapter = new LikeListRecyclerViewAdapter(getContext(), shoppinList);
+        recyclerViewAdapter = new LikeListRecyclerViewAdapter(getContext(),listDBs );
         shoppingListRecyclerView.setAdapter(recyclerViewAdapter);
 
-        if (recyclerViewAdapter.getItemCount() == 0) {
-            view = inflater.inflate(R.layout.shoppinglist_noitem_layout, container, false);
-        }//쇼핑리스트 아이템이 하나도 없을 경우
+//        if (recyclerViewAdapter.getItemCount() == 0) {
+//            view = inflater.inflate(R.layout.shoppinglist_noitem_layout, container, false);
+//        }//쇼핑리스트 아이템이 하나도 없을 경우
 
+
+        new AsyncTaskLikeList().execute();
         return view;
 
 
     }
+
+
 
 
     private class AsyncTaskLikeList extends AsyncTask<Void, Void, ArrayList<ShopListDB>> {
@@ -99,7 +102,7 @@ public class LikeListFragment extends Fragment{
                         .build();
 
                 Request request = new Request.Builder()
-                        .url(String.format(NetworkDefineConstant.SERVER_URL_REQUEST_SHOPLIST))
+                        .url(String.format(NetworkDefineConstant.SERVER_URL_REQUEST_LIKELIST))
                         .post(postBody)
                         .build();
 
@@ -129,11 +132,10 @@ public class LikeListFragment extends Fragment{
         public void onPostExecute(ArrayList<ShopListDB> shopListDBs) {
             super.onPostExecute(shopListDBs);
 
-//
-//            if (shopListDBs != null && shopListDBs.size() > 0) {
-//                recyclerViewAdapter.addShopList(shopListDBs);
-//                recyclerViewAdapter.notifyDataSetChanged();
-//            }
+            if (shopListDBs != null && shopListDBs.size() > 0) {
+                recyclerViewAdapter.addLikeList(shopListDBs);
+                recyclerViewAdapter.notifyDataSetChanged();
+            }
         }
     }
 

@@ -39,7 +39,7 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".mypage.MypageBuyActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".shoppinglist.ShoppingListFirstDetailActivity"
+        <activity android:name=".shoppinglist.LikeListDetailActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".mypage.MyPageOtherActivity"
             android:screenOrientation="portrait"/>

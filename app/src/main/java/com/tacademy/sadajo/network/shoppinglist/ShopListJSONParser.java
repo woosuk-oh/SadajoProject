@@ -28,12 +28,14 @@ public class ShopListJSONParser {
                 ShopListDB shopListDB = new ShopListDB();
                 JSONObject list = lists.getJSONObject(i);
 
-                shopListDB.countryCode = list.getString("country_name_kor");
-                shopListDB.cityCode = list.getString("city_name_kor");
+                shopListDB.countryNameKor = list.getString("country_name_kor");
+                shopListDB.countryNameEng = list.getString("country_name_eng");
+                shopListDB.cityName = list.getString("city_name_kor");
                 shopListDB.startDate = list.getString("start_date");
                 shopListDB.endDate = list.getString("end_date");
                 shopListDB.goodsCount = list.getInt("goods_num");
                 shopListDB.img = list.getString("img");
+                shopListDB.listCode = list.getInt("list_code");
 
 
                 shopListDBs.add(shopListDB);

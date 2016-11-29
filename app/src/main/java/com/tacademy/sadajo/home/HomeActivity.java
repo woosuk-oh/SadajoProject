@@ -276,7 +276,7 @@ public class HomeActivity extends BaseActivity {
     };
 
 
-    //Button 생성 메소드
+    //Tag Button 생성 메소드
     public void createTagButton(String str, int i) {
         Button button = new Button(this);
         button.setText(str); //서버로부터 받아온 tag text set

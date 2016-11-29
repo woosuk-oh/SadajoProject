@@ -28,8 +28,10 @@ public class LikeListJSONParser {
                 ShopListDB shopListDB = new ShopListDB();
                 JSONObject list = lists.getJSONObject(i);
 
-                shopListDB.countryCode = list.getString("country_name_kor");
+                shopListDB.countryNameKor = list.getString("country_name_kor");
+                shopListDB.countryNameEng = list.getString("country_name_eng");
                 shopListDB.goodsCount = list.getInt("goods_num");
+                shopListDB.listCode = list.getInt("list_code");
                 shopListDB.img = list.getString("img");
 
 
