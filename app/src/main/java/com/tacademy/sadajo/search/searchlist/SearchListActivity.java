@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.google.android.gms.appindexing.Action;
@@ -55,6 +56,8 @@ public class SearchListActivity extends AppCompatActivity {
     SearchDB searchDB;
   /*  SearchGoodsDB searchGoodsDBs;*/
 
+    Spinner countrySpinner;
+
 
     private SearchListRecyclerAdapter mAdapter;
 
@@ -76,6 +79,7 @@ public class SearchListActivity extends AppCompatActivity {
     private LinearLayout customBar;
     //  SearchDB searchDB;
 
+    int tagCount; //해시버튼 카운트용
 
     OkHttpClient client = new OkHttpClient();
 
@@ -265,7 +269,7 @@ public class SearchListActivity extends AppCompatActivity {
 
                     searchDB = SearchJSONParser.getSearchJsonParser(returedMessage); //만들어둔 파서로 returedMessage를 넣어서 파싱하여 homeDB에 값을 넣음.
 
-                }else { // 연결에 실패하면
+                } else { // 연결에 실패하면
                     Log.e("요청/응답", response.message().toString());
                 }
           /*      client.newCall(request).enqueue(new Callback() {
@@ -297,28 +301,44 @@ public class SearchListActivity extends AppCompatActivity {
 
             customTitleText2.setText(String.valueOf(searchDB.getCount()));
 
-           // Log.d("searchDB",""+searchDB.getSearchGoodsDBs().get(0).toString());
+            // Log.d("searchDB",""+searchDB.getSearchGoodsDBs().get(0).toString());
 
             mAdapter = new SearchListRecyclerAdapter(SearchListActivity.this, searchDB.searchGoodsDBs);
             mRecycler.setAdapter(mAdapter);
             mAdapter.notifyDataSetChanged();
+
+
         }
 
+        private void hideCustomBar() {
+            customBar.startAnimation(outAnim);
+            customBar.setVisibility(View.GONE);
+        }
 
-    }
+        private void showCustomBar() {
+            customBar.startAnimation(inAnim);
+            customBar.setVisibility(View.VISIBLE);
+        }
+/*
 
-    private void hideCustomBar() {
-        customBar.startAnimation(outAnim);
-        customBar.setVisibility(View.GONE);
-    }
+        //해시태그 버튼 클릭시
+        Button.OnClickListener buttonClickListener = new View.OnClickListener() { //tag Button ClickListener
+            @Override
+            public void onClick(View view) {
+                Intent intent;
+                Context context = SearchListActivity.this;
+                String str;
+                str = searchDB.getTag().get(view.getId()).toString();
+                intent = new Intent(context, SearchDetail.class);
+                intent.putExtra("tag", str); //tag String 넘겨줌
+                Log.d("tag", str);
+                startActivity(intent);
 
-    private void showCustomBar() {
-        customBar.startAnimation(inAnim);
-        customBar.setVisibility(View.VISIBLE);
-    }
 
+            }
+        };*/
 
 // 하단 탭바 클릭 시
-
+    }
 
 }

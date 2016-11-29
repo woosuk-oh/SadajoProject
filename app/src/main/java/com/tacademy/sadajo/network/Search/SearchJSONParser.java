@@ -46,7 +46,6 @@ public class SearchJSONParser {
             }
             searchDBs.setSearchGoodsDBs(searchGoodsDBs);
 
-            String test = searchDBs.getSearchGoodsDBs().get(0).getGoods_name();
 
 
 

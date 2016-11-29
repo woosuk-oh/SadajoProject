@@ -81,7 +81,7 @@ public class SearchListRecyclerAdapter extends RecyclerView.Adapter<SearchListRe
         //TODO 서치리스트 리싸이클러 어댑터 홀더부분 수정,
     //    holder.itemImage.setImageResource(mItems.get(position).image);
         holder.itemName.setText(searchgoodsDBs.get(position).getGoods_name());
-        holder.
+        holder.countryName.setText(searchgoodsDBs.get(position).getCountry());
 
         setAnimation(holder.itemContainer, position);
 
@@ -117,6 +117,7 @@ public class SearchListRecyclerAdapter extends RecyclerView.Adapter<SearchListRe
             super(itemView);
             itemImage = (ImageView) itemView.findViewById(R.id.search_item_image);
             itemName = (TextView) itemView.findViewById(R.id.search_item_name);
+            countryName = (TextView) itemView.findViewById(R.id.search_country_name);
             itemContainer = (LinearLayout) itemView.findViewById(R.id.card_back);
 
 
@@ -129,7 +130,7 @@ public class SearchListRecyclerAdapter extends RecyclerView.Adapter<SearchListRe
 
         if(position > lastPosition)
         {
-            Animation animation = AnimationUtils.loadAnimation(context, android.R.anim.slide_in_left);
+            Animation animation = AnimationUtils.loadAnimation(context, android.R.anim.fade_in);
             viewToAnimate.startAnimation(animation);
             lastPosition = position;
         }
