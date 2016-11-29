@@ -6,14 +6,16 @@ package com.tacademy.sadajo.network.shoppinglist;
 
 public class ShopListDB {
 
-   // public String message;
 
-    public String countryCode;
-    public String cityCode;
-    public String startDate;
-    public String endDate;
-    public String img;
 
+    public String countryNameKor; //국가명
+    public String countryNameEng; //국가명
+    public String cityName; //도시명
+    public String startDate; //떠나요 날짜
+    public String endDate; // 돌아와요 날짜
+    public String img; //image url
+    public Integer goodsCount; //상품개수
+    public Integer listCode; //listCode
 
 
 }

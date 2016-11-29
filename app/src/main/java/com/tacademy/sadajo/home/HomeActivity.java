@@ -19,10 +19,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.tacademy.sadajo.BaseActivity;
 import com.tacademy.sadajo.BottomBarClickListener;
 import com.tacademy.sadajo.CustomRecyclerDecoration;
 import com.tacademy.sadajo.R;
+import com.tacademy.sadajo.SadajoContext;
 import com.tacademy.sadajo.network.Home.HomeDB;
 import com.tacademy.sadajo.network.Home.HomeJSONParser;
 import com.tacademy.sadajo.network.NetworkDefineConstant;
@@ -121,14 +123,9 @@ public class HomeActivity extends BaseActivity {
         CustomRecyclerDecoration decoration = new CustomRecyclerDecoration(45, "bottom");//리사이클러뷰 아이템간 간격
         recyclerView.addItemDecoration(decoration);
 
-
-
-    }
-    @Override
-    protected void onResume() {
-        super.onResume();
         new AsyncHomeRequest().execute();
     }
+
 
     public class AsyncHomeRequest extends AsyncTask<Void, Void, HomeDB> {
         private ProgressDialog progressDialog;
@@ -160,7 +157,6 @@ public class HomeActivity extends BaseActivity {
                         .url(String.format(NetworkDefineConstant.SERVER_URL_REQUEST_HOME))
                         .post(postBody)
                         .build();
-
 
 
                 //동기 방식
@@ -201,14 +197,21 @@ public class HomeActivity extends BaseActivity {
                 cardView3CountryTextView.setText(s.getTravelCountry()); // 추천리스트2(다른 쇼퍼맨 쇼핑리스트) : 해당 국가
 
 
-                // countryNameTextView.setText(s.travelInfos.get(0).getTitleCountry()); // 국가명 받아옴.
                 countryNameTextView.setText(s.travelInfos.getTitleCountry()); // 국가명 받아옴.
                 departDateTextView.setText(s.travelInfos.getStartDate()); // 떠나요
                 comeDateTextView.setText(s.travelInfos.getEndDate()); //돌아와요
-
-
                 homeUserRecyclerViewAdapter = new HomeUserRecyclerViewAdapter(HomeActivity.this, s.shoplist);
                 recyclerView.setAdapter(homeUserRecyclerViewAdapter);
+
+
+                String flagUrl = s.getCountryImg();
+                Glide.with(SadajoContext.getContext())
+                        .load(flagUrl)
+                        .into(cardView2CountryFlagImageView);
+                Glide.with(SadajoContext.getContext())
+                        .load(flagUrl)
+                        .into(cardView3CountryFlagImageView);
+
 
                 //tag button 동적생성 & setText
                 tagCount = s.getTag().size();
@@ -242,7 +245,6 @@ public class HomeActivity extends BaseActivity {
     View.OnClickListener onClickListener = new View.OnClickListener() {
 
 
-
         @Override
         public void onClick(View view) {
             switch (view.getId()) {
@@ -274,7 +276,7 @@ public class HomeActivity extends BaseActivity {
     };
 
 
-    //Button 생성 메소드
+    //Tag Button 생성 메소드
     public void createTagButton(String str, int i) {
         Button button = new Button(this);
         button.setText(str); //서버로부터 받아온 tag text set

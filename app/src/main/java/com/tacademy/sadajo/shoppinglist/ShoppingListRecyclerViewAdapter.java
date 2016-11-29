@@ -2,6 +2,7 @@ package com.tacademy.sadajo.shoppinglist;
 
 import android.app.FragmentManager;
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,9 +12,10 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.tacademy.sadajo.R;
+import com.tacademy.sadajo.SadajoContext;
 import com.tacademy.sadajo.home.ScheduleDialogFragment;
-import com.tacademy.sadajo.network.shoppinglist.CountryEngHashMap;
 import com.tacademy.sadajo.network.shoppinglist.ShopListDB;
 
 import java.util.ArrayList;
@@ -27,7 +29,7 @@ public class ShoppingListRecyclerViewAdapter
         extends RecyclerView.Adapter<ShoppingListRecyclerViewAdapter.ViewHolder> {
 
     private ArrayList<ShopListDB> shopListDB = new ArrayList<>();
-    private Context mcontext;
+    private Context mContext;
 
 
     //item viewType
@@ -37,17 +39,19 @@ public class ShoppingListRecyclerViewAdapter
 
 
     public ShoppingListRecyclerViewAdapter(Context context) {
-        mcontext = context;
+        mContext = context;
 
 
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public  class ViewHolder extends RecyclerView.ViewHolder {
 
         public final View mView;
         public final TextView countryNameTextView;
         public final TextView cityNameTextView;
         public final TextView dateTextView;
+        public final TextView shoplistCountTextView;
+        public final TextView productEmptyTextView;
         public final ImageView productImageView;
         public final ImageButton newScheduleButton;
 
@@ -58,6 +62,8 @@ public class ShoppingListRecyclerViewAdapter
             countryNameTextView = (TextView) view.findViewById(R.id.countryNameTextView);
             cityNameTextView = (TextView) view.findViewById(R.id.cityNameTextView);
             dateTextView = (TextView) view.findViewById(R.id.dateTextView);
+            shoplistCountTextView = (TextView) view.findViewById(R.id.shoplistCountTextView);
+            productEmptyTextView = (TextView) view.findViewById(R.id.productEmptyTextView);
             productImageView = (ImageView) view.findViewById(R.id.productImageView);
             newScheduleButton = (ImageButton) view.findViewById(R.id.newScheduleButton);
 
@@ -108,38 +114,44 @@ public class ShoppingListRecyclerViewAdapter
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
 
+
         int viewType = getItemViewType(position); //viewType 체크
+
 
         //첫번째 아이템이 아닌 경우
         if (viewType == CONTENT_VIEW) {
-            CountryEngHashMap countryEngHashMap = new CountryEngHashMap();
-            String countryKor = shopListDB.get(position).countryCode;
-            String countryEng = countryEngHashMap.getCountryEngName(shopListDB.get(position).countryCode);
-            holder.countryNameTextView.setText(countryEng);
-            holder.cityNameTextView.setText(countryKor + ", " + shopListDB.get(position).cityCode);
-            holder.dateTextView.setText(shopListDB.get(position).startDate + "~" + shopListDB.get(position).endDate);
-            holder.productImageView.setImageResource(R.drawable.product_sample);
 
-//            Glide.with(GirlsApplication.getGirlsContext())
-//                    .load(girlInfo)
-//                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-//                    .animate(android.R.anim.slide_in_left)
-//                    .into(holder.girlsImage);
+            String countryKor = shopListDB.get(position).countryNameKor;
+            holder.countryNameTextView.setText( shopListDB.get(position).countryNameEng);
+            holder.cityNameTextView.setText(countryKor + ", " + shopListDB.get(position).cityName);
+            holder.dateTextView.setText(shopListDB.get(position).startDate + "~" + shopListDB.get(position).endDate);
+            //           holder.productImageView.setImageResource(R.drawable.product_sample);
+            // holder.shoplistCountTextView.setText("99+");
+
+
+            if (shopListDB.get(position).goodsCount == 0) { //goods count가 0일 때 widget Visibility설정
+                holder.shoplistCountTextView.setVisibility(View.GONE);
+                holder.productEmptyTextView.setVisibility(View.VISIBLE);
+            } else {
+                holder.shoplistCountTextView.setText(String.valueOf(shopListDB.get(position).goodsCount));
+
+
+            }
+
+
+            Glide.with(SadajoContext.getContext())//productImage
+                    .load(shopListDB.get(position).img)
+                    .into(holder.productImageView);
+
+
 
             holder.mView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-//
-//                    Intent intent = new Intent(GirlsApplication.getGirlsContext(), GirlsMemberDetailActivity.class);
-//                    intent.putExtra("memberImage", girlsImages.get(position));
-//                    intent.putExtra("memberName", holder.memberName.getText().toString());
-//
-//                    ActivityOptionsCompat options =
-//                            ActivityOptionsCompat.makeSceneTransitionAnimation(
-//                                    owner, holder.girlsImage, ViewCompat.getTransitionName(holder.girlsImage));
-//
-//                    ActivityCompat.startActivity(owner, intent, options.toBundle());
 
+                    Intent intent = new Intent(mContext,LikeListDetailActivity.class);
+                    intent.putExtra("listCode",shopListDB.get(position).listCode); //listCode넘겨줌
+                    mContext.startActivity(intent);
                 }
             });
         } else {
@@ -147,7 +159,7 @@ public class ShoppingListRecyclerViewAdapter
                 @Override
                 public void onClick(View view) {
 
-                    FragmentManager fragmentManager = ((AppCompatActivity) mcontext).getFragmentManager();
+                    FragmentManager fragmentManager = ((AppCompatActivity) mContext).getFragmentManager();
                     ScheduleDialogFragment dialog = new ScheduleDialogFragment();
                     dialog.show(fragmentManager, "scheduleDialog");
 

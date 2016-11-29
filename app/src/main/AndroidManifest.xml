@@ -15,7 +15,6 @@
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
@@ -40,7 +39,7 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".mypage.MypageBuyActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".shoppinglist.ShoppingListFirstDetailActivity"
+        <activity android:name=".shoppinglist.LikeListDetailActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".mypage.MyPageOtherActivity"
             android:screenOrientation="portrait"/>

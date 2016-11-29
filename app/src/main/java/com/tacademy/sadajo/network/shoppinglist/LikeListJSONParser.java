@@ -12,11 +12,11 @@ import java.util.ArrayList;
  * Created by EUNZY on 2016. 11. 28..
  */
 
-public class ShopListJSONParser {
+public class LikeListJSONParser {
 
-    public static ArrayList<ShopListDB> getShopListParsing(String responsedJSON) {
+    public static ArrayList<ShopListDB> getLikeListParsing(String responsedJSON) {
 
-        ArrayList<ShopListDB> shopListDBs = new ArrayList<>();
+        ArrayList<ShopListDB> listDBs = new ArrayList<>();
 
         try {
             JSONObject shopList = new JSONObject(responsedJSON);
@@ -30,15 +30,12 @@ public class ShopListJSONParser {
 
                 shopListDB.countryNameKor = list.getString("country_name_kor");
                 shopListDB.countryNameEng = list.getString("country_name_eng");
-                shopListDB.cityName = list.getString("city_name_kor");
-                shopListDB.startDate = list.getString("start_date");
-                shopListDB.endDate = list.getString("end_date");
                 shopListDB.goodsCount = list.getInt("goods_num");
-                shopListDB.img = list.getString("img");
                 shopListDB.listCode = list.getInt("list_code");
+                shopListDB.img = list.getString("img");
 
 
-                shopListDBs.add(shopListDB);
+                listDBs.add(shopListDB);
             }
 
 
@@ -48,6 +45,6 @@ public class ShopListJSONParser {
             Log.e("jsonParser", e.toString());
         }
 
-        return shopListDBs;
+        return listDBs;
     }
 }

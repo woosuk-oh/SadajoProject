@@ -47,12 +47,11 @@
                     android:gravity="right"
                     android:orientation="horizontal">
 
-                    <ImageView
+                    <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/cardView2CountryFlagImageView"
                         android:layout_width="15dp"
                         android:layout_height="15dp"
                         android:layout_marginRight="3dp"
-                        android:scaleType="center"
                         android:src="@drawable/flag"
 
                         />
