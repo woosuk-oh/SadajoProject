@@ -149,7 +149,7 @@ public class HomeActivity extends BaseActivity {
 
 
                 RequestBody postBody = new FormBody.Builder()
-                        .add("user", "3")
+                        .add("user", "1")
                         .build();
 
 
@@ -268,7 +268,7 @@ public class HomeActivity extends BaseActivity {
             str = homeDB.getTag().get(view.getId()).toString();
             intent = new Intent(context, SearchListActivity.class);
             intent.putExtra("tag", str); //tag String 넘겨줌
-            Log.d("tag", str);
+            Log.e("tag", str);
             startActivity(intent);
 
 

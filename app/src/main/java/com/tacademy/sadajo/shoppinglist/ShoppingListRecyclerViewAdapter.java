@@ -84,10 +84,10 @@ public class ShoppingListRecyclerViewAdapter
                 layoutRes = R.layout.shoppinglist_noitem_layout;
                 break;
             case HEADER_VIEW:
-                layoutRes = R.layout.shoppinglist_recyclerview_item1_first; //첫번째 item layout
+                layoutRes = R.layout.shoppinglist_recyclerview_item_first; //첫번째 item layout
                 break;
             case CONTENT_VIEW:
-                layoutRes = R.layout.shoppinglist_recyclerview_item1; //나머지 item lyaout
+                layoutRes = R.layout.shoppinglist_recyclerview_item; //나머지 item lyaout
                 break;
         }
 

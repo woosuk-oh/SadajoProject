@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="120dp"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:orientation="horizontal">
 
 
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         android:layout_weight="1"
+        android:orientation="vertical"
 
         >
 
         <TextView
             android:id="@+id/countryNameTextView"
-            android:layout_marginTop="26dp"
-            android:layout_marginLeft="24dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="26dp"
             android:text="ITALY"
             android:textColor="@color/blackFont"
+            android:textSize="20sp"
             android:textStyle="italic"/>
 
         <TextView
@@ -30,11 +30,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="24dp"
-            android:text="이탈리아"
-            android:textSize="13sp"
+            android:text="이탈리아, 피렌체"
             android:textColor="@color/blackFont"
+            android:textSize="13sp"
             android:textStyle="bold"/>
 
+        <TextView
+            android:id="@+id/dateTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="8dp"
+            android:text="2016.11.10 ~ 2016.11.20"
+            android:textColor="@color/grayFont"
+            android:textSize="10dp"
+            android:textStyle="normal"/>
     </LinearLayout>
 
     <LinearLayout
@@ -57,28 +67,34 @@
 
 
             <LinearLayout
+                android:orientation="horizontal"
+                android:id="@+id/linear"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:alpha="0.5"
                 android:background="@drawable/sl_image_black"
                 android:gravity="center"
 
-                >
+                />
 
                 <TextView
-                    android:id="@+id/listEmptyTextView"
+                    android:id="@+id/productEmptyTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/sample_img"
+                    android:layout_alignBottom="@id/linear"
+                    android:layout_alignLeft="@id/linear"
+                    android:layout_alignRight="@id/linear"
+                    android:layout_alignTop="@id/linear"
                     android:text="쇼핑리스트를 채워주세요!"
+                    android:gravity="center"
                     android:textColor="@color/blackFont"
                     android:textSize="13sp"
                     android:visibility="invisible"
                     android:textStyle="normal"/>
-            </LinearLayout>
 
             <TextView
-                android:id="@+id/productCountTextView"
+                android:id="@+id/shoplistCountTextView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_alignBottom="@id/productImageView"
@@ -94,6 +110,5 @@
 
         </RelativeLayout>
     </LinearLayout>
-
 
 </LinearLayout>

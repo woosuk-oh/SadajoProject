@@ -1,13 +1,22 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_width="268dp"
+    android:layout_height="248dp"
     android:orientation="vertical"
+    android:paddingLeft="24dp"
+    android:paddingRight="24dp"
     android:background="@drawable/msg_pop"
     tools:context="com.tacademy.sadajo.chatting.RequestDialogFragment">
 
 
-
+    <EditText
+        android:layout_marginTop="200dp"
+        android:layout_width="match_parent"
+        android:layout_height="13dp"
+        android:textSize="13sp"
+        android:textStyle="normal"
+        android:text="빅토리아시크릿"
+        android:backgroundTint="@color/sadajoBackground"/>
 
 
 

@@ -63,7 +63,7 @@ public class LikeListRecyclerViewAdapter
 
 
         View view = LayoutInflater.from(parent.getContext()).inflate(
-                R.layout.shoppinglist_recyclerview2_item, parent, false);
+                R.layout.shoppinglist_likelist_recyclerview_item, parent, false);
 
 
         return new ViewHolder(view);

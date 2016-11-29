@@ -55,7 +55,7 @@ public class LikeListFragment extends Fragment{
 
         Bundle initBundle = getArguments();
 
-        View view = inflater.inflate(R.layout.shoppinglist_fragment_second, container, false);
+        View view = inflater.inflate(R.layout.shoppinglist_fragment_likelist, container, false);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         RecyclerView shoppingListRecyclerView = (RecyclerView) view.findViewById(R.id.shoppingListRecyclerView2);
         shoppingListRecyclerView.setLayoutManager(layoutManager);

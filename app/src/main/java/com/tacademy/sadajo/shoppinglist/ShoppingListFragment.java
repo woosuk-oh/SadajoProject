@@ -56,7 +56,7 @@ public class ShoppingListFragment extends Fragment {
 
         Bundle initBundle = getArguments();
 
-        View view = inflater.inflate(R.layout.shoppinglist_frament_first, container, false);
+        View view = inflater.inflate(R.layout.shoppinglist_frament, container, false);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         shoppingListRecyclerView = (RecyclerView) view.findViewById(R.id.shoppingListRecyclerView1);
         shoppingListRecyclerView.setLayoutManager(layoutManager);
@@ -66,21 +66,10 @@ public class ShoppingListFragment extends Fragment {
 
         recyclerViewAdapter = new ShoppingListRecyclerViewAdapter(getContext());
           shoppingListRecyclerView.setAdapter(recyclerViewAdapter);
-//
-//        shoppingListRecyclerView.addOnScrollListener(new LoadMoreScrollListener(layoutManager) {
-//            @Override
-//            public void onLoadMore(int page, int totalItemsCount) {
-//            }
-//
-//            @Override
-//            public void onLoadMore(int page) {
-//
-//                new AsyncTaskShopList().execute();
-//            }
-//        });
 
 
-//
+
+////
 //
 //        if (recyclerViewAdapter.getItemCount() == 0) {
 //            view = inflater.inflate(R.layout.shoppinglist_noitem_layout, container, false);
@@ -116,7 +105,7 @@ public class ShoppingListFragment extends Fragment {
 
 
                 RequestBody postBody = new FormBody.Builder()
-                        .add("user", "2")
+                        .add("user", "1")
                         .build();
 
                 Request request = new Request.Builder()
