@@ -149,7 +149,7 @@ public class HomeActivity extends BaseActivity {
 
 
                 RequestBody postBody = new FormBody.Builder()
-                        .add("user", "2")
+                        .add("user", "3")
                         .build();
 
 
@@ -276,7 +276,7 @@ public class HomeActivity extends BaseActivity {
     };
 
 
-    //Tag Button 생성 메소드
+    //Button 생성 메소드
     public void createTagButton(String str, int i) {
         Button button = new Button(this);
         button.setText(str); //서버로부터 받아온 tag text set
