@@ -20,7 +20,6 @@ public class ShopListJSONParser {
 
         try {
             JSONObject shopList = new JSONObject(responsedJSON);
-            //JSONObject message = shopList.getJSONObject("message");
             JSONArray lists = shopList.getJSONArray("list");
 
 

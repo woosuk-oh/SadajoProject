@@ -36,6 +36,7 @@ public class ShoppingListFragment extends Fragment {
 
 
     ShoppingListRecyclerViewAdapter recyclerViewAdapter;
+    RecyclerView shoppingListRecyclerView;
 
     public ShoppingListFragment() {
         // Required empty public constructor
@@ -58,19 +59,20 @@ public class ShoppingListFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.shoppinglist_frament_first, container, false);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-        RecyclerView shoppingListRecyclerView = (RecyclerView) view.findViewById(R.id.shoppingListRecyclerView1);
+        shoppingListRecyclerView = (RecyclerView) view.findViewById(R.id.shoppingListRecyclerView1);
         shoppingListRecyclerView.setLayoutManager(layoutManager);
 
         CustomRecyclerDecoration decoration = new CustomRecyclerDecoration(30, "bottom"); //아이템간 간격
         shoppingListRecyclerView.addItemDecoration(decoration);
 
         recyclerViewAdapter = new ShoppingListRecyclerViewAdapter(getContext());
-        shoppingListRecyclerView.setAdapter(recyclerViewAdapter);
+          shoppingListRecyclerView.setAdapter(recyclerViewAdapter);
 
         shoppingListRecyclerView.addOnScrollListener(new LoadMoreScrollListener(layoutManager) {
             @Override
             public void onLoadMore(int page, int totalItemsCount) {
             }
+
             @Override
             public void onLoadMore(int page) {
 
@@ -88,12 +90,10 @@ public class ShoppingListFragment extends Fragment {
         return view;
 
 
-
-
     }
 
     @Override
-    public void onViewCreated (View view, Bundle savedInstanceState){
+    public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         new AsyncTaskShopList().execute();
 
