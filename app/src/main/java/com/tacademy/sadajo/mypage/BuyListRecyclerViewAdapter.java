@@ -74,7 +74,6 @@ public class BuyListRecyclerViewAdapter
             buyRequestButton = (ImageButton) view.findViewById(R.id.buyRequestButton);
 
 
-
         }
     }
 
@@ -103,15 +102,21 @@ public class BuyListRecyclerViewAdapter
         holder.profileImageView.setImageResource(R.drawable.profile_empty);
 
         holder.okButton.setOnClickListener(new View.OnClickListener() { //사다조 요청수락버튼 클릭시
+
+            FragmentManager fragmentManager = ((AppCompatActivity) context).getFragmentManager();
+
             @Override
             public void onClick(View v) {//TODO: 수정필요!
 
+
+                RequestConfirmDialogFragment requestConfirmDialogFragment = new RequestConfirmDialogFragment();
+                requestConfirmDialogFragment.show(fragmentManager, "requestConfirmDialog");
                 v.setVisibility(View.GONE);
+
                 holder.buyRequestButton.setVisibility(View.VISIBLE); //요청보기 버튼 visible
                 holder.buyRequestButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        FragmentManager fragmentManager = ((AppCompatActivity) context).getFragmentManager();
                         RequestConfirmDialogFragment requestConfirmDialogFragment = new RequestConfirmDialogFragment();
                         requestConfirmDialogFragment.show(fragmentManager, "requestConfirmDialog");
 
@@ -121,7 +126,6 @@ public class BuyListRecyclerViewAdapter
                 holder.buyReviewButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        FragmentManager fragmentManager = ((AppCompatActivity) context).getFragmentManager();
                         ReviewDialogFragment dialog = new ReviewDialogFragment();
                         dialog.show(fragmentManager, "reviewDialog");
                         view.setSelected(true);
@@ -129,10 +133,8 @@ public class BuyListRecyclerViewAdapter
                 });
 
 
-
             }
         });
-
 
 
     }

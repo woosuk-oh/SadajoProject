@@ -106,6 +106,7 @@ public class LikeListRecyclerViewAdapter
 
             //       holder.productImageView.setImageResource(R.drawable.sample_img);
 
+            //담은 상품이 없을 경우 default이미지 보여줌
             if (listDBs.get(position).goodsCount == 0) {
                 holder.productCountTextView.setVisibility(View.GONE);
                 holder.listEmptyTextView.setVisibility(View.VISIBLE);
@@ -129,6 +130,7 @@ public class LikeListRecyclerViewAdapter
 
                     Intent intent = new Intent(context, LikeListDetailActivity.class); //찜리스트 디테일페이지로이동
                     intent.putExtra("listCode", listDBs.get(position).listCode); //찜리스트이 listCode 넘겨줌
+                    intent.putExtra("countryName",listDBs.get(position).countryNameKor.toString());
                     Log.e("shopListCode", listDBs.get(position).listCode.toString());
                     context.startActivity(intent);
 

@@ -25,7 +25,16 @@
                 android:background="@color/sadajoBackground"
                 app:layout_collapseMode="pin"
                 app:navigationIcon="@drawable/search_back_icon2"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="17sp"
+                    android:textStyle="bold"
+
+                    android:textColor="@color/white"
+                    android:id="@+id/customToolbarTitle" />
+                </android.support.v7.widget.Toolbar>
 
 
         </android.support.design.widget.AppBarLayout>

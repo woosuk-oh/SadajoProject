@@ -142,6 +142,8 @@ public class RequestDialogFragment extends DialogFragment implements View.OnClic
                     Toast.makeText(getActivity(), "상품가격을 입력해주세요!", Toast.LENGTH_SHORT).show();
                     return;
                 } else {
+                    requestButton.setVisibility(View.GONE);
+                    requestCancelButton.setVisibility(View.GONE);
                     new AsyncRequestInsert().execute(requestEntityObject);
                 }
 

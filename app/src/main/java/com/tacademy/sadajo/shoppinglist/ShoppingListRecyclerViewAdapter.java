@@ -154,6 +154,7 @@ public class ShoppingListRecyclerViewAdapter
 
                     Intent intent = new Intent(mContext,LikeListDetailActivity.class); //LikeList의 Detail 액티비티로 이동
                     intent.putExtra("listCode",shopListDB.get(position-1).listCode); //listCode넘겨줌
+                    intent.putExtra("countryName",shopListDB.get(position-1).countryNameKor.toString()); //국가명 넘겨줌
                     Log.e("shopListCode",shopListDB.get(position-1).listCode.toString());
                     mContext.startActivity(intent);
                 }
