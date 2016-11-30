@@ -51,7 +51,7 @@ import static com.google.android.gms.common.api.GoogleApiClient.ConnectionCallba
 1. GoogleApiClient 빌드함
 2. GoogleApiClient 연결함
 3. 연결되면 퍼미션 체크 후 wifi와 gps (PRIORITY_HIGH_ACCURACY)로 부터 정보 받아옴
-4.
+4.ㅇㅇ
 
 
 */
