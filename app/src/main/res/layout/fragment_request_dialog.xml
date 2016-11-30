@@ -5,18 +5,59 @@
     android:orientation="vertical"
     android:paddingLeft="24dp"
     android:paddingRight="24dp"
-    android:background="@drawable/msg_pop"
+    android:background="@color/white"
     tools:context="com.tacademy.sadajo.chatting.RequestDialogFragment">
 
 
+    <Spinner
+        android:id="@+id/requestCountrySpinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"></Spinner>
     <EditText
-        android:layout_marginTop="200dp"
-        android:layout_width="match_parent"
-        android:layout_height="13dp"
+        android:id="@+id/requestProductNameEditText"
+        android:layout_width="260dp"
+        android:layout_height="wrap_content"
         android:textSize="13sp"
         android:textStyle="normal"
+        android:gravity="center"
         android:text="빅토리아시크릿"
         android:backgroundTint="@color/sadajoBackground"/>
+    <EditText
+        android:id="@+id/requestProductPriceEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="13sp"
+        android:textStyle="normal"
+        android:gravity="center"
+
+        android:text="100,000"
+        android:backgroundTint="@color/sadajoBackground"/>
+    <EditText
+        android:id="@+id/requestProductOptEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="13sp"
+        android:textStyle="normal"
+        android:text="추가요청사항"
+        android:gravity="center"
+
+        android:maxLines="8"
+        android:scrollbars="vertical"
+        android:backgroundTint="@color/sadajoBackground"/>
+
+    
+    <ImageButton
+        android:id="@+id/requestButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/selector_request_dialog_button"/>
+
+
+    <ImageButton
+        android:id="@+id/requestCancelButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/selector_request_dialog_cancel_button"/>
 
 
 

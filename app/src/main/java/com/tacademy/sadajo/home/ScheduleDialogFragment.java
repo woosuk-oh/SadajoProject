@@ -133,7 +133,7 @@ public class ScheduleDialogFragment extends DialogFragment implements View.OnCli
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-                entityObject.country = countryCodeHashMap.getCountryCode((spinnerAdapter.getItem(0)).toString());
+               // entityObject.country = countryCodeHashMap.getCountryCode((spinnerAdapter.getItem(0)).toString());
             }
         });
 
@@ -146,7 +146,7 @@ public class ScheduleDialogFragment extends DialogFragment implements View.OnCli
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-              entityObject.city = cityCodeHashMap.getCityCode((spinnerAdapter2.getItem(0)).toString());
+             // entityObject.city = cityCodeHashMap.getCityCode((spinnerAdapter2.getItem(0)).toString());
             }
         });
 
@@ -213,7 +213,7 @@ public class ScheduleDialogFragment extends DialogFragment implements View.OnCli
 
     @Override
     public void onClick(View view) {
-        int id = view.getId();
+
         switch (view.getId()) {
             case R.id.cancelButton:
                 dismiss();
@@ -224,16 +224,24 @@ public class ScheduleDialogFragment extends DialogFragment implements View.OnCli
                 entityObject.start = departureEditText.getText().toString();
                 entityObject.end = returnEditText.getText().toString();
 
-                if(entityObject.start == null || entityObject.start.length() <= 0){
+                if(entityObject.country == null || entityObject.country.length() <= 0){
+                    Toast.makeText(getActivity(),"여행국가를 선택해주세요!",Toast.LENGTH_SHORT).show();
+
+                    return;
+                }else if(entityObject.city == null || entityObject.city.length() <= 0){
+                    Toast.makeText(getActivity(),"여행도시를 선택해주세요!",Toast.LENGTH_SHORT).show();
+
+                    return;
+                } else if(entityObject.start == null || entityObject.start.length() <= 0){
                     Toast.makeText(getActivity(), "출발날짜를 입력해주세요!", Toast.LENGTH_SHORT).show();
-                    departureEditText.requestFocus();
+
                     return;
 
                 }else if(entityObject.end == null || entityObject.end.length() <= 0){
                     Toast.makeText(getActivity(),"돌아오는날짜를 입력해주세요!",Toast.LENGTH_SHORT).show();
-                    returnEditText.requestFocus();
+
                     return;
-                }else{
+                } else{
                     new AsyncScheduleInsert().execute(entityObject);
 
                 }
@@ -315,7 +323,7 @@ public class ScheduleDialogFragment extends DialogFragment implements View.OnCli
         protected void onPostExecute(String result) {
           //  progressDialog.dismiss();
             if (result != null) {
-                if (result!= null) {//insertId가 null이 아닐경우 토스트                    //showDialog(NetworkDefineConstant.BLOOD_INSERT_DIALOG_OK, null);
+                if (result!= null) {//insertId가 null이 아닐경우 토스트
 
                     //등록하기 버튼 눌렀을 때 이미지 토스트
                     Toast toast = new Toast(getActivity());
