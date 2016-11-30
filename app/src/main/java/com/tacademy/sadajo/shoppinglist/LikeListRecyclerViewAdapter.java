@@ -3,6 +3,7 @@ package com.tacademy.sadajo.shoppinglist;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -102,8 +103,9 @@ public class LikeListRecyclerViewAdapter
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(context, LikeListDetailActivity.class);
-                intent.putExtra("listCode",listDBs.get(position).listCode);
+                Intent intent = new Intent(context, LikeListDetailActivity.class); //찜리스트 디테일페이지로이동
+                intent.putExtra("listCode",listDBs.get(position).listCode); //찜리스트이 listCode 넘겨줌
+                Log.e("shopListCode",listDBs.get(position).listCode.toString());
                 context.startActivity(intent);
 
             }

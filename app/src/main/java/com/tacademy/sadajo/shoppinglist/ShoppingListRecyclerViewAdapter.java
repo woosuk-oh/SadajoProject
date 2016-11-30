@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -148,8 +149,9 @@ public class ShoppingListRecyclerViewAdapter
                 @Override
                 public void onClick(View v) {
 
-                    Intent intent = new Intent(mContext,LikeListDetailActivity.class);
+                    Intent intent = new Intent(mContext,LikeListDetailActivity.class); //LikeList의 Detail 액티비티로 이동
                     intent.putExtra("listCode",shopListDB.get(position-1).listCode); //listCode넘겨줌
+                    Log.e("shopListCode",shopListDB.get(position-1).listCode.toString());
                     mContext.startActivity(intent);
                 }
             });
