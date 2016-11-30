@@ -3,6 +3,7 @@ package com.sdf.example.woosuk.lbstest;
 import android.Manifest;
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.net.ConnectivityManager;
@@ -145,6 +146,12 @@ public class MainActivity extends AppCompatActivity implements ConnectionCallbac
 
     @TargetApi(Build.VERSION_CODES.M)
     private void checkPermission() {
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+            Intent myIntent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
+            startActivity(myIntent);
+        }
+
         Log.d("로케이션 퍼미션 갖고 있냐?", "" + checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION));
         if (checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED
