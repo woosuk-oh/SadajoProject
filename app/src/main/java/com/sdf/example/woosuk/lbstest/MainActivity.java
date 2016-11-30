@@ -9,6 +9,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -80,9 +81,6 @@ public class MainActivity extends AppCompatActivity implements ConnectionCallbac
         }
 
 
-
-
-
     }
 
     @Override
@@ -103,7 +101,21 @@ public class MainActivity extends AppCompatActivity implements ConnectionCallbac
         if (activeNetwork != null) { // connected to the internet
 
             if (isLocationEnabled(this)) {
-                checkPermission(); // 순서4. 권한 확인 및 저장해둔 위경도 데이터 받기.
+
+
+                    buildGoogleApiClient();
+                    mGoogleApiClient.connect();
+
+                Handler mHandler = new Handler();
+                mHandler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        checkPermission(); // 순서4. 권한 확인 및 저장해둔 위경도 데이터 받기. 2초후 실행.
+                    }
+                },2000);
+
+
+
             } else {
                 Toast.makeText(this, "설정에서 위치를 켜주세요.", Toast.LENGTH_SHORT).show();
                 finish(); // 위치 꺼져있으면 destroy. (mGoogleApiClient는 disconnect.
@@ -116,7 +128,6 @@ public class MainActivity extends AppCompatActivity implements ConnectionCallbac
 
             finish();
         }
-
 
 
     }
@@ -225,7 +236,7 @@ public class MainActivity extends AppCompatActivity implements ConnectionCallbac
 
         if (activeNetwork != null) { // connected to the internet
 
-            if(mGoogleApiClient != null) {
+            if (mGoogleApiClient != null) {
                 mGoogleApiClient.disconnect(); //mGoogleApiClient가 connect 되어있는 상태여야됨.
             }
         }
@@ -248,6 +259,7 @@ public class MainActivity extends AppCompatActivity implements ConnectionCallbac
             mLocationRequest = LocationRequest.create();
             mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY); //GPS, WIFI로 위치 받음.
             mLocationRequest.setInterval(10000);
+
         } else {
             Toast.makeText(this, "설정에서 위치를 켜주세요.", Toast.LENGTH_SHORT).show();
             finish();
@@ -272,8 +284,6 @@ public class MainActivity extends AppCompatActivity implements ConnectionCallbac
     public void onLocationChanged(Location location) {
 
     }
-
-
 
 
     @TargetApi(Build.VERSION_CODES.M)
