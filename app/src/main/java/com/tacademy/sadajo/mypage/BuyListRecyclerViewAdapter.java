@@ -108,16 +108,27 @@ public class BuyListRecyclerViewAdapter
 
                 v.setVisibility(View.GONE);
                 holder.buyRequestButton.setVisibility(View.VISIBLE); //요청보기 버튼 visible
+                holder.buyRequestButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        FragmentManager fragmentManager = ((AppCompatActivity) context).getFragmentManager();
+                        RequestConfirmDialogFragment requestConfirmDialogFragment = new RequestConfirmDialogFragment();
+                        requestConfirmDialogFragment.show(fragmentManager, "requestConfirmDialog");
+
+                    }
+                });
                 holder.buyReviewButton.setVisibility(View.VISIBLE);//후기작성버튼 visible
                 holder.buyReviewButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         FragmentManager fragmentManager = ((AppCompatActivity) context).getFragmentManager();
                         ReviewDialogFragment dialog = new ReviewDialogFragment();
-                        dialog.show(fragmentManager, "scheduleDialog");
+                        dialog.show(fragmentManager, "reviewDialog");
                         view.setSelected(true);
                     }
                 });
+
+
 
             }
         });
