@@ -4,7 +4,9 @@ package com.tacademy.sadajo.mypage;
  * Created by EUNZY on 2016. 11. 24..
  */
 
+import android.app.FragmentManager;
 import android.content.Context;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -72,6 +74,7 @@ public class BuyListRecyclerViewAdapter
             buyRequestButton = (ImageButton) view.findViewById(R.id.buyRequestButton);
 
 
+
         }
     }
 
@@ -101,7 +104,7 @@ public class BuyListRecyclerViewAdapter
 
         holder.okButton.setOnClickListener(new View.OnClickListener() { //사다조 요청수락버튼 클릭시
             @Override
-            public void onClick(View v) {
+            public void onClick(View v) {//TODO: 수정필요!
 
                 v.setVisibility(View.GONE);
                 holder.buyRequestButton.setVisibility(View.VISIBLE); //요청보기 버튼 visible
@@ -109,12 +112,17 @@ public class BuyListRecyclerViewAdapter
                 holder.buyReviewButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        FragmentManager fragmentManager = ((AppCompatActivity) context).getFragmentManager();
+                        ReviewDialogFragment dialog = new ReviewDialogFragment();
+                        dialog.show(fragmentManager, "scheduleDialog");
                         view.setSelected(true);
                     }
                 });
 
             }
         });
+
+
 
     }
 
