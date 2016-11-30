@@ -12,7 +12,7 @@ public class CityCodeHashMap {
     static {
         cityCodeHash.put("뉴욕", "NYC");
         cityCodeHash.put("워싱턴", "WST");
-        cityCodeHash.put("로스엔젤레스", "LAC");
+        cityCodeHash.put("로즈앤젤레스","LAC");
         cityCodeHash.put("보스턴", "BOS");
         cityCodeHash.put("하와이", "HWI");
         cityCodeHash.put("괌", "GUA");

@@ -13,11 +13,14 @@ import com.tacademy.sadajo.BaseActivity;
 import com.tacademy.sadajo.MyPagerAdapter;
 import com.tacademy.sadajo.R;
 
+import static com.tacademy.sadajo.R.id.buyCountButton;
+import static com.tacademy.sadajo.R.id.sellCountButton;
+
 public class MyPageOtherActivity extends BaseActivity {
 
 
-    ImageButton buyCountButton;
-    ImageButton sellCountButton;
+    ImageButton otherBuyCountButton;
+    ImageButton otherSellCountButton;
 
     TextView mypageBuyTextView;
 
@@ -44,20 +47,20 @@ public class MyPageOtherActivity extends BaseActivity {
         });
 
 
-        sellCountButton = (ImageButton) findViewById(R.id.sellCountButton);
-        buyCountButton = (ImageButton) findViewById(R.id.buyCountButton);
+        otherSellCountButton = (ImageButton) findViewById(R.id.otherSellCountButton);
+        otherBuyCountButton = (ImageButton) findViewById(R.id.otherBuyCountButton);
 
 
-        ViewPager viewPager = (ViewPager) findViewById(R.id.mypageViewpager);
+        ViewPager viewPager = (ViewPager) findViewById(R.id.otherMypageViewpager);
         if (viewPager != null) {
             setupMyPageViewPager(viewPager);
         }
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.mypageTab);
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.otherMypageTab);
         tabLayout.setupWithViewPager(viewPager);
 
 
-        sellCountButton.setOnClickListener(clickListener);
-        buyCountButton.setOnClickListener(clickListener);
+        otherSellCountButton.setOnClickListener(clickListener);
+        otherBuyCountButton.setOnClickListener(clickListener);
 
     }
 
@@ -69,12 +72,12 @@ public class MyPageOtherActivity extends BaseActivity {
         @Override
         public void onClick(View view) {
             switch (view.getId()) {
-                case R.id.sellCountButton:
+                case R.id.otherSellCountButton:
                     intent = new Intent(MyPageOtherActivity.this, MypageBuyActivity.class);
                     intent.putExtra("tabNum", 1); //select될 tab값 전달
                     startActivity(intent);
                     break;
-                case R.id.buyCountButton:
+                case R.id.otherBuyCountButton:
                     intent = new Intent(MyPageOtherActivity.this, MypageBuyActivity.class);
                     intent.putExtra("tabNum", 0);
                     startActivity(intent);

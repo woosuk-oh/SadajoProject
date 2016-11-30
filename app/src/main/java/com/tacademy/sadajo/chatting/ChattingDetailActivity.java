@@ -23,7 +23,7 @@ public class ChattingDetailActivity extends BaseActivity {
     ListView chatlistView;
 
     ImageButton requestButton;
-    ImageButton sendButton;
+    ImageButton chatDetailSendButton;
 
     EditText chattingEditText;
 
@@ -43,7 +43,7 @@ public class ChattingDetailActivity extends BaseActivity {
 
 
         chatlistView =  (ListView)findViewById(listView);
-        sendButton = (ImageButton)findViewById(R.id.sendButton);
+        chatDetailSendButton = (ImageButton)findViewById(R.id.chatDetailSendButton);
         chattingEditText = (EditText)findViewById(R.id.chattingEditText);
 
         chatMessageArrayAdapter = new ChattingAdapter(ChattingDetailActivity.this,R.layout.chatting_message);
@@ -74,7 +74,7 @@ public class ChattingDetailActivity extends BaseActivity {
 
         requestButton = (ImageButton)findViewById(R.id.requestButton);//사다조 요청하기 버튼
         requestButton.setOnClickListener(clickListener);
-        sendButton.setOnClickListener(clickListener);
+        chatDetailSendButton.setOnClickListener(clickListener);
 
 
 
@@ -94,7 +94,7 @@ public class ChattingDetailActivity extends BaseActivity {
                     RequestDialogFragment dialog = new RequestDialogFragment();
                     dialog.show(getFragmentManager(), "requestDialog");
                     break;
-                case R.id.sendButton:
+                case R.id.chatDetailSendButton:
                     sendChatMessage();
                     break;
 

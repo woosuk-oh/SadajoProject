@@ -13,7 +13,8 @@ public class CountryCodeHashMap {
         countryCodeHash.put("미국", "USA");
         countryCodeHash.put("일본", "JPN");
         countryCodeHash.put("홍콩", "HKG");
-        countryCodeHash.put("이탈리아", "ITA");
+        countryCodeHash.put("이탈리아","ITA");
+        countryCodeHash.put("프랑스","FRA");
         countryCodeHash.put("태국", "THA");
         countryCodeHash.put("호주", "AUS");
         countryCodeHash.put("중국", "CHN");

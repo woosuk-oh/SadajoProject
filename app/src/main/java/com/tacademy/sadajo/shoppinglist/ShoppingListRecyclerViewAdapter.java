@@ -83,6 +83,7 @@ public class ShoppingListRecyclerViewAdapter
         switch (viewType) {
             case NO_ITEM_VIEW:
                 layoutRes = R.layout.shoppinglist_noitem_layout;
+                Log.e("shopping","nn");
                 break;
             case HEADER_VIEW:
                 layoutRes = R.layout.shoppinglist_recyclerview_item_first; //첫번째 item layout
@@ -100,6 +101,8 @@ public class ShoppingListRecyclerViewAdapter
     @Override
     public int getItemViewType(int position) {
         if (getItemCount() == 1) {
+            Log.e("shop","NoItem");
+
             return NO_ITEM_VIEW;
         } else if (position == 0) {
 

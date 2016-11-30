@@ -121,7 +121,7 @@
                 android:gravity="center">
 
             <ImageButton
-                android:id="@+id/sendButton"
+                android:id="@+id/chatDetailSendButton"
                 android:layout_width="42dp"
                 android:layout_height="16dp"
                 android:layout_gravity="center_vertical"

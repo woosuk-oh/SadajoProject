@@ -37,8 +37,8 @@
                     android:orientation="vertical">
 
                     <ImageButton
+                        android:id="@+id/otherBuyCountButton"
                         android:layout_marginTop="30dp"
-                        android:id="@+id/buyCountButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -48,9 +48,8 @@
                         android:textSize="13sp" />
 
                     <TextView
-                        android:id="@+id/mypageBuyTextView"
+                        android:id="@+id/otherMypageBuyTextView"
                         android:layout_marginTop="5dp"
-
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -82,7 +81,7 @@
 
 
                     <ImageButton
-                        android:id="@+id/sellCountButton"
+                        android:id="@+id/otherSellCountButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -147,7 +146,7 @@
             android:orientation="vertical">
 
             <android.support.design.widget.TabLayout
-                android:id="@+id/mypageTab"
+                android:id="@+id/otherMypageTab"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:theme="@style/TabLayout"
@@ -155,7 +154,7 @@
                 android:minHeight="?attr/actionBarSize" />
 
             <android.support.v4.view.ViewPager
-                android:id="@+id/mypageViewpager"
+                android:id="@+id/otherMypageViewpager"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 
