@@ -32,19 +32,19 @@ public class ChattingRecyclerViewAdapter
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
         public final View mView;
-        public final TextView chattingTitleTextView;
+        public final TextView chattingNameTextView;
         public final TextView chattingContentTextView;
         public final TextView chattingDateTextView;
-        public final ImageView userProfileImageView;
+        public final ImageView chattingProfileImageView;
 
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            chattingTitleTextView = (TextView) view.findViewById(R.id.chattingTitleTextView);
+            chattingNameTextView = (TextView) view.findViewById(R.id.chattingNameTextView);
             chattingContentTextView = (TextView) view.findViewById(R.id.chattingContentTextView);
             chattingDateTextView = (TextView) view.findViewById(R.id.chattingDateTextView);
-            userProfileImageView = (ImageView) view.findViewById(R.id.userProfileImageView);
+            chattingProfileImageView = (ImageView) view.findViewById(R.id.chattingProfileImageView);
 
         }
     }
@@ -65,10 +65,10 @@ public class ChattingRecyclerViewAdapter
 //            holder.shoppinglistDateTextView.setText(shoppingListDatas.get(position).getTravelDate().toString());
 //            holder.shoppinglistFolderImageView.setImageResource(R.drawable.mark);
 
-        holder.chattingTitleTextView.setText("채팅제목");
+        holder.chattingNameTextView.setText("채팅제목");
         holder.chattingContentTextView.setText("안녕하세요");
         holder.chattingDateTextView.setText("2016.11.20");
-        holder.userProfileImageView.setImageResource(R.drawable.product_sample);
+        holder.chattingProfileImageView.setImageResource(R.drawable.product_sample);
 
 
 //            Glide.with(GirlsApplication.getGirlsContext())

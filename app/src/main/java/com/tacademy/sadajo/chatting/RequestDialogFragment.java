@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.tacademy.sadajo.CountryCodeHashMap;
 import com.tacademy.sadajo.R;
 import com.tacademy.sadajo.network.NetworkDefineConstant;
 import com.tacademy.sadajo.network.OkHttpInitManager;
@@ -93,10 +94,14 @@ public class RequestDialogFragment extends DialogFragment implements View.OnClic
 
         requestCountrySpinner = (Spinner) view.findViewById(R.id.requestCountrySpinner);
         requestCountrySpinner.setAdapter(countrySpinnerAdapter);
+
         requestCountrySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                requestEntityObject.countryName = requestCountrySpinner.getSelectedItem().toString();
+                CountryCodeHashMap countryCodeHashMap = new CountryCodeHashMap();
+                String countryCode = countryCodeHashMap
+                        .getCountryCode(requestCountrySpinner.getSelectedItem().toString());
+                requestEntityObject.countryName = countryCode;
             }
 
             @Override
@@ -114,6 +119,7 @@ public class RequestDialogFragment extends DialogFragment implements View.OnClic
 
         requestButton.setOnClickListener(this);
         requestCancelButton.setOnClickListener(this);
+
 
         return view;
     }
@@ -140,7 +146,7 @@ public class RequestDialogFragment extends DialogFragment implements View.OnClic
                 }
 
                 break;
-            case R.id.cancelButton:
+            case R.id.requestCancelButton:
                 dismiss();
                 break;
 

@@ -60,13 +60,13 @@ public class ShoppingListRecyclerViewAdapter
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            countryNameTextView = (TextView) view.findViewById(R.id.countryNameTextView);
-            cityNameTextView = (TextView) view.findViewById(R.id.cityNameTextView);
-            dateTextView = (TextView) view.findViewById(R.id.dateTextView);
-            shoplistCountTextView = (TextView) view.findViewById(R.id.shoplistCountTextView);
-            productEmptyTextView = (TextView) view.findViewById(R.id.productEmptyTextView);
-            productImageView = (ImageView) view.findViewById(R.id.productImageView);
-            newScheduleButton = (ImageButton) view.findViewById(R.id.newScheduleButton);
+            countryNameTextView = (TextView) view.findViewById(R.id.shopListCountryNameTextView);
+            cityNameTextView = (TextView) view.findViewById(R.id.shopListCityNameTextView);
+            dateTextView = (TextView) view.findViewById(R.id.shopListDateTextView);
+            shoplistCountTextView = (TextView) view.findViewById(R.id.shopListCountTextView);
+            productEmptyTextView = (TextView) view.findViewById(R.id.shopListProductEmptyTextView);
+            productImageView = (ImageView) view.findViewById(R.id.shopListProductImageView);
+            newScheduleButton = (ImageButton) view.findViewById(R.id.shopListNewScheduleButton);
 
         }
 

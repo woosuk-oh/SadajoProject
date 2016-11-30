@@ -15,7 +15,7 @@
         >
 
         <TextView
-            android:id="@+id/countryNameTextView"
+            android:id="@+id/shopListCountryNameTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="24dp"
@@ -26,7 +26,7 @@
             android:textStyle="italic"/>
 
         <TextView
-            android:id="@+id/cityNameTextView"
+            android:id="@+id/shopListCityNameTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="24dp"
@@ -36,7 +36,7 @@
             android:textStyle="bold"/>
 
         <TextView
-            android:id="@+id/dateTextView"
+            android:id="@+id/shopListDateTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="24dp"
@@ -58,7 +58,7 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/productImageView"
+                android:id="@+id/shopListProductImageView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="fitXY"
@@ -78,7 +78,7 @@
                 />
 
                 <TextView
-                    android:id="@+id/productEmptyTextView"
+                    android:id="@+id/shopListProductEmptyTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/sample_img"
@@ -94,13 +94,13 @@
                     android:textStyle="normal"/>
 
             <TextView
-                android:id="@+id/shoplistCountTextView"
+                android:id="@+id/shopListCountTextView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_alignBottom="@id/productImageView"
-                android:layout_alignLeft="@id/productImageView"
-                android:layout_alignRight="@id/productImageView"
-                android:layout_alignTop="@id/productImageView"
+                android:layout_alignBottom="@id/shopListProductImageView"
+                android:layout_alignLeft="@id/shopListProductImageView"
+                android:layout_alignRight="@id/shopListProductImageView"
+                android:layout_alignTop="@id/shopListProductImageView"
                 android:gravity="center"
                 android:text="99+"
                 android:textColor="@color/white"

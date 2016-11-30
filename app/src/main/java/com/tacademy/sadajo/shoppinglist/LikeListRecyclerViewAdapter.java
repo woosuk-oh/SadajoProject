@@ -48,11 +48,11 @@ public class LikeListRecyclerViewAdapter
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            countryNameTextView = (TextView) view.findViewById(R.id.countryNameTextView);
-            cityNameTextView = (TextView) view.findViewById(R.id.cityNameTextView);
-            productCountTextView = (TextView) view.findViewById(R.id.productCountTextView);
-            listEmptyTextView = (TextView) view.findViewById(R.id.listEmptyTextView);
-            productImageView = (ImageView) view.findViewById(R.id.productImageView);
+            countryNameTextView = (TextView) view.findViewById(R.id.likeCountryNameTextView);
+            cityNameTextView = (TextView) view.findViewById(R.id.likeCityNameTextView);
+            productCountTextView = (TextView) view.findViewById(R.id.likeProductCountTextView);
+            listEmptyTextView = (TextView) view.findViewById(R.id.likeListEmptyTextView);
+            productImageView = (ImageView) view.findViewById(R.id.likeProductImageView);
 
 
         }

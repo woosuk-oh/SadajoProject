@@ -46,7 +46,7 @@ public class HomeUserRecyclerViewAdapter
             mView = view;
 
             homeUserIdTextView = (TextView) view.findViewById(R.id.homeUserIdTextView);
-            userProfileImageView = (ImageView) view.findViewById(R.id.userProfileImageView);
+            userProfileImageView = (ImageView) view.findViewById(R.id.homeUserProfileImageView);
 
 
         }
