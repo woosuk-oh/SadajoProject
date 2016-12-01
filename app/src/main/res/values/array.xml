@@ -28,47 +28,80 @@
     </string-array>
     <string-array name="city">
         <item>도시선택</item>
+
+    </string-array>
+
+
+    <string-array name="usaCity">
+        <item>도시선택</item>
         <item>뉴욕</item>
         <item>워싱턴</item>
         <item>로즈앤젤레스</item>
         <item>보스턴</item>
         <item>하와이</item>
         <item>괌</item>
+    </string-array>
+    <string-array name="jpnCity">
+        <item>도시선택</item>
         <item>도쿄</item>
         <item>나고야</item>
         <item>오사카</item>
         <item>삿포로</item>
+    </string-array>
+    <string-array name="hkgCity">
+        <item>도시선택</item>
         <item>홍콩</item>
+    </string-array>
+    <string-array name="fraCity">
+        <item>도시선택</item>
         <item>파리</item>
         <item>리용</item>
         <item>마르세이유</item>
         <item>보르도</item>
+    </string-array>
+    <string-array name="itaCity">
+        <item>도시선택</item>
         <item>로마</item>
         <item>밀라노</item>
         <item>피렌체</item>
         <item>베네치아</item>
         <item>피사</item>
         <item>나폴리</item>
+    </string-array>
+    <string-array name="thaCity">
+        <item>도시선택</item>
         <item>방콕</item>
         <item>파타야</item>
         <item>푸켓</item>
         <item>치앙마이</item>
         <item>코사무이</item>
+    </string-array>
+    <string-array name="ausCity">
+        <item>도시선택</item>
         <item>시드니</item>
         <item>브리즈번</item>
         <item>캔버라</item>
-        <item> 다윈</item>
+        <item>다윈</item>
         <item>퍼스</item>
+    </string-array>
+    <string-array name="chnCity">
+        <item>도시선택</item>
         <item>베이징</item>
         <item>상하이</item>
         <item>톈진</item>
         <item>충칭</item>
+    </string-array>
+    <string-array name="phnCity">
+        <item>도시선택</item>
         <item>마닐라</item>
         <item>세부</item>
         <item>보라카이</item>
+    </string-array>
+    <string-array name="twnCity">
+        <item>도시선택</item>
         <item>타이베이</item>
         <item>가오슝</item>
         <item>타이중</item>
     </string-array>
 
-</resources>
+    </resources>

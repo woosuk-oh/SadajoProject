@@ -116,29 +116,106 @@ public class ScheduleDialogFragment extends DialogFragment implements View.OnCli
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         spinnerAdapter2 = new ArrayAdapter<CharSequence>(getActivity(),
-                R.layout.select_scheduledialog_item, getResources().getStringArray(R.array.city)); // 스피너 레이아웃 기본으로 제공.
+                R.layout.select_scheduledialog_item, getResources().getStringArray(R.array.city));
         spinnerAdapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        citySpinner.setAdapter(spinnerAdapter2);
 
         countrySpinner.setAdapter(spinnerAdapter);
-        citySpinner.setAdapter(spinnerAdapter2);
+
 
         countrySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             CountryCodeHashMap countryCodeHashMap = new CountryCodeHashMap();
+
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                String countryName = countrySpinner.getSelectedItem().toString();
+                switch (i) {
+                    case 1:
+                        spinnerAdapter2 = new ArrayAdapter<CharSequence>(getActivity(),
+                                R.layout.select_scheduledialog_item, getResources().getStringArray(R.array.usaCity));
+                        spinnerAdapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        citySpinner.setAdapter(spinnerAdapter2);
+
+                        break;
+                    case 2 :
+                        spinnerAdapter2 = new ArrayAdapter<CharSequence>(getActivity(),
+                                R.layout.select_scheduledialog_item, getResources().getStringArray(R.array.jpnCity));
+                        spinnerAdapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        citySpinner.setAdapter(spinnerAdapter2);
+                        break;
+                    case 3 :
+                        spinnerAdapter2 = new ArrayAdapter<CharSequence>(getActivity(),
+                                R.layout.select_scheduledialog_item, getResources().getStringArray(R.array.hkgCity));
+                        spinnerAdapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        citySpinner.setAdapter(spinnerAdapter2);
+                        break;
+                    case 4 :
+                        spinnerAdapter2 = new ArrayAdapter<CharSequence>(getActivity(),
+                                R.layout.select_scheduledialog_item, getResources().getStringArray(R.array.fraCity));
+                        spinnerAdapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        citySpinner.setAdapter(spinnerAdapter2);
+                        break;
+                    case 5 :
+                        spinnerAdapter2 = new ArrayAdapter<CharSequence>(getActivity(),
+                                R.layout.select_scheduledialog_item, getResources().getStringArray(R.array.itaCity));
+                        spinnerAdapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        citySpinner.setAdapter(spinnerAdapter2);
+                        break;
+
+                    case 6 :
+                        spinnerAdapter2 = new ArrayAdapter<CharSequence>(getActivity(),
+                                R.layout.select_scheduledialog_item, getResources().getStringArray(R.array.thaCity));
+                        spinnerAdapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        citySpinner.setAdapter(spinnerAdapter2);
+                        break;
+                    case 7 :
+                        spinnerAdapter2 = new ArrayAdapter<CharSequence>(getActivity(),
+                                R.layout.select_scheduledialog_item, getResources().getStringArray(R.array.ausCity));
+                        spinnerAdapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        citySpinner.setAdapter(spinnerAdapter2);
+                        break;
+                    case 8 :
+                        spinnerAdapter2 = new ArrayAdapter<CharSequence>(getActivity(),
+                                R.layout.select_scheduledialog_item, getResources().getStringArray(R.array.chnCity));
+                        spinnerAdapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        citySpinner.setAdapter(spinnerAdapter2);
+                        break;
+                    case 9 :
+                        spinnerAdapter2 = new ArrayAdapter<CharSequence>(getActivity(),
+                                R.layout.select_scheduledialog_item, getResources().getStringArray(R.array.phnCity));
+                        spinnerAdapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        citySpinner.setAdapter(spinnerAdapter2);
+                        break;
+                    case 10:
+                        spinnerAdapter2 = new ArrayAdapter<CharSequence>(getActivity(),
+                                R.layout.select_scheduledialog_item, getResources().getStringArray(R.array.twnCity));
+                        spinnerAdapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        citySpinner.setAdapter(spinnerAdapter2);
+                        break;
+                }
 
 
-                entityObject.country = countryCodeHashMap.getCountryCode(countrySpinner.getSelectedItem().toString());
+                entityObject.country = countryCodeHashMap.getCountryCode(countryName);
+
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-               // entityObject.country = countryCodeHashMap.getCountryCode((spinnerAdapter.getItem(0)).toString());
+                // entityObject.country = countryCodeHashMap.getCountryCode((spinnerAdapter.getItem(0)).toString());
+                spinnerAdapter2 = new ArrayAdapter<CharSequence>(getActivity(),
+                        R.layout.select_scheduledialog_item, getResources().getStringArray(R.array.city));
+                spinnerAdapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                citySpinner.setAdapter(spinnerAdapter2);
+
             }
         });
 
+
+
+
         citySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             CityCodeHashMap cityCodeHashMap = new CityCodeHashMap();
+
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 entityObject.city = cityCodeHashMap.getCityCode(citySpinner.getSelectedItem().toString());
@@ -146,7 +223,7 @@ public class ScheduleDialogFragment extends DialogFragment implements View.OnCli
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-             // entityObject.city = cityCodeHashMap.getCityCode((spinnerAdapter2.getItem(0)).toString());
+                // entityObject.city = cityCodeHashMap.getCityCode((spinnerAdapter2.getItem(0)).toString());
             }
         });
 
@@ -191,7 +268,7 @@ public class ScheduleDialogFragment extends DialogFragment implements View.OnCli
                 DatePickerDialog dp = new DatePickerDialog(getActivity(), R.style.MyDialogTheme, date, myCalendar
                         .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                         myCalendar.get(Calendar.DAY_OF_MONTH));
-                    dp.getDatePicker().setMinDate(myCalendar.getTimeInMillis()); //날짜제한
+                dp.getDatePicker().setMinDate(myCalendar.getTimeInMillis()); //날짜제한
                 dp.show();
             }
         });
@@ -224,24 +301,24 @@ public class ScheduleDialogFragment extends DialogFragment implements View.OnCli
                 entityObject.start = departureEditText.getText().toString();
                 entityObject.end = returnEditText.getText().toString();
 
-                if(entityObject.country == null || entityObject.country.length() <= 0){
-                    Toast.makeText(getActivity(),"여행국가를 선택해주세요!",Toast.LENGTH_SHORT).show();
+                if (entityObject.country == null || entityObject.country.length() <= 0) {
+                    Toast.makeText(getActivity(), "여행국가를 선택해주세요!", Toast.LENGTH_SHORT).show();
 
                     return;
-                }else if(entityObject.city == null || entityObject.city.length() <= 0){
-                    Toast.makeText(getActivity(),"여행도시를 선택해주세요!",Toast.LENGTH_SHORT).show();
+                } else if (entityObject.city == null || entityObject.city.length() <= 0) {
+                    Toast.makeText(getActivity(), "여행도시를 선택해주세요!", Toast.LENGTH_SHORT).show();
 
                     return;
-                } else if(entityObject.start == null || entityObject.start.length() <= 0){
+                } else if (entityObject.start == null || entityObject.start.length() <= 0) {
                     Toast.makeText(getActivity(), "출발날짜를 입력해주세요!", Toast.LENGTH_SHORT).show();
 
                     return;
 
-                }else if(entityObject.end == null || entityObject.end.length() <= 0){
-                    Toast.makeText(getActivity(),"돌아오는날짜를 입력해주세요!",Toast.LENGTH_SHORT).show();
+                } else if (entityObject.end == null || entityObject.end.length() <= 0) {
+                    Toast.makeText(getActivity(), "돌아오는날짜를 입력해주세요!", Toast.LENGTH_SHORT).show();
 
                     return;
-                } else{
+                } else {
                     new AsyncScheduleInsert().execute(entityObject);
 
                 }
@@ -321,9 +398,9 @@ public class ScheduleDialogFragment extends DialogFragment implements View.OnCli
 
         @Override
         protected void onPostExecute(String result) {
-          //  progressDialog.dismiss();
+            //  progressDialog.dismiss();
             if (result != null) {
-                if (result!= null) {//insertId가 null이 아닐경우 토스트
+                if (result != null) {//insertId가 null이 아닐경우 토스트
 
                     //등록하기 버튼 눌렀을 때 이미지 토스트
                     Toast toast = new Toast(getActivity());
@@ -336,13 +413,13 @@ public class ScheduleDialogFragment extends DialogFragment implements View.OnCli
 
                     dismiss();
                 } else {
-                   // showDialog(NetworkDefineConstant.BLOOD_INSERT_DIALOG_FAIL, null);
+                    // showDialog(NetworkDefineConstant.BLOOD_INSERT_DIALOG_FAIL, null);
 
                 }
             } else {
                 Bundle bundle = new Bundle();
                 bundle.putString("message", "입력 중 문제 발생[디버깅]!");
-               // showDialog(NetworkDefineConstant.BLOOD_INSERT_DIALOG_FAIL, bundle);
+                // showDialog(NetworkDefineConstant.BLOOD_INSERT_DIALOG_FAIL, bundle);
             }
         }
     }

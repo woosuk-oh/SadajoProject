@@ -124,6 +124,7 @@ public class LikeListRecyclerViewAdapter
             Glide.with(SadajoContext.getContext())
                     .load(listDBs.get(position).img)
                     .into(holder.productImageView);
+
             holder.mView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
