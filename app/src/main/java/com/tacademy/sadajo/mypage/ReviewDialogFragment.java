@@ -3,6 +3,7 @@ package com.tacademy.sadajo.mypage;
 import android.app.DialogFragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -69,8 +71,13 @@ public class ReviewDialogFragment extends DialogFragment implements View.OnClick
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.reviewDialogButton :
-
-                Toast.makeText(getActivity(),"후기가 등록되었습니다!",Toast.LENGTH_SHORT).show();
+                Toast toast = new Toast(getActivity());
+                ImageView img = new ImageView(getActivity());
+                img.setImageResource(R.drawable.my_review_toast);
+                toast.setView(img);
+                toast.setDuration(Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.CENTER, 0, 0);
+                toast.show();
                 dismiss();
                 break;
             case R.id.reviewDialogCancelButton:

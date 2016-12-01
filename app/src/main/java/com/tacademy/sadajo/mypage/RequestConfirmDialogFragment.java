@@ -3,12 +3,14 @@ package com.tacademy.sadajo.mypage;
 import android.app.DialogFragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -74,14 +76,26 @@ public class RequestConfirmDialogFragment extends DialogFragment implements View
 
     @Override
     public void onClick(View view) {
+        Toast toast = new Toast(getActivity());
+        ImageView img = new ImageView(getActivity());
         switch (view.getId()){
             case R.id.requestConfirmButton:
-                Toast.makeText(getActivity(),"요청수락을 완료했습니다",Toast.LENGTH_SHORT).show();
-                requestConfirmButton.setVisibility(View.GONE);
-                requestConfirmCancelButton.setVisibility(View.GONE);
+
+
+                img.setImageResource(R.drawable.my_accept_toast);
+                toast.setView(img);
+                toast.setDuration(Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.CENTER, 0, 0);
+                toast.show();
+
                 dismiss();
                 break;
             case R.id.requestConfirmCancelButton :
+                img.setImageResource(R.drawable.my_reject_toast);
+                toast.setView(img);
+                toast.setDuration(Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.CENTER, 0, 0);
+                toast.show();
                 dismiss();
                 break;
         }

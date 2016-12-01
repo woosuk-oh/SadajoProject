@@ -5,7 +5,7 @@
     android:orientation="vertical"
     android:paddingLeft="24dp"
     android:paddingRight="24dp"
-    android:background="@color/white"
+    android:background="@drawable/chat_pop"
     tools:context="com.tacademy.sadajo.chatting.RequestDialogFragment">
 
 
@@ -48,12 +48,19 @@
         android:scrollbars="vertical"
         android:backgroundTint="@color/sadajoBackground"/>
 
-    
+
+    <LinearLayout
+        android:layout_marginBottom="20dp"
+        android:gravity="bottom"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <ImageButton
         android:id="@+id/requestButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/selector_request_dialog_button"/>
+        android:background="@drawable/selector_request_dialog_button"
+        android:layout_marginRight="12dp"/>
 
 
     <ImageButton
@@ -62,7 +69,6 @@
         android:layout_height="wrap_content"
         android:background="@drawable/selector_request_dialog_cancel_button"/>
 
-
-
+    </LinearLayout>
 
 </LinearLayout>

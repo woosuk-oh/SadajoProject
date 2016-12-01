@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="268dp"
+    android:layout_height="248dp"
     android:orientation="vertical"
-    android:background="@color/white">
+    android:paddingLeft="24dp"
+    android:paddingRight="24dp"
+    android:background="@drawable/my_c_pop">
 
     <TextView
+        android:layout_marginTop="100dp"
         android:id="@+id/requestConfirmCountryNameTextView"
-        android:layout_width="260dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/sadajoBackground"
         android:gravity="center"
@@ -18,7 +21,7 @@
 
     <TextView
         android:id="@+id/requestConfirmProductNameTextView"
-        android:layout_width="260dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/sadajoBackground"
         android:gravity="center"
@@ -29,7 +32,7 @@
 
     <TextView
         android:id="@+id/requestConfirmProductPriceTextView"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/sadajoBackground"
         android:gravity="center"
@@ -52,11 +55,18 @@
         android:textStyle="normal" />
 
 
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_marginBottom="20dp"
+        android:gravity="bottom"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <ImageButton
         android:id="@+id/requestConfirmButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/selector_request_confirm_dialog_button" />
+        android:background="@drawable/selector_request_confirm_dialog_button"
+        android:layout_marginRight="12dp"/>
 
 
     <ImageButton
@@ -64,5 +74,5 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/selector_request_dialog_cancel_button" />
-
+    </LinearLayout>
 </LinearLayout>

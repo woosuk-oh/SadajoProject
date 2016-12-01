@@ -44,7 +44,7 @@ class ChattingAdapter extends ArrayAdapter<ChatMessage> {
 
     public View getView(int position, View convertView, ViewGroup parent) {
         ChatMessage chatMessageObj = getItem(position);
-        View row = convertView;
+        View row= convertView;
         LayoutInflater inflater = (LayoutInflater) this.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         if (chatMessageObj.isMine()) {
             row = inflater.inflate(R.layout.chatting_message_right, parent, false);

@@ -231,7 +231,7 @@ public class RequestDialogFragment extends DialogFragment implements View.OnClic
                     //Todo : 토스트 이미지 받아서 바꿔주기
                     Toast toast = new Toast(getActivity());
                     ImageView img = new ImageView(getActivity());
-                    img.setImageResource(R.drawable.home_toast);
+                    img.setImageResource(R.drawable.chat_request_toast);
                     toast.setView(img);
                     toast.setDuration(Toast.LENGTH_SHORT);
                     toast.setGravity(Gravity.CENTER, 0, 0);
