@@ -28,32 +28,31 @@ public class ChattingDetailActivity extends BaseActivity {
     EditText chattingEditText;
 
     ChattingAdapter chatMessageArrayAdapter;
-    boolean side= false;
+    boolean side = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chatting_detail);
 
-        toolbar =(Toolbar)findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);//title hidden
         setToolbar(true);
 
 
+        chatListView = (ListView) findViewById(listView);
+        chatDetailSendButton = (ImageButton) findViewById(R.id.chatDetailSendButton);
+        chattingEditText = (EditText) findViewById(R.id.chattingEditText);
 
-        chatListView =  (ListView)findViewById(listView);
-        chatDetailSendButton = (ImageButton)findViewById(R.id.chatDetailSendButton);
-        chattingEditText = (EditText)findViewById(R.id.chattingEditText);
-
-        chatMessageArrayAdapter = new ChattingAdapter(ChattingDetailActivity.this,R.layout.chatting_message);
+        chatMessageArrayAdapter = new ChattingAdapter(ChattingDetailActivity.this, R.layout.chatting_message);
         chatListView.setAdapter(chatMessageArrayAdapter);
 
 
         chattingEditText.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View view, int i, KeyEvent keyEvent) {
-                if((keyEvent.getAction() == KeyEvent.ACTION_DOWN) && (i == KeyEvent.KEYCODE_ENTER)) {
+                if ((keyEvent.getAction() == KeyEvent.ACTION_DOWN) && (i == KeyEvent.KEYCODE_ENTER)) {
                     return sendChatMessage();
 
                 }
@@ -68,21 +67,22 @@ public class ChattingDetailActivity extends BaseActivity {
             @Override
             public void onChanged() {
                 super.onChanged();
-                chatListView.setSelection(chatMessageArrayAdapter.getCount()-1);
+                chatListView.setSelection(chatMessageArrayAdapter.getCount() - 1);
             }
         });
 
-        requestButton = (ImageButton)findViewById(R.id.requestButton);//사다조 요청하기 버튼
+        requestButton = (ImageButton) findViewById(R.id.requestButton);//사다조 요청하기 버튼
         requestButton.setOnClickListener(clickListener);
         chatDetailSendButton.setOnClickListener(clickListener);
 
 
-
     }
-     boolean sendChatMessage() {
-         chatMessageArrayAdapter.add(new ChatMessage(side, chattingEditText.getText().toString()));
+
+    boolean sendChatMessage() {
+
+        chatMessageArrayAdapter.add(new ChatMessage(side, chattingEditText.getText().toString()));
         chattingEditText.setText("");
-        side = !side;
+
         return true;
     }
 
@@ -123,6 +123,7 @@ public class ChattingDetailActivity extends BaseActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
     public void setToolbar(boolean b) {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(b); //back icon

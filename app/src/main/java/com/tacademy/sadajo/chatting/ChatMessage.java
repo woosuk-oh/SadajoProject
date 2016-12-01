@@ -6,19 +6,20 @@ package com.tacademy.sadajo.chatting;
 
 public class ChatMessage {
 
-    private String content;
-    private boolean isMine;
+    public boolean left;
+    public String message;
 
-    public ChatMessage( boolean isMine,String content) {
-        this.content = content;
-        this.isMine = isMine;
+    public ChatMessage(boolean left, String message) {
+        super();
+        this.left = left;
+        this.message = message;
     }
 
     public String getContent() {
-        return content;
+        return message;
     }
 
     public boolean isMine() {
-        return isMine;
+        return left;
     }
 }
