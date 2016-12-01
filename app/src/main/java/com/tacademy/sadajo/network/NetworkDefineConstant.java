@@ -13,6 +13,8 @@ public class NetworkDefineConstant {
     public static String SERVER_URL_REQUEST_HOME;
     public static String SERVER_URL_REQUEST_SHOPLIST;
     public static String SERVER_URL_REQUEST_LIKELIST;
+    public static String SERVER_URL_INSERT_SCHEDULE;
+    public static String SERVER_URL_INSERT_REQUEST;
 
     /*public static String SERVER_URL_REQUEST_GENRE_CHART;*/
 
@@ -23,6 +25,11 @@ public class NetworkDefineConstant {
                 HOST_URL + "/shoplist";
         SERVER_URL_REQUEST_LIKELIST =
                 HOST_URL + "/likelist";
+        SERVER_URL_INSERT_SCHEDULE =
+                HOST_URL + "/registerSchedule";
+        SERVER_URL_INSERT_REQUEST =
+                HOST_URL + "/request";
+
 
     }
 }

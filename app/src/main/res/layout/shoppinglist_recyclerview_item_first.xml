@@ -11,7 +11,7 @@
         android:orientation="vertical">
 
         <ImageButton
-            android:id="@+id/newScheduleButton"
+            android:id="@+id/shopListNewScheduleButton"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:src="@drawable/sl_plus_button"

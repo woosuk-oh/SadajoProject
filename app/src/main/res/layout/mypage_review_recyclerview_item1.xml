@@ -15,13 +15,13 @@
         android:orientation="vertical">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/userProfileImageView"
+            android:id="@+id/reviewUserProfileImageView"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:src="@drawable/profile_empty" />
 
         <TextView
-            android:id="@+id/userId"
+            android:id="@+id/reviewUserId"
             android:layout_marginTop="9dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

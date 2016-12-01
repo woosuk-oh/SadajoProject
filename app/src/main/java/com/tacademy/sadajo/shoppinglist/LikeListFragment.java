@@ -29,23 +29,23 @@ import okhttp3.Response;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class LikeListFragment extends Fragment{
+public class LikeListFragment extends Fragment {
     public static int increment;
 
 
-    LikeListRecyclerViewAdapter recyclerViewAdapter;
-    ArrayList<ShopListDB> listDBs = new ArrayList<>();
+    LikeListRecyclerViewAdapter likeRecyclerViewAdapter;
+    RecyclerView likeListRecyclerView;
 
     public LikeListFragment() {
         // Required empty public constructor
     }
 
     public static LikeListFragment newInstance(int initValue) {
-        LikeListFragment shoppingListFragment = new LikeListFragment();
+        LikeListFragment likeListFragment = new LikeListFragment();
         Bundle bundle = new Bundle();
         bundle.putInt("value", initValue);
-        shoppingListFragment.setArguments(bundle);
-        return shoppingListFragment;
+        likeListFragment.setArguments(bundle);
+        return likeListFragment;
     }
 
     @Override
@@ -55,29 +55,34 @@ public class LikeListFragment extends Fragment{
 
         Bundle initBundle = getArguments();
 
-        View view = inflater.inflate(R.layout.shoppinglist_fragment_second, container, false);
+        View view = inflater.inflate(R.layout.shoppinglist_fragment_likelist, container, false);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-        RecyclerView shoppingListRecyclerView = (RecyclerView) view.findViewById(R.id.shoppingListRecyclerView2);
-        shoppingListRecyclerView.setLayoutManager(layoutManager);
+        likeListRecyclerView = (RecyclerView) view.findViewById(R.id.likeListRecyclerView);
+        likeListRecyclerView.setLayoutManager(layoutManager);
 
         CustomRecyclerDecoration decoration = new CustomRecyclerDecoration(30, "bottom"); //아이템간 간격
-        shoppingListRecyclerView.addItemDecoration(decoration);
+        likeListRecyclerView.addItemDecoration(decoration);
 
-        recyclerViewAdapter = new LikeListRecyclerViewAdapter(getContext(),listDBs );
-        shoppingListRecyclerView.setAdapter(recyclerViewAdapter);
+        likeRecyclerViewAdapter = new LikeListRecyclerViewAdapter(getContext());
+        likeListRecyclerView.setAdapter(likeRecyclerViewAdapter);
 
 //        if (recyclerViewAdapter.getItemCount() == 0) {
 //            view = inflater.inflate(R.layout.shoppinglist_noitem_layout, container, false);
 //        }//쇼핑리스트 아이템이 하나도 없을 경우
 
 
-        new AsyncTaskLikeList().execute();
         return view;
 
 
     }
 
 
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        new AsyncTaskLikeList().execute();
+
+    }
 
 
     private class AsyncTaskLikeList extends AsyncTask<Void, Void, ArrayList<ShopListDB>> {
@@ -98,7 +103,7 @@ public class LikeListFragment extends Fragment{
 
 
                 RequestBody postBody = new FormBody.Builder()
-                        .add("user", "2")
+                        .add("user", "1")
                         .build();
 
                 Request request = new Request.Builder()
@@ -129,13 +134,13 @@ public class LikeListFragment extends Fragment{
         }
 
         @Override
-        public void onPostExecute(ArrayList<ShopListDB> shopListDBs) {
-            super.onPostExecute(shopListDBs);
+        public void onPostExecute(ArrayList<ShopListDB> listDBs) {
+            super.onPostExecute(listDBs);
+            Log.e("likelist","post");
 
-            if (shopListDBs != null && shopListDBs.size() > 0) {
-                recyclerViewAdapter.addLikeList(shopListDBs);
-                recyclerViewAdapter.notifyDataSetChanged();
-            }
+            likeRecyclerViewAdapter.addLikeList(listDBs);
+            likeRecyclerViewAdapter.notifyDataSetChanged();
+
         }
     }
 

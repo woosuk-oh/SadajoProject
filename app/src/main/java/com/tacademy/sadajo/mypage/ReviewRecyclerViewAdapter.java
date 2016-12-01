@@ -41,11 +41,11 @@ public class ReviewRecyclerViewAdapter
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            userId = (TextView) view.findViewById(R.id.userId);
+            userId = (TextView) view.findViewById(R.id.reviewUserId);
             reviewTitleTextView = (TextView) view.findViewById(R.id.reviewTitleTextView);
             reviewDateTextView = (TextView) view.findViewById(R.id.reviewDateTextView);
             reviewContentsTextView = (TextView) view.findViewById(R.id.reviewContentsTextView);
-            userProfileImageView = (ImageView) view.findViewById(R.id.userProfileImageView);
+            userProfileImageView = (ImageView) view.findViewById(R.id.reviewUserProfileImageView);
 
         }
     }

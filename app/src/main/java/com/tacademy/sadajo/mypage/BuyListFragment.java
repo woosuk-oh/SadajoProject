@@ -48,7 +48,7 @@ public class BuyListFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.mypage_buylist_fragment, container, false);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
+        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.mypageBuyRecyclerView);
 
         CustomRecyclerDecoration decoration = new CustomRecyclerDecoration(72, "left");
         CustomRecyclerDecoration decoration2 = new CustomRecyclerDecoration(72, "right");

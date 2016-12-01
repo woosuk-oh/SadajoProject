@@ -14,7 +14,7 @@
 
 
     <android.support.design.widget.TabLayout
-        android:id="@+id/shopping_tab"
+        android:id="@+id/shoppingTab"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/frameToolbarHome"
@@ -23,10 +23,10 @@
         android:theme="@style/TabLayout" />
 
     <android.support.v4.view.ViewPager
-        android:id="@+id/shopping_viewpager"
+        android:id="@+id/shoppingViewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/shopping_tab"
+        android:layout_below="@id/shoppingTab"
         android:layout_above="@id/frameBottomBar" />
 
 

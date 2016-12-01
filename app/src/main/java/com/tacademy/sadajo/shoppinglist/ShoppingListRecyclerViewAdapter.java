@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,13 +60,13 @@ public class ShoppingListRecyclerViewAdapter
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            countryNameTextView = (TextView) view.findViewById(R.id.countryNameTextView);
-            cityNameTextView = (TextView) view.findViewById(R.id.cityNameTextView);
-            dateTextView = (TextView) view.findViewById(R.id.dateTextView);
-            shoplistCountTextView = (TextView) view.findViewById(R.id.shoplistCountTextView);
-            productEmptyTextView = (TextView) view.findViewById(R.id.productEmptyTextView);
-            productImageView = (ImageView) view.findViewById(R.id.productImageView);
-            newScheduleButton = (ImageButton) view.findViewById(R.id.newScheduleButton);
+            countryNameTextView = (TextView) view.findViewById(R.id.shopListCountryNameTextView);
+            cityNameTextView = (TextView) view.findViewById(R.id.shopListCityNameTextView);
+            dateTextView = (TextView) view.findViewById(R.id.shopListDateTextView);
+            shoplistCountTextView = (TextView) view.findViewById(R.id.shopListCountTextView);
+            productEmptyTextView = (TextView) view.findViewById(R.id.shopListProductEmptyTextView);
+            productImageView = (ImageView) view.findViewById(R.id.shopListProductImageView);
+            newScheduleButton = (ImageButton) view.findViewById(R.id.shopListNewScheduleButton);
 
         }
 
@@ -82,12 +83,13 @@ public class ShoppingListRecyclerViewAdapter
         switch (viewType) {
             case NO_ITEM_VIEW:
                 layoutRes = R.layout.shoppinglist_noitem_layout;
+                Log.e("shopping","nn");
                 break;
             case HEADER_VIEW:
-                layoutRes = R.layout.shoppinglist_recyclerview_item1_first; //첫번째 item layout
+                layoutRes = R.layout.shoppinglist_recyclerview_item_first; //첫번째 item layout
                 break;
             case CONTENT_VIEW:
-                layoutRes = R.layout.shoppinglist_recyclerview_item1; //나머지 item lyaout
+                layoutRes = R.layout.shoppinglist_recyclerview_item; //나머지 item lyaout
                 break;
         }
 
@@ -98,7 +100,9 @@ public class ShoppingListRecyclerViewAdapter
 
     @Override
     public int getItemViewType(int position) {
-        if (getItemCount() == 0) {
+        if (getItemCount() == 1) {
+            Log.e("shop","NoItem");
+
             return NO_ITEM_VIEW;
         } else if (position == 0) {
 
@@ -120,27 +124,26 @@ public class ShoppingListRecyclerViewAdapter
 
         //첫번째 아이템이 아닌 경우
         if (viewType == CONTENT_VIEW) {
-
-            String countryKor = shopListDB.get(position).countryNameKor;
-            holder.countryNameTextView.setText( shopListDB.get(position).countryNameEng);
-            holder.cityNameTextView.setText(countryKor + ", " + shopListDB.get(position).cityName);
-            holder.dateTextView.setText(shopListDB.get(position).startDate + "~" + shopListDB.get(position).endDate);
+            String countryKor = shopListDB.get(position-1).countryNameKor;
+            holder.countryNameTextView.setText( shopListDB.get(position-1).countryNameEng);
+            holder.cityNameTextView.setText(countryKor + ", " + shopListDB.get(position-1).cityName);
+            holder.dateTextView.setText(shopListDB.get(position-1).startDate + "~" + shopListDB.get(position-1).endDate);
             //           holder.productImageView.setImageResource(R.drawable.product_sample);
             // holder.shoplistCountTextView.setText("99+");
 
 
-            if (shopListDB.get(position).goodsCount == 0) { //goods count가 0일 때 widget Visibility설정
+            if (shopListDB.get(position-1).goodsCount == 0) { //goods count가 0일 때 widget Visibility설정
                 holder.shoplistCountTextView.setVisibility(View.GONE);
                 holder.productEmptyTextView.setVisibility(View.VISIBLE);
             } else {
-                holder.shoplistCountTextView.setText(String.valueOf(shopListDB.get(position).goodsCount));
+                holder.shoplistCountTextView.setText(String.valueOf(shopListDB.get(position-1).goodsCount));
 
 
             }
 
 
             Glide.with(SadajoContext.getContext())//productImage
-                    .load(shopListDB.get(position).img)
+                    .load(shopListDB.get(position-1).img)
                     .into(holder.productImageView);
 
 
@@ -149,12 +152,14 @@ public class ShoppingListRecyclerViewAdapter
                 @Override
                 public void onClick(View v) {
 
-                    Intent intent = new Intent(mContext,LikeListDetailActivity.class);
-                    intent.putExtra("listCode",shopListDB.get(position).listCode); //listCode넘겨줌
+                    Intent intent = new Intent(mContext,LikeListDetailActivity.class); //LikeList의 Detail 액티비티로 이동
+                    intent.putExtra("listCode",shopListDB.get(position-1).listCode); //listCode넘겨줌
+                    intent.putExtra("countryName",shopListDB.get(position-1).countryNameKor.toString()); //국가명 넘겨줌
+                    Log.e("shopListCode",shopListDB.get(position-1).listCode.toString());
                     mContext.startActivity(intent);
                 }
             });
-        } else {
+        } else if(viewType ==HEADER_VIEW){
             holder.newScheduleButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -175,6 +180,6 @@ public class ShoppingListRecyclerViewAdapter
 
     @Override
     public int getItemCount() {
-        return shopListDB.size();
+        return shopListDB.size()+1;
     }
 }

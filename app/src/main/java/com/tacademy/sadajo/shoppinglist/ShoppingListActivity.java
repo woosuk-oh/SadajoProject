@@ -43,11 +43,11 @@ public class ShoppingListActivity extends BaseActivity {
 
 
 
-        ViewPager viewPager = (ViewPager) findViewById(R.id.shopping_viewpager);
+        ViewPager viewPager = (ViewPager) findViewById(R.id.shoppingViewpager);
         if (viewPager != null) {
             setupShoppingListViewPager(viewPager);
         }
-        tabLayout = (TabLayout) findViewById(R.id.shopping_tab);
+        tabLayout = (TabLayout) findViewById(R.id.shoppingTab);
         tabLayout.setupWithViewPager(viewPager);
 
 

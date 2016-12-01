@@ -1,10 +1,12 @@
 package com.tacademy.sadajo.shoppinglist;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.TextView;
 
 import com.tacademy.sadajo.BaseActivity;
 import com.tacademy.sadajo.CustomRecyclerDecoration;
@@ -13,8 +15,9 @@ import com.tacademy.sadajo.mypage.ItemReviewRecyclerViewAdapter;
 
 public class LikeListDetailActivity extends BaseActivity {
 
-
+    TextView toolbarTitle;
     ItemReviewRecyclerViewAdapter itemReviewRecyclerViewAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,9 +25,14 @@ public class LikeListDetailActivity extends BaseActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        //toolbar.setBackgroundResource(R.drawable.tool_02_shoppinglist); //toolbar image
         getSupportActionBar().setDisplayShowTitleEnabled(false);//title hidden
         getSupportActionBar().setDisplayHomeAsUpEnabled(true); //back icon
+
+        //타이틀 세팅
+        Intent intent= getIntent();
+        String countryName = intent.getExtras().getString("countryName");
+        toolbarTitle = (TextView)findViewById(R.id.customToolbarTitle);
+        toolbarTitle.setText(countryName+" 찜 리스트");
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override

@@ -38,11 +38,11 @@ public class MypageBuyActivity extends BaseActivity {
         });
 
 
-        ViewPager viewPager = (ViewPager) findViewById(R.id.mypage_viewpager);
+        ViewPager viewPager = (ViewPager) findViewById(R.id.mypageDealViewpager);
         if (viewPager != null) {
             setupBuySellViewPager(viewPager);
         }
-        tabLayout = (TabLayout) findViewById(R.id.mypage_tab);
+        tabLayout = (TabLayout) findViewById(R.id.mypageDealTab);
         tabLayout.setupWithViewPager(viewPager);
         setTabImage();
 

@@ -3,6 +3,7 @@ package com.tacademy.sadajo.home;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,7 +46,7 @@ public class HomeUserRecyclerViewAdapter
             mView = view;
 
             homeUserIdTextView = (TextView) view.findViewById(R.id.homeUserIdTextView);
-            userProfileImageView = (ImageView) view.findViewById(R.id.userProfileImageView);
+            userProfileImageView = (ImageView) view.findViewById(R.id.homeUserProfileImageView);
 
 
         }
@@ -77,7 +78,9 @@ public class HomeUserRecyclerViewAdapter
             public void onClick(View v) {
 
 
-                Intent intent = new Intent(context, MyPageOtherActivity.class);
+                Intent intent = new Intent(context, MyPageOtherActivity.class);//해당 유저의 마이페이지로 이동
+                intent.putExtra("userCode",shoppingListDatas.get(position).getUserId()); //userID넘겨줌
+                Log.e("usrID",shoppingListDatas.get(position).getUserId().toString());
                 context.startActivity(intent);
 
             }

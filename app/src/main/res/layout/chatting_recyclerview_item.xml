@@ -10,7 +10,7 @@
     android:background="@color/white">
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/userProfileImageView"
+        android:id="@+id/chattingProfileImageView"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:src="@drawable/profile_empty"
@@ -27,7 +27,7 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/chattingTitleTextView"
+                android:id="@+id/chattingNameTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="아르팅팅"

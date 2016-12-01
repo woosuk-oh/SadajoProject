@@ -52,7 +52,7 @@
                     android:text="itemName"
                     android:textColor="#232323"
                     android:textSize="17sp"
-                    android:textStyle="normal"/>
+                    android:textStyle="bold"/>
 
             </LinearLayout>
 

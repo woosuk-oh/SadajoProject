@@ -1,15 +1,74 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_width="268dp"
+    android:layout_height="248dp"
     android:orientation="vertical"
-    android:background="@drawable/msg_pop"
+    android:paddingLeft="24dp"
+    android:paddingRight="24dp"
+    android:background="@drawable/chat_pop"
     tools:context="com.tacademy.sadajo.chatting.RequestDialogFragment">
 
 
+    <Spinner
+        android:id="@+id/requestCountrySpinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"></Spinner>
+    <EditText
+        android:id="@+id/requestProductNameEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="13sp"
+        android:textStyle="normal"
+        android:gravity="center"
+        android:hint="빅토리아시크릿"
+        android:textColorHint="@color/whiteGrayFont"
+        android:backgroundTint="@color/sadajoBackground"/>
+    <EditText
+        android:id="@+id/requestProductPriceEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="13sp"
+        android:textStyle="normal"
+        android:gravity="center"
+        android:hint="100,000"
+        android:textColorHint="@color/whiteGrayFont"
+
+        android:backgroundTint="@color/sadajoBackground"/>
+    <EditText
+        android:id="@+id/requestProductOptEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="13sp"
+        android:textStyle="normal"
+        android:hint="추가요청사항"
+        android:gravity="center"
+        android:textColorHint="@color/whiteGrayFont"
+
+        android:maxLines="8"
+        android:scrollbars="vertical"
+        android:backgroundTint="@color/sadajoBackground"/>
 
 
+    <LinearLayout
+        android:layout_marginBottom="20dp"
+        android:gravity="bottom"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <ImageButton
+        android:id="@+id/requestButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/selector_request_dialog_button"
+        android:layout_marginRight="12dp"/>
 
 
+    <ImageButton
+        android:id="@+id/requestCancelButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/selector_request_dialog_cancel_button"/>
+
+    </LinearLayout>
 
 </LinearLayout>

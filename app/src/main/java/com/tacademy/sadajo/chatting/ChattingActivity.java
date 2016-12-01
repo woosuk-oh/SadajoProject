@@ -44,7 +44,7 @@ public class ChattingActivity extends BaseActivity {
 
 
         CustomRecyclerDecoration decoration = new CustomRecyclerDecoration(30, "bottom");
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.cattingRecyclerView);
         LinearLayoutManager layoutManager = new LinearLayoutManager(ChattingActivity.this, LinearLayoutManager.VERTICAL, false);
 
         recyclerView.setLayoutManager(layoutManager);

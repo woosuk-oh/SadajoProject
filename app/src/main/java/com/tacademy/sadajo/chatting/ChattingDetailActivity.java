@@ -1,11 +1,12 @@
 package com.tacademy.sadajo.chatting;
 
+import android.database.DataSetObserver;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -13,54 +14,76 @@ import android.widget.ListView;
 import com.tacademy.sadajo.BaseActivity;
 import com.tacademy.sadajo.R;
 
-import java.util.ArrayList;
-import java.util.List;
+import static com.tacademy.sadajo.R.id.listView;
 
 public class ChattingDetailActivity extends BaseActivity {
 
     Toolbar toolbar;
 
-    ListView listView;
+    ListView chatListView;
 
     ImageButton requestButton;
-    ImageButton sendButton;
+    ImageButton chatDetailSendButton;
 
     EditText chattingEditText;
 
-    private List<ChatMessage> chatMessages;
-    ArrayAdapter<ChatMessage> chatMessageArrayAdapter;
-
+    ChattingAdapter chatMessageArrayAdapter;
+    boolean side = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chatting_detail);
 
-        toolbar =(Toolbar)findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);//title hidden
         setToolbar(true);
 
-        chatMessages = new ArrayList<>();
+
+        chatListView = (ListView) findViewById(listView);
+        chatDetailSendButton = (ImageButton) findViewById(R.id.chatDetailSendButton);
+        chattingEditText = (EditText) findViewById(R.id.chattingEditText);
+
+        chatMessageArrayAdapter = new ChattingAdapter(ChattingDetailActivity.this, R.layout.chatting_message);
+        chatListView.setAdapter(chatMessageArrayAdapter);
 
 
-        listView =  (ListView)findViewById(R.id.listView);
-        sendButton = (ImageButton)findViewById(R.id.sendButton);
-        chattingEditText = (EditText)findViewById(R.id.chattingEditText);
+        chattingEditText.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int i, KeyEvent keyEvent) {
+                if ((keyEvent.getAction() == KeyEvent.ACTION_DOWN) && (i == KeyEvent.KEYCODE_ENTER)) {
+                    return sendChatMessage();
 
-       // chatMessageArrayAdapter = new ChattingAdapter(ChattingDetailActivity.this,R.layout.chatting_message,chatMessages);
- //       listView.setAdapter(chatMessageArrayAdapter);
-//        chatMessageArrayAdapter.registerDataSetObserver(new DataSetObserver() {
-//            @Override
-//            public void onChanged() {
-//                super.onChanged();
-//                listView.setSelection(chatMessageArrayAdapter.getCount()-1);
-//            }
-//        });
-        listView.setTranscriptMode(ListView.TRANSCRIPT_MODE_ALWAYS_SCROLL);
+                }
+                return false;
+            }
+        });
 
-        requestButton = (ImageButton)findViewById(R.id.requestButton);//사다조 요청하기 버튼
+        chatListView.setTranscriptMode(ListView.TRANSCRIPT_MODE_ALWAYS_SCROLL);
+        chatListView.setAdapter(chatMessageArrayAdapter);
+
+        chatMessageArrayAdapter.registerDataSetObserver(new DataSetObserver() {
+            @Override
+            public void onChanged() {
+                super.onChanged();
+                chatListView.setSelection(chatMessageArrayAdapter.getCount() - 1);
+            }
+        });
+
+        requestButton = (ImageButton) findViewById(R.id.requestButton);//사다조 요청하기 버튼
         requestButton.setOnClickListener(clickListener);
+        chatDetailSendButton.setOnClickListener(clickListener);
+
+
+    }
+
+    boolean sendChatMessage() {
+
+        chatMessageArrayAdapter.add(new ChatMessage(side, chattingEditText.getText().toString()));
+        chattingEditText.setText("");
+
+        return true;
     }
 
     View.OnClickListener clickListener = new View.OnClickListener() {
@@ -70,6 +93,11 @@ public class ChattingDetailActivity extends BaseActivity {
                 case R.id.requestButton:
                     RequestDialogFragment dialog = new RequestDialogFragment();
                     dialog.show(getFragmentManager(), "requestDialog");
+                    break;
+                case R.id.chatDetailSendButton:
+                    sendChatMessage();
+                    break;
+
             }
         }
     };
@@ -95,6 +123,7 @@ public class ChattingDetailActivity extends BaseActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
     public void setToolbar(boolean b) {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(b); //back icon
