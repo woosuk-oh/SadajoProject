@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "1026436180624",
+    "firebase_url": "https://sadajoproject.firebaseio.com",
+    "project_id": "sadajoproject",
+    "storage_bucket": "sadajoproject.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1026436180624:android:517969fa310a0089",
+        "android_client_info": {
+          "package_name": "com.tacademy.sadajo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1026436180624-gbje7u70vvvic3gbmlp6303e334rqgv2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tacademy.sadajo",
+            "certificate_hash": "84E352C7A25551D3AB2DEE23D941723A03AA70D7"
+          }
+        },
+        {
+          "client_id": "1026436180624-eupimb92gnuv8k6q9g7kn9keo5qj1nkc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA4KHfaaOGAOqSgXT45j8CrVgp9TEciNU4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1026436180624-eupimb92gnuv8k6q9g7kn9keo5qj1nkc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

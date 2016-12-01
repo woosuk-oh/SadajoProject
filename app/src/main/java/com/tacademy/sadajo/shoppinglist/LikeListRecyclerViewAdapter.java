@@ -67,7 +67,7 @@ public class LikeListRecyclerViewAdapter
         int layoutRes = 0;
 
         switch (viewType) {
-            case NO_ITEM_VIEW:
+            case NO_ITEM_VIEW: //리스트가 빈 경우
                 layoutRes = R.layout.shoppinglist_noitem_layout;
                 Log.e("like","NoItem");
                 break;

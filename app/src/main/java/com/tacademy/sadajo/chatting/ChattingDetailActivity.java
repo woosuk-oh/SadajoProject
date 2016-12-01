@@ -20,7 +20,7 @@ public class ChattingDetailActivity extends BaseActivity {
 
     Toolbar toolbar;
 
-    ListView chatlistView;
+    ListView chatListView;
 
     ImageButton requestButton;
     ImageButton chatDetailSendButton;
@@ -42,12 +42,12 @@ public class ChattingDetailActivity extends BaseActivity {
 
 
 
-        chatlistView =  (ListView)findViewById(listView);
+        chatListView =  (ListView)findViewById(listView);
         chatDetailSendButton = (ImageButton)findViewById(R.id.chatDetailSendButton);
         chattingEditText = (EditText)findViewById(R.id.chattingEditText);
 
         chatMessageArrayAdapter = new ChattingAdapter(ChattingDetailActivity.this,R.layout.chatting_message);
-        chatlistView.setAdapter(chatMessageArrayAdapter);
+        chatListView.setAdapter(chatMessageArrayAdapter);
 
 
         chattingEditText.setOnKeyListener(new View.OnKeyListener() {
@@ -61,14 +61,14 @@ public class ChattingDetailActivity extends BaseActivity {
             }
         });
 
-        chatlistView.setTranscriptMode(ListView.TRANSCRIPT_MODE_ALWAYS_SCROLL);
-        chatlistView.setAdapter(chatMessageArrayAdapter);
+        chatListView.setTranscriptMode(ListView.TRANSCRIPT_MODE_ALWAYS_SCROLL);
+        chatListView.setAdapter(chatMessageArrayAdapter);
 
         chatMessageArrayAdapter.registerDataSetObserver(new DataSetObserver() {
             @Override
             public void onChanged() {
                 super.onChanged();
-                chatlistView.setSelection(chatMessageArrayAdapter.getCount()-1);
+                chatListView.setSelection(chatMessageArrayAdapter.getCount()-1);
             }
         });
 
