@@ -5,6 +5,8 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -28,6 +30,10 @@ import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
+
 import static com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
 
 
@@ -37,6 +43,7 @@ import static com.google.android.gms.common.api.GoogleApiClient.ConnectionCallba
 
 외국사이트 fusedLoaction 관련(중요,쉬움): http://www.androidwarriors.com/2015/10/fused-location-provider-in-android.html
 마시멜로우 대응 오버레이 관련: http://thdev.tech/androiddev/2016/05/08/Android-Overlay-Permission.html
+gps만 켜져있는경우, GeoCoder: http://stackoverflow.com/questions/21022297/fused-location-provider-doesnt-seem-to-use-gps-receiver
 
 ** 이슈 대응 **
 1. 마시멜로우 위치 셀프 퍼미션 대응
@@ -63,10 +70,12 @@ public class MainActivity extends AppCompatActivity implements ConnectionCallbac
     private GoogleApiClient mGoogleApiClient;
     private LocationRequest mLocationRequest;
 
-    TextView txtOutputLat, txtOutputLon;
+    TextView txtOutputLat, txtOutputLon, myCountryName;
     Location mLastLocation;
-    String lat, lon;
+    String lat, lon, mycountry, mycity;
+
     private final int MY_PERMISSIONS_REQUEST_READ_CONTACTS = 100;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +85,7 @@ public class MainActivity extends AppCompatActivity implements ConnectionCallbac
 
         txtOutputLat = (TextView) findViewById(R.id.textView);
         txtOutputLon = (TextView) findViewById(R.id.textView2);
+        myCountryName = (TextView) findViewById(R.id.textView3);
 
         ConnectivityManager cm = (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
@@ -117,7 +127,7 @@ public class MainActivity extends AppCompatActivity implements ConnectionCallbac
                 Log.d("onResume", "onResume에서 위치 ON을 파악함.");
 
 
-                if(mGoogleApiClient == null) {
+                if (mGoogleApiClient == null) {
                     Log.d("onResume", "onResume에서 mGoogleApiClient가 Null임을 확인하여 GoogleApiClient 빌드함..");
 
 
@@ -133,8 +143,7 @@ public class MainActivity extends AppCompatActivity implements ConnectionCallbac
                     public void run() {
                         checkPermission(); // 순서4. 권한 확인 및 저장해둔 위경도 데이터 받기. 1.5초후 실행.
                     }
-                },1500);
-
+                }, 1500);
 
 
             } else {
@@ -282,6 +291,7 @@ public class MainActivity extends AppCompatActivity implements ConnectionCallbac
         txtOutputLat.setText(lat);
         txtOutputLon.setText(lon);
 
+
         Log.d("받은 위도", "" + lat);
         Log.d("받은 경도", "" + lon);
     }
@@ -295,10 +305,10 @@ public class MainActivity extends AppCompatActivity implements ConnectionCallbac
         if (isLocationEnabled(this)) {
             Log.d("위치 켜져있음:", "");
             mLocationRequest = LocationRequest.create();
-            mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY); //GPS, WIFI로 위치 받음.
+            mLocationRequest.setPriority(LocationRequest.PRIORITY_LOW_POWER); //GPS, WIFI로 위치 받음.
 
 
-           // mLocationRequest.setInterval(5000); 위치정보 업데이트 '주기'
+            // mLocationRequest.setInterval(5000); 위치정보 업데이트 '주기'
 
         } else {
             Toast.makeText(this, "설정에서 위치를 켜주세요.", Toast.LENGTH_SHORT).show();
@@ -354,28 +364,150 @@ public class MainActivity extends AppCompatActivity implements ConnectionCallbac
             Log.d("getLocationData", "getLocationData에서 마지막 위치 받아옴 (mLastLocation).");
 
 
-
-
             if (mLastLocation != null) {
 
                 Log.d("getLocationData", "getLocationData에서 마지막 위치 (mLastLocation) 정상적으로 받아와서 lat, lon에 저장함..");
                 lat = String.valueOf(mLastLocation.getLatitude());
                 lon = String.valueOf(mLastLocation.getLongitude());
-                Log.d("getLocationData", "getLocationData에서 받아온 위치 데이터 정확도:"+mLastLocation.getAccuracy());
+                Log.d("getLocationData", "getLocationData에서 받아온 위치 데이터 정확도:" + mLastLocation.getAccuracy());
 
-                updateUI();
-            }else{
+
+
+             /* 위치 주소 Address를 통해 반환 받아옴 */
+                Geocoder geoCoder_local = new Geocoder(this, Locale.getDefault());
+                Geocoder geoCoder_kr = new Geocoder(this, Locale.KOREAN);
+                Geocoder geoCoder_en = new Geocoder(this, Locale.ENGLISH);
+
+
+                try {
+
+                    List<Address> addresses_local // 현재 위치에 맞게 자동으로 언어 로케일 맞춰줌.
+                            = geoCoder_local.getFromLocation(mLastLocation.getLatitude(),
+                            mLastLocation.getLongitude(), 10);
+
+                    List<Address> addresses_local_kr // 한글. 안되면 위에서 Locale.KOREA로 수정해보기.
+                            = geoCoder_kr.getFromLocation(mLastLocation.getLatitude(),
+                            mLastLocation.getLongitude(), 10);
+
+                    List<Address> addresses_local_en // 영문으로 반환 받음.
+                            = geoCoder_en.getFromLocation(mLastLocation.getLatitude(),
+                            mLastLocation.getLongitude(), 10);
+
+                    mycountry = addresses_local_en.get(0).getCountryName();
+                    mycity = addresses_local_en.get(0).getAdminArea();
+
+
+                    Log.d("현재 국가명", "" + mycountry);
+                    Log.d("현재 도시명", "" + mycity);
+
+                   // 대문자로 변환
+                    // myCountryName.setText(mycountry.toUpperCase());
+
+                    if (mycountry.equals("South Korea")) {
+                        myCountryName.setText("KOREA");
+                    }else{
+                        myCountryName.setText(mycountry);
+                    }
+
+
+
+                    Log.d("반환 받은 위치값", "반환 받은 위치값:" + addresses_local_en.get(0));
+                    updateUI();
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                Log.d("getLocationData", "getLocationData에서 마지막 위치 정상적으로 받아오지 못함 혹은 mLastLocation에 꺼내오질 못함.. 위치가 GPS만 되어있는 경우 예외처리.");
+
+                // 받아온 값이 없어서 디폴트로 KOREA 넣어줌.
+                myCountryName.setText("KOREA");
+
+              /*
                 Log.d("getLocationData", "getLocationData에서 마지막 위치 정상적으로 받아오지 못함 혹은 mLastLocation에 꺼내오질 못함.. 때문에 다시한번 요청하고 저장.");
+
+               //mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
                 LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
                 mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
                         mGoogleApiClient);
 
                 lat = String.valueOf(mLastLocation.getLatitude());
-                lon = String.valueOf(mLastLocation.getLongitude());
+                lon = String.valueOf(mLastLocation.getLongitude());*/
 
-                updateUI();
+
             }
+
 
         }
     }
+
+
+/*
+    private class ExtractLocationTask extends AsyncTask<Location, Void, Boolean> {
+        Context mContext;
+        Geocoder geoCoder_local = new Geocoder(mContext, Locale.getDefault());
+        Geocoder geoCoder_en = new Geocoder(mContext, Locale.ENGLISH);
+        List<Address> addresses_local;
+        List<Address> addresses_en;
+
+        public ExtractLocationTask(Context context) {
+            super();
+            mContext = context;
+        }
+
+        @Override
+        protected Boolean doInBackground(Location... params) {
+            Log.d(getClass().getSimpleName(), "ExtractLocationTask.onPreExecute()");
+
+            boolean found = false;
+            try {
+
+
+
+                addresses_local = geoCoder_local.getFromLocation(params[0].getLatitude(),
+                        params[0].getLongitude(), 10);
+
+                addresses_en = geoCoder_en.getFromLocation(params[0].getLatitude(),
+                        params[0].getLongitude(), 10);
+
+
+                if (addresses_local != null && addresses_local.size() > 0) {
+
+                    // do what you want with location info here
+
+                    // based on mLocationRequest.setNumUpdates(1), no need to call
+                    // removeLocationUpdates()
+
+                    MainApp.locEnabled = true;
+
+                    mUpdatesRequested = false;
+                    MainApp.prefs.edit()
+                            .putBoolean(MainApp.KEY_LOCATION_UPDATES_REQUESTED, mUpdatesRequested).commit();
+
+                    found = true;
+                }
+            } catch (IOException e) {
+                Log.e(this.getClass().getSimpleName(), "Exception: ", e);
+            }
+
+            return found;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean found) {
+            Log.d(getClass().getSimpleName(), "ExtractLocationTask.onPostExecute()");
+
+            if (found) {
+                // update UI etc.
+                updateUI();
+                myCountryName.setText(String.valueOf(addresses_en.get(0))); // TODO 이부분은 일단 그냥 내가 넣엇음. 수정필요.
+
+
+            } *//*else if (!mUpdatesReRequested) {
+                mLocationClient.requestLocationUpdates(mLocationRequest, (LocationListener) mContext);
+                mUpdatesRequested = true;
+                mUpdatesReRequested = true;
+            }*//*
+        }
+    }*/
 }
