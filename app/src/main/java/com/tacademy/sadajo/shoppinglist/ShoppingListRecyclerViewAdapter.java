@@ -131,20 +131,24 @@ public class ShoppingListRecyclerViewAdapter
             //           holder.productImageView.setImageResource(R.drawable.product_sample);
             // holder.shoplistCountTextView.setText("99+");
 
-
+            Log.e("goodsNum",String.valueOf(shopListDB.get(position-1).goodsCount));
             if (shopListDB.get(position-1).goodsCount == 0) { //goods count가 0일 때 widget Visibility설정
                 holder.shoplistCountTextView.setVisibility(View.GONE);
                 holder.productEmptyTextView.setVisibility(View.VISIBLE);
             } else {
+                holder.shoplistCountTextView.setVisibility(View.VISIBLE);
                 holder.shoplistCountTextView.setText(String.valueOf(shopListDB.get(position-1).goodsCount));
+                holder.productEmptyTextView.setVisibility(View.GONE);
+
 
 
             }
 
-
             Glide.with(SadajoContext.getContext())//productImage
                     .load(shopListDB.get(position-1).img)
                     .into(holder.productImageView);
+
+
 
 
 

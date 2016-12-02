@@ -110,11 +110,12 @@ public class LikeListRecyclerViewAdapter
             if (listDBs.get(position).goodsCount == 0) {
                 holder.productCountTextView.setVisibility(View.GONE);
                 holder.listEmptyTextView.setVisibility(View.VISIBLE);
-                //  holder.productImageView.setVisibility(View.GONE);
+                  holder.productImageView.setVisibility(View.GONE);
 
             } else {
                 holder.productCountTextView.setText(String.valueOf(listDBs.get(position).goodsCount));
-
+                holder.productCountTextView.setVisibility(View.VISIBLE);
+                holder.listEmptyTextView.setVisibility(View.GONE);
 //            Glide.with(SadajoContext.getContext())
 //                    .load(listDBs.get(position).img)
 //                    .into(holder.productImageView);

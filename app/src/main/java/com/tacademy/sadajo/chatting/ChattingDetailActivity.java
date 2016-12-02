@@ -14,8 +14,6 @@ import android.widget.ListView;
 import com.tacademy.sadajo.BaseActivity;
 import com.tacademy.sadajo.R;
 
-import static com.tacademy.sadajo.R.id.listView;
-
 public class ChattingDetailActivity extends BaseActivity {
 
     Toolbar toolbar;
@@ -28,8 +26,8 @@ public class ChattingDetailActivity extends BaseActivity {
     EditText chattingEditText;
 
     ChattingAdapter chatMessageArrayAdapter;
-    boolean side = true;
 
+    boolean type =true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,7 +39,7 @@ public class ChattingDetailActivity extends BaseActivity {
         setToolbar(true);
 
 
-        chatListView = (ListView) findViewById(listView);
+        chatListView = (ListView) findViewById(R.id.listView);
         chatDetailSendButton = (ImageButton) findViewById(R.id.chatDetailSendButton);
         chattingEditText = (EditText) findViewById(R.id.chattingEditText);
 
@@ -80,9 +78,8 @@ public class ChattingDetailActivity extends BaseActivity {
 
     boolean sendChatMessage() {
 
-        chatMessageArrayAdapter.add(new ChatMessage(side, chattingEditText.getText().toString()));
+        chatMessageArrayAdapter.add(new ChatMessage(type, chattingEditText.getText().toString()));
         chattingEditText.setText("");
-
         return true;
     }
 

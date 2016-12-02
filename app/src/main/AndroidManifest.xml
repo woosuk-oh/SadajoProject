@@ -38,7 +38,6 @@
         <activity android:name=".search.searchdetail.SearchDetail"
             android:screenOrientation="portrait"/>
         <activity android:name=".chatting.ChattingDetailActivity"
-            android:windowSoftInputMode="adjustNothing"
             android:screenOrientation="portrait"/>
         <activity android:name=".mypage.MypageBuyActivity"
             android:windowSoftInputMode="adjustNothing"
