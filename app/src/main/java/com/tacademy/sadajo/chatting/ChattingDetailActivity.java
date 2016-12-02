@@ -27,7 +27,8 @@ public class ChattingDetailActivity extends BaseActivity {
 
     ChattingAdapter chatMessageArrayAdapter;
 
-    boolean type =true;
+    boolean type = true;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

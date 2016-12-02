@@ -181,7 +181,7 @@
                 android:background="@color/white">
 
                 <ImageButton
-                    android:id="@+id/homeBtn"
+                    android:id="@+id/otehrShopListButton"
                     android:layout_width="0dp"
                     android:layout_height="45dp"
                     android:background="@drawable/selector_mypage_userprofile_sl"
@@ -189,7 +189,7 @@
                     android:layout_weight="1" />
 
                 <ImageButton
-                    android:id="@+id/searchBtn"
+                    android:id="@+id/otherChattingButton"
                     android:layout_width="0dp"
                     android:layout_height="45dp"
                     android:background="@drawable/selector_mypage_userprofile_chatting"
