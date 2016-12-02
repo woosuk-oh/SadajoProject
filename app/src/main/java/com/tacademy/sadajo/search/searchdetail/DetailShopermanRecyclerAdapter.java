@@ -10,7 +10,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.tacademy.sadajo.R;
+import com.tacademy.sadajo.SadajoContext;
+import com.tacademy.sadajo.network.Search.SeachDetail.SearchDetailDB;
 
 import java.util.ArrayList;
 
@@ -20,17 +23,17 @@ import java.util.ArrayList;
 
 
 
-// Search List Activity 에 들어갈 리싸이클러뷰. 어댑터+홀더
+// 쇼퍼맨에게 부탁해볼까요? 부분임.
 
-public class SearchDetailRecyclerAdapter extends RecyclerView.Adapter<SearchDetailRecyclerAdapter.ViewHolder>{
+public class DetailShopermanRecyclerAdapter extends RecyclerView.Adapter<DetailShopermanRecyclerAdapter.ViewHolder>{
     private Context context;
-    private ArrayList<ItemArrayList> mItems;
+    private ArrayList<SearchDetailDB???> mItems;
 
 
 
 
 
-    public SearchDetailRecyclerAdapter(ArrayList<ItemArrayList> items, Context mCotext) {
+    public DetailShopermanRecyclerAdapter(ArrayList<SearchDetailDB????> items, Context mCotext) {
 
         mItems = items;
         context = mCotext;
@@ -57,9 +60,14 @@ public class SearchDetailRecyclerAdapter extends RecyclerView.Adapter<SearchDeta
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
 
-        holder.itemImage.setImageResource(mItems.get(position).image);
+
+
         holder.itemName.setText(mItems.get(position).itemname);
 
+
+        Glide.with(SadajoContext.getContext())
+                .load(mItems.get(position).get())
+                .into(holder.itemImage);
 
 
         /*holder.itemContainer.setOnClickListener(new View.OnClickListener() {

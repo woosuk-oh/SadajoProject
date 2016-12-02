@@ -82,11 +82,13 @@ public class SearchListRecyclerAdapter extends RecyclerView.Adapter<SearchListRe
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
 
 
         //TODO 서치리스트 리싸이클러 어댑터 홀더부분 수정,
      //    holder.itemImage.setImageResource(mItems.get(position).image);
+
+
         holder.itemName.setText(searchgoodsDBs.get(position).getGoods_name());
         holder.countryName.setText(searchgoodsDBs.get(position).getCountry());
 
@@ -114,8 +116,12 @@ public class SearchListRecyclerAdapter extends RecyclerView.Adapter<SearchListRe
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, SearchDetail.class);
-                intent.putExtra("key", holder.itemName.getText());
+                intent.putExtra("key", searchgoodsDBs.get(position).getItem_id());
+                intent.putExtra("key2", searchgoodsDBs.get(position).getGoods_name());
+                intent.putExtra("key3", searchgoodsDBs.get(position).getCountry());
                 context.startActivity(intent);
+
+
             }
         });
 

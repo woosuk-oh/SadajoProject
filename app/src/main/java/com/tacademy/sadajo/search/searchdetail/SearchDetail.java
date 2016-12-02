@@ -1,6 +1,7 @@
 package com.tacademy.sadajo.search.searchdetail;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -10,6 +11,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,22 +21,35 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.tacademy.sadajo.BaseActivity;
 import com.tacademy.sadajo.R;
+import com.tacademy.sadajo.SadajoContext;
+import com.tacademy.sadajo.network.OkHttpInitManager;
+import com.tacademy.sadajo.network.Search.SeachDetail.SearchDetailDB;
+import com.tacademy.sadajo.network.Search.SeachDetail.SearchDetailJSONParser;
 
+import java.io.IOException;
 import java.util.ArrayList;
+
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+
+import static com.tacademy.sadajo.network.NetworkDefineConstant.SEARCH_LIST_DETAIL;
 
 /**
  * Created by woosuk on 2016-11-14.
  */
 
-public class SearchDetail extends BaseActivity implements ViewPager.OnPageChangeListener{
+public class SearchDetail extends BaseActivity implements ViewPager.OnPageChangeListener {
     ViewPager searchDetailViewPager;
     TextView itemcount;
+    TextView country;
     //푸쉬 테스트
 
     RecyclerView.LayoutManager layoutManager;
-    private SearchDetailRecyclerAdapter mAdapter;
+    private DetailShopermanRecyclerAdapter mAdapter;
     private DetailPriceItemsRecyclerAdapter mAdapter2;
     private DetailItemLocationRecyclerAdapter mAdapter3;
     private DetailCommentRecyclerAdapter mAdapter4;
@@ -44,6 +59,7 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
     private RecyclerView mRecycler2;
     private RecyclerView mRecycler3;
     private RecyclerView mRecycler4;
+    ArrayList<Integer> imageList = new ArrayList<>();
 
     Button zzim;
     Button shopping;
@@ -56,15 +72,23 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
         setContentView(R.layout.search_detail_body);
 
 
-
 //        final ImageView itemImage = (ImageView) findViewById(R.id.item_image);
         final TextView itemID = (TextView) findViewById(R.id.search_detail_item_name);
+        country = (TextView) findViewById(R.id.search_detail_country_name);
+
 
         Intent intent = getIntent();
-        String itemValue; // searchListActivity에서 넘겨준 키("key") + 값(itemName.getText().toString()) 을 "key"로 받아옴
-        itemValue = intent.getExtras().getString("key");
 
-        itemID.setText(itemValue); //itemID로 셋팅한 TextView에 인텐트로부터 받아온 id를 setText해준다.
+        String itemidValue; // searchListActivity에서 넘겨준 키("key") + 값(itemName.getText().toString()) 을 "key"로 받아옴
+        String itemValue;
+        String countryValue;
+
+        itemidValue = intent.getExtras().getString("key");
+        itemValue = intent.getExtras().getString("key2");
+        countryValue = intent.getExtras().getString("key3");
+        itemID.setText(itemValue); // 인텐트로 받아온 아이템의 id와 아이템의 이름 중 이름을 setText 해준다.
+        country.setText(countryValue);
+
 
 
 
@@ -74,26 +98,23 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
         collapsingToolbarLayout.setCollapsedTitleTextColor(getResources().getColor(android.R.color.white)); // 콜랩스바 콜랩스됐을때 텍스트 흰색
 
 
-
         searchDetailToolbar = (Toolbar) findViewById(R.id.search_detail_body_toolbar);
         setSupportActionBar(searchDetailToolbar);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setHomeAsUpIndicator(R.drawable.search_back_icon2);
-       /* actionBar.setTitle(itemValue);*/
         actionBar.setDisplayShowTitleEnabled(false);
         actionBar.setDisplayHomeAsUpEnabled(true);
 
 
 
+
+
         itemcount = (TextView) findViewById(R.id.itemcount);
-        itemcount.setText(String.valueOf(1)+"/4");
+        itemcount.setText(String.valueOf(1) + "/4");
         searchDetailViewPager = (ViewPager) findViewById(R.id.search_detail_viewpager);
         searchDetailViewPager.addOnPageChangeListener(this);
         SearchDetailPagerAdapter searchDetailPagerAdapter = new SearchDetailPagerAdapter();
         searchDetailViewPager.setAdapter(searchDetailPagerAdapter);
-
-
-
 
 
         mRecycler = (RecyclerView) findViewById(R.id.search_detail_shopperuser_recyclerview);
@@ -115,8 +136,6 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
         mRecycler4.setLayoutManager(layoutManager);
 
 
-
-
         ArrayList<ItemArrayList> items = new ArrayList<>();
 
         items.add(new ItemArrayList(R.drawable.sample1, "산타노벨라 향수"));
@@ -124,8 +143,7 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
         items.add(new ItemArrayList(R.drawable.sample3, "샘플3"));
         items.add(new ItemArrayList(R.drawable.sample4, "샘플4"));
         items.add(new ItemArrayList(R.drawable.sample5, "샘플5"));
-        mAdapter = new SearchDetailRecyclerAdapter(items, this);
-
+        mAdapter = new DetailShopermanRecyclerAdapter(items, this);
 
 
         ArrayList<String> items2 = new ArrayList<>();
@@ -165,7 +183,6 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
         mAdapter3 = new DetailItemLocationRecyclerAdapter(items3, this);
 
 
-
         ArrayList<ItemArrayList2> items4 = new ArrayList<>();
 
         items4.add(new ItemArrayList2(R.drawable.sample1, "이번주에 샀는데 두개 사면 하나 20% 할인해주더라구여!!!!!!!!!!!!!!!!!!!", "3시간"));
@@ -193,6 +210,85 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
         shopping = (Button) findViewById(R.id.detail_shopping_button);
         shopping.setOnClickListener(onClickListener);
 
+
+        /*Async 내릴때 아이템의 id값인 itemidValue 보내줘야 해당 아이디로 get요청함.*/
+        new AsyncSearchDetailRequest().execute(itemidValue);
+    }
+
+
+    public class AsyncSearchDetailRequest extends AsyncTask<String, Void, SearchDetailDB> {
+
+
+        //첫번째 Void: doInBackgorund로 보내는
+        //두번째 Void: Progress
+        //세번째 onPostExecute에서 사용할 파라미터값.
+
+
+        String url;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+
+        @Override
+        protected SearchDetailDB doInBackground(String... params) {
+            OkHttpClient toServer;
+            toServer = OkHttpInitManager.getOkHttpClient();
+            String itemidValue = params[0];
+            Response response = null; // 응답
+
+            SearchDetailDB searchDetailDB = new SearchDetailDB();
+            url = String.format(SEARCH_LIST_DETAIL, itemidValue);
+
+            try {
+            /* get 방식으로 받기 */
+                //String url = String.format(SEARCH_LIST, countryId);
+
+
+                Request request = new Request.Builder()
+                        .url(url)
+                        .build();
+                Log.e("url3", "" + url);
+                response = toServer.newCall(request).execute();
+
+                if (response.isSuccessful()) { //연결에 성공하면
+                    String returedMessage = response.body().string(); // okhttp로 부터 받아온 데이터 json을 스트링형태로 변환하여 returendMessage에 담아둠. 이때, home부분의 모든 오브젝트를 가져와 담아둠.
+                    Log.e("SearchDetail Body:", returedMessage);
+
+                    searchDetailDB = SearchDetailJSONParser.getSearchDetailJsonParser(returedMessage); //만들어둔 파서로 returedMessage를 넣어서 파싱하여 homeDB에 값을 넣음.
+
+                } else { // 연결에 실패하면
+                    Log.e("요청/응답", response.message().toString());
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                if (response != null) {
+                    response.close();
+                }
+            }
+            return searchDetailDB;
+
+
+        }
+
+        @Override
+        protected void onPostExecute(SearchDetailDB searchDetailDB) {
+            super.onPostExecute(searchDetailDB);
+
+
+            country.setText(searchDetailDB.getGoods_country());
+
+
+
+            mAdapter = new DetailShopermanRecyclerAdapter(SearchDetail.this, searcDB.searchGoodsDBs); // TODO 쇼퍼맨에게 부탁해볼까요에 맞는 데이터모델로 수정.
+            mRecycler.setAdapter(mAdapter);
+            mAdapter.notifyDataSetChanged();
+
+
+        }
     }
 
 
@@ -214,12 +310,13 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
 
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+    public boolean onOptionsItemSelected(MenuItem item) { //뒤로가기 버튼 눌렀을때.
+        switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
                 return true;
-            default: return false;
+            default:
+                return false;
         }
     }
 
@@ -230,7 +327,7 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
 
     @Override
     public void onPageSelected(int position) {
-        itemcount.setText(String.valueOf(position+1)+"/4");
+        itemcount.setText(String.valueOf(position + 1) + "/4");
     }
 
     @Override
@@ -239,15 +336,17 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
     }
 
 
+    private class SearchDetailPagerAdapter extends PagerAdapter {
 
-
-    private class SearchDetailPagerAdapter extends PagerAdapter{
-        ArrayList<Integer> imageList = new ArrayList<>();
 
         public SearchDetailPagerAdapter() {
             imageList.add(R.drawable.detail_item_img_sample);
             imageList.add(R.drawable.detail_item_img_sample_2);
             imageList.add(R.drawable.detail_item_img_sample_3);
+
+            Glide.with(SadajoContext.getContext())
+                    .load(.get(position).getItem_img())
+                    .into(holder.itemImage);
         }
 
         @Override
@@ -261,7 +360,7 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
 
         @Override
         public void destroyItem(ViewGroup container, int position, Object object) {
-            container.removeView((View)object);
+            container.removeView((View) object);
         }
 
         @Override

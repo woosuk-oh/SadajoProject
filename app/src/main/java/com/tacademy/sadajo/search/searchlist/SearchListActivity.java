@@ -33,7 +33,8 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-import static com.tacademy.sadajo.network.NetworkDefineConstant.HOST_URL;
+import static com.tacademy.sadajo.network.NetworkDefineConstant.SEARCH_LIST;
+import static com.tacademy.sadajo.network.NetworkDefineConstant.SEARCH_LIST_COUNTRY;
 
 public class SearchListActivity extends BaseActivity {
 
@@ -213,70 +214,69 @@ public class SearchListActivity extends BaseActivity {
         }*/
     }
 
-        @Override
-        protected void onRestart () {
-            super.onRestart();
+    @Override
+    protected void onRestart() {
+        super.onRestart();
 
+    }
+
+    public class AsyncSearchRequest extends AsyncTask<String, Void, SearchDB> {
+
+
+        //첫번째 Void: doInBackgorund로 보내는
+        //두번째 Void: Progress
+        //세번째 onPostExecute에서 사용할 파라미터값.
+
+        String url;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
         }
 
-        public class AsyncSearchRequest extends AsyncTask<String, Void, SearchDB> {
+
+        @Override
+        protected SearchDB doInBackground(String... params) {
+            OkHttpClient toServer;
+            toServer = OkHttpInitManager.getOkHttpClient();
+            Response response = null; // 응답
+
+            searchDB = new SearchDB();
+            String countryId;
+
+            Log.e("선택한 스피너", "" + params[0].toString());
 
 
-            //첫번째 Void: doInBackgorund로 보내는
-            //두번째 Void: Progress
-            //세번째 onPostExecute에서 사용할 파라미터값.
-            private static final String SEARCH_LIST = HOST_URL + "/goods";
-            private static final String SEARCH_LIST2 = HOST_URL + "/good?country=%s";
-            String url;
+            if (params[0].equals("전세계")) { //스피너에서 선택한 값이 "전세계" 이면
+                url = SEARCH_LIST; //url에 /goods를 넣어줌.
 
-            @Override
-            protected void onPreExecute() {
-                super.onPreExecute();
+
+            } else { // 스피너에서 선택한 값이
+                countryId = params[0].toString();
+                url = String.format(SEARCH_LIST_COUNTRY, countryId); //get 방식이므로 FormBody는 없고, 정보를 url에만 담음.
+
             }
 
-
-            @Override
-            protected SearchDB doInBackground(String... params) {
-                OkHttpClient toServer;
-                toServer = OkHttpInitManager.getOkHttpClient();
-                Response response = null; // 응답
-
-                searchDB = new SearchDB();
-                String countryId;
-
-                Log.e("선택한 스피너", "" + params[0].toString());
-
-
-                if (params[0].equals("전세계")) { //스피너에서 선택한 값이 "전세계" 이면
-                    url = SEARCH_LIST; //url에 /goods를 넣어줌.
-
-
-                } else { // 스피너에서 선택한 값이
-                    countryId = params[0].toString();
-                    url = String.format(SEARCH_LIST2, countryId); //get 방식이므로 FormBody는 없고, 정보를 url에만 담음.
-
-                }
-
-                try {
+            try {
             /* get 방식으로 받기 */
-                    //String url = String.format(SEARCH_LIST, countryId);
+                //String url = String.format(SEARCH_LIST, countryId);
 
 
-                    Request request = new Request.Builder()
-                            .url(url)
-                            .build();
-                    Log.e("url3", "" + url);
-                    response = toServer.newCall(request).execute();
+                Request request = new Request.Builder()
+                        .url(url)
+                        .build();
+                Log.e("url3", "" + url);
+                response = toServer.newCall(request).execute();
 
-                    if (response.isSuccessful()) { //연결에 성공하면
-                        String returedMessage = response.body().string(); // okhttp로 부터 받아온 데이터 json을 스트링형태로 변환하여 returendMessage에 담아둠. 이때, home부분의 모든 오브젝트를 가져와 담아둠.
-                        Log.e("searchActivity", returedMessage);
+                if (response.isSuccessful()) { //연결에 성공하면
+                    String returedMessage = response.body().string(); // okhttp로 부터 받아온 데이터 json을 스트링형태로 변환하여 returendMessage에 담아둠. 이때, home부분의 모든 오브젝트를 가져와 담아둠.
+                    Log.e("searchActivity", returedMessage);
 
-                        searchDB = SearchJSONParser.getSearchJsonParser(returedMessage); //만들어둔 파서로 returedMessage를 넣어서 파싱하여 homeDB에 값을 넣음.
+                    searchDB = SearchJSONParser.getSearchJsonParser(returedMessage); //만들어둔 파서로 returedMessage를 넣어서 파싱하여 homeDB에 값을 넣음.
 
-                    } else { // 연결에 실패하면
-                        Log.e("요청/응답", response.message().toString());
-                    }
+                } else { // 연결에 실패하면
+                    Log.e("요청/응답", response.message().toString());
+                }
 
           /*      client.newCall(request).enqueue(new Callback() {
                     @Override
@@ -287,42 +287,42 @@ public class SearchListActivity extends BaseActivity {
 
                     }
                 });*/
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } finally {
-                    if (response != null) {
-                        response.close();
-                    }
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                if (response != null) {
+                    response.close();
                 }
-                return searchDB;
-
-
             }
-
-            @Override
-            protected void onPostExecute(SearchDB searchDB) {
-                super.onPostExecute(searchDB);
-
-                customTitleText2.setText(String.valueOf(searchDB.getCount()));
-
-                // Log.d("searchDB",""+searchDB.getSearchGoodsDBs().get(0).toString());
-
-                mAdapter = new SearchListRecyclerAdapter(SearchListActivity.this, searchDB.searchGoodsDBs);
-                mRecycler.setAdapter(mAdapter);
-                mAdapter.notifyDataSetChanged();
+            return searchDB;
 
 
-            }
+        }
 
-            private void hideCustomBar() {
-                customBar.startAnimation(outAnim);
-                customBar.setVisibility(View.GONE);
-            }
+        @Override
+        protected void onPostExecute(SearchDB searchDB) {
+            super.onPostExecute(searchDB);
 
-            private void showCustomBar() {
-                customBar.startAnimation(inAnim);
-                customBar.setVisibility(View.VISIBLE);
-            }
+            customTitleText2.setText(String.valueOf(searchDB.getCount()));
+
+            // Log.d("searchDB",""+searchDB.getSearchGoodsDBs().get(0).toString());
+
+            mAdapter = new SearchListRecyclerAdapter(SearchListActivity.this, searchDB.searchGoodsDBs);
+            mRecycler.setAdapter(mAdapter);
+            mAdapter.notifyDataSetChanged();
+
+
+        }
+
+        private void hideCustomBar() {
+            customBar.startAnimation(outAnim);
+            customBar.setVisibility(View.GONE);
+        }
+
+        private void showCustomBar() {
+            customBar.startAnimation(inAnim);
+            customBar.setVisibility(View.VISIBLE);
+        }
 /*
 
         //해시태그 버튼 클릭시
@@ -343,7 +343,7 @@ public class SearchListActivity extends BaseActivity {
         };*/
 
 // 하단 탭바 클릭 시
-        }
-
     }
+
+}
 
