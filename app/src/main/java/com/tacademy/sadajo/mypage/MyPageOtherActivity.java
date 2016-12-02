@@ -13,9 +13,6 @@ import com.tacademy.sadajo.BaseActivity;
 import com.tacademy.sadajo.MyPagerAdapter;
 import com.tacademy.sadajo.R;
 
-import static com.tacademy.sadajo.R.id.buyCountButton;
-import static com.tacademy.sadajo.R.id.sellCountButton;
-
 public class MyPageOtherActivity extends BaseActivity {
 
 

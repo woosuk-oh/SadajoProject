@@ -61,23 +61,29 @@
 
                 <Spinner
                     android:id="@+id/search_toolbar_spinner1"
-                   android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="30dp"
+                   android:layout_width="71dp"
+                    android:layout_height="23dp"
+                    android:layout_marginRight="5dp"
                     android:background="@drawable/search_bar1"
                     android:entries="@array/country"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+
+
                     android:text="ddd"/>
+
              <!--   android:layout_width="71dp"
                 android:layout_height="25dp"-->
 
                 <FrameLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center">
+                    android:layout_marginLeft="5dp"
+                    >
 
                     <EditText
                         android:id="@+id/search_search_et"
-                        android:layout_width="wrap_content"
+                        android:layout_width="247dp"
                         android:layout_height="wrap_content"
                         android:background="@drawable/search_bar2"
 
@@ -204,7 +210,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_centerHorizontal="true"
-                android:layout_marginBottom="60dp" />
+                android:layout_marginBottom="57dp" />
 
         </LinearLayout><!--  <include layout="@layout/include_navigation_tab" />-->
 

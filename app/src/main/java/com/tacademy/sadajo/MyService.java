@@ -1,3 +1,4 @@
+/*
 package com.tacademy.sadajo;
 
 import android.util.Log;
@@ -21,3 +22,4 @@ public class MyService extends FirebaseMessagingService {
         Log.d(TAG, "Notification Message Body: " + remoteMessage.getNotification().getBody());
     }
 }
+*/

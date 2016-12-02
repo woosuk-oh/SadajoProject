@@ -2,18 +2,23 @@ package com.tacademy.sadajo.search.searchlist;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.tacademy.sadajo.R;
+import com.tacademy.sadajo.SadajoContext;
 import com.tacademy.sadajo.network.Search.SearchGoodsDB;
 import com.tacademy.sadajo.search.searchdetail.SearchDetail;
 
@@ -71,6 +76,8 @@ public class SearchListRecyclerAdapter extends RecyclerView.Adapter<SearchListRe
 
 
 
+
+
         return holder;
     }
 
@@ -79,11 +86,27 @@ public class SearchListRecyclerAdapter extends RecyclerView.Adapter<SearchListRe
 
 
         //TODO 서치리스트 리싸이클러 어댑터 홀더부분 수정,
-    //    holder.itemImage.setImageResource(mItems.get(position).image);
+     //    holder.itemImage.setImageResource(mItems.get(position).image);
         holder.itemName.setText(searchgoodsDBs.get(position).getGoods_name());
         holder.countryName.setText(searchgoodsDBs.get(position).getCountry());
 
+        Glide.with(SadajoContext.getContext())
+                .load(searchgoodsDBs.get(position).getItem_img())
+                .into(holder.itemImage);
+
         setAnimation(holder.itemContainer, position);
+
+        // 리싸이클러뷰에서 버튼 동적할당. 버튼이 있는 리니어 레이아웃에서 createTagButton 메소드 실행
+
+
+
+        for (int i = 0; i < 5; i++) {
+
+            holder.hashbutton.addView(createTagButton("버튼테스트", i));
+
+          /*  if(holder.hashbutton> 0)
+*/
+        }
 
 
 
@@ -113,15 +136,21 @@ public class SearchListRecyclerAdapter extends RecyclerView.Adapter<SearchListRe
         public TextView itemName;
         public TextView countryName;
         LinearLayout itemContainer;
+        LinearLayout hashbutton;
+
+
 
 
 
         public ViewHolder(final View itemView) {
             super(itemView);
+
             itemImage = (ImageView) itemView.findViewById(R.id.search_item_image);
             itemName = (TextView) itemView.findViewById(R.id.search_item_name);
             countryName = (TextView) itemView.findViewById(R.id.search_country_name);
             itemContainer = (LinearLayout) itemView.findViewById(R.id.card_back);
+            hashbutton = (LinearLayout) itemView.findViewById(R.id.list_item_hash_button);
+
 
 
         }
@@ -142,4 +171,47 @@ public class SearchListRecyclerAdapter extends RecyclerView.Adapter<SearchListRe
 
 
 
+
+
+    //Button 생성 메소드
+    public Button createTagButton(String str, int i) {
+        Button button = new Button(context);
+        button.setText(str); //서버로부터 받아온 tag text set
+        button.setBackgroundResource(R.drawable.tag_button_file); //tag ninepatch background적용
+
+        int width = ViewGroup.LayoutParams.WRAP_CONTENT;
+        int height = 69;
+
+
+
+
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(width, height);
+        button.setPadding(15, 0, 15, 0); // left,right padding : 3
+        params.setMargins(0, 0, 45, 45); // top, right margin : 15
+        button.setGravity(Gravity.CENTER); //gravity : center
+        button.setTextSize(13);// textsize : 13sp
+        button.setTypeface(null, Typeface.NORMAL);//textstyle : Nanum M
+        button.setLayoutParams(params);
+        button.setTag("HomeTag");
+        button.setId(i);
+        //button.setOnClickListener(buttonClickListener);
+        return button;
+//        list_item_hash_button.addView(button); // button added
+
+
+    }
+
+
+
+/*
+    public void clearData() { //중복 제거용인데 사용 안함.
+        int size = this.searchgoodsDBs.size();
+        if (size > 0) {
+            for (int i = 0; i < size; i++) {
+                this.searchgoodsDBs.remove(0);
+            }
+
+            this.notifyItemRangeRemoved(0, size);
+        }
+    }*/
 }

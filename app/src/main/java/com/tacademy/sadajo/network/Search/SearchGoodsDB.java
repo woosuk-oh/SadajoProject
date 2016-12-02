@@ -12,6 +12,16 @@ public class SearchGoodsDB {
     public String goods_name;
     public int click;
     public String regdate;
+    public String item_img;
+
+    public String getItem_img() {
+        return item_img;
+
+    }
+
+    public void setItem_img(String item_img) {
+        this.item_img = item_img;
+    }
 
     public int getItem_id() {
         return item_id;
