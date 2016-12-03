@@ -34,7 +34,8 @@ public class MyPageOtherActivity extends BaseActivity {
     ImageButton otehrShopListButton;
     ImageButton otherChattingButton;
 
-    ChatListDB chatListDBs;
+    ChatListDB chatListDBs=new ChatListDB();
+    int roomNum;
 
     TextView mypageBuyTextView;
 
@@ -60,7 +61,6 @@ public class MyPageOtherActivity extends BaseActivity {
             }
         });
 
-        chatListDBs = new ChatListDB();
 
         otherSellCountButton = (ImageButton) findViewById(R.id.otherSellCountButton);
         otherBuyCountButton = (ImageButton) findViewById(R.id.otherBuyCountButton);
@@ -105,11 +105,8 @@ public class MyPageOtherActivity extends BaseActivity {
 
                     break;
                 case R.id.otherChattingButton:
-                    new AsyncTaskChatRoom().execute();
-                    intent = new Intent(MyPageOtherActivity.this, ChattingDetailActivity.class);
-                    intent.putExtra("roomNum",chatListDBs.roomNum); //방넘버 넘겨줌
-                    Log.e("roomNum",String.valueOf(chatListDBs.roomNum));
-                    startActivity(intent);
+                    new AsyncTaskChatRoom().execute(); //TODO: user id, carr id  넘겨주기
+
 
                     break;
 
@@ -144,9 +141,9 @@ public class MyPageOtherActivity extends BaseActivity {
 
 
                 RequestBody postBody = new FormBody.Builder()
-                        .add("user", "1")
-                        .add("type","new")
-                        .add("carr","3")
+                        .add("user", "1") //매세지 보내는 사람userCode
+                        .add("type", "new") // 채팅방 생성  type : new
+                        .add("carr", "3") //메세지 받는사람 userCode
                         .build();
 
                 Request request = new Request.Builder()
@@ -182,7 +179,12 @@ public class MyPageOtherActivity extends BaseActivity {
 
 
             chatListDBs = chatListDB;
-            Log.e("ccc",String.valueOf(chatListDBs.roomNum));
+
+            Intent intent = new Intent(MyPageOtherActivity.this, ChattingDetailActivity.class);
+            intent.putExtra("roomNum",chatListDBs.roomNum); //방넘버 넘겨줌//TODO: 수정필요
+            Log.e("roomNum intent", String.valueOf(chatListDBs));
+            startActivity(intent);
+            Log.e("room", String.valueOf(chatListDBs.roomNum));
         }
     }
 
