@@ -1,13 +1,18 @@
 package com.tacademy.sadajo.mypage;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
+import android.transition.Explode;
+import android.transition.Transition;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -35,7 +40,7 @@ public class MyPageActivity extends BaseActivity {
     TextView mypageBuyTextView;
 
     TabLayout tabLayout;
-
+    CollapsingToolbarLayout collapsingToolbar;
     int viewType;
 
     @Override
@@ -53,6 +58,23 @@ public class MyPageActivity extends BaseActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);//title hidden
         getSupportActionBar().setDisplayHomeAsUpEnabled(false); //back icon
 
+
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = getWindow();
+            Transition exitTrans = new Explode();
+            // Transition exitTrans = new Fade();
+            // Transition exitTrans = new Slide();
+
+            Transition reenterTrans = new Explode();
+            // Transition reenterTrans = new Fade();
+            //Transition reenterTrans = new Slide();
+
+            window.setExitTransition(exitTrans);
+            window.setReenterTransition(reenterTrans);
+            // window.setTransitionBackgroundFadeDuration(2000);
+            window.setAllowEnterTransitionOverlap(true);
+            window.setAllowReturnTransitionOverlap(true);
+        }
 
         sellCountButton = (ImageButton) findViewById(R.id.sellCountButton);
         buyCountButton = (ImageButton) findViewById(R.id.buyCountButton);

@@ -36,6 +36,7 @@ public class ChattingActivity extends BaseActivity {
         setContentView(R.layout.activity_chatting);
         setBottomButtonClickListener();
 
+
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setBackgroundResource(R.drawable.tool_04_chat); //toolbar image

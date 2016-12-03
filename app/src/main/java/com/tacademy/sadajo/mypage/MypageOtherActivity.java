@@ -35,11 +35,11 @@ public class MyPageOtherActivity extends BaseActivity {
     ImageButton otherChattingButton;
 
     ChatListDB chatListDBs=new ChatListDB();
-    int roomNum;
 
     TextView mypageBuyTextView;
 
     int viewType;
+    int receiverCode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +80,11 @@ public class MyPageOtherActivity extends BaseActivity {
         otherBuyCountButton.setOnClickListener(clickListener);
         otehrShopListButton.setOnClickListener(clickListener);
         otherChattingButton.setOnClickListener(clickListener);
+
+        Intent intent = getIntent();
+        receiverCode = intent.getIntExtra("userId",0); //해당페이지의 유저아이디
+
+
 
     }
 
@@ -143,7 +148,7 @@ public class MyPageOtherActivity extends BaseActivity {
                 RequestBody postBody = new FormBody.Builder()
                         .add("user", "1") //매세지 보내는 사람userCode
                         .add("type", "new") // 채팅방 생성  type : new
-                        .add("carr", "3") //메세지 받는사람 userCode
+                        .add("carr",String.valueOf(receiverCode)) //메세지 받는사람 userCode
                         .build();
 
                 Request request = new Request.Builder()
@@ -181,10 +186,11 @@ public class MyPageOtherActivity extends BaseActivity {
             chatListDBs = chatListDB;
 
             Intent intent = new Intent(MyPageOtherActivity.this, ChattingDetailActivity.class);
-            intent.putExtra("roomNum",chatListDBs.roomNum); //방넘버 넘겨줌//TODO: 수정필요
-            Log.e("roomNum intent", String.valueOf(chatListDBs));
+            intent.putExtra("roomNum",chatListDBs.roomNum); //방넘버 넘겨줌
+            intent.putExtra("sender",chatListDBs.senderCode); //대화요청한 user
+            intent.putExtra("receiver",chatListDBs.receiverCode); //요청받은 user
             startActivity(intent);
-            Log.e("room", String.valueOf(chatListDBs.roomNum));
+            Log.e("roomitent", String.valueOf(chatListDBs.roomNum));
         }
     }
 

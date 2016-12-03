@@ -1,33 +1,53 @@
 package com.tacademy.sadajo.chatting;
 
-import android.database.DataSetObserver;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.github.nkzawa.emitter.Emitter;
+import com.github.nkzawa.socketio.client.Socket;
 import com.tacademy.sadajo.BaseActivity;
 import com.tacademy.sadajo.R;
+import com.tacademy.sadajo.SadajoContext;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ChattingDetailActivity extends BaseActivity {
 
     Toolbar toolbar;
-
-    ListView chatListView;
-
     ImageButton requestButton;
-    ImageButton chatDetailSendButton;
 
-    EditText chattingEditText;
+    int roomNum; //방번호
+    int sender;//senderID
+    int receiver;//receiverID;
 
-    ChattingAdapter chatMessageArrayAdapter;
+    private RecyclerView mMessagesView;
+    private EditText mInputMessageView;
+    private List mMessages = new ArrayList<Message>();
+    private RecyclerView.Adapter mAdapter;
 
-    boolean type = true;
+    private Socket mSocket;
+
+
+    private Boolean isConnected = true;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,50 +60,204 @@ public class ChattingDetailActivity extends BaseActivity {
         setToolbar(true);
 
 
-        chatListView = (ListView) findViewById(R.id.listView);
-        chatDetailSendButton = (ImageButton) findViewById(R.id.chatDetailSendButton);
-        chattingEditText = (EditText) findViewById(R.id.chattingEditText);
-
-        chatMessageArrayAdapter = new ChattingAdapter(ChattingDetailActivity.this, R.layout.chatting_message);
-        chatListView.setAdapter(chatMessageArrayAdapter);
+        Intent intent = getIntent();
+        roomNum = intent.getIntExtra("roomNum",0);
+        sender = intent.getIntExtra("sender",0);
+        receiver = intent.getIntExtra("receiver",0);
 
 
-        chattingEditText.setOnKeyListener(new View.OnKeyListener() {
+        Log.e("getIntentRoomNum", String.valueOf(roomNum));
+        Log.e("getIntentsender", String.valueOf(sender));
+        Log.e("getIntentreceiver ", String.valueOf(receiver ));
+
+
+        SadajoContext app = (SadajoContext) getApplication();
+        mSocket = app.getSocket();
+        mSocket.on(Socket.EVENT_CONNECT, onConnect);
+        mSocket.on(Socket.EVENT_DISCONNECT, onDisconnect);
+        mSocket.on(Socket.EVENT_CONNECT_ERROR, onConnectError);
+        mSocket.on(Socket.EVENT_CONNECT_TIMEOUT, onConnectError);
+        mSocket.on("toClient", toClient);
+
+
+        mSocket.connect();
+        JSONObject object = new JSONObject();
+        try {
+            object.put("room", roomNum);
+            object.put("user", sender);
+            //perform the sending message attempt.
+
+            mSocket.emit("joinRoom", object);
+        } catch (JSONException e) {
+            Log.d("SEND MESSAGE", "ERROR");
+            e.printStackTrace();
+        }
+
+
+        mAdapter = new MessageAdapter(ChattingDetailActivity.this, mMessages);
+        mMessagesView = (RecyclerView) findViewById(R.id.messages);
+        mMessagesView.setLayoutManager(new LinearLayoutManager(this));
+        mMessagesView.setAdapter(mAdapter);
+
+        mInputMessageView = (EditText) findViewById(R.id.chattingEditText);
+        mInputMessageView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
-            public boolean onKey(View view, int i, KeyEvent keyEvent) {
-                if ((keyEvent.getAction() == KeyEvent.ACTION_DOWN) && (i == KeyEvent.KEYCODE_ENTER)) {
-                    return sendChatMessage();
-
+            public boolean onEditorAction(TextView v, int id, KeyEvent event) {
+                if (id == R.id.send || id == EditorInfo.IME_ACTION_DONE || id == EditorInfo.IME_NULL) {
+                    try {
+                        attemptSend();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    return true;
                 }
                 return false;
             }
         });
-
-        chatListView.setTranscriptMode(ListView.TRANSCRIPT_MODE_ALWAYS_SCROLL);
-        chatListView.setAdapter(chatMessageArrayAdapter);
-
-        chatMessageArrayAdapter.registerDataSetObserver(new DataSetObserver() {
+        ImageButton sendButton = (ImageButton) findViewById(R.id.chatDetailSendButton);
+        sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onChanged() {
-                super.onChanged();
-                chatListView.setSelection(chatMessageArrayAdapter.getCount() - 1);
+            public void onClick(View v) {
+                try {
+                    attemptSend();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
         requestButton = (ImageButton) findViewById(R.id.requestButton);//사다조 요청하기 버튼
         requestButton.setOnClickListener(clickListener);
-        chatDetailSendButton.setOnClickListener(clickListener);
+
+
 
 
     }
 
-    boolean sendChatMessage() {
 
-        chatMessageArrayAdapter.add(new ChatMessage(type, chattingEditText.getText().toString()));
-        chattingEditText.setText("");
-        return true;
+    private void addMessage(int username, String message) {
+        mMessages.add(new Message.Builder(Message.TYPE_RIGHT)
+                .username(username).message(message).build());
+        Log.e("right", String.valueOf(username));
+        mAdapter.notifyItemInserted(mMessages.size() - 1);
+        scrollToBottom();
     }
 
+    private void addMessageLeft(int username, String message) {
+
+        if (username != sender) {
+            mMessages.add(new Message.Builder(Message.TYPE_LEFT)
+                    .username(username).message(message).build());
+            Log.e("left", String.valueOf(username));
+
+            mAdapter.notifyItemInserted(mMessages.size() - 1);
+            scrollToBottom();
+        }
+    }
+
+    private void attemptSend() throws JSONException {
+        // if (null ==mUsername) return;
+        if (!mSocket.connected()) return;
+
+
+        String message = mInputMessageView.getText().toString().trim();
+        if (TextUtils.isEmpty(message)) {
+            mInputMessageView.requestFocus();
+            return;
+        }
+
+        mInputMessageView.setText("");
+        addMessage(sender, message);
+
+        JSONObject object = new JSONObject();
+        try {
+            object.put("sender", sender);
+            object.put("msg", message);
+            //perform the sending message attempt.
+
+            mSocket.emit("toServer", object);
+        } catch (JSONException e) {
+            Log.d("SEND MESSAGE", "ERROR");
+            e.printStackTrace();
+        }
+    }
+
+
+    private void scrollToBottom() {
+        mMessagesView.scrollToPosition(mAdapter.getItemCount() - 1);
+    }
+
+    private Emitter.Listener onConnect = new Emitter.Listener() {
+        @Override
+        public void call(Object... args) {
+            (ChattingDetailActivity.this).runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    if (!isConnected) {
+                        Toast.makeText(getApplicationContext(),
+                                "연결", Toast.LENGTH_LONG).show();
+                        isConnected = true;
+                    }
+                    Log.e("connect", "success");
+
+                }
+            });
+        }
+    };
+
+    private Emitter.Listener onDisconnect = new Emitter.Listener() {
+        @Override
+        public void call(Object... args) {
+            (ChattingDetailActivity.this).runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    isConnected = false;
+                    Toast.makeText(getApplicationContext(),
+                            "disconnect", Toast.LENGTH_LONG).show();
+                }
+            });
+        }
+    };
+
+    private Emitter.Listener onConnectError = new Emitter.Listener() {
+        @Override
+        public void call(Object... args) {
+            (ChattingDetailActivity.this).runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(getApplicationContext(),
+                            "error_connect", Toast.LENGTH_LONG).show();
+                }
+            });
+        }
+    };
+
+
+    //메세지 받아오는 부분
+    private Emitter.Listener toClient = new Emitter.Listener() {
+        @Override
+        public void call(final Object... args) {
+            (ChattingDetailActivity.this).runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    JSONObject data = (JSONObject) args[0];
+                    int username;
+                    String message;
+                    try {
+                        Log.e("to client sender", String.valueOf(data.getInt("sender")));
+                        username = data.getInt("sender");
+                        message = data.getString("msg");
+                    } catch (JSONException e) {
+                        return;
+                    }
+
+
+                    //  removeTyping(username);
+                    addMessageLeft(username, message);
+                }
+            });
+        }
+    };
     View.OnClickListener clickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
@@ -93,7 +267,6 @@ public class ChattingDetailActivity extends BaseActivity {
                     dialog.show(getFragmentManager(), "requestDialog");
                     break;
                 case R.id.chatDetailSendButton:
-                    sendChatMessage();
                     break;
 
             }

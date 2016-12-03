@@ -123,7 +123,7 @@ public class HomeActivity extends BaseActivity {
         CustomRecyclerDecoration decoration = new CustomRecyclerDecoration(45, "bottom");//리사이클러뷰 아이템간 간격
         recyclerView.addItemDecoration(decoration);
 
-        new AsyncHomeRequest().execute();
+     new AsyncHomeRequest().execute();
     }
 
 
@@ -197,7 +197,7 @@ public class HomeActivity extends BaseActivity {
                 cardView3CountryTextView.setText(s.getTravelCountry()); // 추천리스트2(다른 쇼퍼맨 쇼핑리스트) : 해당 국가
 
 
-                countryNameTextView.setText(s.travelInfos.getTitleCountry()); // 국가명 받아옴.
+                countryNameTextView.setText(s.travelInfos.titleCountry); // 국가명 받아옴.
                 departDateTextView.setText(s.travelInfos.getStartDate()); // 떠나요
                 comeDateTextView.setText(s.travelInfos.getEndDate()); //돌아와요
                 homeUserRecyclerViewAdapter = new HomeUserRecyclerViewAdapter(HomeActivity.this, s.shoplist);

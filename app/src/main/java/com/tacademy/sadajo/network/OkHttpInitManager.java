@@ -12,7 +12,7 @@ public class OkHttpInitManager {
 
 
         private static OkHttpClient okHttpClient;
-        private static final int OKHTTP_INIT_VALUE = 15;
+        private static final int OKHTTP_INIT_VALUE = 60;
         static{
             okHttpClient = new OkHttpClient.Builder()
                     .retryOnConnectionFailure(true)

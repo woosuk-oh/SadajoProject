@@ -258,6 +258,8 @@ public class ScheduleDialogFragment extends DialogFragment implements View.OnCli
                 SimpleDateFormat sdf = new SimpleDateFormat(myFormat);
                 returnEditText.setText(sdf.format(arriveCalendar.getTime()));
 
+
+
             }
         };
 
