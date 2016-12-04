@@ -181,7 +181,7 @@
                 android:background="@color/white">
 
                 <ImageButton
-                    android:id="@+id/otehrShopListButton"
+                    android:id="@+id/otherShopListButton"
                     android:layout_width="0dp"
                     android:layout_height="45dp"
                     android:background="@drawable/selector_mypage_userprofile_sl"

@@ -19,6 +19,7 @@ import com.tacademy.sadajo.network.NetworkDefineConstant;
 import com.tacademy.sadajo.network.OkHttpInitManager;
 import com.tacademy.sadajo.network.chatting.ChatJSONParser;
 import com.tacademy.sadajo.network.chatting.ChatListDB;
+import com.tacademy.sadajo.shoppinglist.OtherShoppingListActivity;
 
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
@@ -31,7 +32,7 @@ public class MyPageOtherActivity extends BaseActivity {
 
     ImageButton otherBuyCountButton;
     ImageButton otherSellCountButton;
-    ImageButton otehrShopListButton;
+    ImageButton otherShopListButton;
     ImageButton otherChattingButton;
 
     ChatListDB chatListDBs=new ChatListDB();
@@ -65,7 +66,7 @@ public class MyPageOtherActivity extends BaseActivity {
         otherSellCountButton = (ImageButton) findViewById(R.id.otherSellCountButton);
         otherBuyCountButton = (ImageButton) findViewById(R.id.otherBuyCountButton);
         otherChattingButton = (ImageButton) findViewById(R.id.otherChattingButton);
-        otehrShopListButton = (ImageButton) findViewById(R.id.otehrShopListButton);
+        otherShopListButton = (ImageButton) findViewById(R.id.otherShopListButton);
 
 
         ViewPager viewPager = (ViewPager) findViewById(R.id.otherMypageViewpager);
@@ -78,7 +79,7 @@ public class MyPageOtherActivity extends BaseActivity {
 
         otherSellCountButton.setOnClickListener(clickListener);
         otherBuyCountButton.setOnClickListener(clickListener);
-        otehrShopListButton.setOnClickListener(clickListener);
+        otherShopListButton.setOnClickListener(clickListener);
         otherChattingButton.setOnClickListener(clickListener);
 
         Intent intent = getIntent();
@@ -106,13 +107,14 @@ public class MyPageOtherActivity extends BaseActivity {
                     intent.putExtra("tabNum", 0);
                     startActivity(intent);
                     break;
-                case R.id.otehrShopListButton:
+                case R.id.otherShopListButton:
+                    intent = new Intent(MyPageOtherActivity.this, OtherShoppingListActivity.class);
+                    intent.putExtra("userCode", receiverCode); //해당페이지의 유저Id
+                    startActivity(intent);
 
                     break;
                 case R.id.otherChattingButton:
-                    new AsyncTaskChatRoom().execute(); //TODO: user id, carr id  넘겨주기
-
-
+                    new AsyncTaskChatRoom().execute();
                     break;
 
             }

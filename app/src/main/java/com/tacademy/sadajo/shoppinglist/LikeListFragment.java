@@ -67,10 +67,7 @@ public class LikeListFragment extends Fragment {
         likeRecyclerViewAdapter = new LikeListRecyclerViewAdapter(getContext());
         likeListRecyclerView.setAdapter(likeRecyclerViewAdapter);
 
-//        if (recyclerViewAdapter.getItemCount() == 0) {
-//            view = inflater.inflate(R.layout.shoppinglist_noitem_layout, container, false);
-//        }//쇼핑리스트 아이템이 하나도 없을 경우
-
+//
 
         return view;
 
