@@ -1,5 +1,6 @@
 package com.tacademy.sadajo.shoppinglist;
 
+import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -86,10 +87,12 @@ public class LikeListFragment extends Fragment {
 
 
     private class AsyncTaskLikeList extends AsyncTask<Void, Void, ArrayList<ShopListDB>> {
+        ProgressDialog progressDialog ;
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-
+                 progressDialog = ProgressDialog.show(getActivity(),
+                    "서버입력중", "잠시만 기다려 주세요 ...", true); //TODO:커스텀다이얼로그 추가
         }
 
         @Override
@@ -137,6 +140,7 @@ public class LikeListFragment extends Fragment {
         public void onPostExecute(ArrayList<ShopListDB> listDBs) {
             super.onPostExecute(listDBs);
             Log.e("likelist","post");
+            progressDialog.dismiss();
 
             likeRecyclerViewAdapter.addLikeList(listDBs);
             likeRecyclerViewAdapter.notifyDataSetChanged();

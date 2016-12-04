@@ -127,11 +127,11 @@
                 android:layout_marginRight="0dp" />
 
             <LinearLayout
+                android:id="@+id/register"
+
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="15dp"
-                android:layout_marginBottom="15dp"
 
                 >
 
@@ -141,11 +141,15 @@
                     android:layout_width="15dp"
                     android:layout_height="15dp"
                     android:src="@drawable/mark"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="15dp"
                     android:layout_gravity="center" />
 
                 <TextView
                     android:padding="0dp"
                     android:layout_marginLeft="10dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="15dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="여행일정을 등록해보세요."
@@ -160,6 +164,7 @@
                     android:layout_height="match_parent"
                     android:gravity="right"
 
+
                     >
 
                     <Button
@@ -169,11 +174,10 @@
                         android:text="일정등록"
                         android:gravity="center"
                         android:textSize="13sp"
-                        android:padding="0dp"
                         android:textColor="#747474"
                         android:background="@drawable/selector_button_bg"
                         android:textStyle="normal"
-
+                        style="?android:attr/borderlessButtonStyle"
                         />
                 </LinearLayout>
 

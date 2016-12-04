@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -62,6 +63,8 @@ public class HomeActivity extends BaseActivity {
     TextView departDateTextView;
     Button scheduleRegisterButton;
 
+    LinearLayout register;
+
 
     ImageView cardView2CountryFlagImageView;
     ImageView cardView3CountryFlagImageView;
@@ -96,17 +99,12 @@ public class HomeActivity extends BaseActivity {
         setToolbar(false);
 
 
-        //바텀바 gone
-//        FrameLayout frameLayout = (FrameLayout)findViewById(R.id.frameBottomBar);
-//        frameLayout.setVisibility(View.GONE);
-
-
         countryNameTextView = (TextView) findViewById(R.id.countryNameTextView);//국가명
 
         departDateTextView = (TextView) findViewById(R.id.departDateTextView); //떠나요날짜
         comeDateTextView = (TextView) findViewById(R.id.comeDateTextView); //돌아와요날짜
         scheduleRegisterButton = (Button) findViewById(R.id.scheduleRegisterButton); //일정등록버튼
-
+        register = (LinearLayout) findViewById(R.id.register);
         cardView2CountryTextView = (TextView) findViewById(R.id.cardView2CountryTextView);//두번째카드뷰 국가명
         cardView3CountryTextView = (TextView) findViewById(R.id.cardView3CountryTextView);//세번째카드뷰 국가명
         cardView2CountryFlagImageView = (ImageView) findViewById(R.id.cardView2CountryFlagImageView);//두번째 카드뷰 flag이미지
@@ -116,6 +114,7 @@ public class HomeActivity extends BaseActivity {
         recyclerView = (RecyclerView) findViewById(R.id.anoter_shoplist_recyclerView); //쇼핑리스트 리사이클러뷰
 
         scheduleRegisterButton.setOnClickListener(onClickListener);
+        register.setOnClickListener(onClickListener);
 
 
         //layout3
@@ -123,7 +122,7 @@ public class HomeActivity extends BaseActivity {
         CustomRecyclerDecoration decoration = new CustomRecyclerDecoration(45, "bottom");//리사이클러뷰 아이템간 간격
         recyclerView.addItemDecoration(decoration);
 
-     new AsyncHomeRequest().execute();
+        new AsyncHomeRequest().execute();
     }
 
 
@@ -247,9 +246,13 @@ public class HomeActivity extends BaseActivity {
 
         @Override
         public void onClick(View view) {
+            ScheduleDialogFragment dialog = new ScheduleDialogFragment();
             switch (view.getId()) {
                 case R.id.scheduleRegisterButton:
-                    ScheduleDialogFragment dialog = new ScheduleDialogFragment();
+
+                    dialog.show(getFragmentManager(), "scheduleDialog");
+                    break;
+                case R.id.register:
                     dialog.show(getFragmentManager(), "scheduleDialog");
                     break;
 
@@ -291,7 +294,7 @@ public class HomeActivity extends BaseActivity {
         button.setTag("HomeTag");
         button.setId(i);
         button.setOnClickListener(buttonClickListener);
-        flowLayout.addView(button); // button added
+        flowLayout.addView(button); // button 추가
     }
 
     @Override

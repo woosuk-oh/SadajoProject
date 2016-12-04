@@ -28,7 +28,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         int layout = -1;
 
-        Log.e("type",String.valueOf(viewType));
+
         switch (viewType) {
             case Message.TYPE_LEFT:
                 layout = R.layout.chatting_message;
@@ -48,7 +48,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
     public void onBindViewHolder(ViewHolder viewHolder, int position) {
         Message message = mMessages.get(position);
         viewHolder.setMessage(message.getMessage());
-        SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
+        SimpleDateFormat dateFormat = new SimpleDateFormat("aa hh:mm ", Locale.getDefault());
         Date date = new Date(System.currentTimeMillis());
         String time = dateFormat.format(date);
         viewHolder.chatTimeTextView.setText(time);
