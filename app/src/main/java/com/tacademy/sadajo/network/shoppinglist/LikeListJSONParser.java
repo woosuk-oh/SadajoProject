@@ -47,4 +47,41 @@ public class LikeListJSONParser {
 
         return listDBs;
     }
+
+    public static LikeListDetail getLikeListDetailParsing(String responsedJSON) {
+
+        LikeListDetail likeListDetail = new LikeListDetail();
+        ArrayList<Goods> goodsArrayList = new ArrayList<>();
+
+        try {
+            JSONObject likeList = new JSONObject(responsedJSON);
+
+            likeListDetail.msg = likeList.getString("msg");
+            likeListDetail.userCode = likeList.getInt("user");
+            JSONArray lists = likeList.getJSONArray("list");
+
+
+            int listSize = lists.length();
+            for (int i = 0; i < listSize; i++) {
+                Goods goods = new Goods();
+                JSONObject list = lists.getJSONObject(i);
+
+                goods.goodsCode = list.getString("goods_code");
+                goods.goodsName = list.getString("goods_name");
+                goods.goodsImg = list.getString("img");
+
+
+                goodsArrayList.add(goods);
+            }
+            likeListDetail.goodsList = goodsArrayList;
+
+
+        } catch (JSONException e)
+
+        {
+            Log.e("jsonParser", e.toString());
+        }
+
+        return likeListDetail;
+    }
 }

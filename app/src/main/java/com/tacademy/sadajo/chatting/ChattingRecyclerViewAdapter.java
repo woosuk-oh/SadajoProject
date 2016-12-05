@@ -13,7 +13,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.tacademy.sadajo.R;
+import com.tacademy.sadajo.SadajoContext;
 import com.tacademy.sadajo.network.chatting.ChatDataList;
 
 import java.util.ArrayList;
@@ -21,7 +23,7 @@ import java.util.ArrayList;
 public class ChattingRecyclerViewAdapter
         extends RecyclerView.Adapter<ChattingRecyclerViewAdapter.ViewHolder> {
 
-    private ArrayList<ChatDataList> chatDataLists;
+    private ArrayList<ChatDataList> chatDataLists= new ArrayList<>();
     private Context context;
 
     public ChattingRecyclerViewAdapter(Context context) {
@@ -61,17 +63,23 @@ public class ChattingRecyclerViewAdapter
 
 
         //Todo: user구분 필요 수정하기
-        holder.chattingNameTextView.setText(chatDataLists.get(position).carrierUserCode);
+        holder.chattingNameTextView.setText(chatDataLists.get(position).carrierName);
         holder.chattingContentTextView.setText("안녕하세요");
-        holder.chattingDateTextView.setText("2016.11.20");
-        holder.chattingProfileImageView.setImageResource(R.drawable.product_sample);
+        holder.chattingDateTextView.setText(chatDataLists.get(position).lastDate);
+
+
+        Glide.with(SadajoContext.getContext())
+                .load(chatDataLists.get(position).carrierImg)
+                .into(holder.chattingProfileImageView);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 Intent intent = new Intent(context, ChattingDetailActivity.class);
-                context.startActivity(intent);
+                intent.putExtra("roomNum",chatDataLists.get(position).roomNum);//roomNum넘겨주기
+                //TODO:이미지도 넘겨주기
+               context.startActivity(intent);
 
             }
         });

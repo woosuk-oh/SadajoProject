@@ -36,7 +36,7 @@ public class ChatJSONParser {
 
     public static ChattingList getChatListParsing(String responsedJSON) {
 
-        ChattingList chattingList = new ChattingList(); //TODO:Json변수 수정필요
+        ChattingList chattingList = new ChattingList();
         ArrayList<ChatDataList> chatDataLists = new ArrayList<>();
 
         try {
@@ -49,8 +49,15 @@ public class ChatJSONParser {
                ChatDataList chatDataList = new ChatDataList();
                 JSONObject  list = lists.getJSONObject(i);
                 chatDataList.roomNum = list.getInt("room");
-                chatDataList.requestUserCode = list.getInt("request");
-                chatDataList.carrierUserCode = list.getInt("carrier");
+                chatDataList.requestUserCode = list.getInt("req");
+                chatDataList.carrierCode = list.getInt("carr");
+                chatDataList.lastDate = list.getString("lastdate");
+                chatDataList.requestUserName = list.getString("req_nick");
+                chatDataList.carrierName = list.getString("carr_nick");
+                chatDataList.requestUserImg = list.getString("req_img");
+                chatDataList.carrierImg = list.getString("carr_img");
+
+
 
                 chatDataLists.add(chatDataList);
             }

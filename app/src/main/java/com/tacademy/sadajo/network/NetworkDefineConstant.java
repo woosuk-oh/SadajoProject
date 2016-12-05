@@ -8,17 +8,18 @@ public class NetworkDefineConstant {
     public static String SERVER_URL_REQUEST_HOME;
     public static String SERVER_URL_REQUEST_SHOPLIST;
     public static String SERVER_URL_REQUEST_LIKELIST;
+    public static String SERVER_URL_REQUST_CHATLIST;
+    public static String SERVER_URL_REQUST_CHATTINGLIST;
+    public static String SERVER_URL_REQUST_LIKEDETAIL;
+    public static String SERVER_URL_REQUST_SHOPDETAIL;
+
+
     public static String SERVER_URL_INSERT_SCHEDULE;
     public static String SERVER_URL_INSERT_REQUEST;
 
     public static String SEARCH_LIST;
     public static String SEARCH_LIST_COUNTRY;
     public static String SEARCH_LIST_DETAIL;
-
-
-    public static String SERVER_URL_REQUST_CHATLIST;
-    public static String SERVER_URL_REQUST_CHATTINGLIST;
-
 
 
     static {
@@ -36,6 +37,10 @@ public class NetworkDefineConstant {
                 HOST_URL + "/chat";
         SERVER_URL_REQUST_CHATTINGLIST =
                 HOST_URL + "/chatlist";
+        SERVER_URL_REQUST_LIKEDETAIL =
+                HOST_URL + "/likedetail";
+        SERVER_URL_REQUST_SHOPDETAIL =
+                HOST_URL + "/shopdetail";
 
         SEARCH_LIST =
                 HOST_URL + "/goods";

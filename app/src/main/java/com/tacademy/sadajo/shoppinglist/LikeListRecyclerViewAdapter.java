@@ -28,7 +28,7 @@ public class LikeListRecyclerViewAdapter
     private Context context;
 
 
-    private final static int NO_ITEM_VIEW= 0;
+    private final static int NO_ITEM_VIEW = 0;
     private final static int CONTENT_VIEW = 1;
 
     public LikeListRecyclerViewAdapter(Context context) {
@@ -69,12 +69,10 @@ public class LikeListRecyclerViewAdapter
         switch (viewType) {
             case NO_ITEM_VIEW: //리스트가 빈 경우
                 layoutRes = R.layout.shoppinglist_noitem_layout;
-                Log.e("like","NoItem");
                 break;
 
             case CONTENT_VIEW:
                 layoutRes = R.layout.shoppinglist_likelist_recyclerview_item; //나머지 item lyaout
-                Log.e("recyclerViewLayout","Item");
                 break;
         }
 
@@ -85,8 +83,8 @@ public class LikeListRecyclerViewAdapter
 
     @Override
     public int getItemViewType(int position) {
-        if (getItemCount()== 1) {
-            Log.e("count",String.valueOf(getItemCount()));
+        if (getItemCount() == 1) {
+            Log.e("count", String.valueOf(getItemCount()));
             return NO_ITEM_VIEW;
         } else {
 
@@ -104,13 +102,12 @@ public class LikeListRecyclerViewAdapter
             holder.countryNameTextView.setText(listDBs.get(position).countryNameEng);
             holder.cityNameTextView.setText(listDBs.get(position).countryNameKor);
 
-            //       holder.productImageView.setImageResource(R.drawable.sample_img);
 
             //담은 상품이 없을 경우 default이미지 보여줌
             if (listDBs.get(position).goodsCount == 0) {
                 holder.productCountTextView.setVisibility(View.GONE);
                 holder.listEmptyTextView.setVisibility(View.VISIBLE);
-                  holder.productImageView.setVisibility(View.GONE);
+                holder.productImageView.setVisibility(View.GONE);
 
             } else {
                 holder.productCountTextView.setText(String.valueOf(listDBs.get(position).goodsCount));
@@ -132,7 +129,7 @@ public class LikeListRecyclerViewAdapter
 
                     Intent intent = new Intent(context, LikeListDetailActivity.class); //찜리스트 디테일페이지로이동
                     intent.putExtra("listCode", listDBs.get(position).listCode); //찜리스트이 listCode 넘겨줌
-                    intent.putExtra("countryName",listDBs.get(position).countryNameKor.toString());
+                    intent.putExtra("countryName", listDBs.get(position).countryNameKor.toString());
                     Log.e("shopListCode", listDBs.get(position).listCode.toString());
                     context.startActivity(intent);
 
@@ -152,9 +149,9 @@ public class LikeListRecyclerViewAdapter
     @Override
     public int getItemCount() {
 
-        if(listDBs.size()>0){
+        if (listDBs.size() > 0) {
             return listDBs.size();
-        }else{
+        } else {
             return 1;
         }
 
