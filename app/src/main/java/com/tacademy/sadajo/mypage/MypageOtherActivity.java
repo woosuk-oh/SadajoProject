@@ -108,7 +108,7 @@ public class MyPageOtherActivity extends BaseActivity {
                     startActivity(intent);
                     break;
                 case R.id.otherShopListButton:
-                    intent = new Intent(MyPageOtherActivity.this, OtherShoppingListActivity.class);
+                    intent = new Intent(MyPageOtherActivity.this, MypageBuyActivity.class);
                     intent.putExtra("userCode", receiverCode); //해당페이지의 유저Id
                     startActivity(intent);
 

@@ -3,7 +3,6 @@ package com.tacademy.sadajo.search.searchlist;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,7 +60,7 @@ public class SearchListRecyclerAdapter extends RecyclerView.Adapter<SearchListRe
 
         // 레이아웃을 뷰(홀더)에 붙이기 위한 인플레이터임.
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.search_list_grid_item, parent, false);
-        Log.d("ItemSize", ""+searchgoodsDBs.size());
+      //  Log.d("ItemSize", ""+searchgoodsDBs.size());
       /*  if(mItems.size() == lastPosition2){
             v = LayoutInflater.from(parent.getContext()).inflate(R.layout.search_detail_view_pager_item, parent, false);
             Log.d("ItemSize", ""+mItems.size());

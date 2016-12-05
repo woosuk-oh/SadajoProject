@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -122,9 +123,15 @@ public class HomeActivity extends BaseActivity {
         CustomRecyclerDecoration decoration = new CustomRecyclerDecoration(45, "bottom");//리사이클러뷰 아이템간 간격
         recyclerView.addItemDecoration(decoration);
 
-        new AsyncHomeRequest().execute();
+
     }
 
+    @Override
+    public void onPostCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
+        super.onPostCreate(savedInstanceState, persistentState);
+
+        new AsyncHomeRequest().execute();
+    }
 
     public class AsyncHomeRequest extends AsyncTask<Void, Void, HomeDB> {
         private ProgressDialog progressDialog;
