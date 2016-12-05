@@ -61,6 +61,10 @@ gps만 켜져있는경우, GeoCoder: http://stackoverflow.com/questions/21022297
 4.ㅇㅇ
 
 
+GPS Only인 경우 튕김은 막았으나, 위경도 값 못받아옴.
+GPS Only이면 켜달라고 설정으로 보내는것 추가해야할듯. -> GPS Provider?
+-> GPS Only면 네이버 지도도 위치 못가져옴. Google 지도처럼 위치 사용 서정 허용해달라는 다이얼로그 띄우는게 맞는듯.
+
 */
 
 
