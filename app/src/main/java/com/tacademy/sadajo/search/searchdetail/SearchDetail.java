@@ -59,6 +59,7 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
     private RecyclerView mRecycler2;
     private RecyclerView mRecycler3;
     private RecyclerView mRecycler4;
+
     ArrayList<Integer> imageList = new ArrayList<>();
 
     Button zzim;
@@ -82,11 +83,11 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
 
         /* 상품의 ID값과 상품명, 판매가능 국가명을 인텐트로 가져옴 */
         Intent intent = getIntent();
-        String itemidValue; // searchListActivity에서 넘겨준 키("key") + 값(itemName.getText().toString()) 을 "key"로 받아옴
+        int itemidValue; // searchListActivity에서 넘겨준 키("key") + 값(itemName.getText().toString()) 을 "key"로 받아옴
         String itemValue;
         String countryValue;
 
-        itemidValue = intent.getExtras().getString("key");
+        itemidValue = intent.getExtras().getInt("key");
         itemValue = intent.getExtras().getString("key2");
         countryValue = intent.getExtras().getString("key3");
 
@@ -121,6 +122,13 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
         searchDetailPagerAdapter = new SearchDetailPagerAdapter();
         searchDetailViewPager.setAdapter(searchDetailPagerAdapter);
 
+        /* 리싸이클러뷰 onCreate에서 그려줌.*/
+        mRecycler = (RecyclerView) findViewById(R.id.search_detail_shopperuser_recyclerview);
+        mRecycler2 = (RecyclerView) findViewById(R.id.search_detail_itemprice_recyclerview);
+        mRecycler3 = (RecyclerView) findViewById(R.id.search_detail_location_recyclerview);
+        mRecycler4 = (RecyclerView) findViewById(R.id.search_detail_comment_recyclerview);
+
+
 
         /* 디테일 페이지에서 필요한 리싸이클러뷰들 레이아웃 적용 */
         layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
@@ -136,11 +144,8 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
         mRecycler4.setLayoutManager(layoutManager);
 
 
-        /* 리싸이클러뷰 onCreate에서 그려줌.*/
-        mRecycler = (RecyclerView) findViewById(R.id.search_detail_shopperuser_recyclerview);
-        mRecycler2 = (RecyclerView) findViewById(R.id.search_detail_itemprice_recyclerview);
-        mRecycler3 = (RecyclerView) findViewById(R.id.search_detail_location_recyclerview);
-        mRecycler4 = (RecyclerView) findViewById(R.id.search_detail_comment_recyclerview);
+
+
 
 
         /* 콜랩싱바에 있는 버튼 (찜하기, 담기) 위젯들. */
@@ -156,7 +161,7 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
     }
 
 
-    public class AsyncSearchDetailRequest extends AsyncTask<String, Void, SearchDetailDB> {
+    public class AsyncSearchDetailRequest extends AsyncTask<Integer, Void, SearchDetailDB> {
     /*     인자값 설명
         첫번째 Void: doInBackgorund로 보내는
         두번째 Void: Progress
@@ -172,10 +177,10 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
 
 
         @Override
-        protected SearchDetailDB doInBackground(String... params) {
+        protected SearchDetailDB doInBackground(Integer... params) {
             OkHttpClient toServer;
             toServer = OkHttpInitManager.getOkHttpClient();
-            String itemidValue = params[0];
+            int itemidValue = params[0];
             Response response = null; // 응답
 
             SearchDetailDB searchDetailDB = new SearchDetailDB();

@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * Created by woosuk on 2016-11-14.
  */
 
-public class SearchDB { //TODO 데이터 모델 작성필요
+public class SearchDB {
     public int count;
     public ArrayList<String> hashtag;
     public ArrayList<String> sell_place;

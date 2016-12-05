@@ -9,7 +9,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.tacademy.sadajo.R;
+import com.tacademy.sadajo.SadajoContext;
 import com.tacademy.sadajo.network.Search.SeachDetail.TipsDB;
 
 import java.util.ArrayList;
@@ -60,15 +62,9 @@ public class DetailCommentRecyclerAdapter extends RecyclerView.Adapter<DetailCom
 
         holder.itemText.setText(mItems.get(position).getWriter());
         holder.itemText2.setText(mItems.get(position).getTips_content());
-       // TODO 서버로부터 이미지 받아오면 다시 세팅
-        // holder.itemImg.setImageResource(mItems.get(position).getTips.....?);
-
-
-
-
-
-
-
+        Glide.with(SadajoContext.getContext())
+                .load(mItems.get(position).getTips_user_img())
+                .into(holder.itemImg);
     }
 
     @Override

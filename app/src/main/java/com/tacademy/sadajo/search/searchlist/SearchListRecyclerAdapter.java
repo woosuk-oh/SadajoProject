@@ -84,8 +84,6 @@ public class SearchListRecyclerAdapter extends RecyclerView.Adapter<SearchListRe
     public void onBindViewHolder(final ViewHolder holder, final int position) {
 
 
-        //TODO 서치리스트 리싸이클러 어댑터 홀더부분 수정,
-     //    holder.itemImage.setImageResource(mItems.get(position).image);
 
 
         holder.itemName.setText(searchgoodsDBs.get(position).getGoods_name());
