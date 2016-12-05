@@ -18,7 +18,7 @@ import java.util.ArrayList;
 
 
 
-// Search List Activity 에 들어갈 리싸이클러뷰. 어댑터+홀더
+// 얼마에 구매했어요? 의 tag_price 부분. (ex. 산타노벨라 70ml, 산타노벨라 50ml ...)
 
 public class DetailPriceItemsRecyclerAdapter extends RecyclerView.Adapter<DetailPriceItemsRecyclerAdapter.ViewHolder>{
     private Context context;

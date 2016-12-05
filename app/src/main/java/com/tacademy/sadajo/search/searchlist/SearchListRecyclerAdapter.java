@@ -190,7 +190,7 @@ public class SearchListRecyclerAdapter extends RecyclerView.Adapter<SearchListRe
 
 
 
-
+        // TODO 버튼 셋 온클릭 리스너 달아줘야함.
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(width, height);
         button.setPadding(15, 0, 15, 0); // left,right padding : 3
         params.setMargins(0, 0, 45, 45); // top, right margin : 15
@@ -210,7 +210,7 @@ public class SearchListRecyclerAdapter extends RecyclerView.Adapter<SearchListRe
 
 
 /*
-    public void clearData() { //중복 제거용인데 사용 안함.
+    public void clearData() { //중복 제거용인데 사용 안함. onResume에서 걍 다시 execute해주므로,
         int size = this.searchgoodsDBs.size();
         if (size > 0) {
             for (int i = 0; i < size; i++) {

@@ -13,7 +13,6 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.tacademy.sadajo.R;
 import com.tacademy.sadajo.SadajoContext;
-import com.tacademy.sadajo.network.Search.SeachDetail.SearchDetailDB;
 import com.tacademy.sadajo.network.Search.SeachDetail.ShopermanDB;
 
 import java.util.ArrayList;
@@ -63,22 +62,15 @@ public class DetailShopermanRecyclerAdapter extends RecyclerView.Adapter<DetailS
 
 
 
-        holder.itemName.setText(mItems.get(position).itemname);
+        holder.itemName.setText(mItems.get(position).getUser_name());
+
 
 
         Glide.with(SadajoContext.getContext())
-                .load(mItems.get(position).get())
+                .load(mItems.get(position).getUser_img())
                 .into(holder.itemImage);
 
 
-        /*holder.itemContainer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(context, SearchDetail.class);
-                intent.putExtra("key", holder.itemName.getText());
-                context.startActivity(intent);
-            }
-        });*/
 
 
     }
@@ -90,8 +82,8 @@ public class DetailShopermanRecyclerAdapter extends RecyclerView.Adapter<DetailS
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-        public ImageView itemImage;
-        public TextView itemName;
+        public ImageView itemImage; //쇼퍼맨 이미지
+        public TextView itemName; // 쇼퍼맨 이름
 
         LinearLayout itemContainer;
 

@@ -228,10 +228,12 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
             mRecycler.setAdapter(mAdapter);
             mAdapter.notifyDataSetChanged();
 
-            // 얼마에 구매했어요? 리싸이클러뷰 연결 (구매한 가격 (price) 는 따로 for문 돌려야 할듯)
+            // 얼마에 구매했어요? 리싸이클러뷰 연결
             mAdapter2 = new DetailPriceItemsRecyclerAdapter(searchDetailDB.tag_price, SearchDetail.this);
             mRecycler2.setAdapter(mAdapter2);
             mAdapter2.notifyDataSetChanged();
+
+            // TODO 구매한 가격 (price) 는 따로 for문 돌려야 할듯
 
             // 어디서 살 수 있어요?
             mAdapter3 = new DetailItemLocationRecyclerAdapter(searchDetailDB.sell_place, SearchDetail.this);
@@ -295,13 +297,14 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
 
     }
 
-
+/* 이미지 뷰페이지 + 페이저 어댑터 */
     private class SearchDetailPagerAdapter extends PagerAdapter {
         private ArrayList<String> imageList = new ArrayList<>();
 
         public SearchDetailPagerAdapter() {
         }
 
+    /* 페이저 어댑터에서    onBindView 역할 + */
         @Override
         public Object instantiateItem(ViewGroup container, int position) { // onBindView
             View view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.search_detail_view_pager_item, container, false);

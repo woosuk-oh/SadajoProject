@@ -10,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.tacademy.sadajo.R;
-import com.tacademy.sadajo.network.Search.SeachDetail.SearchDetailDB;
 import com.tacademy.sadajo.network.Search.SeachDetail.TipsDB;
 
 import java.util.ArrayList;
@@ -59,9 +58,10 @@ public class DetailCommentRecyclerAdapter extends RecyclerView.Adapter<DetailCom
     public void onBindViewHolder(final ViewHolder holder, int position) {
 
 
-        holder.itemText.setText(mItems.get(position).getitemtext());
-        holder.itemText2.setText(mItems.get(position).getitemtext2());
-        holder.itemImg.setImageResource(mItems.get(position).image);
+        holder.itemText.setText(mItems.get(position).getWriter());
+        holder.itemText2.setText(mItems.get(position).getTips_content());
+       // TODO 서버로부터 이미지 받아오면 다시 세팅
+        // holder.itemImg.setImageResource(mItems.get(position).getTips.....?);
 
 
 

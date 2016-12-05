@@ -7,6 +7,16 @@ public class TipsDB {
 
     public String writer;
     public String tips_content;
+    public String tips_user_img;
+
+
+    public String getTips_user_img() {
+        return tips_user_img;
+    }
+
+    public void setTips_user_img(String tips_user_img) {
+        this.tips_user_img = tips_user_img;
+    }
 
     public String getWriter() {
         return writer;
