@@ -66,19 +66,22 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
 
     Toolbar searchDetailToolbar;
 
+    SearchDetailPagerAdapter searchDetailPagerAdapter;
+    SearchDetailDB searchDetailDB;
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.search_detail_body);
 
-
-//        final ImageView itemImage = (ImageView) findViewById(R.id.item_image);
+        /* onCreate에서 생성할 위젯 (텍스트뷰) */
         final TextView itemID = (TextView) findViewById(R.id.search_detail_item_name);
         country = (TextView) findViewById(R.id.search_detail_country_name);
 
 
+        /* 상품의 ID값과 상품명, 판매가능 국가명을 인텐트로 가져옴 */
         Intent intent = getIntent();
-
         String itemidValue; // searchListActivity에서 넘겨준 키("key") + 값(itemName.getText().toString()) 을 "key"로 받아옴
         String itemValue;
         String countryValue;
@@ -86,12 +89,13 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
         itemidValue = intent.getExtras().getString("key");
         itemValue = intent.getExtras().getString("key2");
         countryValue = intent.getExtras().getString("key3");
+
+        /* onCreate에서 진행하는 setText */
         itemID.setText(itemValue); // 인텐트로 받아온 아이템의 id와 아이템의 이름 중 이름을 setText 해준다.
         country.setText(countryValue);
 
 
-
-
+        /* 상단 콜랩싱 부분 */
         collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsingToolbarLayout1);
         collapsingToolbarLayout.setTitle(itemValue);
         collapsingToolbarLayout.setExpandedTitleColor(getResources().getColor(android.R.color.transparent)); // 콜랩스바 펼쳐져있을때 텍스트 투명
@@ -107,24 +111,20 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
 
 
 
-
-
+        // 상품의 이미지 갯수 카운트 변수.
         itemcount = (TextView) findViewById(R.id.itemcount);
-        itemcount.setText(String.valueOf(1) + "/4");
+
+
+        // 이미지부분 뷰페이저 초기화 부분.
         searchDetailViewPager = (ViewPager) findViewById(R.id.search_detail_viewpager);
         searchDetailViewPager.addOnPageChangeListener(this);
-        SearchDetailPagerAdapter searchDetailPagerAdapter = new SearchDetailPagerAdapter();
+        searchDetailPagerAdapter = new SearchDetailPagerAdapter();
         searchDetailViewPager.setAdapter(searchDetailPagerAdapter);
 
 
-        mRecycler = (RecyclerView) findViewById(R.id.search_detail_shopperuser_recyclerview);
-        mRecycler2 = (RecyclerView) findViewById(R.id.search_detail_itemprice_recyclerview);
-        mRecycler3 = (RecyclerView) findViewById(R.id.search_detail_location_recyclerview);
-        mRecycler4 = (RecyclerView) findViewById(R.id.search_detail_comment_recyclerview);
-
-
+        /* 디테일 페이지에서 필요한 리싸이클러뷰들 레이아웃 적용 */
         layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        mRecycler.setLayoutManager(layoutManager); //리싸이클러뷰의 레이아웃매니저 적용
+        mRecycler.setLayoutManager(layoutManager);
 
         layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         mRecycler2.setLayoutManager(layoutManager);
@@ -136,74 +136,14 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
         mRecycler4.setLayoutManager(layoutManager);
 
 
-        ArrayList<ItemArrayList> items = new ArrayList<>();
-
-        items.add(new ItemArrayList(R.drawable.sample1, "산타노벨라 향수"));
-        items.add(new ItemArrayList(R.drawable.sample2, "샘플2"));
-        items.add(new ItemArrayList(R.drawable.sample3, "샘플3"));
-        items.add(new ItemArrayList(R.drawable.sample4, "샘플4"));
-        items.add(new ItemArrayList(R.drawable.sample5, "샘플5"));
-        mAdapter = new DetailShopermanRecyclerAdapter(items, this);
+        /* 리싸이클러뷰 onCreate에서 그려줌.*/
+        mRecycler = (RecyclerView) findViewById(R.id.search_detail_shopperuser_recyclerview);
+        mRecycler2 = (RecyclerView) findViewById(R.id.search_detail_itemprice_recyclerview);
+        mRecycler3 = (RecyclerView) findViewById(R.id.search_detail_location_recyclerview);
+        mRecycler4 = (RecyclerView) findViewById(R.id.search_detail_comment_recyclerview);
 
 
-        ArrayList<String> items2 = new ArrayList<>();
-        items2.add(new String("dd"));
-        items2.add(new String("dd"));
-        items2.add(new String("dd"));
-        items2.add(new String("dd"));
-        items2.add(new String("dd"));
-        items2.add(new String("dd"));
-        items2.add(new String("dd"));
-        items2.add(new String("dd"));
-        items2.add(new String("dd"));
-        items2.add(new String("dd"));
-        items2.add(new String("dd"));
-        items2.add(new String("dd"));
-        items2.add(new String("dd"));
-        items2.add(new String("dd"));
-        items2.add(new String("dd"));
-        items2.add(new String("dd"));
-        items2.add(new String("dd"));
-        items2.add(new String("dd"));
-        items2.add(new String("dd"));
-        items2.add(new String("dd"));
-        items2.add(new String("dd"));
-
-        mAdapter2 = new DetailPriceItemsRecyclerAdapter(items2, this);
-
-        ArrayList<String> items3 = new ArrayList<>();
-        items3.add(new String("dd"));
-        items3.add(new String("dd"));
-        items3.add(new String("dd"));
-        items3.add(new String("dd"));
-        items3.add(new String("dd"));
-        items3.add(new String("dd"));
-        items3.add(new String("dd"));
-
-        mAdapter3 = new DetailItemLocationRecyclerAdapter(items3, this);
-
-
-        ArrayList<ItemArrayList2> items4 = new ArrayList<>();
-
-        items4.add(new ItemArrayList2(R.drawable.sample1, "이번주에 샀는데 두개 사면 하나 20% 할인해주더라구여!!!!!!!!!!!!!!!!!!!", "3시간"));
-        items4.add(new ItemArrayList2(R.drawable.sample2, "이번주에 샀는데 두개 사면 하나 20% 할인해주더라구여!!!!!!!!!!!!!!!!!!!", "4시간"));
-        items4.add(new ItemArrayList2(R.drawable.sample3, "이번주에 샀는데 두개 사면 하나 20% 할인해주더라구여!!!!!!!!!!!!!!!!!!!", "4시간"));
-        items4.add(new ItemArrayList2(R.drawable.sample4, "이번주에 샀는데 두개 사면 하나 20% 할인해주더라구여!!!!!!!!!!!!!!!!!!!", "5시간"));
-        items4.add(new ItemArrayList2(R.drawable.sample5, "이번주에 샀는데 두개 사면 하나 20% 할인해주더라구여!!!!!!!!!!!!!!!!!!!", "6시간"));
-        mAdapter4 = new DetailCommentRecyclerAdapter(items4, this);
-
-
-        mRecycler.setAdapter(mAdapter); // 사용자 써클 이미지
-        mRecycler2.setAdapter(mAdapter2); // 얼마에 구매하셨어요?
-        mRecycler3.setAdapter(mAdapter3); // 어디서 살수있어요?
-        mRecycler4.setAdapter(mAdapter4); // 쇼퍼맨이 알려주는 구매 TIP
-
-        mAdapter.notifyDataSetChanged();
-        mAdapter2.notifyDataSetChanged();
-        mAdapter3.notifyDataSetChanged();
-        mAdapter4.notifyDataSetChanged();
-
-
+        /* 콜랩싱바에 있는 버튼 (찜하기, 담기) 위젯들. */
         zzim = (Button) findViewById(R.id.detail_zzim_button);
         zzim.setOnClickListener(onClickListener);
 
@@ -217,11 +157,10 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
 
 
     public class AsyncSearchDetailRequest extends AsyncTask<String, Void, SearchDetailDB> {
-
-
-        //첫번째 Void: doInBackgorund로 보내는
-        //두번째 Void: Progress
-        //세번째 onPostExecute에서 사용할 파라미터값.
+    /*     인자값 설명
+        첫번째 Void: doInBackgorund로 보내는
+        두번째 Void: Progress
+        세번째 onPostExecute에서 사용할 파라미터값.*/
 
 
         String url;
@@ -278,14 +217,35 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
         protected void onPostExecute(SearchDetailDB searchDetailDB) {
             super.onPostExecute(searchDetailDB);
 
+            // 상품의 이미지 갯수 가져와서 setText.
+            itemcount.setText(String.valueOf(1) + searchDetailDB.getGoods_img().size());
 
-            country.setText(searchDetailDB.getGoods_country());
+    /*        // 상품 판매 국가명 연결 [12.05 11:31 수정 -> 인텐트로 가져온 값을 onCreate에서 대신 setText 해줌]
+            country.setText(searchDetailDB.getGoods_country());*/
 
-
-
-            mAdapter = new DetailShopermanRecyclerAdapter(SearchDetail.this, searcDB.searchGoodsDBs); // TODO 쇼퍼맨에게 부탁해볼까요에 맞는 데이터모델로 수정.
+            // 쇼퍼맨에게 부탁해볼까요? 리싸이클러뷰 연결. (인자값 보냄)
+            mAdapter = new DetailShopermanRecyclerAdapter(SearchDetail.this, searchDetailDB.shoperman);
             mRecycler.setAdapter(mAdapter);
             mAdapter.notifyDataSetChanged();
+
+            // 얼마에 구매했어요? 리싸이클러뷰 연결 (구매한 가격 (price) 는 따로 for문 돌려야 할듯)
+            mAdapter2 = new DetailPriceItemsRecyclerAdapter(searchDetailDB.tag_price, SearchDetail.this);
+            mRecycler2.setAdapter(mAdapter2);
+            mAdapter2.notifyDataSetChanged();
+
+            // 어디서 살 수 있어요?
+            mAdapter3 = new DetailItemLocationRecyclerAdapter(searchDetailDB.sell_place, SearchDetail.this);
+            mRecycler3.setAdapter(mAdapter3);
+            mAdapter3.notifyDataSetChanged();
+
+            // 쇼퍼맨이 알려주는 구매 TIP (댓글)
+            mAdapter4 = new DetailCommentRecyclerAdapter(searchDetailDB.tips, SearchDetail.this);
+            mRecycler4.setAdapter(mAdapter4);
+            mAdapter4.notifyDataSetChanged();
+
+            // PagerAdapter 연결.
+            searchDetailPagerAdapter.setImageList(searchDetailDB.getGoods_img()); // 네트워크로 부터 받아온 goods_img를 페이저어댑터 메소드에서 set해주기 위해 인자값으로 보내줌.
+            searchDetailPagerAdapter.notifyDataSetChanged();
 
 
         }
@@ -327,7 +287,7 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
 
     @Override
     public void onPageSelected(int position) {
-        itemcount.setText(String.valueOf(position + 1) + "/4");
+        itemcount.setText(String.valueOf(position + 1) + searchDetailDB.getGoods_img().size());
     }
 
     @Override
@@ -337,23 +297,18 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
 
 
     private class SearchDetailPagerAdapter extends PagerAdapter {
-
+        private ArrayList<String> imageList = new ArrayList<>();
 
         public SearchDetailPagerAdapter() {
-            imageList.add(R.drawable.detail_item_img_sample);
-            imageList.add(R.drawable.detail_item_img_sample_2);
-            imageList.add(R.drawable.detail_item_img_sample_3);
-
-            Glide.with(SadajoContext.getContext())
-                    .load(.get(position).getItem_img())
-                    .into(holder.itemImage);
         }
 
         @Override
         public Object instantiateItem(ViewGroup container, int position) { // onBindView
             View view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.search_detail_view_pager_item, container, false);
             ImageView itemImg = (ImageView) view.findViewById(R.id.search_detail_viewpager_item_img);
-            itemImg.setImageResource(imageList.get(position));
+            Glide.with(SadajoContext.getContext())
+                    .load(imageList.get(position))
+                    .into(itemImg);
             container.addView(view);
             return view;
         }
@@ -371,6 +326,10 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
         @Override
         public boolean isViewFromObject(View view, Object object) {
             return view == object;
+        }
+
+        public void setImageList(ArrayList<String> imageList){// 어댑터로 셋 해줄 메소드 생성
+            this.imageList = imageList;
         }
     }
 }

@@ -10,6 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.tacademy.sadajo.R;
+import com.tacademy.sadajo.network.Search.SeachDetail.SearchDetailDB;
+import com.tacademy.sadajo.network.Search.SeachDetail.TipsDB;
 
 import java.util.ArrayList;
 
@@ -23,13 +25,13 @@ import java.util.ArrayList;
 
 public class DetailCommentRecyclerAdapter extends RecyclerView.Adapter<DetailCommentRecyclerAdapter.ViewHolder>{
     private Context context;
-    private ArrayList<ItemArrayList2> mItems;
+    private ArrayList<TipsDB> mItems;
 
 
 
 
 
-    public DetailCommentRecyclerAdapter(ArrayList<ItemArrayList2> items, Context mCotext) {
+    public DetailCommentRecyclerAdapter(ArrayList<TipsDB> items, Context mCotext) {
 
         mItems = items;
         context = mCotext;

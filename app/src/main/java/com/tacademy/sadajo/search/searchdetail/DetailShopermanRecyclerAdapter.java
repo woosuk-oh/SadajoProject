@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide;
 import com.tacademy.sadajo.R;
 import com.tacademy.sadajo.SadajoContext;
 import com.tacademy.sadajo.network.Search.SeachDetail.SearchDetailDB;
+import com.tacademy.sadajo.network.Search.SeachDetail.ShopermanDB;
 
 import java.util.ArrayList;
 
@@ -27,13 +28,13 @@ import java.util.ArrayList;
 
 public class DetailShopermanRecyclerAdapter extends RecyclerView.Adapter<DetailShopermanRecyclerAdapter.ViewHolder>{
     private Context context;
-    private ArrayList<SearchDetailDB???> mItems;
+    private ArrayList<ShopermanDB> mItems;
 
 
 
 
 
-    public DetailShopermanRecyclerAdapter(ArrayList<SearchDetailDB????> items, Context mCotext) {
+    public DetailShopermanRecyclerAdapter(Context mCotext, ArrayList<ShopermanDB> items) {
 
         mItems = items;
         context = mCotext;

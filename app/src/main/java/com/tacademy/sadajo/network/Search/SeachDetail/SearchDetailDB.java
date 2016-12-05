@@ -10,10 +10,12 @@ public class SearchDetailDB {
 
 
     public int item_id;
-    public String goods_img;
+    public ArrayList<String> goods_img;
     public String goods_code;
     public String goods_name;
-    public String item_content;
+
+
+    public String goods_content;
     public String goods_country;
     public int click;
     public String regdate;
@@ -29,12 +31,13 @@ public class SearchDetailDB {
     public ArrayList<TipsDB> tips;
 
 
-    public String getItem_content() {
-        return item_content;
+
+    public String getGoods_content() {
+        return goods_content;
     }
 
-    public void setItem_content(String item_content) {
-        this.item_content = item_content;
+    public void setGoods_content(String goods_content) {
+        this.goods_content = goods_content;
     }
 
     public ArrayList<ShopermanDB> getShoperman() {
@@ -61,11 +64,11 @@ public class SearchDetailDB {
         this.item_id = item_id;
     }
 
-    public String getGoods_img() {
+    public ArrayList<String> getGoods_img() {
         return goods_img;
     }
 
-    public void setGoods_img(String goods_img) {
+    public void setGoods_img(ArrayList<String> goods_img) {
         this.goods_img = goods_img;
     }
 

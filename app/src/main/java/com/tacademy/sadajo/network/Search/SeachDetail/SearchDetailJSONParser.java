@@ -23,12 +23,24 @@ public class SearchDetailJSONParser {
 
 
             searchDetailDB.setItem_id(searchDetail.getInt("id"));
-            searchDetailDB.setGoods_img(searchDetail.getString("goods_img"));
+
             searchDetailDB.setGoods_code(searchDetail.getString("goods_code"));
+            searchDetailDB.setGoods_content(searchDetail.getString("goods_content"));
             searchDetailDB.setGoods_name(searchDetail.getString("goods_name"));
             searchDetailDB.setGoods_country(searchDetail.getString("country"));
             searchDetailDB.setClick(searchDetail.getInt("click"));
             searchDetailDB.setRegdate(searchDetail.getString("regdate"));
+
+
+            /* 이미지 파싱 부분 */
+            JSONArray searchDetailImg = searchDetail.getJSONArray("goods_img");
+            int imgArraySize = searchDetailImg.length();
+
+            for(int i=0; i<imgArraySize; i++ ) {
+
+                searchDetailDB.goods_img.add(searchDetailImg.getString(i));
+            }
+
 
             /* 해시태그 파싱 부분 */
             JSONArray hash = searchDetail.getJSONArray("hashtag");
