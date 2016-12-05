@@ -113,11 +113,9 @@ public class ScheduleDialogFragment extends DialogFragment implements View.OnCli
         //spinner adapter
         spinnerAdapter = new ArrayAdapter<CharSequence>(getActivity(),
                 R.layout.select_scheduledialog_item, getResources().getStringArray(R.array.scheduleCountry)); // 스피너 레이아웃 기본으로 제공.
-        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         spinnerAdapter2 = new ArrayAdapter<CharSequence>(getActivity(),
                 R.layout.select_scheduledialog_item, getResources().getStringArray(R.array.city));
-        spinnerAdapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         citySpinner.setAdapter(spinnerAdapter2);
 
         countrySpinner.setAdapter(spinnerAdapter);
@@ -133,63 +131,53 @@ public class ScheduleDialogFragment extends DialogFragment implements View.OnCli
                     case 1:
                         spinnerAdapter2 = new ArrayAdapter<CharSequence>(getActivity(),
                                 R.layout.select_scheduledialog_item, getResources().getStringArray(R.array.usaCity));
-                        spinnerAdapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         citySpinner.setAdapter(spinnerAdapter2);
 
                         break;
                     case 2 :
                         spinnerAdapter2 = new ArrayAdapter<CharSequence>(getActivity(),
                                 R.layout.select_scheduledialog_item, getResources().getStringArray(R.array.jpnCity));
-                        spinnerAdapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         citySpinner.setAdapter(spinnerAdapter2);
                         break;
                     case 3 :
                         spinnerAdapter2 = new ArrayAdapter<CharSequence>(getActivity(),
                                 R.layout.select_scheduledialog_item, getResources().getStringArray(R.array.hkgCity));
-                        spinnerAdapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         citySpinner.setAdapter(spinnerAdapter2);
                         break;
                     case 4 :
                         spinnerAdapter2 = new ArrayAdapter<CharSequence>(getActivity(),
                                 R.layout.select_scheduledialog_item, getResources().getStringArray(R.array.fraCity));
-                        spinnerAdapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         citySpinner.setAdapter(spinnerAdapter2);
                         break;
                     case 5 :
                         spinnerAdapter2 = new ArrayAdapter<CharSequence>(getActivity(),
                                 R.layout.select_scheduledialog_item, getResources().getStringArray(R.array.itaCity));
-                        spinnerAdapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         citySpinner.setAdapter(spinnerAdapter2);
                         break;
 
                     case 6 :
                         spinnerAdapter2 = new ArrayAdapter<CharSequence>(getActivity(),
                                 R.layout.select_scheduledialog_item, getResources().getStringArray(R.array.thaCity));
-                        spinnerAdapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         citySpinner.setAdapter(spinnerAdapter2);
                         break;
                     case 7 :
                         spinnerAdapter2 = new ArrayAdapter<CharSequence>(getActivity(),
                                 R.layout.select_scheduledialog_item, getResources().getStringArray(R.array.ausCity));
-                        spinnerAdapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         citySpinner.setAdapter(spinnerAdapter2);
                         break;
                     case 8 :
                         spinnerAdapter2 = new ArrayAdapter<CharSequence>(getActivity(),
                                 R.layout.select_scheduledialog_item, getResources().getStringArray(R.array.chnCity));
-                        spinnerAdapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         citySpinner.setAdapter(spinnerAdapter2);
                         break;
                     case 9 :
                         spinnerAdapter2 = new ArrayAdapter<CharSequence>(getActivity(),
                                 R.layout.select_scheduledialog_item, getResources().getStringArray(R.array.phnCity));
-                        spinnerAdapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         citySpinner.setAdapter(spinnerAdapter2);
                         break;
                     case 10:
                         spinnerAdapter2 = new ArrayAdapter<CharSequence>(getActivity(),
                                 R.layout.select_scheduledialog_item, getResources().getStringArray(R.array.twnCity));
-                        spinnerAdapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         citySpinner.setAdapter(spinnerAdapter2);
                         break;
                 }
@@ -201,7 +189,8 @@ public class ScheduleDialogFragment extends DialogFragment implements View.OnCli
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-                // entityObject.country = countryCodeHashMap.getCountryCode((spinnerAdapter.getItem(0)).toString());
+
+
                 spinnerAdapter2 = new ArrayAdapter<CharSequence>(getActivity(),
                         R.layout.select_scheduledialog_item, getResources().getStringArray(R.array.city));
                 spinnerAdapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -215,6 +204,8 @@ public class ScheduleDialogFragment extends DialogFragment implements View.OnCli
 
         citySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             CityCodeHashMap cityCodeHashMap = new CityCodeHashMap();
+
+
 
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {

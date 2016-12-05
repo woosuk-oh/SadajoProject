@@ -41,9 +41,6 @@ public class ItemFragment extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.itemRecyclerView);
         recyclerView.setLayoutManager(layoutManager);
-//
-//        CustomRecyclerDecoration decoration = new CustomRecyclerDecoration(30, "bottom"); //아이템간 간격
-//        recyclerView.addItemDecoration(decoration);
 
         itemReviewRecyclerViewAdapter = new ItemReviewRecyclerViewAdapter(getContext(), ShoppingListSample.shoppinList);
         recyclerView.setAdapter(itemReviewRecyclerViewAdapter);

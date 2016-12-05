@@ -65,8 +65,8 @@ public class OtherShoppingListActivity extends BaseActivity {
     }
     private void setupShoppingListViewPager(ViewPager viewPager) {
         MyPagerAdapter shoppingListAdapter = new MyPagerAdapter(getSupportFragmentManager());
-        shoppingListAdapter.appendFragment(LikeListFragment.newInstance(1), "찜");
-        shoppingListAdapter.appendFragment(ShoppingListFragment.newInstance(2), "쇼핑리스트");
+        shoppingListAdapter.appendFragment(OtherLikeListFragment.newInstance(1), "찜");
+        shoppingListAdapter.appendFragment(OtherShoppingListFragment.newInstance(2), "쇼핑리스트");
         viewPager.setAdapter(shoppingListAdapter);
     }
 

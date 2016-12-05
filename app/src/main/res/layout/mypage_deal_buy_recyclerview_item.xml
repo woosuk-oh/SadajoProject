@@ -137,11 +137,12 @@
         android:layout_width="match_parent"
         android:layout_height="46dp">
 
-        <Button
-            android:id="@+id/okButton"
+        <TextView
+            android:id="@+id/buyRequestTextView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="사다조 요청 수락"
+            android:text="사다조 요청중"
+            android:gravity="center"
             android:textColor="@color/white"
             android:textSize="13sp"
             android:background="@color/sadajoBackground" />

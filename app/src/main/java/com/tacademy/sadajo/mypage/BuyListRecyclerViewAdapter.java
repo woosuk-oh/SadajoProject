@@ -4,14 +4,11 @@ package com.tacademy.sadajo.mypage;
  * Created by EUNZY on 2016. 11. 24..
  */
 
-import android.app.FragmentManager;
 import android.content.Context;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -48,7 +45,7 @@ public class BuyListRecyclerViewAdapter
         public final ImageView productImageView;
         public final ImageView profileImageView;
 
-        public final Button okButton;
+        public final TextView buyRequestTextView;
 
         public final ImageButton buyReviewButton;
         public final ImageButton buyRequestButton;
@@ -68,7 +65,7 @@ public class BuyListRecyclerViewAdapter
             productImageView = (ImageView) view.findViewById(R.id.buyProductImageView);
             profileImageView = (ImageView) view.findViewById(R.id.buyProfileImageView);
 
-            okButton = (Button) view.findViewById(R.id.okButton);
+            buyRequestTextView = (TextView) view.findViewById(R.id.buyRequestTextView);
 
             buyReviewButton = (ImageButton) view.findViewById(R.id.buyReviewButton);
             buyRequestButton = (ImageButton) view.findViewById(R.id.buyRequestButton);
@@ -83,7 +80,7 @@ public class BuyListRecyclerViewAdapter
 
 
         View view = LayoutInflater.from(parent.getContext()).inflate(
-                R.layout.mypage_buysell_recyclerview_item, parent, false);
+                R.layout.mypage_deal_buy_recyclerview_item, parent, false);
 
 
         return new BuyListRecyclerViewAdapter.ViewHolder(view);
@@ -100,41 +97,42 @@ public class BuyListRecyclerViewAdapter
 
         holder.productImageView.setImageResource(R.drawable.taipei);
         holder.profileImageView.setImageResource(R.drawable.profile_empty);
+        holder.buyRequestTextView.setVisibility(View.VISIBLE);
 
-        holder.okButton.setOnClickListener(new View.OnClickListener() { //사다조 요청수락버튼 클릭시
-
-            FragmentManager fragmentManager = ((AppCompatActivity) context).getFragmentManager();
-
-            @Override
-            public void onClick(View v) {//TODO: 수정필요!
-
-
-                RequestConfirmDialogFragment requestConfirmDialogFragment = new RequestConfirmDialogFragment();
-                requestConfirmDialogFragment.show(fragmentManager, "requestConfirmDialog");
-                v.setVisibility(View.GONE);
-
-                holder.buyRequestButton.setVisibility(View.VISIBLE); //요청보기 버튼 visible
-                holder.buyRequestButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        RequestConfirmDialogFragment requestConfirmDialogFragment = new RequestConfirmDialogFragment();
-                        requestConfirmDialogFragment.show(fragmentManager, "requestConfirmDialog");
-
-                    }
-                });
-                holder.buyReviewButton.setVisibility(View.VISIBLE);//후기작성버튼 visible
-                holder.buyReviewButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        ReviewDialogFragment dialog = new ReviewDialogFragment();
-                        dialog.show(fragmentManager, "reviewDialog");
-                        view.setSelected(true);
-                    }
-                });
-
-
-            }
-        });
+//        holder.okButton.setOnClickListener(new View.OnClickListener() { //사다조 요청수락버튼 클릭시
+//
+//            FragmentManager fragmentManager = ((AppCompatActivity) context).getFragmentManager();
+//
+//            @Override
+//            public void onClick(View v) {//TODO: 수정필요!
+//
+//
+//                RequestConfirmDialogFragment requestConfirmDialogFragment = new RequestConfirmDialogFragment();
+//                requestConfirmDialogFragment.show(fragmentManager, "requestConfirmDialog");
+//                v.setVisibility(View.GONE);
+//
+//                holder.buyRequestButton.setVisibility(View.VISIBLE); //요청보기 버튼 visible
+//                holder.buyRequestButton.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        RequestConfirmDialogFragment requestConfirmDialogFragment = new RequestConfirmDialogFragment();
+//                        requestConfirmDialogFragment.show(fragmentManager, "requestConfirmDialog");
+//
+//                    }
+//                });
+//                holder.buyReviewButton.setVisibility(View.VISIBLE);//후기작성버튼 visible
+//                holder.buyReviewButton.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        ReviewDialogFragment dialog = new ReviewDialogFragment();
+//                        dialog.show(fragmentManager, "reviewDialog");
+//                        view.setSelected(true);
+//                    }
+//                });
+//
+//
+//            }
+//        });
 
 
     }

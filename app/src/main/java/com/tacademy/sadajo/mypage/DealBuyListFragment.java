@@ -13,17 +13,17 @@ import com.tacademy.sadajo.R;
 import com.tacademy.sadajo.shoppinglist.ShoppingListSample;
 
 
-public class BuyListFragment extends Fragment {
+public class DealBuyListFragment extends Fragment {
 
 
     BuyListRecyclerViewAdapter recyclerViewAdapter;
 
-    public BuyListFragment() {
+    public DealBuyListFragment() {
     }
 
 
-    public static BuyListFragment newInstance(int initValue) {
-        BuyListFragment fragment = new BuyListFragment();
+    public static DealBuyListFragment newInstance(int initValue) {
+        DealBuyListFragment fragment = new DealBuyListFragment();
         Bundle bundle = new Bundle();
         bundle.putInt("value", initValue);
         fragment.setArguments(bundle);

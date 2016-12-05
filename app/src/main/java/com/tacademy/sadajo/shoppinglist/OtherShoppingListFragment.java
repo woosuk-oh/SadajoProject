@@ -30,19 +30,19 @@ import okhttp3.Response;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ShoppingListFragment extends Fragment {
+public class OtherShoppingListFragment extends Fragment {
     public static int increment;
 
 
-    ShoppingListRecyclerViewAdapter recyclerViewAdapter;
+    OtherShoppingListRecyclerViewAdapter recyclerViewAdapter;
     RecyclerView shoppingListRecyclerView;
 
-    public ShoppingListFragment() {
+    public OtherShoppingListFragment() {
         // Required empty public constructor
     }
 
-    public static ShoppingListFragment newInstance(int initValue) {
-        ShoppingListFragment shoppingListFragment = new ShoppingListFragment();
+    public static OtherShoppingListFragment newInstance(int initValue) {
+        OtherShoppingListFragment shoppingListFragment = new OtherShoppingListFragment();
         Bundle bundle = new Bundle();
         bundle.putInt("value", initValue);
         shoppingListFragment.setArguments(bundle);
@@ -64,7 +64,7 @@ public class ShoppingListFragment extends Fragment {
         CustomRecyclerDecoration decoration = new CustomRecyclerDecoration(30, "bottom"); //아이템간 간격
         shoppingListRecyclerView.addItemDecoration(decoration);
 
-        recyclerViewAdapter = new ShoppingListRecyclerViewAdapter(getContext());
+        recyclerViewAdapter = new OtherShoppingListRecyclerViewAdapter(getContext());
         shoppingListRecyclerView.setAdapter(recyclerViewAdapter);
 
 
@@ -76,7 +76,7 @@ public class ShoppingListFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        new AsyncTaskShopList().execute();
+     //   new AsyncTaskShopList().execute();
 
     }
 
@@ -131,6 +131,7 @@ public class ShoppingListFragment extends Fragment {
         @Override
         public void onPostExecute(ArrayList<ShopListDB> shopListDBs) {
             super.onPostExecute(shopListDBs);
+
 
             recyclerViewAdapter.addShopList(shopListDBs);
             recyclerViewAdapter.notifyDataSetChanged();

@@ -56,8 +56,12 @@
             android:name=".mypage.MyPageOtherActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".shoppinglist.OtherShoppingListActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".BaseActivity"
             android:screenOrientation="portrait" />
+
 
         <meta-data
             android:name="com.tacademy.sadajo.SadajoGlideModule"
@@ -81,7 +85,6 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".shoppinglist.OtherShoppingListActivity"></activity>
     </application>
 
 </manifest>
