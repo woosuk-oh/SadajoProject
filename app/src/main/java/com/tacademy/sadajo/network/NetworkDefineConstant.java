@@ -17,6 +17,7 @@ public class NetworkDefineConstant {
 
 
     public static String SERVER_URL_REQUST_CHATLIST;
+    public static String SERVER_URL_REQUST_CHATTINGLIST;
 
 
 
@@ -33,6 +34,8 @@ public class NetworkDefineConstant {
                 HOST_URL + "/request";
         SERVER_URL_REQUST_CHATLIST =
                 HOST_URL + "/chat";
+        SERVER_URL_REQUST_CHATTINGLIST =
+                HOST_URL + "/chatlist";
 
         SEARCH_LIST =
                 HOST_URL + "/goods";

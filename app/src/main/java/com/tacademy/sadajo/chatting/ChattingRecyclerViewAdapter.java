@@ -14,19 +14,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.tacademy.sadajo.R;
-import com.tacademy.sadajo.shoppinglist.ShoppingListData;
+import com.tacademy.sadajo.network.chatting.ChatDataList;
 
 import java.util.ArrayList;
 
 public class ChattingRecyclerViewAdapter
         extends RecyclerView.Adapter<ChattingRecyclerViewAdapter.ViewHolder> {
 
-    private ArrayList<ShoppingListData> shoppingListDatas;
+    private ArrayList<ChatDataList> chatDataLists;
     private Context context;
 
-    public ChattingRecyclerViewAdapter(Context context, ArrayList<ShoppingListData> shoppingListDatas) {
+    public ChattingRecyclerViewAdapter(Context context) {
         this.context = context;
-        this.shoppingListDatas = shoppingListDatas;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -61,35 +60,16 @@ public class ChattingRecyclerViewAdapter
     public void onBindViewHolder(final ChattingRecyclerViewAdapter.ViewHolder holder, final int position) {
 
 
-//            holder.shoppinglistCountryNameTextView.setText(shoppingListDatas.get(position).getCountryName().toString());
-//            holder.shoppinglistDateTextView.setText(shoppingListDatas.get(position).getTravelDate().toString());
-//            holder.shoppinglistFolderImageView.setImageResource(R.drawable.mark);
-
-        holder.chattingNameTextView.setText("채팅제목");
+        //Todo: user구분 필요 수정하기
+        holder.chattingNameTextView.setText(chatDataLists.get(position).carrierUserCode);
         holder.chattingContentTextView.setText("안녕하세요");
         holder.chattingDateTextView.setText("2016.11.20");
         holder.chattingProfileImageView.setImageResource(R.drawable.product_sample);
-
-
-//            Glide.with(GirlsApplication.getGirlsContext())
-//                    .load(girlInfo)
-//                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-//                    .animate(android.R.anim.slide_in_left)
-//                    .into(holder.girlsImage);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-//                    Intent intent = new Intent(GirlsApplication.getGirlsContext(), GirlsMemberDetailActivity.class);
-//                    intent.putExtra("memberImage", girlsImages.get(position));
-//                    intent.putExtra("memberName", holder.memberName.getText().toString());
-//
-//                    ActivityOptionsCompat options =
-//                            ActivityOptionsCompat.makeSceneTransitionAnimation(
-//                                    owner, holder.girlsImage, ViewCompat.getTransitionName(holder.girlsImage));
-//
-//                    ActivityCompat.startActivity(owner, intent, options.toBundle());
                 Intent intent = new Intent(context, ChattingDetailActivity.class);
                 context.startActivity(intent);
 
@@ -98,8 +78,14 @@ public class ChattingRecyclerViewAdapter
 
     }
 
+
+    public void addChatList(ArrayList<ChatDataList> chatDataLists) {
+        this.chatDataLists = chatDataLists;
+
+    }
+
     @Override
     public int getItemCount() {
-        return shoppingListDatas.size();
+        return chatDataLists.size();
     }
 }

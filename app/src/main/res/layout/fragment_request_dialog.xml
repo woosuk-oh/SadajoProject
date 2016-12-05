@@ -23,7 +23,6 @@
         android:id="@+id/requestCountrySpinner"
         android:layout_width="103dp"
         android:layout_height="23dp"
-        android:layout_marginBottom="6dp"
         android:background="@drawable/sl_dialog_button" />
 
     <EditText
@@ -31,32 +30,50 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@android:color/transparent"
-        android:gravity="center"
-        android:hint="빅토리아시크릿"
-        android:textColorHint="@color/sadajoBackground"
+        android:gravity="left|center"
+        android:hint="상품명"
+        android:padding="5dp"
+
+        android:textColorHint="@color/grayFont"
         android:textSize="13sp"
         android:textStyle="normal" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/white" />
+
 
     <EditText
         android:id="@+id/requestProductPriceEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:hint="100,000"
-        android:textColorHint="@color/sadajoBackground"
+        android:backgroundTint="@android:color/transparent"
+        android:gravity="left|center"
+
+        android:hint="상품가격"
+        android:padding="5dp"
+        android:textColorHint="@color/grayFont"
         android:textSize="13sp"
         android:textStyle="normal" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/white" />
+
+
     <EditText
         android:id="@+id/requestProductOptEditText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:background="@color/white"
+        android:gravity="top|left"
         android:hint="추가요청사항"
-        android:maxLines="8"
+        android:layout_marginTop="5dp"
+        android:padding="5dp"
         android:scrollbars="vertical"
-        android:textColorHint="@color/sadajoBackground"
-
+        android:textColorHint="@color/grayFont"
         android:textSize="13sp"
         android:textStyle="normal" />
 

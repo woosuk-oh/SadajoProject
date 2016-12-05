@@ -90,7 +90,7 @@ public class RequestDialogFragment extends DialogFragment implements View.OnClic
         //spinner adapter
         countrySpinnerAdapter = new ArrayAdapter<CharSequence>(getActivity(),
                 R.layout.select_scheduledialog_item, getResources().getStringArray(R.array.scheduleCountry)); // 스피너 레이아웃 기본으로 제공.
-        countrySpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
 
         requestCountrySpinner = (Spinner) view.findViewById(R.id.requestCountrySpinner);
         requestCountrySpinner.setAdapter(countrySpinnerAdapter);

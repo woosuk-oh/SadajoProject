@@ -133,7 +133,7 @@ public class LikeListFragment extends Fragment {
         @Override
         public void onPostExecute(ArrayList<ShopListDB> listDBs) {
             super.onPostExecute(listDBs);
-            Log.e("likelist", "post");
+            //Log.e("likelist", "post");
 
             likeRecyclerViewAdapter.addLikeList(listDBs);
             likeRecyclerViewAdapter.notifyDataSetChanged();
