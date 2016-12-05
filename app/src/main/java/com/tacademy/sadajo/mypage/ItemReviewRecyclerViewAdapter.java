@@ -63,44 +63,16 @@ public class ItemReviewRecyclerViewAdapter
     public void onBindViewHolder(final ItemReviewRecyclerViewAdapter.ViewHolder holder, final int position) {
 
 
-//
-//            holder.countryNameTextView.setText(shoppingListDatas.get(position).countryName);
-//            holder.cityNameTextView.setText(shoppingListDatas.get(position).cityName);
-//            holder.dateTextView.setText(shoppingListDatas.get(position).travelDate);
-//            holder.productImageView.setImageResource(shoppingListDatas.get(position).productImgae);
-
         holder.itemProductImageView.setImageResource(R.drawable.detail_item_img_sample);
         holder.itemProductNameTextView.setText("산타마리아노벨라 향수");
         holder.itemFlagImageView.setImageResource(R.drawable.flag);
         holder.itemCountryNameTextView.setText("이탈리아");
 
 
-       /* if(position == mItems.size()+1)
-        {
-
-            holder.itemImage.setImageResource(R.drawable.search_button);
-        }*/
-
-
-//            Glide.with(GirlsApplication.getGirlsContext())
-//                    .load(girlInfo)
-//                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-//                    .animate(android.R.anim.slide_in_left)
-//                    .into(holder.girlsImage);
-
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//
-//                    Intent intent = new Intent(GirlsApplication.getGirlsContext(), GirlsMemberDetailActivity.class);
-//                    intent.putExtra("memberImage", girlsImages.get(position));
-//                    intent.putExtra("memberName", holder.memberName.getText().toString());
-//
-//                    ActivityOptionsCompat options =
-//                            ActivityOptionsCompat.makeSceneTransitionAnimation(
-//                                    owner, holder.girlsImage, ViewCompat.getTransitionName(holder.girlsImage));
-//
-//                    ActivityCompat.startActivity(owner, intent, options.toBundle());
+
                 Intent intent = new Intent(context, SearchDetail.class);
                 intent.putExtra("key", holder.itemProductNameTextView.getText());
                 context.startActivity(intent);

@@ -66,10 +66,7 @@ public class LikeListFragment extends Fragment {
         likeRecyclerViewAdapter = new LikeListRecyclerViewAdapter(getContext());
         likeListRecyclerView.setAdapter(likeRecyclerViewAdapter);
 
-//        if (recyclerViewAdapter.getItemCount() == 0) {
-//            view = inflater.inflate(R.layout.shoppinglist_noitem_layout, container, false);
-//        }//쇼핑리스트 아이템이 하나도 없을 경우
-
+//
 
         return view;
 
@@ -89,7 +86,7 @@ public class LikeListFragment extends Fragment {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-
+            //TODO:커스텀다이얼로그 추가
         }
 
         @Override
@@ -136,7 +133,7 @@ public class LikeListFragment extends Fragment {
         @Override
         public void onPostExecute(ArrayList<ShopListDB> listDBs) {
             super.onPostExecute(listDBs);
-            Log.e("likelist","post");
+            Log.e("likelist", "post");
 
             likeRecyclerViewAdapter.addLikeList(listDBs);
             likeRecyclerViewAdapter.notifyDataSetChanged();

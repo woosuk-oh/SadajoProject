@@ -1,26 +1,24 @@
 package com.tacademy.sadajo.network;
 
-/**
- * Created by cbk10 on 2016-11-08.
- */
 
 public class NetworkDefineConstant {
 
     public static final String HOST_URL = "http://52.78.89.88:3000";
-    // public static final String GENRE_REQUEST_URL= "http://apis.skplanetx.com/melon/genres?version=1";
 
-    //요청 URL path
     public static String SERVER_URL_REQUEST_HOME;
     public static String SERVER_URL_REQUEST_SHOPLIST;
     public static String SERVER_URL_REQUEST_LIKELIST;
     public static String SERVER_URL_INSERT_SCHEDULE;
     public static String SERVER_URL_INSERT_REQUEST;
+
     public static String SEARCH_LIST;
     public static String SEARCH_LIST_COUNTRY;
     public static String SEARCH_LIST_DETAIL;
 
 
-    /*public static String SERVER_URL_REQUEST_GENRE_CHART;*/
+    public static String SERVER_URL_REQUST_CHATLIST;
+
+
 
     static {
         SERVER_URL_REQUEST_HOME =
@@ -33,6 +31,8 @@ public class NetworkDefineConstant {
                 HOST_URL + "/registerSchedule";
         SERVER_URL_INSERT_REQUEST =
                 HOST_URL + "/request";
+        SERVER_URL_REQUST_CHATLIST =
+                HOST_URL + "/chat";
 
         SEARCH_LIST =
                 HOST_URL + "/goods";

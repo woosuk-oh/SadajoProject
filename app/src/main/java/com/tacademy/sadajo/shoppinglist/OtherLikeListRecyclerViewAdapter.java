@@ -21,8 +21,8 @@ import java.util.ArrayList;
  * Created by EUNZY on 2016. 11. 24..
  */
 
-public class LikeListRecyclerViewAdapter
-        extends RecyclerView.Adapter<LikeListRecyclerViewAdapter.ViewHolder> {
+public class OtherLikeListRecyclerViewAdapter
+        extends RecyclerView.Adapter<OtherLikeListRecyclerViewAdapter.ViewHolder> {
 
     private ArrayList<ShopListDB> listDBs = new ArrayList<>();
     private Context context;
@@ -31,7 +31,7 @@ public class LikeListRecyclerViewAdapter
     private final static int NO_ITEM_VIEW= 0;
     private final static int CONTENT_VIEW = 1;
 
-    public LikeListRecyclerViewAdapter(Context context) {
+    public OtherLikeListRecyclerViewAdapter(Context context) {
         this.context = context;
     }
 
@@ -104,7 +104,6 @@ public class LikeListRecyclerViewAdapter
             holder.countryNameTextView.setText(listDBs.get(position).countryNameEng);
             holder.cityNameTextView.setText(listDBs.get(position).countryNameKor);
 
-            //       holder.productImageView.setImageResource(R.drawable.sample_img);
 
             //담은 상품이 없을 경우 default이미지 보여줌
             if (listDBs.get(position).goodsCount == 0) {

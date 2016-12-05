@@ -6,7 +6,7 @@
     android:background="@color/white">
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/buyProductImageView"
+        android:id="@+id/sellCountryImageView"
         android:layout_marginTop="30dp"
         android:layout_width="204dp"
         android:layout_height="204dp"
@@ -14,7 +14,7 @@
         android:src="@drawable/profile_empty" />
 
     <TextView
-        android:id="@+id/buyCountryEngName"
+        android:id="@+id/sellCountryEngName"
         android:layout_marginTop="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -25,7 +25,7 @@
         android:textStyle="italic"/>
 
     <TextView
-        android:id="@+id/buyCountryKorName"
+        android:id="@+id/sellCountryKorName"
         android:layout_marginTop="9dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -49,13 +49,13 @@
             android:layout_height="match_parent">
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/buyProfileImageView"
+                android:id="@+id/sellProfileImageView"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:src="@drawable/profile_empty" />
 
             <TextView
-                android:id="@+id/buyUserNameTextView"
+                android:id="@+id/sellUserNameTextView"
                 android:layout_marginTop="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -73,7 +73,7 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/buyProductTextView"
+                android:id="@+id/sellProductTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="상품명"
@@ -82,7 +82,7 @@
                 android:textStyle="normal"/>
 
             <TextView
-                android:id="@+id/buyProductNameTextView"
+                android:id="@+id/sellProductNameTextView"
                 android:layout_marginTop="7dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -105,7 +105,7 @@
         android:layout_marginRight="24dp">
 
         <TextView
-            android:id="@+id/buyDateTextTextView"
+            android:id="@+id/sellDateTextTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="거래날짜"
@@ -119,7 +119,7 @@
             android:gravity="right">
 
             <TextView
-                android:id="@+id/buyDateTextView"
+                android:id="@+id/sellDateTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="2016.11.20"
@@ -137,25 +137,24 @@
         android:layout_width="match_parent"
         android:layout_height="46dp">
 
-        <TextView
-            android:id="@+id/buyRequestTextView"
+        <Button
+            android:id="@+id/sellOkButton"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="사다조 요청중"
-            android:gravity="center"
+            android:text="사다조 요청 수락"
             android:textColor="@color/white"
             android:textSize="13sp"
             android:background="@color/sadajoBackground" />
 
 
         <ImageButton
-            android:id="@+id/buyReviewButton"
+            android:id="@+id/sellReviewButton"
             android:layout_width="133dp"
             android:layout_height="match_parent"
             android:background="@drawable/selector_my_buylist_review" />
 
         <ImageButton
-            android:id="@+id/buyRequestButton"
+            android:id="@+id/sellRequestButton"
             android:layout_width="133dp"
             android:layout_height="match_parent"
             android:background="@drawable/my_offer" />

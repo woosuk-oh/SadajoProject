@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+    android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/whiteGrayFont">
+    android:layout_height="wrap_content"
+    android:layout_marginRight="62dp"
+    android:layout_marginLeft="16dp"
+    android:background="@color/whiteGrayFont"
+    android:paddingTop="5dp"
+    android:paddingBottom="5dp">
 
     <TextView
         android:id="@+id/chatMessage"
@@ -11,8 +15,18 @@
         android:layout_height="wrap_content"
         android:text="Chat message"
         android:background="@drawable/chat_bubble"
-        android:gravity="left|center_vertical|center_horizontal"
-        android:layout_marginLeft="20dp"
+        android:gravity="center|left"
+        android:textStyle="normal"
         android:textSize="12sp"
         android:textColor="@color/blackFont"/>
+    <TextView
+        android:id="@+id/chatTimeTextView"
+        android:gravity="center"
+        android:layout_marginLeft="17dp"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:textSize="11sp"
+        android:textStyle="normal"
+        android:text="오후 10:10"/>
+
 </LinearLayout>
