@@ -1,6 +1,7 @@
 package com.tacademy.sadajo.search.searchdetail;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -12,12 +13,14 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -47,6 +50,9 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
     TextView itemcount;
     TextView country;
     TextView contenttext;
+    TextView unit;
+    LinearLayout detailhashbutton;
+
     //푸쉬 테스트
 
     RecyclerView.LayoutManager layoutManager;
@@ -84,6 +90,7 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
         final TextView itemID = (TextView) findViewById(R.id.search_detail_item_name);
         country = (TextView) findViewById(R.id.search_detail_country_name);
         contenttext = (TextView) findViewById(R.id.search_detail_content_text);
+        unit = (TextView) findViewById(R.id.detail_price_unit);
 
 
         /* 상품의 ID값과 상품명, 판매가능 국가명을 인텐트로 가져옴 */
@@ -114,7 +121,6 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
         actionBar.setHomeAsUpIndicator(R.drawable.search_back_icon2);
         actionBar.setDisplayShowTitleEnabled(false);
         actionBar.setDisplayHomeAsUpEnabled(true);
-
 
 
         // 상품의 이미지 갯수 카운트 변수.
@@ -161,6 +167,9 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
 
         shopping = (Button) findViewById(R.id.detail_shopping_button);
         shopping.setOnClickListener(onClickListener);
+
+
+        detailhashbutton = (LinearLayout) findViewById(R.id.list_detail_hash_button);
 
 
         /*Async 내릴때 아이템의 id값인 itemidValue 보내줘야 해당 아이디로 get요청함.*/
@@ -231,7 +240,7 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
 
 
             contenttext.setText(s.getGoods_content().toString());
-            Log.d("컨텐트",""+s.getGoods_content().toString());
+
 
     /*        // 상품 판매 국가명 연결 [12.05 11:31 수정 -> 인텐트로 가져온 값을 onCreate에서 대신 setText 해줌]
             country.setText(searchDetailDB.getGoods_country());*/
@@ -243,15 +252,16 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
 
             // 얼마에 구매했어요? 리싸이클러뷰 연결
             mAdapter2 = new DetailPriceItemsRecyclerAdapter(s.tag_price, SadajoContext.getContext());
-            Log.d("tag_price","얼마에 구매했어요?"+s.tag_price.get(0));
+            Log.d("tag_price", "얼마에 구매했어요?" + s.tag_price.get(0));
             mRecycler2.setAdapter(mAdapter2);
             mAdapter2.notifyDataSetChanged();
 
-            // TODO 구매한 가격 (price) 는 따로 for문 돌려야 할듯
+            // 얼마에 구매했어요?2번째 부분 리싸이클러뷰 연결
             mAdapter3 = new DetailPriceItems2RecyclerAdapter(s.price, SadajoContext.getContext());
             mRecycler3.setAdapter(mAdapter3);
             mAdapter3.notifyDataSetChanged();
 
+            unit.setText(s.getUnit().toString());
 
             // 쇼퍼맨이 알려주는 구매 TIP (댓글)
             mAdapter4 = new DetailCommentRecyclerAdapter(s.tips, SadajoContext.getContext());
@@ -259,7 +269,7 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
             mAdapter4.notifyDataSetChanged();
 
             // 어디서 살 수 있어요?
-            mAdapter5 = new DetailItemLocationRecyclerAdapter(s.sell_place,SadajoContext.getContext());
+            mAdapter5 = new DetailItemLocationRecyclerAdapter(s.sell_place, SadajoContext.getContext());
             mRecycler5.setAdapter(mAdapter5);
             mAdapter5.notifyDataSetChanged();
 
@@ -270,6 +280,21 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
 
             // 상품의 이미지 갯수 가져와서 setText.
             itemcount.setText(String.valueOf(1) + s.getGoods_img().size());
+
+
+            // 해시태그 가져와서 갯수만큼 for문 돌려서, createTagButton 커스텀 메소드로 버튼 동적 생성
+
+
+            ArrayList hashArray;
+            hashArray = s.getHashtag();
+            Log.d("해시태그:","해시태그(SearchDetail)"+s.getHashtag().get(1).toString());
+
+            int hashArraySize = hashArray.size();
+            Log.d("해시태그사이즈:","해시태그 사이즈(SearchDetail)"+hashArraySize);
+
+            for (int i = 0; i < hashArraySize; i++) {
+                detailhashbutton.addView(createTagButton(hashArray.get(i).toString(), i));
+            }
         }
     }
 
@@ -317,14 +342,14 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
 
     }
 
-/* 이미지 뷰페이지 + 페이저 어댑터 */
+    /* 이미지 뷰페이지 + 페이저 어댑터 */
     private class SearchDetailPagerAdapter extends PagerAdapter {
         private ArrayList<String> imageList = new ArrayList<>();
 
         public SearchDetailPagerAdapter() {
         }
 
-    /* 페이저 어댑터에서    onBindView 역할 + */
+        /* 페이저 어댑터에서    onBindView 역할 + */
         @Override
         public Object instantiateItem(ViewGroup container, int position) { // onBindView
             View view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.search_detail_view_pager_item, container, false);
@@ -351,8 +376,35 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
             return view == object;
         }
 
-        public void setImageList(ArrayList<String> imageList){// 어댑터로 셋 해줄 메소드 생성
+        public void setImageList(ArrayList<String> imageList) {// 어댑터로 셋 해줄 메소드 생성
             this.imageList = imageList;
         }
+    }
+
+
+    public Button createTagButton(String str, int i) {
+        Button button = new Button(SadajoContext.getContext());
+        button.setText(str); //서버로부터 받아온 tag text set
+        button.setBackgroundResource(R.drawable.tag_button_file); //tag ninepatch background적용
+
+        int width = ViewGroup.LayoutParams.WRAP_CONTENT;
+        int height = 69;
+
+
+        // TODO 버튼 셋 온클릭 리스너 달아줘야함.
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(width, height);
+        button.setPadding(15, 0, 15, 0); // left,right padding : 3
+        params.setMargins(0, 0, 45, 45); // top, right margin : 15
+        button.setGravity(Gravity.CENTER); //gravity : center
+        button.setTextSize(13);// textsize : 13sp
+        button.setTypeface(null, Typeface.NORMAL);//textstyle : Nanum M
+        button.setLayoutParams(params);
+        button.setTag("HomeTag");
+        button.setId(i);
+        //button.setOnClickListener(buttonClickListener);
+        return button;
+//        list_item_hash_button.addView(button); // button added
+
+
     }
 }

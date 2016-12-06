@@ -17,7 +17,7 @@ import java.util.ArrayList;
  */
 
 
-// 얼마에 구매했어요? 의 tag_price 부분. (ex. 산타노벨라 70ml, 산타노벨라 50ml ...)
+// 얼마에 구매했어요? 의 price 부분. (ex. 70 USD...)
 
 public class DetailPriceItems2RecyclerAdapter extends RecyclerView.Adapter<DetailPriceItems2RecyclerAdapter.ViewHolder> {
     private Context context;

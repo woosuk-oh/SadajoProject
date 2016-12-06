@@ -23,6 +23,7 @@ public class SearchDetailJSONParser {
 
 
             searchDetailDB.setItem_id(searchDetail.optInt("id"));
+            searchDetailDB.setUnit(searchDetail.optString("unit"));
 
             searchDetailDB.setGoods_code(searchDetail.optString("goods_code"));
             searchDetailDB.setGoods_content(searchDetail.optString("content"));
