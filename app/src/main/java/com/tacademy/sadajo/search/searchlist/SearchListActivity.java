@@ -108,6 +108,11 @@ public class SearchListActivity extends BaseActivity {
         setContentView(R.layout.activity_search);
         setBottomButtonClickListener();
 
+        //인기순, 최신순 selector 관련. res/color/sesarch_list_selector도 참고 필요. activity_search.xml의 인기순, 최신순 부분 setTextColor 참고 필요.
+
+        //맨처음 기본 셋팅.
+        popularity.setPressed(true);
+        latest.setPressed(false);
 
         popularity = (TextView) findViewById(R.id.popularity);
         popularity.setOnTouchListener(new View.OnTouchListener() {
@@ -335,17 +340,15 @@ public class SearchListActivity extends BaseActivity {
 
             searchDB = new SearchDB();
             String countryId;
-            String param1 = params[0];
-            String param2 = params[1];
-            String param3 = params[2];
+            String param1 = params[0]; // 입력받은 스피너 값
+            String param2 = params[1]; // 입력받은 editText 값 (serachbar)
+            String param3 = params[2]; // 입력받은 인기순, 최신순
 
 
             Log.e("선택한 스피너", "" + params[0].toString());
             if (param1.equals("전세계")) { //스피너에서 선택한 값이 "전세계" 이면
                 url = SEARCH_LIST; //url에 /goods를 넣어줌.
                 Log.d("URL1","입력한 URL 주소:"+url);
-
-
 
                 if (!param3.equals("")) { // 전세계인 상태에서 인기순이나 최신순을 누른 경우.
                     url = url + "?"+param3;
@@ -358,25 +361,36 @@ public class SearchListActivity extends BaseActivity {
                     url = url + "?name=" + param2;  //  url = url + "?name=" + "시세이도";
                     Log.d("URL1-2","입력한 URL 주소:"+url);
 
-                }/*else if(TextUtils.isEmpty(param2)){
-                    url = SEARCH_LIST; //검색창 안에 입력이 공백이면 다시 전세계 아이템들 호출함.
-                    Log.d("URL1-3","입력한 URL 주소:"+url);
-                }*/
-            } else { // 스피너에서 선택한 값이
+                }
+                if(param3.equals("click=1") && param2.equals("")){
+                    url = SEARCH_LIST; //검색창 안에 입력이 공백이고 최신순 안눌렀으면 다시 전세계 아이템들 호출함.
+                    Log.d("URL1-3","인기&최신순 값없고 검색값 없으면:"+url);
+                }
+                if(param3.equals("click=1") && param2.equals("")){
+                    url = SEARCH_LIST; //검색창 안에 입력이 공백이고 최신순 안눌렀으면 다시 전세계 아이템들 호출함.
+                    Log.d("URL1-3","인기&최신순 값없고 검색값 없으면:"+url);
+                }
+
+
+
+            } else { // 스피너에서 선택한 값이 있다면
                 countryId = param1;
                 url = String.format(SEARCH_LIST_COUNTRY, countryId); //get 방식이므로 FormBody는 없고, 정보를 url에만 담음.
                 Log.d("URL2","입력한 URL 주소:"+url);
 
                 if (!param3.equals("")) { //스피너 전세계가 아닌경우 + 인기순 혹은 최신순 누른경우
                     url = url + "&"+param3;
-                    Log.d("URL2-1","입력한 URL 주소:"+url);
+                    Log.d("URL2-1","스피너 전세계x + 인기순or최신순 + URL 주소:"+url);
+                }
+                if(param2.equals("")){
+
                 }
             }
-
+/*
             if (params[1].equals("") == false) { // EditText에 입력한 값이 넘어와서 그 값이 공백이 아닐경우.
                 url = SEARCH_LIST + "?name=" + params[1];
-                Log.d("URL3","입력한 URL 주소:"+url);
-            }
+                Log.d("URL3","EditText에 입력 + URL 주소:"+url);
+            }*/
             try {
                 //get 방식으로 받기
                 //  String url = String.format(SEARCH_LIST, countryId);
