@@ -163,6 +163,7 @@ public class SearchListActivity extends BaseActivity {
 
 
         searchBar.setHint("검색어를 입력 바람");
+        searchBar.setText("");
 
         searchBar.addTextChangedListener(new TextWatcher() {
 
@@ -179,14 +180,9 @@ public class SearchListActivity extends BaseActivity {
                     mRecycler.setLayoutManager(searchlayout);
                 }
 
-                String get = "" + searchBar.getText();
-
-                if (get.equals("")) {
-                    onResume(); //검색창 안에 입력이 공백이면 onResume으로 다시 데이터 서버로 부터 받아옴.
-                } else {
 
                     new AsyncSearchRequest().execute(countrySpinner.getSelectedItem().toString(), searchBar.getText().toString());
-                }
+
                 cnt++;
 
             }
@@ -293,7 +289,7 @@ public class AsyncSearchRequest extends AsyncTask<String, Void, SearchDB> {
         String countryId;
 
         Log.e("선택한 스피너", "" + params[0].toString());
-        Log.d("입력한 파람스",""+params[1]);
+        Log.d("입력한 파람스",""+params[1].toString());
 
         if (params[0].equals("전세계")) { //스피너에서 선택한 값이 "전세계" 이면
             url = SEARCH_LIST; //url에 /goods를 넣어줌.
@@ -303,7 +299,9 @@ public class AsyncSearchRequest extends AsyncTask<String, Void, SearchDB> {
             if (!TextUtils.isEmpty(params[1])) { // EditText에 입력한 값이 넘어와서 그 값이 공백이 아닐경우.
                 url = url + "?name=" + params[1];
                 Log.d("",""+params[1]);
-
+            }
+            else{
+                onResume(); //검색창 안에 입력이 공백이면 onResume으로 다시 데이터 서버로 부터 받아옴.
             }
         } else { // 스피너에서 선택한 값이
             countryId = params[0].toString();
