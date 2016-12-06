@@ -19,6 +19,7 @@ import com.tacademy.sadajo.network.NetworkDefineConstant;
 import com.tacademy.sadajo.network.OkHttpInitManager;
 import com.tacademy.sadajo.network.chatting.ChatJSONParser;
 import com.tacademy.sadajo.network.chatting.ChatListDB;
+import com.tacademy.sadajo.shoppinglist.OtherShoppingListActivity;
 import com.tacademy.sadajo.shoppinglist.ShoppingListActivity;
 
 import okhttp3.FormBody;
@@ -108,7 +109,7 @@ public class MyPageOtherActivity extends BaseActivity {
                     startActivity(intent);
                     break;
                 case R.id.otherShopListButton:
-                    intent = new Intent(MyPageOtherActivity.this, ShoppingListActivity.class);
+                    intent = new Intent(MyPageOtherActivity.this, MypageBuyActivity.class);
                     intent.putExtra("userCode", receiverCode); //해당페이지의 유저Id
                     startActivity(intent);
 

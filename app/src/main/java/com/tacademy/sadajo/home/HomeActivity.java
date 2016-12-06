@@ -127,7 +127,6 @@ public class HomeActivity extends BaseActivity {
     }
 
 
-
     @Override
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
