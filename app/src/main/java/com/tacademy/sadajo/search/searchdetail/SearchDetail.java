@@ -233,6 +233,7 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
                 }
             } catch (IOException e) {
                 e.printStackTrace();
+                Toast.makeText(SadajoContext.getContext(), "서버와의 연결이 원활치 않음", Toast.LENGTH_SHORT).show();
             } finally {
                 if (response != null) {
                     response.close();

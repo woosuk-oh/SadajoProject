@@ -64,6 +64,7 @@ public class DetailCommentRecyclerAdapter extends RecyclerView.Adapter<DetailCom
         holder.itemText.setText(mItems.get(position).getTips_content());
         Glide.with(SadajoContext.getContext())
                 .load(mItems.get(position).getTips_user_img())
+                .placeholder(R.drawable.search_profile_105)
                 .into(holder.itemImg);
     }
 

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@android:id/text1"
+    android:layout_width="71dp"
+    android:layout_height="23dp"
+    android:minHeight="?android:attr/listPreferredItemHeight"
+    android:textStyle="normal"
+    android:textColor="@color/grayFont"
+    android:textSize="13dp"
+    android:gravity="center"
+    android:paddingStart="14dp"
+    android:paddingEnd="15dp"
+    android:ellipsize="marquee"
+    />
