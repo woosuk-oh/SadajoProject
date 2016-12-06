@@ -65,8 +65,13 @@ public class ChattingActivity extends BaseActivity {
         chattingRecyclerViewAdapter = new ChattingRecyclerViewAdapter(ChattingActivity.this);
         recyclerView.setAdapter(chattingRecyclerViewAdapter);
 
+
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
 
     @Override
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
@@ -172,6 +177,7 @@ public class ChattingActivity extends BaseActivity {
         @Override
         public void onPostExecute(ChattingList chattingList) {
             super.onPostExecute(chattingList);
+
 
             chattingRecyclerViewAdapter.addChatList(chattingList.chatDataList);
             chattingRecyclerViewAdapter.notifyDataSetChanged();

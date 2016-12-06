@@ -25,6 +25,7 @@
             android:orientation="vertical">
 
             <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/conUserImageView"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_marginTop="10dp"
@@ -32,6 +33,7 @@
                 android:src="@drawable/sample_profile" />
 
             <TextView
+                android:id="@+id/contUserNameTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="9dp"
@@ -42,6 +44,7 @@
                 android:textStyle="normal"/>
 
             <TextView
+                android:id="@+id/conPositionTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="7dp"

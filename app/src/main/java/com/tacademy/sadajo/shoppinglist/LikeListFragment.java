@@ -87,7 +87,7 @@ public class LikeListFragment extends Fragment {
 
 
                 RequestBody postBody = new FormBody.Builder()
-                        .add("user", "10")
+                        .add("user", "1")
                         .build();
 
                 Request request = new Request.Builder()

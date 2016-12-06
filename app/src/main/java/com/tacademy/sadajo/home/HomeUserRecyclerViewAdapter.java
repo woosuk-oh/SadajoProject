@@ -77,7 +77,7 @@ public class HomeUserRecyclerViewAdapter
             @Override
             public void onClick(View v) {
 
-
+                //TODO: 본인일 경우 조건 필요
                 Intent intent = new Intent(context, MyPageOtherActivity.class);//해당 유저의 마이페이지로 이동
                 intent.putExtra("userCode",shoppingListDatas.get(position).getUserId()); //해당페이지userID넘겨줌
                 Log.e("userCode",shoppingListDatas.get(position).getUserId().toString());
