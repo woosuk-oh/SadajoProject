@@ -82,7 +82,7 @@ public class ShoppingListRecyclerViewAdapter
         int layoutRes = 0;
 
         switch (viewType) {
-            case NO_ITEM_VIEW:
+            case NO_ITEM_VIEW: //리스트가 빈 경우
                 layoutRes = R.layout.shoppinglist_noitem_layout;
                 break;
             case HEADER_VIEW:
@@ -100,7 +100,7 @@ public class ShoppingListRecyclerViewAdapter
 
     @Override
     public int getItemViewType(int position) {
-        if (shopListDB.size()  == 0) { //item없을 때
+        if (shopListDB.size() == 0) { //item없을 때
             return NO_ITEM_VIEW;
         } else if (position == 0) {
 
@@ -171,13 +171,19 @@ public class ShoppingListRecyclerViewAdapter
     }
 
 
-    public void addShopList(ArrayList<ShopListDB> shopListDBs) {
-        this.shopListDB.addAll(shopListDBs);
+    public void addShopList(ArrayList<ShopListDB> shopLists) {
+
+        if (shopListDB != null && shopListDB.size() > 0) {
+            shopListDB.removeAll(shopLists);
+        }
+        shopListDB.addAll(shopLists);
+        notifyDataSetChanged();
     }
+
     @Override
     public int getItemCount() {
-        if ( shopListDB.size() == 1) {
-            return 1;
+        if (shopListDB.size() == 0) {
+            return 0;
         } else {
             return shopListDB.size();
         }
