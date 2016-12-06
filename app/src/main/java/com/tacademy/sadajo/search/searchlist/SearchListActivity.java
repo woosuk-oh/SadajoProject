@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -38,15 +39,15 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
+import static android.view.MotionEvent.ACTION_DOWN;
 import static com.tacademy.sadajo.network.NetworkDefineConstant.SEARCH_LIST;
 import static com.tacademy.sadajo.network.NetworkDefineConstant.SEARCH_LIST_COUNTRY;
 
 public class SearchListActivity extends BaseActivity {
 
 
-    // TODO 초성 검색부분 클라이언트에서는 call 잘하지만 서버에서 초성으로 검색이 아직 불가함.
 
-    // TODO TextView 부분 Selector 적용해야됌.
+
 
     // private CollapsingSwipeRefreshLayout swiper;
     private RecyclerView mRecycler;
@@ -109,21 +110,50 @@ public class SearchListActivity extends BaseActivity {
 
 
         popularity = (TextView) findViewById(R.id.popularity);
-        popularity.setOnClickListener(new View.OnClickListener() {
+        popularity.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View view) {
-                new AsyncSearchRequest().execute(countrySpinner.getSelectedItem().toString(), searchBar.getText().toString(), "click=1");
-
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                switch (motionEvent.getAction()) {
+                    case ACTION_DOWN:
+                        popularity.setPressed(true);
+                        latest.setPressed(false);
+                        new AsyncSearchRequest().execute(countrySpinner.getSelectedItem().toString(), searchBar.getText().toString(), "click=1");
+                        break;
+                }
+                return false;
             }
         });
         latest = (TextView) findViewById(R.id.latest);
-        latest.setOnClickListener(new View.OnClickListener() {
+        latest.setOnTouchListener(new View.OnTouchListener(){
+
+
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                switch (motionEvent.getAction()) {
+                    // When the user clicks the TextView
+                    case ACTION_DOWN:
+                        latest.setPressed(true);
+                        popularity.setPressed(false);
+                        Log.d("버튼","버튼눌린지 안눌린지: ACTION_DOWN");
+                        new AsyncSearchRequest().execute(countrySpinner.getSelectedItem().toString(), searchBar.getText().toString(), "date=1");
+                        break;
+
+
+                }
+                return false;
+            }
+        });
+       /* ClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                view.setClickable(true);
+                view.setPressed(true);
+
+                latest.setTextColor(getResources().getColorStateList(R.color.search_list_selector));
                 new AsyncSearchRequest().execute(countrySpinner.getSelectedItem().toString(), searchBar.getText().toString(), "date=1");
 
             }
-        });
+        });*/
 
 
         // 리싸이클러뷰 xml 붙이기.
@@ -174,7 +204,7 @@ public class SearchListActivity extends BaseActivity {
 
                 new AsyncSearchRequest().execute(countrySpinner.getSelectedItem().toString(), searchBar.getText().toString(),"");
                 Log.e("spinner:", "" + countrySpinner.getSelectedItem().toString());
-                Log.d("서치바테스트", "" + searchBar.getText().toString());
+                Log.d("서치바", "" + searchBar.getText().toString());
             }
 
             @Override
@@ -183,7 +213,7 @@ public class SearchListActivity extends BaseActivity {
             }
         });
 
-
+        /* 초성 검색 부분 */
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this,
                 R.layout.select_searchlist_country_item, getResources().getStringArray(R.array.country)); // 스피너 레이아웃 기본으로 제공.
 

@@ -79,7 +79,7 @@ public class SearchDetailJSONParser {
                 searchDetailDB.price.add(price.getString(i));
             }
 
-            /* TODO 쇼퍼맨에게 부탁해볼까요? 만들어줘야됌. */
+
             JSONArray shopermanArray = searchDetail.getJSONArray("shoperman");
             int shopermanArraySize = shopermanArray.length();
             for (int i=0; i< shopermanArraySize; i++){
