@@ -45,6 +45,10 @@ import static com.tacademy.sadajo.network.NetworkDefineConstant.SEARCH_LIST_DETA
  * Created by woosuk on 2016-11-14.
  */
 
+
+// TODO 여기서 좋아요, 담기 부분 누를때마다 서버콜, 포스트방식으로 -> user, goods (goods_code임)
+
+
 public class SearchDetail extends BaseActivity implements ViewPager.OnPageChangeListener {
     ViewPager searchDetailViewPager;
     TextView itemcount;

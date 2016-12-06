@@ -46,6 +46,7 @@ public class SearchListActivity extends BaseActivity {
 
     // TODO 초성 검색부분 클라이언트에서는 call 잘하지만 서버에서 초성으로 검색이 아직 불가함.
 
+    // TODO TextView 부분 Selector 적용해야됌.
 
     // private CollapsingSwipeRefreshLayout swiper;
     private RecyclerView mRecycler;
