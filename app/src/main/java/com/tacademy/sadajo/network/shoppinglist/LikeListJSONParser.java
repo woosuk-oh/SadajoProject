@@ -69,6 +69,8 @@ public class LikeListJSONParser {
                 goods.goodsCode = list.getString("goods_code");
                 goods.goodsName = list.getString("goods_name");
                 goods.goodsImg = list.getString("img");
+                goods.goodsCountryName = list.getString("country");
+                goods.goodscountryFlagImg = list.getString("country_img");
 
 
                 goodsArrayList.add(goods);

@@ -25,12 +25,12 @@ public class ShopListDetailRecyclerViewAdapter
         extends RecyclerView.Adapter<ShopListDetailRecyclerViewAdapter.ViewHolder> {
 
 
-    private ArrayList<Goods> shopGoodsArrayList = new ArrayList<>();
+    private ArrayList<Goods> shopGoodsArrayList;
     private Context context;
 
     public ShopListDetailRecyclerViewAdapter(Context context) {
         this.context = context;
-
+        shopGoodsArrayList = new ArrayList<>();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -68,9 +68,11 @@ public class ShopListDetailRecyclerViewAdapter
         Glide.with(SadajoContext.getContext())
                 .load(shopGoodsArrayList.get(position).goodsImg)
                 .into(holder.itemProductImageView);
+        Glide.with(SadajoContext.getContext())
+                .load(shopGoodsArrayList.get(position).goodscountryFlagImg)
+                .into(holder.itemFlagImageView);
         holder.itemProductNameTextView.setText(shopGoodsArrayList.get(position).goodsName);
-        holder.itemFlagImageView.setImageResource(R.drawable.flag);
-        holder.itemCountryNameTextView.setText("이탈리아");
+        holder.itemCountryNameTextView.setText(shopGoodsArrayList.get(position).goodsCountryName);
 
 
 
@@ -86,8 +88,8 @@ public class ShopListDetailRecyclerViewAdapter
         });
 
     }
-    public void addDetail(ArrayList<Goods> shopGoodsArrayList){
-        this.shopGoodsArrayList = shopGoodsArrayList;
+    public void addDetail(ArrayList<Goods> shopGoods){
+        this.shopGoodsArrayList.addAll(shopGoods);
 
     }
     @Override

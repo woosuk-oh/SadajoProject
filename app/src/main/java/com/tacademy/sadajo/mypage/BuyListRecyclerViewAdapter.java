@@ -95,7 +95,7 @@ public class BuyListRecyclerViewAdapter
         holder.productNameTextView.setText("산타마리아노벨라 향수 최대여기까");
         holder.dateTextView.setText("2016.11.20");
 
-        holder.productImageView.setImageResource(R.drawable.taipei);
+        //holder.productImageView.setImageResource(R.drawable.taipei);
         holder.profileImageView.setImageResource(R.drawable.profile_empty);
         holder.buyRequestTextView.setVisibility(View.VISIBLE);
 

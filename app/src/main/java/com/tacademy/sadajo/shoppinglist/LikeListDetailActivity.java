@@ -44,9 +44,11 @@ public class LikeListDetailActivity extends BaseActivity {
         //타이틀 세팅
         Intent intent = getIntent();
         String countryName = intent.getExtras().getString("countryName");
+
         listCode = intent.getIntExtra("listCode", 0); //리스트코드 받아옴
         toolbarTitle = (TextView) findViewById(R.id.customToolbarTitle);
         toolbarTitle.setText(countryName + " 찜 리스트");
+
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,7 +75,7 @@ public class LikeListDetailActivity extends BaseActivity {
         new AsyncTaskGetLikeListDetail().execute();
     }
 
-    //async내리기
+
     private class AsyncTaskGetLikeListDetail extends AsyncTask<Void, Void, LikeListDetail> {
         @Override
         protected void onPreExecute() {
@@ -92,7 +94,7 @@ public class LikeListDetailActivity extends BaseActivity {
 
 
                 RequestBody postBody = new FormBody.Builder()
-                        .add("user", "1")
+                        .add("user", "2")
                         .add("listcode", String.valueOf(listCode)) //TODO:수정하기
                         .build();
 

@@ -39,8 +39,7 @@ public class MyPageOtherActivity extends BaseActivity {
 
     TextView mypageBuyTextView;
 
-    int viewType;
-    int receiverCode;
+    int pageUserCode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,7 +82,7 @@ public class MyPageOtherActivity extends BaseActivity {
         otherChattingButton.setOnClickListener(clickListener);
 
         Intent intent = getIntent();
-        receiverCode = intent.getIntExtra("userId",0); //해당페이지의 유저아이디
+        pageUserCode = intent.getIntExtra("userCode",0); //해당페이지의 유저아이디
 
 
 
@@ -109,7 +108,8 @@ public class MyPageOtherActivity extends BaseActivity {
                     break;
                 case R.id.otherShopListButton:
                     intent = new Intent(MyPageOtherActivity.this, OtherShoppingListActivity.class);
-                    intent.putExtra("userCode", receiverCode); //해당페이지의 유저Id
+                    intent.putExtra("userCode", pageUserCode); //해당페이지의 유저Id
+                    Log.e("otherMypage",String.valueOf(pageUserCode));
                     startActivity(intent);
 
                     break;
@@ -148,9 +148,9 @@ public class MyPageOtherActivity extends BaseActivity {
 
 
                 RequestBody postBody = new FormBody.Builder()
-                        .add("user", "1") //매세지 보내는 사람userCode
+                        .add("user", "1") //대화하기 클릭한 userCode
                         .add("type", "new") // 채팅방 생성  type : new
-                        .add("carr",String.valueOf(receiverCode)) //메세지 받는사람 userCode
+                        .add("carr",String.valueOf(pageUserCode)) //메세지 받는사람 userCode(해당 페이지 userCode)
                         .build();
 
                 Request request = new Request.Builder()

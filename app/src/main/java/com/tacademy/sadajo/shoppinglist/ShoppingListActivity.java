@@ -84,8 +84,8 @@ public class ShoppingListActivity extends BaseActivity {
 
     private void setupShoppingListViewPager(ViewPager viewPager) {
         MyPagerAdapter shoppingListAdapter = new MyPagerAdapter(getSupportFragmentManager());
-        shoppingListAdapter.appendFragment(LikeListFragment.newInstance(1), "찜");
-        shoppingListAdapter.appendFragment(ShoppingListFragment.newInstance(2), "쇼핑리스트");
+        shoppingListAdapter.appendFragment(LikeListFragment.newInstance(0), "찜");
+        shoppingListAdapter.appendFragment(ShoppingListFragment.newInstance(1), "쇼핑리스트");
         viewPager.setAdapter(shoppingListAdapter);
     }
 
@@ -99,12 +99,9 @@ public class ShoppingListActivity extends BaseActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_delete) {
             return true;
         }

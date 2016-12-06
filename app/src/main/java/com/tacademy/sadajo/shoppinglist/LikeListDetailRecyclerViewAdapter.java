@@ -24,34 +24,34 @@ import java.util.ArrayList;
 public class LikeListDetailRecyclerViewAdapter
         extends RecyclerView.Adapter<LikeListDetailRecyclerViewAdapter.ViewHolder> {
 
-private ArrayList<Goods> goodsArrayList = new ArrayList<>();
-private Context context;
+    private ArrayList<Goods> goodsArrayList = new ArrayList<>();
+    private Context context;
 
-public LikeListDetailRecyclerViewAdapter(Context context) {
+    public LikeListDetailRecyclerViewAdapter(Context context) {
         this.context = context;
 
-        }
-
-public static class ViewHolder extends RecyclerView.ViewHolder {
-
-    public final View mView;
-    public ImageView itemProductImageView;
-    public ImageView itemFlagImageView;
-    public TextView itemCountryNameTextView;
-    public TextView itemProductNameTextView;
-
-
-    public ViewHolder(final View itemView) {
-        super(itemView);
-        mView = itemView;
-        itemProductImageView = (ImageView) itemView.findViewById(R.id.itemProductImageView);
-        itemFlagImageView = (ImageView) itemView.findViewById(R.id.itemFlagImageView);
-        itemCountryNameTextView = (TextView) itemView.findViewById(R.id.itemCountryNameTextView);
-        itemProductNameTextView = (TextView) itemView.findViewById(R.id.itemProductNameTextView);
-
-
     }
-}
+
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+
+        public final View mView;
+        public ImageView itemProductImageView;
+        public ImageView itemFlagImageView;
+        public TextView itemCountryNameTextView;
+        public TextView itemProductNameTextView;
+
+
+        public ViewHolder(final View itemView) {
+            super(itemView);
+            mView = itemView;
+            itemProductImageView = (ImageView) itemView.findViewById(R.id.itemProductImageView);
+            itemFlagImageView = (ImageView) itemView.findViewById(R.id.itemFlagImageView);
+            itemCountryNameTextView = (TextView) itemView.findViewById(R.id.itemCountryNameTextView);
+            itemProductNameTextView = (TextView) itemView.findViewById(R.id.itemProductNameTextView);
+
+
+        }
+    }
 
     @Override
     public LikeListDetailRecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -68,11 +68,11 @@ public static class ViewHolder extends RecyclerView.ViewHolder {
         Glide.with(SadajoContext.getContext())
                 .load(goodsArrayList.get(position).goodsImg)
                 .into(holder.itemProductImageView);
+        Glide.with(SadajoContext.getContext())
+                .load(goodsArrayList.get(position).goodscountryFlagImg)
+                .into(holder.itemFlagImageView);
         holder.itemProductNameTextView.setText(goodsArrayList.get(position).goodsName);
-        holder.itemFlagImageView.setImageResource(R.drawable.flag);
-        holder.itemCountryNameTextView.setText("이탈리아");
-
-
+        holder.itemCountryNameTextView.setText(goodsArrayList.get(position).goodsCountryName);
 
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
@@ -87,10 +87,11 @@ public static class ViewHolder extends RecyclerView.ViewHolder {
 
     }
 
-    public void addDetail(ArrayList<Goods> goodsArrayList){
+    public void addDetail(ArrayList<Goods> goodsArrayList) {
         this.goodsArrayList = goodsArrayList;
 
     }
+
     @Override
     public int getItemCount() {
         return goodsArrayList.size();

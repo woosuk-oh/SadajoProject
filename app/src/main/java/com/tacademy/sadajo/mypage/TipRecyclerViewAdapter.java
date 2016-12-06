@@ -74,7 +74,8 @@ public class TipRecyclerViewAdapter
             public void onClick(View v) {
 
                 Intent intent = new Intent(context, SearchDetail.class);
-                intent.putExtra("key", "산타마리아노벨라 향수"); //상품명 키 전달
+
+                intent.putExtra("key",1); //상품아이디 전달
                 context.startActivity(intent);
 
 

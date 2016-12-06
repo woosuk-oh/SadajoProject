@@ -79,8 +79,8 @@ public class HomeUserRecyclerViewAdapter
 
 
                 Intent intent = new Intent(context, MyPageOtherActivity.class);//해당 유저의 마이페이지로 이동
-                intent.putExtra("userId",shoppingListDatas.get(position).getUserId()); //해당페이지userID넘겨줌
-                Log.e("usrID",shoppingListDatas.get(position).getUserId().toString());
+                intent.putExtra("userCode",shoppingListDatas.get(position).getUserId()); //해당페이지userID넘겨줌
+                Log.e("userCode",shoppingListDatas.get(position).getUserId().toString());
                 context.startActivity(intent);
 
             }
