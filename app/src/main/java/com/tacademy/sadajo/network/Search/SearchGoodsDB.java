@@ -13,6 +13,15 @@ public class SearchGoodsDB {
     public int click;
     public String regdate;
     public String item_img;
+    public String country_img;
+
+    public String getCountry_img() {
+        return country_img;
+    }
+
+    public void setCountry_img(String country_img) {
+        this.country_img = country_img;
+    }
 
     public String getItem_img() {
         return item_img;

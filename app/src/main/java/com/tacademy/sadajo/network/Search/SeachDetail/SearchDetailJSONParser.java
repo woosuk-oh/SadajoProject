@@ -14,7 +14,7 @@ public class SearchDetailJSONParser {
 
         SearchDetailDB searchDetailDB = new SearchDetailDB();
         ArrayList<TipsDB> tipsContainer = new ArrayList<>(); //배열에 있는 TipsDB 객체들 하나씩을 담기위한 Container
-
+        ArrayList<ShopermanDB> shoperContainer = new ArrayList<>();
 
         try {
 
@@ -79,16 +79,20 @@ public class SearchDetailJSONParser {
                 searchDetailDB.price.add(price.getString(i));
             }
 
-
-
-
-
-
             /* TODO 쇼퍼맨에게 부탁해볼까요? 만들어줘야됌. */
+            JSONArray shopermanArray = searchDetail.getJSONArray("shoperman");
+            int shopermanArraySize = shopermanArray.length();
+            for (int i=0; i< shopermanArraySize; i++){
+                ShopermanDB shoperDB = new ShopermanDB();
+                JSONObject shoper = shopermanArray.getJSONObject(i);
 
+                shoperDB.setUser_id(shoper.getString("user_id"));
+                shoperDB.setUser_img(shoper.getString("user_img"));
+                shoperDB.setUser_name(shoper.getString("user_name"));
 
-
-
+                shoperContainer.add(shoperDB);
+            }
+            searchDetailDB.setShoperman(shoperContainer);
             /* 팁 파싱 부분 */
             JSONArray tipsArray = searchDetail.getJSONArray("tips"); //tips 제이슨 어레이 받아오고
             int tipsArraySize = tipsArray.length(); // 받아온 제이슨어레이의 크기만큼

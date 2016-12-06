@@ -93,6 +93,10 @@ public class SearchListRecyclerAdapter extends RecyclerView.Adapter<SearchListRe
                 .load(searchgoodsDBs.get(position).getItem_img())
                 .into(holder.itemImage);
 
+        Glide.with(SadajoContext.getContext())
+                .load(searchgoodsDBs.get(position).getCountry_img())
+                .into(holder.cuntryImg);
+
         setAnimation(holder.itemContainer, position);
 
         // 리싸이클러뷰에서 버튼 동적할당. 버튼이 있는 리니어 레이아웃에서 createTagButton 메소드 실행
@@ -116,6 +120,7 @@ public class SearchListRecyclerAdapter extends RecyclerView.Adapter<SearchListRe
                 intent.putExtra("key", searchgoodsDBs.get(position).getItem_id());
                 intent.putExtra("key2", searchgoodsDBs.get(position).getGoods_name());
                 intent.putExtra("key3", searchgoodsDBs.get(position).getCountry());
+                intent.putExtra("key4", searchgoodsDBs.get(position).getCountry_img());
                 context.startActivity(intent);
 
 
@@ -138,6 +143,7 @@ public class SearchListRecyclerAdapter extends RecyclerView.Adapter<SearchListRe
         public ImageView itemImage;
         public TextView itemName;
         public TextView countryName;
+        public ImageView cuntryImg;
         LinearLayout itemContainer;
         LinearLayout hashbutton;
 
@@ -149,6 +155,8 @@ public class SearchListRecyclerAdapter extends RecyclerView.Adapter<SearchListRe
             super(itemView);
 
             itemImage = (ImageView) itemView.findViewById(R.id.search_item_image);
+            cuntryImg= (ImageView) itemView.findViewById(R.id.cuntry_image);
+
             itemName = (TextView) itemView.findViewById(R.id.search_item_name);
             countryName = (TextView) itemView.findViewById(R.id.search_country_name);
             itemContainer = (LinearLayout) itemView.findViewById(R.id.card_back);

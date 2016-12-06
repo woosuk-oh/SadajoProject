@@ -52,6 +52,7 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
     TextView contenttext;
     TextView unit;
     LinearLayout detailhashbutton;
+    ImageView countryimg;
 
     //푸쉬 테스트
 
@@ -80,6 +81,8 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
     SearchDetailPagerAdapter searchDetailPagerAdapter;
     SearchDetailDB searchDetailDB;
 
+    int img_count; // 가져온 아이템의 이미지 갯수
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -89,6 +92,7 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
         /* onCreate에서 생성할 위젯 (텍스트뷰) */
         final TextView itemID = (TextView) findViewById(R.id.search_detail_item_name);
         country = (TextView) findViewById(R.id.search_detail_country_name);
+        countryimg = (ImageView) findViewById(R.id.cuntry_detail_image);
         contenttext = (TextView) findViewById(R.id.search_detail_content_text);
         unit = (TextView) findViewById(R.id.detail_price_unit);
 
@@ -98,15 +102,20 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
         int itemidValue; // searchListActivity에서 넘겨준 키("key") + 값(itemName.getText().toString()) 을 "key"로 받아옴
         String itemValue;
         String countryValue;
+        String countryimgresource;
 
         itemidValue = intent.getExtras().getInt("key");
         itemValue = intent.getExtras().getString("key2");
         countryValue = intent.getExtras().getString("key3");
+        countryimgresource = intent.getExtras().getString("key4");
 
         /* onCreate에서 진행하는 setText */
         itemID.setText(itemValue); // 인텐트로 받아온 아이템의 id와 아이템의 이름 중 이름을 setText 해준다.
         country.setText(countryValue);
 
+        Glide.with(SadajoContext.getContext())
+                .load(countryimgresource)
+                .into(countryimg);
 
         /* 상단 콜랩싱 부분 */
         collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsingToolbarLayout1);
@@ -252,7 +261,6 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
 
             // 얼마에 구매했어요? 리싸이클러뷰 연결
             mAdapter2 = new DetailPriceItemsRecyclerAdapter(s.tag_price, SadajoContext.getContext());
-            Log.d("tag_price", "얼마에 구매했어요?" + s.tag_price.get(0));
             mRecycler2.setAdapter(mAdapter2);
             mAdapter2.notifyDataSetChanged();
 
@@ -279,7 +287,8 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
 
 
             // 상품의 이미지 갯수 가져와서 setText.
-            itemcount.setText(String.valueOf(1) + s.getGoods_img().size());
+            img_count = s.getGoods_img().size();
+            itemcount.setText(String.valueOf(1)+" / " + img_count);
 
 
             // 해시태그 가져와서 갯수만큼 for문 돌려서, createTagButton 커스텀 메소드로 버튼 동적 생성
@@ -334,7 +343,7 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
 
     @Override
     public void onPageSelected(int position) {
-        itemcount.setText(String.valueOf(position + 1) + searchDetailDB.getGoods_img().size());
+        itemcount.setText(String.valueOf(position + 1)+" / " + img_count);
     }
 
     @Override

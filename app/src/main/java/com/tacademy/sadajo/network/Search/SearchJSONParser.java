@@ -39,6 +39,7 @@ public class SearchJSONParser {
                 searchGoodsDB.setGoods_code(data.optString("goods_code"));
                 searchGoodsDB.setGoods_name(data.optString("goods_name"));
                 searchGoodsDB.setCountry(data.optString("country"));
+                searchGoodsDB.setCountry_img(data.optString("country_img"));
                 searchGoodsDB.setClick(data.optInt("click"));
                 searchGoodsDB.setRegdate(data.optString("regdate"));
                 searchGoodsDB.setItem_img(data.optString("goods_img"));
