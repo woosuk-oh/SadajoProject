@@ -24,7 +24,7 @@ import java.util.ArrayList;
 public class LikeListRecyclerViewAdapter
         extends RecyclerView.Adapter<LikeListRecyclerViewAdapter.ViewHolder> {
 
-    private ArrayList<ShopListDB> listDBs = new ArrayList<>();
+    private ArrayList<ShopListDB> fieldListDBs;
     private Context context;
 
 
@@ -33,6 +33,7 @@ public class LikeListRecyclerViewAdapter
 
     public LikeListRecyclerViewAdapter(Context context) {
         this.context = context;
+        fieldListDBs = new ArrayList<>();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -53,11 +54,7 @@ public class LikeListRecyclerViewAdapter
             productCountTextView = (TextView) view.findViewById(R.id.likeProductCountTextView);
             listEmptyTextView = (TextView) view.findViewById(R.id.likeListEmptyTextView);
             productImageView = (ImageView) view.findViewById(R.id.likeProductImageView);
-
-
         }
-
-
     }
 
 
@@ -83,11 +80,10 @@ public class LikeListRecyclerViewAdapter
 
     @Override
     public int getItemViewType(int position) {
-        if (getItemCount() == 1) {
+        if (fieldListDBs.size() == 0) {
             Log.e("count", String.valueOf(getItemCount()));
             return NO_ITEM_VIEW;
         } else {
-
             return CONTENT_VIEW;
         }
     }
@@ -95,42 +91,35 @@ public class LikeListRecyclerViewAdapter
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
 
-        int viewType = getItemViewType(position); //viewType 체크
-
-
-        if (viewType == CONTENT_VIEW) {
-            holder.countryNameTextView.setText(listDBs.get(position).countryNameEng);
-            holder.cityNameTextView.setText(listDBs.get(position).countryNameKor);
+        if (fieldListDBs !=null && fieldListDBs.size() >0) {
+            final  ShopListDB shopList = fieldListDBs.get(position);
+            holder.countryNameTextView.setText(shopList.countryNameEng);
+            holder.cityNameTextView.setText(shopList.countryNameKor);
 
 
             //담은 상품이 없을 경우 default이미지 보여줌
-            if (listDBs.get(position).goodsCount == 0) {
+            if (shopList.goodsCount == 0) {
                 holder.productCountTextView.setVisibility(View.GONE);
                 holder.listEmptyTextView.setVisibility(View.VISIBLE);
                 holder.productImageView.setVisibility(View.GONE);
 
             } else {
-                holder.productCountTextView.setText(String.valueOf(listDBs.get(position).goodsCount));
+                holder.productCountTextView.setText(String.valueOf(shopList.goodsCount));
                 holder.productCountTextView.setVisibility(View.VISIBLE);
                 holder.listEmptyTextView.setVisibility(View.GONE);
-//            Glide.with(SadajoContext.getContext())
-//                    .load(listDBs.get(position).img)
-//                    .into(holder.productImageView);
-            }
-
-
-            Glide.with(SadajoContext.getContext())
-                    .load(listDBs.get(position).img)
+                Glide.with(SadajoContext.getContext())
+                    .load(shopList.img)
                     .into(holder.productImageView);
+            }
 
             holder.mView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
                     Intent intent = new Intent(context, LikeListDetailActivity.class); //찜리스트 디테일페이지로이동
-                    intent.putExtra("listCode", listDBs.get(position).listCode); //찜리스트이 listCode 넘겨줌
-                    intent.putExtra("countryName", listDBs.get(position).countryNameKor.toString());
-                    Log.e("shopListCode", listDBs.get(position).listCode.toString());
+                    intent.putExtra("listCode", shopList.listCode); //찜리스트이 listCode 넘겨줌
+                    intent.putExtra("countryName", shopList.countryNameKor.toString());
+                    Log.e("shopListCode", shopList.listCode.toString());
                     context.startActivity(intent);
 
                 }
@@ -141,19 +130,16 @@ public class LikeListRecyclerViewAdapter
 
 
     public void addLikeList(ArrayList<ShopListDB> likeListDBs) {
-
-        this.listDBs.addAll(likeListDBs);
+        if(fieldListDBs != null && fieldListDBs.size() > 0){
+            fieldListDBs.removeAll(fieldListDBs);
+        }
+        fieldListDBs.addAll(likeListDBs);
+        notifyDataSetChanged();
     }
 
 
     @Override
     public int getItemCount() {
-
-        if (listDBs.size() > 0) {
-            return listDBs.size();
-        } else {
-            return 1;
-        }
-
+       return fieldListDBs.size();
     }
 }

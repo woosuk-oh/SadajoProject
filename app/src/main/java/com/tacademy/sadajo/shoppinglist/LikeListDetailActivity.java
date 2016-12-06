@@ -73,7 +73,7 @@ public class LikeListDetailActivity extends BaseActivity {
         new AsyncTaskGetLikeListDetail().execute();
     }
 
-    //async내리기
+
     private class AsyncTaskGetLikeListDetail extends AsyncTask<Void, Void, LikeListDetail> {
         @Override
         protected void onPreExecute() {
@@ -92,7 +92,7 @@ public class LikeListDetailActivity extends BaseActivity {
 
 
                 RequestBody postBody = new FormBody.Builder()
-                        .add("user", "1")
+                        .add("user", "2")
                         .add("listcode", String.valueOf(listCode)) //TODO:수정하기
                         .build();
 

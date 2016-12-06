@@ -72,7 +72,7 @@ public class ReviewRecyclerViewAdapter
         holder.reviewTitleTextView.setText("아이디");
         holder.reviewDateTextView.setText("2016.11.20");
         holder.reviewContentsTextView.setText("후기후기마이페이지ㅎㅎㅎㅎㅎㅎ");
-        holder.userProfileImageView.setImageResource(R.drawable.sample_img);
+        holder.userProfileImageView.setImageResource(R.drawable.profile_empty);
 
 //            Glide.with(GirlsApplication.getGirlsContext())
 //                    .load(girlInfo)

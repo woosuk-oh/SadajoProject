@@ -6,8 +6,6 @@ package com.tacademy.sadajo.network.shoppinglist;
 
 public class ShopListDB {
 
-
-
     public String countryNameKor; //국가명
     public String countryNameEng; //국가명
     public String cityName; //도시명
@@ -16,6 +14,5 @@ public class ShopListDB {
     public String img; //image url
     public Integer goodsCount; //상품개수
     public Integer listCode; //listCode
-
 
 }

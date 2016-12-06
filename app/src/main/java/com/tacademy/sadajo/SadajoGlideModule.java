@@ -14,20 +14,20 @@ import com.bumptech.glide.module.GlideModule;
  */
 
 public class SadajoGlideModule implements GlideModule {
-    private static final int DEFAULT_DISK_CACHE_SIZE = 250 * 1024 * 1024;
+   // private static final int DEFAULT_DISK_CACHE_SIZE = 150 * 1024 * 1024;
     private static final int DEFAULT_MEMORY_CACHE_SIZE = 20 * 1024 * 1024;
     private static final int DEFAULT_BITMAP_POOL_SIZE = 20 * 1024 * 1024;
     private static final String DEFAULT_DISK_CACHE_DIR = "image_manager_disk_cache";
 
     @Override
     public void applyOptions(Context context, GlideBuilder builder) {
-//        builder.setDiskCache(new ExternalCacheDiskCacheFactory(
-//                context, DEFAULT_DISK_CACHE_DIR, DEFAULT_DISK_CACHE_SIZE));
+       /* builder.setDiskCache(new ExternalCacheDiskCacheFactory(
+                context, DEFAULT_DISK_CACHE_DIR, DEFAULT_DISK_CACHE_SIZE));*/
         builder.setMemoryCache(
                 new LruResourceCache(DEFAULT_MEMORY_CACHE_SIZE));
         builder.setBitmapPool(
                 new LruBitmapPool(DEFAULT_BITMAP_POOL_SIZE));
-        builder.setDecodeFormat(DecodeFormat.DEFAULT);
+        builder.setDecodeFormat(DecodeFormat.PREFER_RGB_565);
     }
 
     @Override

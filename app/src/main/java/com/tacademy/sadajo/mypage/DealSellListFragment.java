@@ -24,9 +24,9 @@ public class DealSellListFragment extends Fragment {
 
     public static DealSellListFragment newInstance(int initValue) {
         DealSellListFragment fragment = new DealSellListFragment();
-        Bundle bundle = new Bundle();
-        bundle.putInt("value", initValue);
-        fragment.setArguments(bundle);
+    //    Bundle bundle = new Bundle();
+     //   bundle.putInt("value", initValue);
+      //  fragment.setArguments(bundle);
         return fragment;
     }
 
@@ -41,8 +41,7 @@ public class DealSellListFragment extends Fragment {
                              Bundle savedInstanceState) {
 
 
-        Bundle initBundle = getArguments();
-
+       // Bundle initBundle = getArguments();
 
         //layout3
 

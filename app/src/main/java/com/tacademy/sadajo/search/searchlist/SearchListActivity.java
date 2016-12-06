@@ -289,7 +289,7 @@ public class AsyncSearchRequest extends AsyncTask<String, Void, SearchDB> {
         String countryId;
 
         Log.e("선택한 스피너", "" + params[0].toString());
-        Log.d("입력한 파람스",""+params[1].toString());
+        Log.e("입력한 파람스",""+params[1].toString());
 
         if (params[0].equals("전세계")) { //스피너에서 선택한 값이 "전세계" 이면
             url = SEARCH_LIST; //url에 /goods를 넣어줌.

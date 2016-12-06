@@ -63,7 +63,7 @@ public class ItemReviewRecyclerViewAdapter
     public void onBindViewHolder(final ItemReviewRecyclerViewAdapter.ViewHolder holder, final int position) {
 
 
-        holder.itemProductImageView.setImageResource(R.drawable.detail_item_img_sample);
+      //  holder.itemProductImageView.setImageResource(R.drawable.detail_item_img_sample);
         holder.itemProductNameTextView.setText("산타마리아노벨라 향수");
         holder.itemFlagImageView.setImageResource(R.drawable.flag);
         holder.itemCountryNameTextView.setText("이탈리아");
