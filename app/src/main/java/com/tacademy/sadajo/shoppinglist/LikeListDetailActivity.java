@@ -47,6 +47,7 @@ public class LikeListDetailActivity extends BaseActivity {
 
         listCode = intent.getIntExtra("listCode", 0); //리스트코드 받아옴
         toolbarTitle = (TextView) findViewById(R.id.customToolbarTitle);
+
         toolbarTitle.setText(countryName + " 찜 리스트");
 
 
