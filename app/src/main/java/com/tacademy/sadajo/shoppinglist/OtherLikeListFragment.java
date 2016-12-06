@@ -135,6 +135,7 @@ public class OtherLikeListFragment extends Fragment {
             if (listDBs != null && listDBs.size() > 0) {
                 otherLikeRecyclerViewAdapter.addLikeList(listDBs);
             } else {
+
                 Log.e("size---", String.valueOf(listDBs.size()));
             }
         }

@@ -46,7 +46,10 @@ public class LikeListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        likeListRecyclerView = (RecyclerView) inflater.inflate(R.layout.shoppinglist_fragment_likelist, container, false);
+
+        View view = inflater.inflate(R.layout.shoppinglist_fragment_likelist, container, false);
+        likeListRecyclerView = (RecyclerView)view.findViewById(R.id.likeListRecyclerView);
+//        likeListRecyclerView = (RecyclerView) inflater.inflate(R.layout.shoppinglist_fragment_likelist, container, false);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         likeListRecyclerView.setLayoutManager(layoutManager);
 
@@ -57,7 +60,7 @@ public class LikeListFragment extends Fragment {
         likeListRecyclerView.setAdapter(likeRecyclerViewAdapter);
 
         //return view;
-        return likeListRecyclerView;
+        return view;
     }
 
     @Override
@@ -84,7 +87,7 @@ public class LikeListFragment extends Fragment {
 
 
                 RequestBody postBody = new FormBody.Builder()
-                        .add("user", "1")
+                        .add("user", "10")
                         .build();
 
                 Request request = new Request.Builder()
@@ -119,7 +122,9 @@ public class LikeListFragment extends Fragment {
             super.onPostExecute(listDBs);
             if (listDBs != null && listDBs.size() > 0) {
                 likeRecyclerViewAdapter.addLikeList(listDBs);
+
             }else{
+
                 Log.e("size---", String.valueOf(listDBs.size()));
             }
         }

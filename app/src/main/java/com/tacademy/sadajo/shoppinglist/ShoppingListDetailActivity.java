@@ -126,6 +126,8 @@ public class ShoppingListDetailActivity extends AppCompatActivity {
         public void onPostExecute(LikeListDetail likeListDetail) {
             super.onPostExecute(likeListDetail);
 
+
+
             shopListDetailRecyclerViewAdapter.addDetail(likeListDetail.goodsList);
             shopListDetailRecyclerViewAdapter.notifyDataSetChanged();
 

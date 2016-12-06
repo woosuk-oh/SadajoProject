@@ -100,9 +100,7 @@ public class ShoppingListRecyclerViewAdapter
 
     @Override
     public int getItemViewType(int position) {
-        if (shopListDB.size() == 0) { //item없을 때
-            return NO_ITEM_VIEW;
-        } else if (position == 0) {
+         if (position == 0) {
 
             return HEADER_VIEW; //첫번째 아이템 viewType
         } else {
@@ -119,29 +117,29 @@ public class ShoppingListRecyclerViewAdapter
 
         int viewType = getItemViewType(position); //viewType 체크
 
-
+        //TODO:position수정
         //첫번째 아이템이 아닌 경우
         if (viewType == CONTENT_VIEW) {
-            String countryKor = shopListDB.get(position).countryNameKor;
-            holder.countryNameTextView.setText(shopListDB.get(position).countryNameEng);
-            holder.cityNameTextView.setText(countryKor + ", " + shopListDB.get(position).cityName);
-            holder.dateTextView.setText(shopListDB.get(position).startDate + "~" + shopListDB.get(position).endDate);
+            String countryKor = shopListDB.get(position-1).countryNameKor;
+            holder.countryNameTextView.setText(shopListDB.get(position-1).countryNameEng);
+            holder.cityNameTextView.setText(countryKor + ", " + shopListDB.get(position-1).cityName);
+            holder.dateTextView.setText(shopListDB.get(position-1).startDate + "~" + shopListDB.get(position-1).endDate);
             //           holder.productImageView.setImageResource(R.drawable.product_sample);
             // holder.shoplistCountTextView.setText("99+");
 
-            if (shopListDB.get(position).goodsCount == 0) { //goods count가 0일 때 widget Visibility설정
+            if (shopListDB.get(position-1).goodsCount == 0) { //goods count가 0일 때 widget Visibility설정
                 holder.shoplistCountTextView.setVisibility(View.GONE);
                 holder.productEmptyTextView.setVisibility(View.VISIBLE);
             } else {
                 holder.shoplistCountTextView.setVisibility(View.VISIBLE);
-                holder.shoplistCountTextView.setText(String.valueOf(shopListDB.get(position).goodsCount));
+                holder.shoplistCountTextView.setText(String.valueOf(shopListDB.get(position-1).goodsCount));
                 holder.productEmptyTextView.setVisibility(View.GONE);
 
 
             }
 
             Glide.with(SadajoContext.getContext())//productImage
-                    .load(shopListDB.get(position).img)
+                    .load(shopListDB.get(position-1).img)
                     .into(holder.productImageView);
 
 
@@ -149,10 +147,10 @@ public class ShoppingListRecyclerViewAdapter
                 @Override
                 public void onClick(View v) {
 
-                    Intent intent = new Intent(mContext, LikeListDetailActivity.class); //LikeList의 Detail 액티비티로 이동
-                    intent.putExtra("listCode", shopListDB.get(position).listCode); //listCode넘겨줌
-                    intent.putExtra("countryName", shopListDB.get(position).countryNameKor.toString()); //국가명 넘겨줌
-                    Log.e("shopListCode", shopListDB.get(position).listCode.toString());
+                    Intent intent = new Intent(mContext, ShoppingListDetailActivity.class); //LikeList의 Detail 액티비티로 이동
+                    intent.putExtra("listCode", shopListDB.get(position-1).listCode); //listCode넘겨줌
+                    intent.putExtra("countryName", shopListDB.get(position-1).countryNameKor.toString()); //국가명 넘겨줌
+                    Log.e("shopListCode", shopListDB.get(position-1).listCode.toString());
                     mContext.startActivity(intent);
                 }
             });
@@ -182,10 +180,12 @@ public class ShoppingListRecyclerViewAdapter
 
     @Override
     public int getItemCount() {
-        if (shopListDB.size() == 0) {
-            return 0;
-        } else {
-            return shopListDB.size();
-        }
+//        if (shopListDB.size() == 0) {
+//            return 0;
+//        } else {
+//            return shopListDB.size();
+//        }
+
+        return shopListDB.size() + 1;
     }
 }

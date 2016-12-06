@@ -9,6 +9,6 @@ import java.util.ArrayList;
 public class LikeListDetail {
     public String msg;
     public int userCode;
-    public ArrayList<Goods> goodsList;
+    public ArrayList<Goods> goodsList = new ArrayList<>();
 }
 

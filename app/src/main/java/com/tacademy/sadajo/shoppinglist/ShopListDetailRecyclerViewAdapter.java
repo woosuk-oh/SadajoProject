@@ -25,12 +25,12 @@ public class ShopListDetailRecyclerViewAdapter
         extends RecyclerView.Adapter<ShopListDetailRecyclerViewAdapter.ViewHolder> {
 
 
-    private ArrayList<Goods> shopGoodsArrayList = new ArrayList<>();
+    private ArrayList<Goods> shopGoodsArrayList;
     private Context context;
 
     public ShopListDetailRecyclerViewAdapter(Context context) {
         this.context = context;
-
+        shopGoodsArrayList = new ArrayList<>();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -88,8 +88,8 @@ public class ShopListDetailRecyclerViewAdapter
         });
 
     }
-    public void addDetail(ArrayList<Goods> shopGoodsArrayList){
-        this.shopGoodsArrayList = shopGoodsArrayList;
+    public void addDetail(ArrayList<Goods> shopGoods){
+        this.shopGoodsArrayList.addAll(shopGoods);
 
     }
     @Override
