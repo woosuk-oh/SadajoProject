@@ -17,7 +17,7 @@ public class SearchJSONParser {
     public static SearchDB getSearchJsonParser(String responsedJSON) {
 
 
-        SearchDB searchDBs = new SearchDB(); //TODO 이부분 수정부터: HomeDB가 아니라 searchDB 따로 만들어서.
+        SearchDB searchDBs = new SearchDB();
         //ArrayList<SearchDB> searchDBArrayList = new ArrayList<>();
         ArrayList<SearchGoodsDB> searchGoodsDBs = new ArrayList<>();
 

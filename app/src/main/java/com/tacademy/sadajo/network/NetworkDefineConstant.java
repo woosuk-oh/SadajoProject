@@ -45,9 +45,11 @@ public class NetworkDefineConstant {
         SEARCH_LIST =
                 HOST_URL + "/goods";
         SEARCH_LIST_COUNTRY =
-                HOST_URL + SEARCH_LIST + "?country=%s"; // 스피너 선택한 값이 있으면 해당 url로 요청.
+                HOST_URL + "/goods" + "?country=%s"; // 스피너 선택한 값이 있으면 해당 url로 요청.
+
+
         SEARCH_LIST_DETAIL =
-                HOST_URL + SEARCH_LIST + "/%s";
+                HOST_URL + "/goods" + "/%s";
 
 
     }

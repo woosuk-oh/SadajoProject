@@ -8,7 +8,15 @@ public class TipsDB {
     public String writer;
     public String tips_content;
     public String tips_user_img;
+    public String regdate;
 
+    public String getRegdate() {
+        return regdate;
+    }
+
+    public void setRegdate(String regdate) {
+        this.regdate = regdate;
+    }
 
     public String getTips_user_img() {
         return tips_user_img;

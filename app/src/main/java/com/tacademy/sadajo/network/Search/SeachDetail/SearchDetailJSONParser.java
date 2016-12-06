@@ -77,8 +77,8 @@ public class SearchDetailJSONParser {
 
                 tipsDB.setWriter(tips.getString("writer"));
                 tipsDB.setTips_content(tips.getString("content"));
-                // TODO 이미지 서버로부터 받아오면 셋팅.
-                // tipsDB.setTips_user_img(tips.getString(""));
+                tipsDB.setTips_user_img(tips.getString("user_img"));
+                tipsDB.setRegdate(tips.getString("regdate"));
 
                 tipsContainer.add(tipsDB); // 생성한 ArrayList<tips>인 tipContainer에 tipsDB 객체(Writer, tips_content) 반복문을 통해 담는다.
             }

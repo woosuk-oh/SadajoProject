@@ -4,6 +4,9 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
@@ -87,7 +90,8 @@ public class SearchListActivity extends BaseActivity {
     private int customBarHeight;
 
     int tagCount;
-
+    int cnt = 0; // 검색창 용
+    private LinearLayoutManager searchlayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -158,7 +162,45 @@ public class SearchListActivity extends BaseActivity {
         countrySpinner.setAdapter(spinnerAdapter);
 
 
-    } // end OnCreate.
+        searchBar.setHint("검색어를 입력 바람");
+        searchBar.setText("");
+
+        searchBar.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (cnt == 0) {
+                    searchlayout.setStackFromEnd(false);
+                    //  mRecycler.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+                    mRecycler.setLayoutManager(searchlayout);
+                }
+
+
+                    new AsyncSearchRequest().execute(countrySpinner.getSelectedItem().toString(), searchBar.getText().toString());
+
+                cnt++;
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+
+
+        }
+
+
+
+    );
+
+
+} // end OnCreate.
 
     //bottom Tabbar
     private void setBottomButtonClickListener() {
@@ -178,11 +220,11 @@ public class SearchListActivity extends BaseActivity {
     }
 
 
-    public interface OnResultListener<T> {
-        public void onSuccess(Request request, T result);
+public interface OnResultListener<T> {
+    public void onSuccess(Request request, T result);
 
-        public void onFail(Request request, IOException exception);
-    }
+    public void onFail(Request request, IOException exception);
+}
 
 
     @Override
@@ -220,63 +262,76 @@ public class SearchListActivity extends BaseActivity {
 
     }
 
-    public class AsyncSearchRequest extends AsyncTask<String, Void, SearchDB> {
+public class AsyncSearchRequest extends AsyncTask<String, Void, SearchDB> {
 
 
-        //첫번째 Void: doInBackgorund로 보내는
-        //두번째 Void: Progress
-        //세번째 onPostExecute에서 사용할 파라미터값.
+    //첫번째 Void: doInBackgorund로 보내는
+    //두번째 Void: Progress
+    //세번째 onPostExecute에서 사용할 파라미터값.
 
-        String url;
+    String url;
 
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+
+
+    }
+
+
+    @Override
+    protected SearchDB doInBackground(String... params) {
+        OkHttpClient toServer;
+        toServer = OkHttpInitManager.getOkHttpClient();
+        Response response = null; // 응답
+
+        searchDB = new SearchDB();
+        String countryId;
+
+        Log.e("선택한 스피너", "" + params[0].toString());
+        Log.d("입력한 파람스",""+params[1].toString());
+
+        if (params[0].equals("전세계")) { //스피너에서 선택한 값이 "전세계" 이면
+            url = SEARCH_LIST; //url에 /goods를 넣어줌.
+
+            // 에딧 텍스트에서 입력한 값 가져와서
+
+            if (!TextUtils.isEmpty(params[1])) { // EditText에 입력한 값이 넘어와서 그 값이 공백이 아닐경우.
+                url = url + "?name=" + params[1];
+                Log.d("",""+params[1]);
+            }
+            else{
+                onResume(); //검색창 안에 입력이 공백이면 onResume으로 다시 데이터 서버로 부터 받아옴.
+            }
+        } else { // 스피너에서 선택한 값이
+            countryId = params[0].toString();
+            url = String.format(SEARCH_LIST_COUNTRY, countryId); //get 방식이므로 FormBody는 없고, 정보를 url에만 담음.
+
+        }
+        if (params[1].equals("") == false) { // EditText에 입력한 값이 넘어와서 그 값이 공백이 아닐경우.
+            url = SEARCH_LIST + "?name=" + params[1];
         }
 
-
-        @Override
-        protected SearchDB doInBackground(String... params) {
-            OkHttpClient toServer;
-            toServer = OkHttpInitManager.getOkHttpClient();
-            Response response = null; // 응답
-
-            searchDB = new SearchDB();
-            String countryId;
-
-            Log.e("선택한 스피너", "" + params[0].toString());
-
-
-            if (params[0].equals("전세계")) { //스피너에서 선택한 값이 "전세계" 이면
-                url = SEARCH_LIST; //url에 /goods를 넣어줌.
-
-
-            } else { // 스피너에서 선택한 값이
-                countryId = params[0].toString();
-                url = String.format(SEARCH_LIST_COUNTRY, countryId); //get 방식이므로 FormBody는 없고, 정보를 url에만 담음.
-
-            }
-
-            try {
+        try {
             /* get 방식으로 받기 */
-                //String url = String.format(SEARCH_LIST, countryId);
+            //String url = String.format(SEARCH_LIST, countryId);
 
 
-                Request request = new Request.Builder()
-                        .url(url)
-                        .build();
-               // Log.e("url3", "" + url);
-                response = toServer.newCall(request).execute();
+            Request request = new Request.Builder()
+                    .url(url)
+                    .build();
+            // Log.e("url3", "" + url);
+            response = toServer.newCall(request).execute();
 
-                if (response.isSuccessful()) { //연결에 성공하면
-                    String returedMessage = response.body().string(); // okhttp로 부터 받아온 데이터 json을 스트링형태로 변환하여 returendMessage에 담아둠. 이때, home부분의 모든 오브젝트를 가져와 담아둠.
-                 //   Log.e("searchActivity", returedMessage);
+            if (response.isSuccessful()) { //연결에 성공하면
+                String returedMessage = response.body().string(); // okhttp로 부터 받아온 데이터 json을 스트링형태로 변환하여 returendMessage에 담아둠. 이때, home부분의 모든 오브젝트를 가져와 담아둠.
+                //   Log.e("searchActivity", returedMessage);
 
-                    searchDB = SearchJSONParser.getSearchJsonParser(returedMessage); //만들어둔 파서로 returedMessage를 넣어서 파싱하여 homeDB에 값을 넣음.
+                searchDB = SearchJSONParser.getSearchJsonParser(returedMessage); //만들어둔 파서로 returedMessage를 넣어서 파싱하여 homeDB에 값을 넣음.
 
-                } else { // 연결에 실패하면
-                  //  Log.e("요청/응답", response.message().toString());
-                }
+            } else { // 연결에 실패하면
+                //  Log.e("요청/응답", response.message().toString());
+            }
 
           /*      client.newCall(request).enqueue(new Callback() {
                     @Override
@@ -287,42 +342,42 @@ public class SearchListActivity extends BaseActivity {
 
                     }
                 });*/
-            } catch (IOException e) {
-                e.printStackTrace();
-            } finally {
-                if (response != null) {
-                    response.close();
-                }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (response != null) {
+                response.close();
             }
-            return searchDB;
-
-
         }
-
-        @Override
-        protected void onPostExecute(SearchDB searchDB) {
-            super.onPostExecute(searchDB);
-
-            customTitleText2.setText(String.valueOf(searchDB.getCount()));
-
-            // Log.d("searchDB",""+searchDB.getSearchGoodsDBs().get(0).toString());
-
-            mAdapter = new SearchListRecyclerAdapter(SearchListActivity.this, searchDB.searchGoodsDBs);
-            mRecycler.setAdapter(mAdapter);
-            mAdapter.notifyDataSetChanged();
+        return searchDB;
 
 
-        }
+    }
 
-        private void hideCustomBar() {
-            customBar.startAnimation(outAnim);
-            customBar.setVisibility(View.GONE);
-        }
+    @Override
+    protected void onPostExecute(SearchDB searchDB) {
+        super.onPostExecute(searchDB);
 
-        private void showCustomBar() {
-            customBar.startAnimation(inAnim);
-            customBar.setVisibility(View.VISIBLE);
-        }
+        customTitleText2.setText(String.valueOf(searchDB.getCount()));
+
+        // Log.d("searchDB",""+searchDB.getSearchGoodsDBs().get(0).toString());
+
+        mAdapter = new SearchListRecyclerAdapter(SearchListActivity.this, searchDB.searchGoodsDBs);
+        mRecycler.setAdapter(mAdapter);
+        mAdapter.notifyDataSetChanged();
+
+
+    }
+
+    private void hideCustomBar() {
+        customBar.startAnimation(outAnim);
+        customBar.setVisibility(View.GONE);
+    }
+
+    private void showCustomBar() {
+        customBar.startAnimation(inAnim);
+        customBar.setVisibility(View.VISIBLE);
+    }
 /*
 
         //해시태그 버튼 클릭시
@@ -343,7 +398,7 @@ public class SearchListActivity extends BaseActivity {
         };*/
 
 // 하단 탭바 클릭 시
-    }
+}
 
 }
 

@@ -3,7 +3,6 @@ package com.tacademy.sadajo.network.Search.SeachDetail;
 import java.util.ArrayList;
 
 
-//TODO 데이터 모델 작성필요
 
 
 public class SearchDetailDB {
