@@ -4,9 +4,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.Editable;
-import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
@@ -165,7 +162,7 @@ public class SearchListActivity extends BaseActivity {
         searchBar.setHint("검색어를 입력 바람");
         searchBar.setText("");
 
-        searchBar.addTextChangedListener(new TextWatcher() {
+      /*  searchBar.addTextChangedListener(new TextWatcher() {
 
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -197,7 +194,7 @@ public class SearchListActivity extends BaseActivity {
 
 
 
-    );
+    );*/
 
 
 } // end OnCreate.
@@ -288,30 +285,30 @@ public class AsyncSearchRequest extends AsyncTask<String, Void, SearchDB> {
         searchDB = new SearchDB();
         String countryId;
 
-        Log.e("선택한 스피너", "" + params[0].toString());
-        Log.e("입력한 파람스",""+params[1].toString());
-
+   /*     Log.e("선택한 스피너", "" + params[0].toString());
+        Log.d("입력한 파람스",""+params[1].toString());
+*/
         if (params[0].equals("전세계")) { //스피너에서 선택한 값이 "전세계" 이면
             url = SEARCH_LIST; //url에 /goods를 넣어줌.
 
             // 에딧 텍스트에서 입력한 값 가져와서
-
+/*
             if (!TextUtils.isEmpty(params[1])) { // EditText에 입력한 값이 넘어와서 그 값이 공백이 아닐경우.
                 url = url + "?name=" + params[1];
                 Log.d("",""+params[1]);
             }
             else{
                 onResume(); //검색창 안에 입력이 공백이면 onResume으로 다시 데이터 서버로 부터 받아옴.
-            }
+            }*/
         } else { // 스피너에서 선택한 값이
             countryId = params[0].toString();
             url = String.format(SEARCH_LIST_COUNTRY, countryId); //get 방식이므로 FormBody는 없고, 정보를 url에만 담음.
 
         }
-        if (params[1].equals("") == false) { // EditText에 입력한 값이 넘어와서 그 값이 공백이 아닐경우.
+     /*   if (params[1].equals("") == false) { // EditText에 입력한 값이 넘어와서 그 값이 공백이 아닐경우.
             url = SEARCH_LIST + "?name=" + params[1];
         }
-
+*/
         try {
             /* get 방식으로 받기 */
             //String url = String.format(SEARCH_LIST, countryId);

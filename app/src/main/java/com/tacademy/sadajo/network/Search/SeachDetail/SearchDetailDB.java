@@ -9,7 +9,7 @@ public class SearchDetailDB {
 
 
     public int item_id;
-    public ArrayList<String> goods_img;
+    public ArrayList<String> goods_img = new ArrayList<>();
     public String goods_code;
     public String goods_name;
 
@@ -18,16 +18,16 @@ public class SearchDetailDB {
     public String goods_country;
     public int click;
     public String regdate;
-    public ArrayList<String> hashtag;
+    public ArrayList<String> hashtag = new ArrayList<>();
 
-    public ArrayList<ShopermanDB> shoperman;
+    public ArrayList<ShopermanDB> shoperman = new ArrayList<>();
     public String unit;
 
-    public ArrayList<String> sell_place;
-    public ArrayList<String> tag_price;
-    public ArrayList<String> price;
+    public ArrayList<String> sell_place = new ArrayList<>();
+    public ArrayList<String> tag_price = new ArrayList<>();
+    public ArrayList<String> price = new ArrayList<>();
 
-    public ArrayList<TipsDB> tips;
+    public ArrayList<TipsDB> tips = new ArrayList<>();
 
 
 

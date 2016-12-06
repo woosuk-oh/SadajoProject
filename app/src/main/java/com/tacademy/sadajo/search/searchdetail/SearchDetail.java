@@ -46,19 +46,23 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
     ViewPager searchDetailViewPager;
     TextView itemcount;
     TextView country;
+    TextView contenttext;
     //푸쉬 테스트
 
     RecyclerView.LayoutManager layoutManager;
     private DetailShopermanRecyclerAdapter mAdapter;
     private DetailPriceItemsRecyclerAdapter mAdapter2;
-    private DetailItemLocationRecyclerAdapter mAdapter3;
+    private DetailPriceItems2RecyclerAdapter mAdapter3;
     private DetailCommentRecyclerAdapter mAdapter4;
+    private DetailItemLocationRecyclerAdapter mAdapter5;
     private CollapsingToolbarLayout collapsingToolbarLayout;
 
     private RecyclerView mRecycler;
     private RecyclerView mRecycler2;
     private RecyclerView mRecycler3;
     private RecyclerView mRecycler4;
+    private RecyclerView mRecycler5;
+
 
     ArrayList<Integer> imageList = new ArrayList<>();
 
@@ -79,6 +83,7 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
         /* onCreate에서 생성할 위젯 (텍스트뷰) */
         final TextView itemID = (TextView) findViewById(R.id.search_detail_item_name);
         country = (TextView) findViewById(R.id.search_detail_country_name);
+        contenttext = (TextView) findViewById(R.id.search_detail_content_text);
 
 
         /* 상품의 ID값과 상품명, 판매가능 국가명을 인텐트로 가져옴 */
@@ -125,9 +130,10 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
         /* 리싸이클러뷰 onCreate에서 그려줌.*/
         mRecycler = (RecyclerView) findViewById(R.id.search_detail_shopperuser_recyclerview);
         mRecycler2 = (RecyclerView) findViewById(R.id.search_detail_itemprice_recyclerview);
-        mRecycler3 = (RecyclerView) findViewById(R.id.search_detail_location_recyclerview);
-        mRecycler4 = (RecyclerView) findViewById(R.id.search_detail_comment_recyclerview);
+        mRecycler3 = (RecyclerView) findViewById(R.id.search_detail_itemprice2_recyclerview);
 
+        mRecycler4 = (RecyclerView) findViewById(R.id.search_detail_comment_recyclerview);
+        mRecycler5 = (RecyclerView) findViewById(R.id.search_detail_location_recyclerview);
 
 
         /* 디테일 페이지에서 필요한 리싸이클러뷰들 레이아웃 적용 */
@@ -143,7 +149,8 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
         layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         mRecycler4.setLayoutManager(layoutManager);
 
-
+        layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        mRecycler5.setLayoutManager(layoutManager);
 
 
 
@@ -219,42 +226,50 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
         }
 
         @Override
-        protected void onPostExecute(SearchDetailDB searchDetailDB) {
-            super.onPostExecute(searchDetailDB);
+        protected void onPostExecute(SearchDetailDB s) {
+            super.onPostExecute(s);
 
-            // 상품의 이미지 갯수 가져와서 setText.
-            itemcount.setText(String.valueOf(1) + searchDetailDB.getGoods_img().size());
+
+            contenttext.setText(s.getGoods_content().toString());
+            Log.d("컨텐트",""+s.getGoods_content().toString());
 
     /*        // 상품 판매 국가명 연결 [12.05 11:31 수정 -> 인텐트로 가져온 값을 onCreate에서 대신 setText 해줌]
             country.setText(searchDetailDB.getGoods_country());*/
 
             // 쇼퍼맨에게 부탁해볼까요? 리싸이클러뷰 연결. (인자값 보냄)
-            mAdapter = new DetailShopermanRecyclerAdapter(SearchDetail.this, searchDetailDB.shoperman);
+            mAdapter = new DetailShopermanRecyclerAdapter(SadajoContext.getContext(), s.shoperman);
             mRecycler.setAdapter(mAdapter);
             mAdapter.notifyDataSetChanged();
 
             // 얼마에 구매했어요? 리싸이클러뷰 연결
-            mAdapter2 = new DetailPriceItemsRecyclerAdapter(searchDetailDB.tag_price, SearchDetail.this);
+            mAdapter2 = new DetailPriceItemsRecyclerAdapter(s.tag_price, SadajoContext.getContext());
+            Log.d("tag_price","얼마에 구매했어요?"+s.tag_price.get(0));
             mRecycler2.setAdapter(mAdapter2);
             mAdapter2.notifyDataSetChanged();
 
             // TODO 구매한 가격 (price) 는 따로 for문 돌려야 할듯
-
-            // 어디서 살 수 있어요?
-            mAdapter3 = new DetailItemLocationRecyclerAdapter(searchDetailDB.sell_place, SearchDetail.this);
+            mAdapter3 = new DetailPriceItems2RecyclerAdapter(s.price, SadajoContext.getContext());
             mRecycler3.setAdapter(mAdapter3);
             mAdapter3.notifyDataSetChanged();
 
+
             // 쇼퍼맨이 알려주는 구매 TIP (댓글)
-            mAdapter4 = new DetailCommentRecyclerAdapter(searchDetailDB.tips, SearchDetail.this);
+            mAdapter4 = new DetailCommentRecyclerAdapter(s.tips, SadajoContext.getContext());
             mRecycler4.setAdapter(mAdapter4);
             mAdapter4.notifyDataSetChanged();
 
+            // 어디서 살 수 있어요?
+            mAdapter5 = new DetailItemLocationRecyclerAdapter(s.sell_place,SadajoContext.getContext());
+            mRecycler5.setAdapter(mAdapter5);
+            mAdapter5.notifyDataSetChanged();
+
             // PagerAdapter 연결.
-            searchDetailPagerAdapter.setImageList(searchDetailDB.getGoods_img()); // 네트워크로 부터 받아온 goods_img를 페이저어댑터 메소드에서 set해주기 위해 인자값으로 보내줌.
+            searchDetailPagerAdapter.setImageList(s.getGoods_img()); // 네트워크로 부터 받아온 goods_img를 페이저어댑터 메소드에서 set해주기 위해 인자값으로 보내줌.
             searchDetailPagerAdapter.notifyDataSetChanged();
 
 
+            // 상품의 이미지 갯수 가져와서 setText.
+            itemcount.setText(String.valueOf(1) + s.getGoods_img().size());
         }
     }
 

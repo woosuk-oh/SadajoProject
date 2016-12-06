@@ -22,24 +22,27 @@ public class SearchDetailJSONParser {
             JSONObject searchDetail = new JSONObject(responsedJSON);
 
 
-            searchDetailDB.setItem_id(searchDetail.getInt("id"));
+            searchDetailDB.setItem_id(searchDetail.optInt("id"));
 
-            searchDetailDB.setGoods_code(searchDetail.getString("goods_code"));
-            searchDetailDB.setGoods_content(searchDetail.getString("goods_content"));
-            searchDetailDB.setGoods_name(searchDetail.getString("goods_name"));
-            searchDetailDB.setGoods_country(searchDetail.getString("country"));
-            searchDetailDB.setClick(searchDetail.getInt("click"));
-            searchDetailDB.setRegdate(searchDetail.getString("regdate"));
+            searchDetailDB.setGoods_code(searchDetail.optString("goods_code"));
+            searchDetailDB.setGoods_content(searchDetail.optString("content"));
+            searchDetailDB.setGoods_name(searchDetail.optString("goods_name"));
+            searchDetailDB.setGoods_country(searchDetail.optString("country"));
+            searchDetailDB.setClick(searchDetail.optInt("click"));
+            searchDetailDB.setRegdate(searchDetail.optString("regdate"));
 
 
             /* 이미지 파싱 부분 */
             JSONArray searchDetailImg = searchDetail.getJSONArray("goods_img");
             int imgArraySize = searchDetailImg.length();
+         //   ArrayList<String> goodsimgs = new ArrayList<>();
 
             for(int i=0; i<imgArraySize; i++ ) {
 
                 searchDetailDB.goods_img.add(searchDetailImg.getString(i));
             }
+        //    searchDetailDB.setGoods_img(goodsimgs);
+
 
 
             /* 해시태그 파싱 부분 */
@@ -59,12 +62,31 @@ public class SearchDetailJSONParser {
             }
 
             /* 얼마에 구매할 수 있나요 파싱 부분 */
-            JSONArray price = searchDetail.getJSONArray("tag_price");
-            int priceArraySize = price.length();
+            JSONArray tagprice = searchDetail.getJSONArray("tag_price");
+            int priceArraySize = tagprice.length();
 
             for (int i = 0; i < priceArraySize; i++) {
+                searchDetailDB.tag_price.add(tagprice.getString(i));
+            }
+
+
+            /* 얼마에 구매할 수 있나요 파싱 부분2 */
+            JSONArray price = searchDetail.getJSONArray("price");
+            int price2ArraySize = price.length();
+
+            for(int i =0; i< price2ArraySize; i++){
                 searchDetailDB.price.add(price.getString(i));
             }
+
+
+
+
+
+
+            /* TODO 쇼퍼맨에게 부탁해볼까요? 만들어줘야됌. */
+
+
+
 
             /* 팁 파싱 부분 */
             JSONArray tipsArray = searchDetail.getJSONArray("tips"); //tips 제이슨 어레이 받아오고
