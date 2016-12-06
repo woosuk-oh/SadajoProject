@@ -68,9 +68,11 @@ public class ShopListDetailRecyclerViewAdapter
         Glide.with(SadajoContext.getContext())
                 .load(shopGoodsArrayList.get(position).goodsImg)
                 .into(holder.itemProductImageView);
+        Glide.with(SadajoContext.getContext())
+                .load(shopGoodsArrayList.get(position).goodscountryFlagImg)
+                .into(holder.itemFlagImageView);
         holder.itemProductNameTextView.setText(shopGoodsArrayList.get(position).goodsName);
-        holder.itemFlagImageView.setImageResource(R.drawable.flag);
-        holder.itemCountryNameTextView.setText("이탈리아");
+        holder.itemCountryNameTextView.setText(shopGoodsArrayList.get(position).goodsCountryName);
 
 
 

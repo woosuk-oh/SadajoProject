@@ -9,5 +9,7 @@ public class Goods {
     public String goodsCode;
     public String goodsName;
     public String goodsImg;
-}
+    public String goodsCountryName;
+    public String goodscountryFlagImg;
 
+}

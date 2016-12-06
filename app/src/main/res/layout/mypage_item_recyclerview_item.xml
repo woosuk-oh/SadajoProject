@@ -39,7 +39,7 @@
             android:orientation="horizontal"
             android:gravity="right">
 
-            <ImageView
+            <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/itemFlagImageView"
                 android:layout_width="15dp"
                 android:layout_height="15dp"

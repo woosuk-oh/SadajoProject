@@ -2,6 +2,7 @@ package com.tacademy.sadajo.shoppinglist;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -26,47 +27,61 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 
-/**
- * A simple {@link Fragment} subclass.
- */
-public class LikeListFragment extends Fragment {
+public class OtherLikeListFragment extends Fragment {
 
+    LikeListRecyclerViewAdapter otherLikeRecyclerViewAdapter;
+    RecyclerView otherLikeListRecyclerView;
+    private int userCode; //해당 페이지의 userCode
 
-    LikeListRecyclerViewAdapter likeRecyclerViewAdapter;
-    RecyclerView likeListRecyclerView;
+    public OtherLikeListFragment() {
 
-    public LikeListFragment() {
     }
 
-    public static LikeListFragment newInstance(int initValue) {
-        LikeListFragment likeListFragment = new LikeListFragment();
-        return likeListFragment;
+    public static OtherLikeListFragment newInstance(int initValue) {
+        OtherLikeListFragment fragment = new OtherLikeListFragment();
+        Bundle bundle = new Bundle();
+        bundle.putInt("userCode", initValue);
+        fragment.setArguments(bundle);
+
+        return fragment;
+    }
+
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+
+        userCode = getArguments().getInt("userCode", 0);
+        Log.e("otherLike", String.valueOf(userCode));
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        likeListRecyclerView = (RecyclerView) inflater.inflate(R.layout.shoppinglist_fragment_likelist, container, false);
+
+
+        otherLikeListRecyclerView = (RecyclerView) inflater.inflate(R.layout.fragment_other_like_list, container, false);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-        likeListRecyclerView.setLayoutManager(layoutManager);
+        otherLikeListRecyclerView.setLayoutManager(layoutManager);
 
         CustomRecyclerDecoration decoration = new CustomRecyclerDecoration(30, "bottom"); //아이템간 간격
-        likeListRecyclerView.addItemDecoration(decoration);
+        otherLikeListRecyclerView.addItemDecoration(decoration);
 
-        likeRecyclerViewAdapter = new LikeListRecyclerViewAdapter(getActivity());
-        likeListRecyclerView.setAdapter(likeRecyclerViewAdapter);
+        otherLikeRecyclerViewAdapter = new LikeListRecyclerViewAdapter(getActivity());
+        otherLikeListRecyclerView.setAdapter(otherLikeRecyclerViewAdapter);
 
-        //return view;
-        return likeListRecyclerView;
+
+        return otherLikeListRecyclerView;
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        new AsyncTaskLikeList().execute();
+        new AsyncTaskOtherLikeList().execute();
     }
 
-    private class AsyncTaskLikeList extends AsyncTask<Void, Void, ArrayList<ShopListDB>> {
+    private class AsyncTaskOtherLikeList extends AsyncTask<Void, Void, ArrayList<ShopListDB>> {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -84,7 +99,7 @@ public class LikeListFragment extends Fragment {
 
 
                 RequestBody postBody = new FormBody.Builder()
-                        .add("user", "1")
+                        .add("user", String.valueOf(userCode))
                         .build();
 
                 Request request = new Request.Builder()
@@ -118,11 +133,13 @@ public class LikeListFragment extends Fragment {
         public void onPostExecute(ArrayList<ShopListDB> listDBs) {
             super.onPostExecute(listDBs);
             if (listDBs != null && listDBs.size() > 0) {
-                likeRecyclerViewAdapter.addLikeList(listDBs);
-            }else{
+                otherLikeRecyclerViewAdapter.addLikeList(listDBs);
+            } else {
                 Log.e("size---", String.valueOf(listDBs.size()));
             }
         }
-    }
-}
 
+    }
+
+
+}
