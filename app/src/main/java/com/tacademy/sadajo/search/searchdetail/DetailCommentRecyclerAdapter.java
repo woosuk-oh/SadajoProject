@@ -60,8 +60,8 @@ public class DetailCommentRecyclerAdapter extends RecyclerView.Adapter<DetailCom
     public void onBindViewHolder(final ViewHolder holder, int position) {
 
 
-        holder.itemText.setText(mItems.get(position).getWriter());
-        holder.itemText2.setText(mItems.get(position).getTips_content());
+      //  holder.itemText.setText(mItems.get(position).getWriter());
+        holder.itemText.setText(mItems.get(position).getTips_content());
         Glide.with(SadajoContext.getContext())
                 .load(mItems.get(position).getTips_user_img())
                 .into(holder.itemImg);

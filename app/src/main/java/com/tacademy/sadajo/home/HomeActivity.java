@@ -140,8 +140,8 @@ public class HomeActivity extends BaseActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-         /*   progressDialog = ProgressDialog.show(HomeActivity.this,
-                    "서버입력중", "잠시만 기다려 주세요 ...", true);*/
+            progressDialog = ProgressDialog.show(HomeActivity.this,
+                    "서버입력중", "잠시만 기다려 주세요 ...", true);
         }
 
         @Override
@@ -195,6 +195,7 @@ public class HomeActivity extends BaseActivity {
 
         @Override
         protected void onPostExecute(HomeDB s) {
+            progressDialog.dismiss();
             super.onPostExecute(s);
             //   progressDialog.dismiss();
 

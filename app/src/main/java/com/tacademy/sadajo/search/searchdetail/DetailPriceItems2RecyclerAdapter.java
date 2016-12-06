@@ -19,12 +19,12 @@ import java.util.ArrayList;
 
 // 얼마에 구매했어요? 의 tag_price 부분. (ex. 산타노벨라 70ml, 산타노벨라 50ml ...)
 
-public class DetailPriceItemsRecyclerAdapter extends RecyclerView.Adapter<DetailPriceItemsRecyclerAdapter.ViewHolder> {
+public class DetailPriceItems2RecyclerAdapter extends RecyclerView.Adapter<DetailPriceItems2RecyclerAdapter.ViewHolder> {
     private Context context;
     private ArrayList<String> mItems;
 
 
-    public DetailPriceItemsRecyclerAdapter(ArrayList<String> items, Context mCotext) {
+    public DetailPriceItems2RecyclerAdapter(ArrayList<String> items, Context mCotext) {
 
         mItems = items;
         context = mCotext;

@@ -63,6 +63,7 @@ public class DetailShopermanRecyclerAdapter extends RecyclerView.Adapter<DetailS
 
 
         holder.itemName.setText(mItems.get(position).getUser_name());
+        Log.d("쇼퍼맨",""+mItems.get(position).getUser_name());
 
 
 
