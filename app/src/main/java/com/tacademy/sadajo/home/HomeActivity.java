@@ -135,7 +135,6 @@ public class HomeActivity extends BaseActivity {
         userAccount = sharedPreferenceUtil.getSharedPreference(this,"userAccount");
     }
 
-
     @Override
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
@@ -148,7 +147,7 @@ public class HomeActivity extends BaseActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            progressDialog = ProgressDialog.show(SadajoContext.getContext(),
+            progressDialog = ProgressDialog.show(HomeActivity.this,
                     "서버입력중", "잠시만 기다려 주세요 ...", true);
         }
 
