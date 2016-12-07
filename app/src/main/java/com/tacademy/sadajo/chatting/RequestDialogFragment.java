@@ -3,6 +3,7 @@ package com.tacademy.sadajo.chatting;
 import android.app.DialogFragment;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +20,7 @@ import android.widget.Toast;
 
 import com.tacademy.sadajo.CountryCodeHashMap;
 import com.tacademy.sadajo.R;
+import com.tacademy.sadajo.SharedPreferenceUtil;
 import com.tacademy.sadajo.network.NetworkDefineConstant;
 import com.tacademy.sadajo.network.OkHttpInitManager;
 import com.tacademy.sadajo.network.chatting.RequestEntityObject;
@@ -53,6 +55,9 @@ public class RequestDialogFragment extends DialogFragment implements View.OnClic
     private RequestEntityObject requestEntityObject;
     ArrayAdapter<CharSequence> countrySpinnerAdapter;
 
+    int userAccount;
+    int conUserCode;
+
     public static RequestDialogFragment newInstance() {
         RequestDialogFragment fragment = new RequestDialogFragment();
 
@@ -64,6 +69,11 @@ public class RequestDialogFragment extends DialogFragment implements View.OnClic
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setStyle(STYLE_NO_FRAME, R.style.CustomDialog);
+        SharedPreferenceUtil sharedPreferenceUtil = new SharedPreferenceUtil();
+        userAccount = sharedPreferenceUtil.getSharedPreference(getActivity(),"userAccount");
+//TODO: conUserCode받아오기
+        Bundle bundle = getArguments();
+        conUserCode = bundle.getInt("conUserCode",0);
 
     }
 
@@ -176,13 +186,18 @@ public class RequestDialogFragment extends DialogFragment implements View.OnClic
             try {
                 //요청 Form세팅
                 RequestBody postBody = new FormBody.Builder()
-                        .add("req", "1") //요청하는 userCode
-                        .add("carr", "3") //요청받는 userCode
+                        .add("req", String.valueOf(userAccount)) //요청하는 userCode
+                        .add("carr", String.valueOf(conUserCode)) //요청받는 userCode
                         .add("country", reqParams.countryName)// 상품국가명
                         .add("goods", reqParams.productName) //상품명
                         .add("price", reqParams.productPrice) //상품가격
                         .add("detail", reqParams.productOpt) //추가요청사항
                         .build();
+
+
+                Log.e("req", String.valueOf(userAccount));
+                Log.e("carr", String.valueOf(conUserCode));
+
                 //요청 세팅(form(Query String) 방식의 포스트)
                 Request request = new Request.Builder()
                         .url(NetworkDefineConstant.SERVER_URL_INSERT_REQUEST)
@@ -228,7 +243,6 @@ public class RequestDialogFragment extends DialogFragment implements View.OnClic
             if (result != null) {
                 if (result != null) {//insertId가 null이 아닐경우 토스트
 
-                    //Todo : 토스트 이미지 받아서 바꿔주기
                     Toast toast = new Toast(getActivity());
                     ImageView img = new ImageView(getActivity());
                     img.setImageResource(R.drawable.chat_request_toast);

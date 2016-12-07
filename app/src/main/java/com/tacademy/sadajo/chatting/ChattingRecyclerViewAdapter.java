@@ -83,8 +83,8 @@ public class ChattingRecyclerViewAdapter
                     Intent intent = new Intent(context, ChattingDetailActivity.class);
                     intent.putExtra("roomNum", chatDataLists.get(position).roomNum);//roomNum넘겨주기
                     intent.putExtra("conUserImg", chatDataLists.get(position).carrierImg);
+                    intent.putExtra("conUseCode", chatDataLists.get(position).carrierCode);
                     intent.putExtra("conUserName", chatDataLists.get(position).carrierName);
-                    //TODO:이미지도 넘겨주기
                     context.startActivity(intent);
 
                 }
@@ -103,6 +103,7 @@ public class ChattingRecyclerViewAdapter
                     Intent intent = new Intent(context, ChattingDetailActivity.class);
                     intent.putExtra("roomNum", chatDataLists.get(position).roomNum);//roomNum넘겨주기
                     intent.putExtra("conUserImg", chatDataLists.get(position).requestUserImg);
+                    intent.putExtra("conUseCode", chatDataLists.get(position).requestUserCode);
                     intent.putExtra("conUserName", chatDataLists.get(position).requestUserName);
                     intent.putExtra("type", true);
                     context.startActivity(intent);
