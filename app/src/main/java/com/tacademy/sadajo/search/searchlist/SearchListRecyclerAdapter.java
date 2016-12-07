@@ -98,6 +98,8 @@ public class SearchListRecyclerAdapter extends RecyclerView.Adapter<SearchListRe
 
         Glide.with(SadajoContext.getContext())
                 .load(searchgoodsDBs.get(position).getItem_img())
+                .centerCrop() // 이미지를 중앙에 맞게 자른다.
+                .thumbnail(0.1f)
                 .into(holder.itemImage);
 
         Glide.with(SadajoContext.getContext())

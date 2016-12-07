@@ -3,7 +3,8 @@ package com.tacademy.sadajo.network;
 
 public class NetworkDefineConstant {
 
-    public static final String HOST_URL = "http://52.78.89.88:3000";
+    public static final String HOST_URL = "http://52.78.89.88:3001"; // 테스트 서버임.
+  //  public static final String HOST_URL = "http://52.78.89.88:3000";
 
     public static String SERVER_URL_REQUEST_HOME;
     public static String SERVER_URL_REQUEST_SHOPLIST;
@@ -46,16 +47,16 @@ public class NetworkDefineConstant {
         SERVER_URL_REQUST_MYPAGE =
                 HOST_URL + "/userpage";
         SEARCH_LIST =
-                HOST_URL + "/goods";
+                HOST_URL + "/goodslist";
         SEARCH_LIST_COUNTRY =
-                HOST_URL + "/goods" + "?country=%s"; // 스피너 선택한 값이 있으면 해당 url로 요청.
+                HOST_URL + "/goodslist" + "?country=%s"; // 스피너 선택한 값이 있으면 해당 url로 요청.
 
 
         SEARCH_LIST_DETAIL =
                 HOST_URL + "/goods" + "/%s";
 
         SEARCH_LIST_DETAIL_ZZIM =
-                HOST_URL + "like";
+                HOST_URL + "/like";
 
     }
 }

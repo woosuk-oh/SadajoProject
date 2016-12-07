@@ -71,6 +71,7 @@ public class DetailShopermanRecyclerAdapter extends RecyclerView.Adapter<DetailS
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, MyPageOtherActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.putExtra("userCode", mItems.get(position).getUser_id());
                 context.startActivity(intent);
             }
@@ -81,6 +82,7 @@ public class DetailShopermanRecyclerAdapter extends RecyclerView.Adapter<DetailS
         Glide.with(SadajoContext.getContext())
                 .load(mItems.get(position).getUser_img())
                 .placeholder(R.drawable.search_profile_180)
+                .thumbnail(0.1f)
                 .into(holder.itemImage);
 
 

@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -188,10 +190,14 @@ public class HomeActivity extends BaseActivity {
                 }
             } catch (MalformedURLException e) {
                 e.printStackTrace();
+                networkfail.sendEmptyMessage(0);
+                progressDialog.dismiss();
             } catch (IOException e) {
                 e.printStackTrace();
-                Toast.makeText(SadajoContext.getContext(),
-                        "서버와의 통신 연결이 원활치 않습니다.", Toast.LENGTH_SHORT).show();
+                networkfail.sendEmptyMessage(0);
+                Log.d("네트워크","네트워크 통신 에러 테스트");
+
+
                   progressDialog.dismiss();
             } finally {
                 if (response != null) {
@@ -210,6 +216,8 @@ public class HomeActivity extends BaseActivity {
              progressDialog.dismiss();
 
 //            if (homeDB != null) {
+
+
                 if (homeDB.getMsg().length() > 0 ) { //서버로부터 msg를 받았으면.
 
                 cardView2CountryTextView.setText(s.getTravelCountry()); // 추천리스트 : 해당 국가
@@ -349,5 +357,11 @@ public class HomeActivity extends BaseActivity {
 
     }
 
+    Handler networkfail = new Handler() {// 핸들러
+        public void handleMessage(Message msg) {
+            Toast.makeText(getApplicationContext(), "네트워크 통신 장애",
+                    Toast.LENGTH_LONG).show();
 
+        }
+    };
 }
