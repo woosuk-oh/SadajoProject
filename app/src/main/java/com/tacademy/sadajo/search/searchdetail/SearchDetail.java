@@ -19,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -62,6 +63,7 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
     TextView unit;
     LinearLayout detailhashbutton;
     ImageView countryimg;
+    EditText tipsinput;
 
     //푸쉬 테스트
 
@@ -107,6 +109,7 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
         countryimg = (ImageView) findViewById(R.id.cuntry_detail_image);
         contenttext = (TextView) findViewById(R.id.search_detail_content_text);
         unit = (TextView) findViewById(R.id.detail_price_unit);
+        tipsinput = (EditText) findViewById(R.id.search_detail_comment_ed);
 
 
         /* 상품의 ID값과 상품명, 판매가능 국가명을 인텐트로 가져옴 */
@@ -475,6 +478,8 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
             this.imageList = imageList;
         }
     }
+
+
 
 
     public Button createTagButton(String str, int i) {

@@ -1,39 +1,39 @@
 package com.tacademy.sadajo.mypage;
 
-import android.content.Intent;
-import android.os.AsyncTask;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.View;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+        import android.content.Intent;
+        import android.os.AsyncTask;
+        import android.os.Bundle;
+        import android.support.annotation.Nullable;
+        import android.support.design.widget.TabLayout;
+        import android.support.v4.view.ViewPager;
+        import android.support.v7.widget.Toolbar;
+        import android.util.Log;
+        import android.view.View;
+        import android.widget.ImageButton;
+        import android.widget.ImageView;
+        import android.widget.LinearLayout;
+        import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.tacademy.sadajo.BaseActivity;
-import com.tacademy.sadajo.MyPagerAdapter;
-import com.tacademy.sadajo.R;
-import com.tacademy.sadajo.SadajoContext;
-import com.tacademy.sadajo.SharedPreferenceUtil;
-import com.tacademy.sadajo.chatting.ChattingDetailActivity;
-import com.tacademy.sadajo.network.NetworkDefineConstant;
-import com.tacademy.sadajo.network.OkHttpInitManager;
-import com.tacademy.sadajo.network.chatting.ChatJSONParser;
-import com.tacademy.sadajo.network.chatting.ChatListDB;
-import com.tacademy.sadajo.network.mypage.MyPageData;
-import com.tacademy.sadajo.network.mypage.MypageJsonParser;
-import com.tacademy.sadajo.shoppinglist.OtherShoppingListActivity;
+        import com.bumptech.glide.Glide;
+        import com.tacademy.sadajo.BaseActivity;
+        import com.tacademy.sadajo.MyPagerAdapter;
+        import com.tacademy.sadajo.R;
+        import com.tacademy.sadajo.SadajoContext;
+        import com.tacademy.sadajo.SharedPreferenceUtil;
+        import com.tacademy.sadajo.chatting.ChattingDetailActivity;
+        import com.tacademy.sadajo.network.NetworkDefineConstant;
+        import com.tacademy.sadajo.network.OkHttpInitManager;
+        import com.tacademy.sadajo.network.chatting.ChatJSONParser;
+        import com.tacademy.sadajo.network.chatting.ChatListDB;
+        import com.tacademy.sadajo.network.mypage.MyPageData;
+        import com.tacademy.sadajo.network.mypage.MypageJsonParser;
+        import com.tacademy.sadajo.shoppinglist.OtherShoppingListActivity;
 
-import okhttp3.FormBody;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
+        import okhttp3.FormBody;
+        import okhttp3.OkHttpClient;
+        import okhttp3.Request;
+        import okhttp3.RequestBody;
+        import okhttp3.Response;
 
 public class MyPageOtherActivity extends BaseActivity {
 
@@ -114,7 +114,6 @@ public class MyPageOtherActivity extends BaseActivity {
 
         Intent intent = getIntent();
         pageUserCode = intent.getIntExtra("userCode", 0); //해당페이지의 유저아이디
-
 
         SharedPreferenceUtil sharedPreferenceUtil = new SharedPreferenceUtil();
         userAccount = sharedPreferenceUtil.getSharedPreference(this, "userAccount");
