@@ -205,7 +205,7 @@ public class HomeActivity extends BaseActivity {
         protected void onPostExecute(HomeDB s) {
             progressDialog.dismiss();
             super.onPostExecute(s);
-            //   progressDialog.dismiss();
+             progressDialog.dismiss();
 
             if (homeDB != null) {
 

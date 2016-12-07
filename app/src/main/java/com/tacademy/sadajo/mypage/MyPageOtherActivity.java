@@ -3,6 +3,7 @@ package com.tacademy.sadajo.mypage;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
@@ -120,6 +121,11 @@ public class MyPageOtherActivity extends BaseActivity {
 
     }
 
+    @Override
+    protected void onPostCreate(@Nullable Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        new AsyncTaskOtherMyPageData().execute();
+    }
 
     //사다줌 , 사다조 버튼 거래내역페이지 이동
     ImageButton.OnClickListener clickListener = new View.OnClickListener() {
