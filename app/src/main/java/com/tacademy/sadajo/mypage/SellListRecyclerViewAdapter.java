@@ -17,7 +17,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.tacademy.sadajo.CountryCodeHashMap;
 import com.tacademy.sadajo.R;
 import com.tacademy.sadajo.SadajoContext;
 import com.tacademy.sadajo.network.mypage.DealListData;
@@ -95,17 +94,18 @@ public class SellListRecyclerViewAdapter
     @Override
     public void onBindViewHolder(final SellListRecyclerViewAdapter.ViewHolder holder, final int position) {
 
-        CountryCodeHashMap countryCodeHashMap = new CountryCodeHashMap();
+  /*      CountryCodeHashMap countryCodeHashMap = new CountryCodeHashMap();
 
         String countryCode = countryCodeHashMap
                 .getCountryCode(dealListDatas.get(position).country_name);
         dealListDatas.get(position).country_name = countryCode;
+        Log.d("countryCode","국가명"+countryCode);
+*/
 
+        holder.countryEngName.setText(dealListDatas.get(position).country_name); // TODO 서버로부터 국가명 받아와야 됌
 
-        holder.countryEngName.setText(dealListDatas.get(position).country_name);
-
-        holder.countryKorName.setText(dealListDatas.get(position).country_name);
-        holder.userNameTextView.setText("");
+        holder.countryKorName.setText(dealListDatas.get(position).country_name); // TODO 서버로부터 한글 국가명,도시명 받아와야 됌
+        holder.userNameTextView.setText(""); // TODO 서버로부터 받아온 값 없음.
         holder.productNameTextView.setText(dealListDatas.get(position).goods_name);
         holder.dateTextView.setText(dealListDatas.get(position).thedate);
 
@@ -114,6 +114,12 @@ public class SellListRecyclerViewAdapter
                 .placeholder(R.drawable.profile_empty)
                 .thumbnail(0.1f)
                 .into(holder.profileImageView);
+
+        Glide.with(SadajoContext.getContext())
+                .load(dealListDatas.get(position).country_img)
+                .placeholder(R.drawable.profile_empty)
+                .thumbnail(0.1f)
+                .into(holder.productImageView);
 
         holder.okButton.setOnClickListener(new View.OnClickListener() { //사다조 요청수락버튼 클릭시
 

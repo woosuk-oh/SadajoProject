@@ -199,7 +199,9 @@ public class HomeActivity extends BaseActivity {
 
 
                   progressDialog.dismiss();
-            } finally {
+            }
+
+            finally {
                 if (response != null) {
                     response.close();
                 }

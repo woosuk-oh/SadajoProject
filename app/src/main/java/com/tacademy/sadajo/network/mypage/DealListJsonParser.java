@@ -20,13 +20,12 @@ public class DealListJsonParser {
         ArrayList<DealListData> deallistdatas = new ArrayList<>();
 
         try {
-            JSONObject deals = new JSONObject(responsedJSON);
-            JSONArray lists = deals.getJSONArray("");
-
-            int listSize = lists.length();
+            JSONArray listArray = new JSONArray(responsedJSON);
+            int listSize = listArray.length();
             for (int i = 0; i < listSize; i++) {
                 DealListData deallistdata = new DealListData();
-                JSONObject list = lists.getJSONObject(i);
+
+            JSONObject deals = listArray.getJSONObject(i);
 
                 deallistdata.country_name = deals.getString("country");
                 deallistdata.country_img = deals.getString("img");
