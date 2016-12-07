@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -12,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import com.tacademy.sadajo.BaseActivity;
 import com.tacademy.sadajo.CustomRecyclerDecoration;
 import com.tacademy.sadajo.R;
 import com.tacademy.sadajo.network.NetworkDefineConstant;
@@ -25,7 +25,7 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class ShoppingListDetailActivity extends AppCompatActivity {
+public class ShoppingListDetailActivity extends BaseActivity {
 
     TextView  shopListTitleTextView;
     ShopListDetailRecyclerViewAdapter shopListDetailRecyclerViewAdapter;

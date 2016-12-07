@@ -22,7 +22,7 @@
         android:id="@+id/chatMessage"
         android:layout_marginLeft="7dp"
         android:layout_marginRight="16dp"
-        android:gravity="center|left"
+        android:gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/chat_b2"

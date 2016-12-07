@@ -14,14 +14,17 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.github.nkzawa.emitter.Emitter;
 import com.github.nkzawa.socketio.client.Socket;
 import com.tacademy.sadajo.BaseActivity;
 import com.tacademy.sadajo.R;
 import com.tacademy.sadajo.SadajoContext;
+import com.tacademy.sadajo.SharedPreferenceUtil;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -34,13 +37,27 @@ public class ChattingDetailActivity extends BaseActivity {
     Toolbar toolbar;
     ImageButton requestButton;
 
+
+    //OtherMyPageActivity에서 넘어 온 데이터
     int roomNum; //방번호
     int sender;//senderID
     int receiver;//receiverID;
 
+
+    String conUserImg;
+    String conUserName;
+
+    private int userAccount;
+
+    private boolean type = true;
+
     private RecyclerView mMessagesView;
     private EditText mInputMessageView;
-    private List mMessages = new ArrayList<Message>();
+    private ImageView conUserImageView;
+    private TextView contUserNameTextView;
+    private TextView conPositionTextView;
+
+    private List<Message> mMessages = new ArrayList<>();
     private RecyclerView.Adapter mAdapter;
 
     private Socket mSocket;
@@ -60,15 +77,23 @@ public class ChattingDetailActivity extends BaseActivity {
         setToolbar(true);
 
 
-        Intent intent = getIntent();
-        roomNum = intent.getIntExtra("roomNum",0);
-        sender = intent.getIntExtra("sender",0);
-        receiver = intent.getIntExtra("receiver",0);
+        SharedPreferenceUtil sharedPreferenceUtil = new SharedPreferenceUtil();
+        userAccount = sharedPreferenceUtil.getSharedPreference(this, "userAccount");
 
 
-        Log.e("getIntentRoomNum", String.valueOf(roomNum));
-        Log.e("getIntentsender", String.valueOf(sender));
-        Log.e("getIntentreceiver ", String.valueOf(receiver ));
+        getTypeIntent(); //itent로 넘어 온 데이터들
+
+
+        conUserImageView = (ImageView) findViewById(R.id.conUserImageView);
+        contUserNameTextView = (TextView) findViewById(R.id.contUserNameTextView);
+        conPositionTextView = (TextView) findViewById(R.id.conPositionTextView);
+
+
+        Glide.with(SadajoContext.getContext())
+                .load(conUserImg)
+                .into(conUserImageView);
+
+        contUserNameTextView.setText(conUserName);
 
 
         SadajoContext app = (SadajoContext) getApplication();
@@ -84,9 +109,12 @@ public class ChattingDetailActivity extends BaseActivity {
         JSONObject object = new JSONObject();
         try {
             object.put("room", roomNum);
-            object.put("user", sender);
+            object.put("user", userAccount); //본인 아이디
             //perform the sending message attempt.
 
+
+            Log.e("Chatting User sender", String.valueOf(userAccount));
+            Log.e("Chatting roomnum", String.valueOf(roomNum));
             mSocket.emit("joinRoom", object);
         } catch (JSONException e) {
             Log.d("SEND MESSAGE", "ERROR");
@@ -130,22 +158,22 @@ public class ChattingDetailActivity extends BaseActivity {
         requestButton.setOnClickListener(clickListener);
 
 
-
-
     }
 
 
     private void addMessage(int username, String message) {
-        mMessages.add(new Message.Builder(Message.TYPE_RIGHT)
-                .username(username).message(message).build());
-        Log.e("right", String.valueOf(username));
-        mAdapter.notifyItemInserted(mMessages.size() - 1);
-        scrollToBottom();
+        if (username == userAccount) {
+            mMessages.add(new Message.Builder(Message.TYPE_RIGHT)
+                    .username(username).message(message).build());
+            Log.e("right", String.valueOf(username));
+            mAdapter.notifyItemInserted(mMessages.size() - 1);
+            scrollToBottom();
+        }
     }
 
     private void addMessageLeft(int username, String message) {
 
-        if (username != sender) {
+        if (username != userAccount) {
             mMessages.add(new Message.Builder(Message.TYPE_LEFT)
                     .username(username).message(message).build());
             Log.e("left", String.valueOf(username));
@@ -167,11 +195,11 @@ public class ChattingDetailActivity extends BaseActivity {
         }
 
         mInputMessageView.setText("");
-        addMessage(sender, message);
+        addMessage(userAccount, message);
 
         JSONObject object = new JSONObject();
         try {
-            object.put("sender", sender);
+            object.put("sender", userAccount);
             object.put("msg", message);
             //perform the sending message attempt.
 
@@ -247,6 +275,8 @@ public class ChattingDetailActivity extends BaseActivity {
                         Log.e("to client sender", String.valueOf(data.getInt("sender")));
                         username = data.getInt("sender");
                         message = data.getString("msg");
+
+
                     } catch (JSONException e) {
                         return;
                     }
@@ -309,5 +339,26 @@ public class ChattingDetailActivity extends BaseActivity {
 
     }
 
+    public void getTypeIntent() {
+        Intent intent = getIntent();
+        type = intent.getBooleanExtra("type", true);
+        if (type == true) { //bottom navigation으로 이동한 것이 아닌 경우
+            roomNum = intent.getIntExtra("roomNum", 0);
+            conUserImg = intent.getExtras().getString("conUserImg"); //상대방 이미지
+            conUserName = intent.getExtras().getString("conUserName"); //상대방 이름
+
+
+        } else {//bottom navigation으로 이동한 것이 아닌 경우
+
+            // OtherMypage에서 넘어온 데이터들
+            roomNum = intent.getIntExtra("roomNum", 0);
+            sender = intent.getIntExtra("sender", 0);
+            receiver = intent.getIntExtra("receiver", 0);
+            conUserName = intent.getStringExtra("receiverName");
+            conUserImg = intent.getStringExtra("receiverImg");
+
+        }
+
+    }
 
 }

@@ -13,6 +13,8 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.tacademy.sadajo.R;
 import com.tacademy.sadajo.SadajoContext;
+import com.tacademy.sadajo.SharedPreferenceUtil;
+import com.tacademy.sadajo.mypage.MyPageActivity;
 import com.tacademy.sadajo.mypage.MyPageOtherActivity;
 import com.tacademy.sadajo.network.Home.HomeShoplistDB;
 
@@ -28,9 +30,13 @@ public class HomeUserRecyclerViewAdapter
     private ArrayList<HomeShoplistDB> shoppingListDatas;
     private Context context;
 
+    private int userAccount;
+
     public HomeUserRecyclerViewAdapter(Context context, ArrayList<HomeShoplistDB> shoppingListDatas) {
         this.context = context;
         this.shoppingListDatas = shoppingListDatas;
+        SharedPreferenceUtil sharedPreferenceUtil = new SharedPreferenceUtil();
+        userAccount = sharedPreferenceUtil.getSharedPreference(context, "userAccount");
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -72,16 +78,24 @@ public class HomeUserRecyclerViewAdapter
                 .into(holder.userProfileImageView);
 
 
-
         holder.userProfileImageView.setOnClickListener(new View.OnClickListener() {
+            Intent intent;
+
             @Override
             public void onClick(View v) {
 
+                //TODO: 본인일 경우 조건 필요
+                if (shoppingListDatas.get(position).getUserId() == userAccount) {
+                    intent = new Intent(context, MyPageActivity.class);
+                    intent.putExtra("type", false); //type이 1일 경우는 bottombar GONE & backNavigation생성
+                    context.startActivity(intent);
 
-                Intent intent = new Intent(context, MyPageOtherActivity.class);//해당 유저의 마이페이지로 이동
-                intent.putExtra("userCode",shoppingListDatas.get(position).getUserId()); //해당페이지userID넘겨줌
-                Log.e("userCode",shoppingListDatas.get(position).getUserId().toString());
-                context.startActivity(intent);
+                } else {
+                    intent = new Intent(context, MyPageOtherActivity.class);//해당 유저의 마이페이지로 이동
+                    intent.putExtra("userCode", shoppingListDatas.get(position).getUserId()); //해당페이지userID넘겨줌
+                    Log.e("userCode", shoppingListDatas.get(position).getUserId().toString());
+                    context.startActivity(intent);
+                }
 
             }
         });

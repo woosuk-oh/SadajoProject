@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.tacademy.sadajo.CustomRecyclerDecoration;
 import com.tacademy.sadajo.R;
@@ -34,6 +35,7 @@ public class LikeListFragment extends Fragment {
 
     LikeListRecyclerViewAdapter likeRecyclerViewAdapter;
     RecyclerView likeListRecyclerView;
+    ImageView noItemImageView;
 
     public LikeListFragment() {
     }
@@ -48,6 +50,7 @@ public class LikeListFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.shoppinglist_fragment_likelist, container, false);
+        noItemImageView = (ImageView)view.findViewById(R.id.noItemImageView);
         likeListRecyclerView = (RecyclerView)view.findViewById(R.id.likeListRecyclerView);
 //        likeListRecyclerView = (RecyclerView) inflater.inflate(R.layout.shoppinglist_fragment_likelist, container, false);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
@@ -87,7 +90,7 @@ public class LikeListFragment extends Fragment {
 
 
                 RequestBody postBody = new FormBody.Builder()
-                        .add("user", "10")
+                        .add("user", "1")
                         .build();
 
                 Request request = new Request.Builder()
@@ -122,6 +125,8 @@ public class LikeListFragment extends Fragment {
             super.onPostExecute(listDBs);
             if (listDBs != null && listDBs.size() > 0) {
                 likeRecyclerViewAdapter.addLikeList(listDBs);
+                noItemImageView.setVisibility(View.GONE);
+
 
             }else{
 

@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:text="Chat message"
         android:background="@drawable/chat_bubble"
-        android:gravity="center|left"
+        android:gravity="center"
         android:textStyle="normal"
         android:textSize="12sp"
         android:textColor="@color/blackFont"/>

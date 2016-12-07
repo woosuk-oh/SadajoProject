@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.tacademy.sadajo.R;
 import com.tacademy.sadajo.SadajoContext;
+import com.tacademy.sadajo.SharedPreferenceUtil;
 import com.tacademy.sadajo.network.chatting.ChatDataList;
 
 import java.util.ArrayList;
@@ -23,11 +24,16 @@ import java.util.ArrayList;
 public class ChattingRecyclerViewAdapter
         extends RecyclerView.Adapter<ChattingRecyclerViewAdapter.ViewHolder> {
 
-    private ArrayList<ChatDataList> chatDataLists= new ArrayList<>();
+    private ArrayList<ChatDataList> chatDataLists;
     private Context context;
+
+    int userAccount;
 
     public ChattingRecyclerViewAdapter(Context context) {
         this.context = context;
+        this.chatDataLists = new ArrayList<>();
+        SharedPreferenceUtil sharedPreferenceUtil = new SharedPreferenceUtil();
+        userAccount = sharedPreferenceUtil.getSharedPreference(context,"userAccount");
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -62,28 +68,51 @@ public class ChattingRecyclerViewAdapter
     public void onBindViewHolder(final ChattingRecyclerViewAdapter.ViewHolder holder, final int position) {
 
 
-        //Todo: user구분 필요 수정하기
-        holder.chattingNameTextView.setText(chatDataLists.get(position).carrierName);
+        if (userAccount == chatDataLists.get(position).requestUserCode) { //본인이 대화 요청자일 경우
+            holder.chattingNameTextView.setText(chatDataLists.get(position).carrierName);
+
+            Glide.with(SadajoContext.getContext())
+                    .load(chatDataLists.get(position).carrierImg)
+                    .into(holder.chattingProfileImageView);
+
+
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    Intent intent = new Intent(context, ChattingDetailActivity.class);
+                    intent.putExtra("roomNum", chatDataLists.get(position).roomNum);//roomNum넘겨주기
+                    intent.putExtra("conUserImg", chatDataLists.get(position).carrierImg);
+                    intent.putExtra("conUserName", chatDataLists.get(position).carrierName);
+                    //TODO:이미지도 넘겨주기
+                    context.startActivity(intent);
+
+                }
+            });
+        } else {
+
+            holder.chattingNameTextView.setText(chatDataLists.get(position).requestUserName);
+
+            Glide.with(SadajoContext.getContext())
+                    .load(chatDataLists.get(position).requestUserImg)
+                    .into(holder.chattingProfileImageView);
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    Intent intent = new Intent(context, ChattingDetailActivity.class);
+                    intent.putExtra("roomNum", chatDataLists.get(position).roomNum);//roomNum넘겨주기
+                    intent.putExtra("conUserImg", chatDataLists.get(position).requestUserImg);
+                    intent.putExtra("conUserName", chatDataLists.get(position).requestUserName);
+                    intent.putExtra("type", true);
+                    context.startActivity(intent);
+                }
+            });
+
+
+        }
         holder.chattingContentTextView.setText("안녕하세요");
         holder.chattingDateTextView.setText(chatDataLists.get(position).lastDate);
-
-
-        Glide.with(SadajoContext.getContext())
-                .load(chatDataLists.get(position).carrierImg)
-                .into(holder.chattingProfileImageView);
-
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent intent = new Intent(context, ChattingDetailActivity.class);
-                intent.putExtra("roomNum",chatDataLists.get(position).roomNum);//roomNum넘겨주기
-                //TODO:이미지도 넘겨주기
-               context.startActivity(intent);
-
-            }
-        });
-
     }
 
 
