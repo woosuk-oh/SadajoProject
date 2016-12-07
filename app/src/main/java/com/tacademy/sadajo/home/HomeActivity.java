@@ -3,6 +3,7 @@ package com.tacademy.sadajo.home;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -51,6 +52,10 @@ public class HomeActivity extends BaseActivity {
     private final long FINSH_INTERVAL_TIME = 2000;
     private long backPressedTime = 0;
 
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor sharedEditor;
+    private  int userID;
+
     Toolbar toolbar;
     ImageButton homeBtn;
     ImageButton searchBtn;
@@ -80,9 +85,7 @@ public class HomeActivity extends BaseActivity {
     HomeUserRecyclerViewAdapter homeUserRecyclerViewAdapter;
     HomeDB homeDB;
 
-    int width = ViewGroup.LayoutParams.WRAP_CONTENT;
-    int height = 69;
-    int tagCount;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,6 +127,15 @@ public class HomeActivity extends BaseActivity {
         recyclerView.addItemDecoration(decoration);
 
 
+
+        //로그인할 때 UserId 저장
+        Context context = SadajoContext.getContext();
+        sharedPreferences = context.getSharedPreferences("pref",context.MODE_PRIVATE);
+        sharedEditor = sharedPreferences.edit();
+        sharedEditor.putInt("userID",1);
+        sharedEditor.commit();
+
+        userID = sharedPreferences.getInt("userID",0);
     }
 
 
@@ -155,7 +167,7 @@ public class HomeActivity extends BaseActivity {
 
 
                 RequestBody postBody = new FormBody.Builder()
-                        .add("user", "1")
+                        .add("user", String.valueOf(userID))
                         .build();
 
 
@@ -221,7 +233,7 @@ public class HomeActivity extends BaseActivity {
 
 
                 //tag button 동적생성 & setText
-                tagCount = s.getTag().size();
+                int tagCount = s.getTag().size();
                 for (int i = 0; i < tagCount; i++) {
 
                     createTagButton(s.getTag().get(i), i);
@@ -289,15 +301,18 @@ public class HomeActivity extends BaseActivity {
 
     //Button 생성 메소드
     public void createTagButton(String str, int i) {
+        int width = ViewGroup.LayoutParams.WRAP_CONTENT;
+        int height = 69;
+
         Button button = new Button(this);
         button.setText(str); //서버로부터 받아온 tag text set
         button.setBackgroundResource(R.drawable.tag_button_file); //tag ninepatch background적용
         FlowLayout.LayoutParams params = new FlowLayout.LayoutParams(width, height);
         button.setPadding(15, 0, 15, 0); // left,right padding : 3
-        params.setMargins(0, 0, 45, 45); // top, right margin : 15
+        params.setMargins(0, 0, 45, 45); // bottom, right margin : 15
         button.setGravity(Gravity.CENTER); //gravity : center
         button.setTextSize(13);// textsize : 13sp
-        button.setTypeface(null, Typeface.NORMAL);//textstyle : Nanum M
+        button.setTypeface(button.getTypeface(),Typeface.NORMAL);
         button.setLayoutParams(params);
         button.setTag("HomeTag");
         button.setId(i);
@@ -333,6 +348,7 @@ public class HomeActivity extends BaseActivity {
 
 
     }
+
 
 
 }

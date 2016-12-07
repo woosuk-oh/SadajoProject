@@ -8,6 +8,7 @@ public class ChatListDB {
     public Integer senderCode; //유저코드
     public Integer receiverCode; //상대방 유저코드
     public Integer roomNum;//방번호
-    public String img; // 상대방 이미지 주소
+    public String receiverName;
+    public String receiverImg; // 상대방 이미지 주소
 
 }

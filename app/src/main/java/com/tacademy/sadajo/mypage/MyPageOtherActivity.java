@@ -35,11 +35,11 @@ public class MyPageOtherActivity extends BaseActivity {
     ImageButton otherShopListButton;
     ImageButton otherChattingButton;
 
-    ChatListDB chatListDBs=new ChatListDB();
+    ChatListDB chatListDBs = new ChatListDB();
 
-    TextView mypageBuyTextView;
-
+    TextView customToolbarTitle;
     int pageUserCode;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +52,8 @@ public class MyPageOtherActivity extends BaseActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);//title hidden
         getSupportActionBar().setDisplayHomeAsUpEnabled(true); //back icon
+
+        customToolbarTitle = (TextView) findViewById(R.id.customToolbarTitle);
 
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() { //뒤로가기
@@ -81,9 +83,9 @@ public class MyPageOtherActivity extends BaseActivity {
         otherShopListButton.setOnClickListener(clickListener);
         otherChattingButton.setOnClickListener(clickListener);
 
-        Intent intent = getIntent();
-        pageUserCode = intent.getIntExtra("userCode",0); //해당페이지의 유저아이디
 
+        Intent intent = getIntent();
+        pageUserCode = intent.getIntExtra("userCode", 0); //해당페이지의 유저아이디
 
 
     }
@@ -109,7 +111,7 @@ public class MyPageOtherActivity extends BaseActivity {
                 case R.id.otherShopListButton:
                     intent = new Intent(MyPageOtherActivity.this, OtherShoppingListActivity.class);
                     intent.putExtra("userCode", pageUserCode); //해당페이지의 유저Id
-                    Log.e("otherMypage",String.valueOf(pageUserCode));
+                    Log.e("otherMypage", String.valueOf(pageUserCode));
                     startActivity(intent);
 
                     break;
@@ -150,7 +152,7 @@ public class MyPageOtherActivity extends BaseActivity {
                 RequestBody postBody = new FormBody.Builder()
                         .add("user", "1") //대화하기 클릭한 userCode
                         .add("type", "new") // 채팅방 생성  type : new
-                        .add("carr",String.valueOf(pageUserCode)) //메세지 받는사람 userCode(해당 페이지 userCode)
+                        .add("carr", String.valueOf(pageUserCode)) //메세지 받는사람 userCode(해당 페이지 userCode)
                         .build();
 
                 Request request = new Request.Builder()
@@ -188,9 +190,12 @@ public class MyPageOtherActivity extends BaseActivity {
             chatListDBs = chatListDB;
 
             Intent intent = new Intent(MyPageOtherActivity.this, ChattingDetailActivity.class);
-            intent.putExtra("roomNum",chatListDBs.roomNum); //방넘버 넘겨줌
-            intent.putExtra("sender",chatListDBs.senderCode); //대화요청한 user
-            intent.putExtra("receiver",chatListDBs.receiverCode); //요청받은 user
+            intent.putExtra("roomNum", chatListDBs.roomNum); //방넘버 넘겨줌
+            intent.putExtra("sender", chatListDBs.senderCode); //대화요청한 user
+            intent.putExtra("receiver", chatListDBs.receiverCode); //요청받은 user 코드
+            intent.putExtra("receiverName", chatListDBs.receiverName); //요청받은 user 이름
+            intent.putExtra("receiverImg", chatListDBs.receiverImg); //요청받은 user 이미지
+            intent.putExtra("type",false);
             startActivity(intent);
             Log.e("roomitent", String.valueOf(chatListDBs.roomNum));
         }

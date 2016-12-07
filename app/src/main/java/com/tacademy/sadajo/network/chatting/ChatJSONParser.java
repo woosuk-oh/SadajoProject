@@ -25,7 +25,8 @@ public class ChatJSONParser {
             chatListDBs.senderCode = chat.getInt("user");
             chatListDBs.receiverCode = chat.getInt("partner");
             chatListDBs.roomNum = chat.getInt("room");
-            chatListDBs.img = chat.getString("img");
+            chatListDBs.receiverName = chat.getString("nick");
+            chatListDBs.receiverImg = chat.getString("img");
 
 
         } catch (JSONException e) {

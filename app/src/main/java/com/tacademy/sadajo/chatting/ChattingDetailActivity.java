@@ -1,6 +1,8 @@
 package com.tacademy.sadajo.chatting;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -36,14 +38,20 @@ public class ChattingDetailActivity extends BaseActivity {
     Toolbar toolbar;
     ImageButton requestButton;
 
+
+    //OtherMyPageActivity에서 넘어 온 데이터
     int roomNum; //방번호
     int sender;//senderID
     int receiver;//receiverID;
 
+
     String conUserImg;
     String conUserName;
 
-    private int userCode = 1;
+    private SharedPreferences sharedPreferences;
+    private int userCode;
+
+    private  boolean type = true;
 
     private RecyclerView mMessagesView;
     private EditText mInputMessageView;
@@ -71,18 +79,23 @@ public class ChattingDetailActivity extends BaseActivity {
         setToolbar(true);
 
 
-        Intent intent = getIntent();
-        roomNum = intent.getIntExtra("roomNum", 0);
-        sender = intent.getIntExtra("sender", 0);
-        receiver = intent.getIntExtra("receiver", 0);
-
-        conUserImg = intent.getExtras().getString("conUserImg");
-        conUserName = intent.getExtras().getString("conUserName");
+        sharedPreferences = getSharedPreferences("pref", Context.MODE_PRIVATE);
+        userCode = sharedPreferences.getInt("userID", 0);
 
 
-        Log.e("getIntentRoomNum", String.valueOf(roomNum));
-        Log.e("getIntentsender", String.valueOf(sender));
-        Log.e("getIntentreceiver ", String.valueOf(receiver));
+        getTypeIntent(); //itent로 넘어 온 데이터들
+
+
+        conUserImageView = (ImageView) findViewById(R.id.conUserImageView);
+        contUserNameTextView = (TextView) findViewById(R.id.contUserNameTextView);
+        conPositionTextView = (TextView) findViewById(R.id.conPositionTextView);
+
+
+        Glide.with(SadajoContext.getContext())
+                .load(conUserImg)
+                .into(conUserImageView);
+
+        contUserNameTextView.setText(conUserName);
 
 
         SadajoContext app = (SadajoContext) getApplication();
@@ -98,28 +111,18 @@ public class ChattingDetailActivity extends BaseActivity {
         JSONObject object = new JSONObject();
         try {
             object.put("room", roomNum);
-            object.put("user", sender); //대화 요청자
+            object.put("user", userCode); //본인 아이디
             //perform the sending message attempt.
 
 
 
-            Log.e("Chatting User sender",String.valueOf(sender));
+            Log.e("Chatting User sender",String.valueOf(userCode));
             Log.e("Chatting roomnum",String.valueOf(roomNum));
             mSocket.emit("joinRoom", object);
         } catch (JSONException e) {
             Log.d("SEND MESSAGE", "ERROR");
             e.printStackTrace();
         }
-
-        conUserImageView = (ImageView) findViewById(R.id.conUserImageView);
-        contUserNameTextView = (TextView) findViewById(R.id.contUserNameTextView);
-        conPositionTextView = (TextView) findViewById(R.id.conPositionTextView);
-
-        Glide.with(SadajoContext.getContext())
-                .load(conUserImg)
-                .into(conUserImageView);
-        contUserNameTextView.setText(conUserName);
-
 
 
         mAdapter = new MessageAdapter(ChattingDetailActivity.this, mMessages);
@@ -338,6 +341,27 @@ public class ChattingDetailActivity extends BaseActivity {
 
 
     }
+    public void getTypeIntent() {
+        Intent intent = getIntent();
+        type = intent.getBooleanExtra("type", true);
+        if (type == true) { //bottom navigation으로 이동한 것이 아닌 경우
+            roomNum =  intent.getIntExtra("roomNum", 0);
+            conUserImg = intent.getExtras().getString("conUserImg"); //상대방 이미지
+            conUserName = intent.getExtras().getString("conUserName"); //상대방 이름
 
+
+
+        } else {//bottom navigation으로 이동한 것이 아닌 경우
+
+            // OtherMypage에서 넘어온 데이터들
+            roomNum = intent.getIntExtra("roomNum", 0);
+            sender = intent.getIntExtra("sender", 0);
+            receiver = intent.getIntExtra("receiver", 0);
+            conUserName = intent.getStringExtra("receiverName");
+            conUserImg = intent.getStringExtra("receiverImg");
+
+        }
+
+    }
 
 }

@@ -2,13 +2,13 @@ package com.tacademy.sadajo.mypage;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -37,11 +37,13 @@ public class MyPageActivity extends BaseActivity {
     LinearLayout mypageBuy;
     LinearLayout mypageSell;
 
+
     TextView mypageBuyTextView;
 
     TabLayout tabLayout;
-    CollapsingToolbarLayout collapsingToolbar;
-    int viewType;
+    Toolbar toolbar;
+
+    boolean type;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,11 +54,12 @@ public class MyPageActivity extends BaseActivity {
 
         setBottomButtonClickListener();
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setBackgroundResource(R.drawable.tool_03_mypage); //toolbar image
         getSupportActionBar().setDisplayShowTitleEnabled(false);//title hidden
-        getSupportActionBar().setDisplayHomeAsUpEnabled(false); //back icon
+
+        getTypeIntent(); //이동경로에 따른 페이지구성을 위한 메소드
 
 
         sellCountButton = (ImageButton) findViewById(R.id.sellCountButton);
@@ -158,12 +161,16 @@ public class MyPageActivity extends BaseActivity {
         long currentTime = System.currentTimeMillis();
         long intervalTime = currentTime - backPressedTime;
 
-        if (0 <= intervalTime && FINSH_INTERVAL_TIME >= intervalTime) {
+        if(type == true) {
+            if (0 <= intervalTime && FINSH_INTERVAL_TIME >= intervalTime) {
+                super.onBackPressed();
+            } else {
+                backPressedTime = currentTime;
+                Toast.makeText(getApplicationContext(),
+                        "'뒤로' 버튼 한번 더 누르시면 종료됩니다.", Toast.LENGTH_SHORT).show();
+            }
+        }else {
             super.onBackPressed();
-        } else {
-            backPressedTime = currentTime;
-            Toast.makeText(getApplicationContext(),
-                    "'뒤로' 버튼 한번 더 누르시면 종료됩니다.", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -187,6 +194,27 @@ public class MyPageActivity extends BaseActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void getTypeIntent() {
+        Intent intent = getIntent();
+        type = intent.getBooleanExtra("type", true);
+        if (type == false) { //bottom navigation으로 이동한 것이 아닌 경우
+            FrameLayout bottomBar = (FrameLayout) findViewById(R.id.frameBottomBar);
+            bottomBar.setVisibility(View.GONE);//bottom navigation 제거
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true); //back icon 생성
+            toolbar.setNavigationOnClickListener(new View.OnClickListener() { //뒤로가기
+                @Override
+                public void onClick(View view) {
+                    onBackPressed();
+                }
+            });
+
+
+        } else {//bottom navigation으로 이동한 것이 아닌 경우
+            getSupportActionBar().setDisplayHomeAsUpEnabled(false); //back icon
+        }
+
     }
 
 }

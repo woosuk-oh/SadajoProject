@@ -24,7 +24,8 @@
         android:text=" 이름"
         android:gravity="center"
         android:textSize="12sp"
-        android:textStyle="normal"/>
+        android:textStyle="normal"
+        android:textColor="@color/blackFont"/>
 
 
 </LinearLayout>

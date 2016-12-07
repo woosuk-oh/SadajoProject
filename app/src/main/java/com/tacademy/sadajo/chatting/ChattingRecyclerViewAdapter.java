@@ -102,6 +102,7 @@ public class ChattingRecyclerViewAdapter
                                                        intent.putExtra("roomNum", chatDataLists.get(position).roomNum);//roomNum넘겨주기
                                                        intent.putExtra("conUserImg", chatDataLists.get(position).requestUserImg);
                                                        intent.putExtra("conUserName", chatDataLists.get(position).requestUserName);
+                                                       intent.putExtra("type",true);
                                                        //TODO:이미지도 넘겨주기
                                                        context.startActivity(intent);
                                                    }
