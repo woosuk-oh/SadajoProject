@@ -12,6 +12,7 @@ public class NetworkDefineConstant {
     public static String SERVER_URL_REQUST_CHATTINGLIST;
     public static String SERVER_URL_REQUST_LIKEDETAIL;
     public static String SERVER_URL_REQUST_SHOPDETAIL;
+    public static String SERVER_URL_REQUST_MYPAGE;
 
 
     public static String SERVER_URL_INSERT_SCHEDULE;
@@ -41,7 +42,8 @@ public class NetworkDefineConstant {
                 HOST_URL + "/likedetail";
         SERVER_URL_REQUST_SHOPDETAIL =
                 HOST_URL + "/shopdetail";
-
+        SERVER_URL_REQUST_MYPAGE =
+                HOST_URL + "/userpage";
         SEARCH_LIST =
                 HOST_URL + "/goods";
         SEARCH_LIST_COUNTRY =

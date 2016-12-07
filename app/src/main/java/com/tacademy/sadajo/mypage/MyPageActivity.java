@@ -1,10 +1,13 @@
 package com.tacademy.sadajo.mypage;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,10 +18,23 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.tacademy.sadajo.BaseActivity;
 import com.tacademy.sadajo.BottomBarClickListener;
 import com.tacademy.sadajo.MyPagerAdapter;
 import com.tacademy.sadajo.R;
+import com.tacademy.sadajo.SadajoContext;
+import com.tacademy.sadajo.SharedPreferenceUtil;
+import com.tacademy.sadajo.network.NetworkDefineConstant;
+import com.tacademy.sadajo.network.OkHttpInitManager;
+import com.tacademy.sadajo.network.mypage.MyPageData;
+import com.tacademy.sadajo.network.mypage.MypageJsonParser;
+
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class MyPageActivity extends BaseActivity {
 
@@ -38,12 +54,18 @@ public class MyPageActivity extends BaseActivity {
     LinearLayout mypageSell;
 
 
-    TextView mypageBuyTextView;
+    TextView myPageBuyTextView;
+    TextView myPageSellTextView;
+    TextView myPageUserNameTextView;
+    TextView myPageLocTextView;
+    ImageView myPageProfileImageView;
+
 
     TabLayout tabLayout;
     Toolbar toolbar;
 
     boolean type;
+    int userAccount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +90,12 @@ public class MyPageActivity extends BaseActivity {
         mypageBuy = (LinearLayout) findViewById(R.id.mypageBuy);
         mypageSell = (LinearLayout) findViewById(R.id.mypageSell);
 
+        myPageBuyTextView = (TextView) findViewById(R.id.myPageBuyTextView);
+        myPageSellTextView = (TextView) findViewById(R.id.myPageSellTextView);
+        myPageUserNameTextView = (TextView) findViewById(R.id.myPageUserNameTextView);
+        myPageLocTextView = (TextView) findViewById(R.id.myPageLocTextView);
+        myPageProfileImageView=(ImageView)findViewById(R.id.myPageProfileImageView);
+
 
         ViewPager viewPager = (ViewPager) findViewById(R.id.mypageViewpager);
         if (viewPager != null) {
@@ -82,6 +110,15 @@ public class MyPageActivity extends BaseActivity {
         mypageSell.setOnClickListener(clickListener);
         mypageBuy.setOnClickListener(clickListener);
 
+        SharedPreferenceUtil sharedPreferenceUtil = new SharedPreferenceUtil();
+        userAccount = sharedPreferenceUtil.getSharedPreference(this, "userAccount");
+
+    }
+
+    @Override
+    protected void onPostCreate(@Nullable Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        new AsyncTaskMyPageData().execute();
     }
 
     private void setBottomButtonClickListener() {
@@ -161,7 +198,7 @@ public class MyPageActivity extends BaseActivity {
         long currentTime = System.currentTimeMillis();
         long intervalTime = currentTime - backPressedTime;
 
-        if(type == true) {
+        if (type == true) {
             if (0 <= intervalTime && FINSH_INTERVAL_TIME >= intervalTime) {
                 super.onBackPressed();
             } else {
@@ -169,7 +206,7 @@ public class MyPageActivity extends BaseActivity {
                 Toast.makeText(getApplicationContext(),
                         "'뒤로' 버튼 한번 더 누르시면 종료됩니다.", Toast.LENGTH_SHORT).show();
             }
-        }else {
+        } else {
             super.onBackPressed();
         }
     }
@@ -217,4 +254,71 @@ public class MyPageActivity extends BaseActivity {
 
     }
 
+    private class AsyncTaskMyPageData extends AsyncTask<Void, Void, MyPageData> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            //TODO:커스텀다이얼로그 추가
+        }
+
+        @Override
+        protected MyPageData doInBackground(Void... params) {
+
+            Response response = null; //응답 담당
+            OkHttpClient toServer; //연결 담당
+            MyPageData dbs = new MyPageData();
+            try {
+                toServer = OkHttpInitManager.getOkHttpClient();
+
+
+                RequestBody postBody = new FormBody.Builder()
+                        .add("user", String.valueOf(userAccount))
+                        .add("owner", String.valueOf(userAccount))
+                        .build();
+
+                Request request = new Request.Builder()
+                        .url(String.format(NetworkDefineConstant.SERVER_URL_REQUST_MYPAGE))
+                        .post(postBody)
+                        .build();
+
+
+                response = toServer.newCall(request).execute();
+                if (response.isSuccessful()) {
+
+                    String returedMessage = response.body().string(); // okhttp로 부터 받아온 데이터 json을 스트링형태로 변환하여 returendMessage에 담아둠. 이때, home부분의 모든 오브젝트를 가져와 담아둠.
+                    //   Log.e("Log", returedMessage);
+                    dbs = MypageJsonParser.getMypageDataParsing(returedMessage);
+
+                } else {
+                    Log.e("요청에러", response.message().toString());
+                }
+
+            } catch (Exception e) {
+                Log.e("파싱에러", e.toString());
+            } finally {
+                if (response != null) {
+                    response.close();
+                }
+            }
+            return dbs;
+        }
+
+        @Override
+        public void onPostExecute(MyPageData myPage) {
+            super.onPostExecute(myPage);
+
+
+            myPageBuyTextView.setText(String.valueOf(myPage.buyNum));
+            myPageSellTextView.setText(String.valueOf(myPage.sellNum));
+            myPageUserNameTextView.setText(myPage.targetUserName);
+            myPageLocTextView.setText(myPage.targetUserLocation);
+            Glide.with(SadajoContext.getContext())
+                    .load(myPage.targetUserImg)
+                    .into(myPageProfileImageView);
+
+
+        }
+    }
+
 }
+

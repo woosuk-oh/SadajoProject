@@ -2,7 +2,6 @@ package com.tacademy.sadajo.home;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,6 +13,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.tacademy.sadajo.R;
 import com.tacademy.sadajo.SadajoContext;
+import com.tacademy.sadajo.SharedPreferenceUtil;
 import com.tacademy.sadajo.mypage.MyPageActivity;
 import com.tacademy.sadajo.mypage.MyPageOtherActivity;
 import com.tacademy.sadajo.network.Home.HomeShoplistDB;
@@ -29,15 +29,14 @@ public class HomeUserRecyclerViewAdapter
 
     private ArrayList<HomeShoplistDB> shoppingListDatas;
     private Context context;
-    private SharedPreferences sharedPreferences;
 
-    private int userID;
+    private int userAccount;
 
     public HomeUserRecyclerViewAdapter(Context context, ArrayList<HomeShoplistDB> shoppingListDatas) {
         this.context = context;
         this.shoppingListDatas = shoppingListDatas;
-        sharedPreferences = context.getSharedPreferences("pref", Context.MODE_PRIVATE);
-        userID = sharedPreferences.getInt("userID", 0);
+        SharedPreferenceUtil sharedPreferenceUtil = new SharedPreferenceUtil();
+        userAccount = sharedPreferenceUtil.getSharedPreference(context, "userAccount");
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -86,7 +85,7 @@ public class HomeUserRecyclerViewAdapter
             public void onClick(View v) {
 
                 //TODO: 본인일 경우 조건 필요
-                if (shoppingListDatas.get(position).getUserId() == userID) {
+                if (shoppingListDatas.get(position).getUserId() == userAccount) {
                     intent = new Intent(context, MyPageActivity.class);
                     intent.putExtra("type", false); //type이 1일 경우는 bottombar GONE & backNavigation생성
                     context.startActivity(intent);

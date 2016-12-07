@@ -24,6 +24,7 @@ import android.widget.Toast;
 import com.tacademy.sadajo.CityCodeHashMap;
 import com.tacademy.sadajo.CountryCodeHashMap;
 import com.tacademy.sadajo.R;
+import com.tacademy.sadajo.SharedPreferenceUtil;
 import com.tacademy.sadajo.network.Home.ScheduleEntityObject;
 import com.tacademy.sadajo.network.NetworkDefineConstant;
 import com.tacademy.sadajo.network.OkHttpInitManager;
@@ -59,12 +60,13 @@ public class ScheduleDialogFragment extends DialogFragment implements View.OnCli
     ArrayAdapter<CharSequence> spinnerAdapter;
     ArrayAdapter<CharSequence> spinnerAdapter2;
 
+    int userAccount;
+
 
     private ScheduleEntityObject entityObject;
 
     public static ScheduleDialogFragment newInstance() {
         ScheduleDialogFragment fragment = new ScheduleDialogFragment();
-
         return fragment;
     }
 
@@ -72,6 +74,8 @@ public class ScheduleDialogFragment extends DialogFragment implements View.OnCli
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setStyle(STYLE_NO_FRAME, R.style.CustomDialog);
+        SharedPreferenceUtil sharedPreferenceUtil = new SharedPreferenceUtil();
+        userAccount = sharedPreferenceUtil.getSharedPreference(this.getActivity(),"userAccount");
     }
 
     @Override
@@ -344,7 +348,7 @@ public class ScheduleDialogFragment extends DialogFragment implements View.OnCli
             try {
                 //요청 Form세팅
                 RequestBody postBody = new FormBody.Builder()
-                        .add("user", "1")
+                        .add("user", String.valueOf(userAccount))
                         .add("country", reqParams.country)
                         .add("city", reqParams.city)
                         .add("start", reqParams.start)

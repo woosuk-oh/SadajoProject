@@ -1,8 +1,6 @@
 package com.tacademy.sadajo.chatting;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -26,6 +24,7 @@ import com.github.nkzawa.socketio.client.Socket;
 import com.tacademy.sadajo.BaseActivity;
 import com.tacademy.sadajo.R;
 import com.tacademy.sadajo.SadajoContext;
+import com.tacademy.sadajo.SharedPreferenceUtil;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -48,10 +47,9 @@ public class ChattingDetailActivity extends BaseActivity {
     String conUserImg;
     String conUserName;
 
-    private SharedPreferences sharedPreferences;
-    private int userCode;
+    private int userAccount;
 
-    private  boolean type = true;
+    private boolean type = true;
 
     private RecyclerView mMessagesView;
     private EditText mInputMessageView;
@@ -79,8 +77,8 @@ public class ChattingDetailActivity extends BaseActivity {
         setToolbar(true);
 
 
-        sharedPreferences = getSharedPreferences("pref", Context.MODE_PRIVATE);
-        userCode = sharedPreferences.getInt("userID", 0);
+        SharedPreferenceUtil sharedPreferenceUtil = new SharedPreferenceUtil();
+        userAccount = sharedPreferenceUtil.getSharedPreference(this, "userAccount");
 
 
         getTypeIntent(); //itent로 넘어 온 데이터들
@@ -111,13 +109,12 @@ public class ChattingDetailActivity extends BaseActivity {
         JSONObject object = new JSONObject();
         try {
             object.put("room", roomNum);
-            object.put("user", userCode); //본인 아이디
+            object.put("user", userAccount); //본인 아이디
             //perform the sending message attempt.
 
 
-
-            Log.e("Chatting User sender",String.valueOf(userCode));
-            Log.e("Chatting roomnum",String.valueOf(roomNum));
+            Log.e("Chatting User sender", String.valueOf(userAccount));
+            Log.e("Chatting roomnum", String.valueOf(roomNum));
             mSocket.emit("joinRoom", object);
         } catch (JSONException e) {
             Log.d("SEND MESSAGE", "ERROR");
@@ -165,7 +162,7 @@ public class ChattingDetailActivity extends BaseActivity {
 
 
     private void addMessage(int username, String message) {
-        if (username == userCode) {
+        if (username == userAccount) {
             mMessages.add(new Message.Builder(Message.TYPE_RIGHT)
                     .username(username).message(message).build());
             Log.e("right", String.valueOf(username));
@@ -176,7 +173,7 @@ public class ChattingDetailActivity extends BaseActivity {
 
     private void addMessageLeft(int username, String message) {
 
-        if (username != userCode) {
+        if (username != userAccount) {
             mMessages.add(new Message.Builder(Message.TYPE_LEFT)
                     .username(username).message(message).build());
             Log.e("left", String.valueOf(username));
@@ -198,11 +195,11 @@ public class ChattingDetailActivity extends BaseActivity {
         }
 
         mInputMessageView.setText("");
-        addMessage(userCode, message);
+        addMessage(userAccount, message);
 
         JSONObject object = new JSONObject();
         try {
-            object.put("sender", userCode);
+            object.put("sender", userAccount);
             object.put("msg", message);
             //perform the sending message attempt.
 
@@ -341,14 +338,14 @@ public class ChattingDetailActivity extends BaseActivity {
 
 
     }
+
     public void getTypeIntent() {
         Intent intent = getIntent();
         type = intent.getBooleanExtra("type", true);
         if (type == true) { //bottom navigation으로 이동한 것이 아닌 경우
-            roomNum =  intent.getIntExtra("roomNum", 0);
+            roomNum = intent.getIntExtra("roomNum", 0);
             conUserImg = intent.getExtras().getString("conUserImg"); //상대방 이미지
             conUserName = intent.getExtras().getString("conUserName"); //상대방 이름
-
 
 
         } else {//bottom navigation으로 이동한 것이 아닌 경우

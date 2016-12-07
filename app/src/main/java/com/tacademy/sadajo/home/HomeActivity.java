@@ -4,7 +4,6 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -28,6 +27,7 @@ import com.tacademy.sadajo.BottomBarClickListener;
 import com.tacademy.sadajo.CustomRecyclerDecoration;
 import com.tacademy.sadajo.R;
 import com.tacademy.sadajo.SadajoContext;
+import com.tacademy.sadajo.SharedPreferenceUtil;
 import com.tacademy.sadajo.network.Home.HomeDB;
 import com.tacademy.sadajo.network.Home.HomeJSONParser;
 import com.tacademy.sadajo.network.NetworkDefineConstant;
@@ -45,6 +45,8 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
+import static android.graphics.Typeface.NORMAL;
+
 
 public class HomeActivity extends BaseActivity {
 
@@ -54,7 +56,7 @@ public class HomeActivity extends BaseActivity {
 
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor sharedEditor;
-    private  int userID;
+    private int userAccount;
 
     Toolbar toolbar;
     ImageButton homeBtn;
@@ -86,7 +88,6 @@ public class HomeActivity extends BaseActivity {
     HomeDB homeDB;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -106,6 +107,7 @@ public class HomeActivity extends BaseActivity {
         countryNameTextView = (TextView) findViewById(R.id.countryNameTextView);//국가명
 
         departDateTextView = (TextView) findViewById(R.id.departDateTextView); //떠나요날짜
+
         comeDateTextView = (TextView) findViewById(R.id.comeDateTextView); //돌아와요날짜
         scheduleRegisterButton = (Button) findViewById(R.id.scheduleRegisterButton); //일정등록버튼
         register = (LinearLayout) findViewById(R.id.register);
@@ -127,15 +129,10 @@ public class HomeActivity extends BaseActivity {
         recyclerView.addItemDecoration(decoration);
 
 
-
         //로그인할 때 UserId 저장
-        Context context = SadajoContext.getContext();
-        sharedPreferences = context.getSharedPreferences("pref",context.MODE_PRIVATE);
-        sharedEditor = sharedPreferences.edit();
-        sharedEditor.putInt("userID",1);
-        sharedEditor.commit();
-
-        userID = sharedPreferences.getInt("userID",0);
+        SharedPreferenceUtil sharedPreferenceUtil = new SharedPreferenceUtil();
+        sharedPreferenceUtil.putSharedPreference(this,"userAccount",1);
+        userAccount = sharedPreferenceUtil.getSharedPreference(this,"userAccount");
     }
 
 
@@ -167,7 +164,7 @@ public class HomeActivity extends BaseActivity {
 
 
                 RequestBody postBody = new FormBody.Builder()
-                        .add("user", String.valueOf(userID))
+                        .add("user", String.valueOf(userAccount))
                         .build();
 
 
@@ -184,7 +181,7 @@ public class HomeActivity extends BaseActivity {
                 if (response.isSuccessful()) { //연결에 성공하면
 
                     String returedMessage = response.body().string(); // okhttp로 부터 받아온 데이터 json을 스트링형태로 변환하여 returendMessage에 담아둠. 이때, home부분의 모든 오브젝트를 가져와 담아둠.
-                  //  Log.e("wooseokLog", returedMessage);
+                    //  Log.e("wooseokLog", returedMessage);
                     homeDB = HomeJSONParser.getHomeJsonParser(returedMessage); //만들어둔 파서로 returedMessage를 넣어서 파싱하여 homeDB에 값을 넣음.
 
                 } else { // 연결에 실패하면
@@ -312,7 +309,7 @@ public class HomeActivity extends BaseActivity {
         params.setMargins(0, 0, 45, 45); // bottom, right margin : 15
         button.setGravity(Gravity.CENTER); //gravity : center
         button.setTextSize(13);// textsize : 13sp
-        button.setTypeface(button.getTypeface(),Typeface.NORMAL);
+        button.setTypeface(button.getTypeface(), NORMAL);
         button.setLayoutParams(params);
         button.setTag("HomeTag");
         button.setId(i);
@@ -348,7 +345,6 @@ public class HomeActivity extends BaseActivity {
 
 
     }
-
 
 
 }
