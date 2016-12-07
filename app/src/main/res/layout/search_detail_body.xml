@@ -147,7 +147,10 @@
                         android:text="itemName"
                         android:textColor="#232323"
                         android:textSize="17sp"
-                        android:textStyle="bold"/>
+                        android:textStyle="bold"
+                        android:ellipsize="marquee"
+                        android:focusable="true"
+                        android:singleLine="true"/>
 
                 </LinearLayout>
 

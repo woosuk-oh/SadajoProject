@@ -20,6 +20,7 @@ public class NetworkDefineConstant {
     public static String SEARCH_LIST;
     public static String SEARCH_LIST_COUNTRY;
     public static String SEARCH_LIST_DETAIL;
+    public static String SEARCH_LIST_DETAIL_ZZIM;
 
 
     static {
@@ -51,6 +52,8 @@ public class NetworkDefineConstant {
         SEARCH_LIST_DETAIL =
                 HOST_URL + "/goods" + "/%s";
 
+        SEARCH_LIST_DETAIL_ZZIM =
+                HOST_URL + "like";
 
     }
 }

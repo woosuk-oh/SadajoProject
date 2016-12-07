@@ -139,7 +139,7 @@ public class HomeActivity extends BaseActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            progressDialog = ProgressDialog.show(HomeActivity.this,
+            progressDialog = ProgressDialog.show(SadajoContext.getContext(),
                     "서버입력중", "잠시만 기다려 주세요 ...", true);
         }
 
@@ -182,6 +182,9 @@ public class HomeActivity extends BaseActivity {
                 e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
+                Toast.makeText(SadajoContext.getContext(),
+                        "서버와의 통신 연결이 원활치 않습니다.", Toast.LENGTH_SHORT).show();
+                  progressDialog.dismiss();
             } finally {
                 if (response != null) {
                     response.close();
@@ -198,7 +201,8 @@ public class HomeActivity extends BaseActivity {
             super.onPostExecute(s);
             //   progressDialog.dismiss();
 
-            if (homeDB != null) {
+//            if (homeDB != null) {
+                if (homeDB.getMsg().length() > 0 ) { //서버로부터 msg를 받았으면.
 
                 cardView2CountryTextView.setText(s.getTravelCountry()); // 추천리스트 : 해당 국가
                 cardView3CountryTextView.setText(s.getTravelCountry()); // 추천리스트2(다른 쇼퍼맨 쇼핑리스트) : 해당 국가

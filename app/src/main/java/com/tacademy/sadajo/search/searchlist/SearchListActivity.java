@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
-import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.util.TypedValue;
@@ -47,7 +46,8 @@ public class SearchListActivity extends BaseActivity {
 
 
 
-
+    String url;
+    String sortvalue = ""; //인기순 최신순을 onResume에서도 사용하기 위해 전역변수로 빼둠. 기본 초기화값으로 공백 세팅
 
     // private CollapsingSwipeRefreshLayout swiper;
     private RecyclerView mRecycler;
@@ -110,19 +110,29 @@ public class SearchListActivity extends BaseActivity {
 
         //인기순, 최신순 selector 관련. res/color/sesarch_list_selector도 참고 필요. activity_search.xml의 인기순, 최신순 부분 setTextColor 참고 필요.
 
-        //맨처음 기본 셋팅.
+
+
+     /*   //맨처음 기본 셋팅.
         popularity.setPressed(true);
-        latest.setPressed(false);
+        latest.setPressed(false);*/
 
         popularity = (TextView) findViewById(R.id.popularity);
+
+
         popularity.setOnTouchListener(new View.OnTouchListener() {
+
+
+
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 switch (motionEvent.getAction()) {
                     case ACTION_DOWN:
                         popularity.setPressed(true);
                         latest.setPressed(false);
-                        new AsyncSearchRequest().execute(countrySpinner.getSelectedItem().toString(), searchBar.getText().toString(), "click=1");
+                        sortvalue= "click=1";
+                        new AsyncSearchRequest().execute(countrySpinner.getSelectedItem().toString(), searchBar.getText().toString(), sortvalue);
+                        Log.d("조건문","인기순 눌림 : 1");
+
                         break;
                 }
                 return false;
@@ -139,8 +149,10 @@ public class SearchListActivity extends BaseActivity {
                     case ACTION_DOWN:
                         latest.setPressed(true);
                         popularity.setPressed(false);
-                        Log.d("버튼","버튼눌린지 안눌린지: ACTION_DOWN");
-                        new AsyncSearchRequest().execute(countrySpinner.getSelectedItem().toString(), searchBar.getText().toString(), "date=1");
+                        Log.d("조건문","최신순 눌림 : 2");
+                        sortvalue= "date=1";
+
+                        new AsyncSearchRequest().execute(countrySpinner.getSelectedItem().toString(), searchBar.getText().toString(), sortvalue);
                         break;
 
 
@@ -206,10 +218,16 @@ public class SearchListActivity extends BaseActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-
-                new AsyncSearchRequest().execute(countrySpinner.getSelectedItem().toString(), searchBar.getText().toString(),"");
-                Log.e("spinner:", "" + countrySpinner.getSelectedItem().toString());
-                Log.d("서치바", "" + searchBar.getText().toString());
+                if(sortvalue.equals("")){
+                    popularity.setPressed(true); // 초기값으로 '눌렸다' 세팅. (초기 정렬은 url이 goods이지만 인기순이며, 눌렸다라는 표시로 빨간색 처리를 위함)
+                }
+                new AsyncSearchRequest().execute(countrySpinner.getSelectedItem().toString(), searchBar.getText().toString(),sortvalue);
+                if(sortvalue.equals("")){
+                    popularity.setPressed(true); // 초기값으로 '눌렸다' 세팅. (초기 정렬은 url이 goods이지만 인기순이며, 눌렸다라는 표시로 빨간색 처리를 위함)
+                }
+                Log.d("조건문","스피너 눌림: 3 " + countrySpinner.getSelectedItem().toString());
+                //Log.e("spinner:", "" + countrySpinner.getSelectedItem().toString());
+                //Log.d("서치바", "" + searchBar.getText().toString());
             }
 
             @Override
@@ -225,7 +243,7 @@ public class SearchListActivity extends BaseActivity {
         countrySpinner.setAdapter(spinnerAdapter);
 
 
-        searchBar.setHint("검색어를 입력 바람");
+       // searchBar.setHint("검색어를 입력 바람");
 
         searchBar.addTextChangedListener(new TextWatcher() {
                                              @Override
@@ -238,12 +256,16 @@ public class SearchListActivity extends BaseActivity {
                     searchlayout.setStackFromEnd(false);
                 }
 */
-                                                 if (!TextUtils.isEmpty(searchBar.getText().toString())) {
-                                                     Log.d("서치바", "서치바에 입력된 값이 있냐?" + !TextUtils.isEmpty(searchBar.getText().toString()));
-                                                     new AsyncSearchRequest().execute(countrySpinner.getSelectedItem().toString(), searchBar.getText().toString(), "");
+                                               //  if (!TextUtils.isEmpty(searchBar.getText().toString())) {
+                                                    // Log.d("서치바", "서치바에 입력된 값이 있냐?" + !TextUtils.isEmpty(searchBar.getText().toString()));
+                                                     new AsyncSearchRequest().execute(countrySpinner.getSelectedItem().toString(), searchBar.getText().toString(), sortvalue);
+                                                     Log.d("조건문","서치바 값 입력됨 : 4"+searchBar.getText().toString());
 
-                                                      cnt++;
+                                                 if(sortvalue.equals("")){
+                                                     popularity.setPressed(true); // 초기값으로 '눌렸다' 세팅. (초기 정렬은 url이 goods이지만 인기순이며, 눌렸다라는 표시로 빨간색 처리를 위함)
                                                  }
+                                                      cnt++;
+                                                 //}
                                              }
 
                                              @Override
@@ -285,13 +307,29 @@ public class SearchListActivity extends BaseActivity {
         super.onResume();
 
 
+        if(sortvalue.equals("")){
+            popularity.setPressed(true); // 초기값으로 '눌렸다' 세팅. (초기 정렬은 url이 goods이지만 인기순이며, 눌렸다라는 표시로 빨간색 처리를 위함)
+        }else if(sortvalue.equals("/click=1")){
+            popularity.setPressed(true);
+        }else if(sortvalue.equals("/date=1")){
+            latest.setPressed(true);
+        }
+       // popularity.setTextColor(getResources().getColor(pink));
+
         countrySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
 
-                new AsyncSearchRequest().execute(countrySpinner.getSelectedItem().toString(), searchBar.getText().toString(), "");
-                Log.e("spinner:", "" + countrySpinner.getSelectedItem().toString());
+                new AsyncSearchRequest().execute(countrySpinner.getSelectedItem().toString(), searchBar.getText().toString(), sortvalue);
+
+                if(sortvalue.equals("")){
+                    popularity.setPressed(true); // 초기값으로 '눌렸다' 세팅. (초기 정렬은 url이 goods이지만 인기순이며, 눌렸다라는 표시로 빨간색 처리를 위함)
+                }
+                Log.d("조건문","onResume 상태임. : 5");
+
+
+                //Log.e("spinner:", "" + countrySpinner.getSelectedItem().toString());
             }
 
             @Override
@@ -322,7 +360,7 @@ public class SearchListActivity extends BaseActivity {
         //두번째 Void: Progress
         //세번째 onPostExecute에서 사용할 파라미터값.
 
-        String url;
+
 
         @Override
         protected void onPreExecute() {
@@ -350,7 +388,7 @@ public class SearchListActivity extends BaseActivity {
                 url = SEARCH_LIST; //url에 /goods를 넣어줌.
                 Log.d("URL1","입력한 URL 주소:"+url);
 
-                if (!param3.equals("")) { // 전세계인 상태에서 인기순이나 최신순을 누른 경우.
+      /*          if (!param3.equals("")) { // 전세계인 상태에서 인기순이나 최신순을 누른 경우.
                     url = url + "?"+param3;
                     Log.d("URL1-1","입력한 URL 주소:"+url);
                 }
@@ -361,15 +399,30 @@ public class SearchListActivity extends BaseActivity {
                     url = url + "?name=" + param2;  //  url = url + "?name=" + "시세이도";
                     Log.d("URL1-2","입력한 URL 주소:"+url);
 
+                }*/
+                if(param2.equals("") && !param3.equals("")){
+                    url = url + "?"+ param3; //검색창 안에 입력이 공백이고 인기,최신순 누른 경우.
+                    Log.d("URL1-1","검색값 없고, 인기,최신순 누른경우.:"+url);
                 }
-                if(param3.equals("click=1") && param2.equals("")){
-                    url = SEARCH_LIST; //검색창 안에 입력이 공백이고 최신순 안눌렀으면 다시 전세계 아이템들 호출함.
-                    Log.d("URL1-3","인기&최신순 값없고 검색값 없으면:"+url);
+
+                if(param2.equals("") && param3.equals("")){
+                    //검색 값 없고, 인기,최신순 안누른 경우
+                    url = SEARCH_LIST;
+                    Log.d("URL1-4","검색값 없고, 인기,최신순 없는 경우.:"+url);
                 }
-                if(param3.equals("click=1") && param2.equals("")){
-                    url = SEARCH_LIST; //검색창 안에 입력이 공백이고 최신순 안눌렀으면 다시 전세계 아이템들 호출함.
-                    Log.d("URL1-3","인기&최신순 값없고 검색값 없으면:"+url);
+
+                if(!param2.equals("") && !param3.equals("")){
+                    url = url + "?name="+param2+"&"+param3; //검색창 안에 입력 값있고 인기,최신순 누른 경우.
+                    Log.d("URL1-5","검색창 안에 입력 값있고 인기,최신순 인 경우:"+url);
                 }
+
+                if(!param2.equals("") && param3.equals("")){
+                    // 검색 값 있고 최신,인기순 안누른 경우
+                    url = url + "?name="+param2;
+                    Log.d("URL1-6","검색 값 있고 최신,인기순 안누른 경우:"+url);
+                }
+
+
 
 
 
@@ -378,19 +431,33 @@ public class SearchListActivity extends BaseActivity {
                 url = String.format(SEARCH_LIST_COUNTRY, countryId); //get 방식이므로 FormBody는 없고, 정보를 url에만 담음.
                 Log.d("URL2","입력한 URL 주소:"+url);
 
-                if (!param3.equals("")) { //스피너 전세계가 아닌경우 + 인기순 혹은 최신순 누른경우
+                if (!param3.equals("")) { //인기순 혹은 최신순 누른경우
                     url = url + "&"+param3;
                     Log.d("URL2-1","스피너 전세계x + 인기순or최신순 + URL 주소:"+url);
-                }
-                if(param2.equals("")){
 
+                    if(param2.equals("")){ // 검색값 없는 경우
+                        url = url;
+                        Log.d("URL2-2"," URL 주소:"+url);
+                    }
+                    if(!param2.equals("")){ // 검색값 있는 경우
+                        url = url + "&name="+param2;
+                        Log.d("URL2-3","URL 주소:"+url);
+                    }
+                }
+                else if (param3.equals("")) { // 인기 최신순 안누른 경우
+                    url = url;
+                    Log.d("URL3","URL 주소:"+url);
+                    if(param2.equals("")){ // 검색값 입력 없음.
+                        url = url;
+                        Log.d("URL3-1","URL 주소:"+url);
+                    }
+                    if(!param2.equals("")){ // 검색값 입력됨
+                        url = url + "&name="+ param2;
+                        Log.d("URL3-2","URL 주소:"+url);
+                    }
                 }
             }
-/*
-            if (params[1].equals("") == false) { // EditText에 입력한 값이 넘어와서 그 값이 공백이 아닐경우.
-                url = SEARCH_LIST + "?name=" + params[1];
-                Log.d("URL3","EditText에 입력 + URL 주소:"+url);
-            }*/
+
             try {
                 //get 방식으로 받기
                 //  String url = String.format(SEARCH_LIST, countryId);
@@ -470,6 +537,5 @@ public class SearchListActivity extends BaseActivity {
 
 // 하단 탭바 클릭 시
     }
-
 }
 

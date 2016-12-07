@@ -160,6 +160,8 @@ public class SearchListRecyclerAdapter extends RecyclerView.Adapter<SearchListRe
             itemContainer = (LinearLayout) itemView.findViewById(R.id.card_back);
             hashbutton = (LinearLayout) itemView.findViewById(R.id.list_item_hash_button);
 
+            itemName.setSelected(true);
+
 
         }
     }

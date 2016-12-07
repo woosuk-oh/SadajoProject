@@ -6,10 +6,9 @@
     android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:layout_marginTop="15dp"
-    android:layout_marginBottom="6dp"
+    android:background="@color/whiteGrayFont"
     card_view:cardCornerRadius="2dp"
-    card_view:cardUseCompatPadding="true"
-    android:background="@color/whiteGrayFont">
+    card_view:cardUseCompatPadding="true">
 
     <!-- Search List에서 리스트되는 아이템 xml. (카드뷰 형태) -->
 
@@ -49,11 +48,14 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="16dp"
 
+                    android:ellipsize="marquee"
+                    android:focusable="true"
+                    android:singleLine="true"
                     android:text="itemName"
                     android:textColor="#232323"
                     android:textSize="17sp"
-                    android:textStyle="bold"/>
-
+                    android:textStyle="bold" />
+                <!--android:ellipsize="end"-->
             </LinearLayout>
 
             <LinearLayout
@@ -81,7 +83,7 @@
                     android:text="이탈리아"
                     android:textColor="#747474"
                     android:textSize="13sp"
-                    android:textStyle="normal"/>
+                    android:textStyle="normal" />
 
             </LinearLayout>
         </LinearLayout>
@@ -97,12 +99,12 @@
         <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="53dp"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-            android:scrollbars="none"
-
             android:layout_above="@+id/list_item_hash_button"
             android:layout_below="@+id/list_item_hash_button"
+            android:paddingLeft="16dp"
+
+            android:paddingRight="16dp"
+            android:scrollbars="none"
 
             >
 
@@ -113,7 +115,6 @@
                 android:orientation="horizontal"
 
                 android:paddingTop="15dp">
-
 
 
             </LinearLayout>
