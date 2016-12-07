@@ -15,6 +15,7 @@ import com.tacademy.sadajo.BaseActivity;
 import com.tacademy.sadajo.BottomBarClickListener;
 import com.tacademy.sadajo.CustomRecyclerDecoration;
 import com.tacademy.sadajo.R;
+import com.tacademy.sadajo.SharedPreferenceUtil;
 import com.tacademy.sadajo.network.NetworkDefineConstant;
 import com.tacademy.sadajo.network.OkHttpInitManager;
 import com.tacademy.sadajo.network.chatting.ChatJSONParser;
@@ -40,6 +41,7 @@ public class ChattingActivity extends BaseActivity {
     Toolbar toolbar;
 
     ChattingRecyclerViewAdapter chattingRecyclerViewAdapter;
+    int userAccount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +49,9 @@ public class ChattingActivity extends BaseActivity {
         //  this.overridePendingTransition(0,0);
         setContentView(R.layout.activity_chatting);
         setBottomButtonClickListener();
+
+        SharedPreferenceUtil sharedPreferenceUtil = new SharedPreferenceUtil();
+        userAccount = sharedPreferenceUtil.getSharedPreference(this,"userAccount");
 
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -144,7 +149,7 @@ public class ChattingActivity extends BaseActivity {
 
 
                 RequestBody postBody = new FormBody.Builder()
-                        .add("user", "1")
+                        .add("user", String.valueOf(userAccount))
                         .build();
 
                 Request request = new Request.Builder()
@@ -177,8 +182,6 @@ public class ChattingActivity extends BaseActivity {
         @Override
         public void onPostExecute(ChattingList chattingList) {
             super.onPostExecute(chattingList);
-
-
             chattingRecyclerViewAdapter.addChatList(chattingList.chatDataList);
             chattingRecyclerViewAdapter.notifyDataSetChanged();
 

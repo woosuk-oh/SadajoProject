@@ -8,8 +8,6 @@ import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
@@ -46,23 +44,22 @@ public class ChattingDetailActivity extends BaseActivity {
 
     String conUserImg;
     String conUserName;
+    int conUserCode;
 
     private int userAccount;
 
-    private boolean type = true;
+    private  boolean type = true;
 
     private RecyclerView mMessagesView;
     private EditText mInputMessageView;
     private ImageView conUserImageView;
     private TextView contUserNameTextView;
-    private TextView conPositionTextView;
+    //private TextView conPositionTextView;
 
     private List<Message> mMessages = new ArrayList<>();
     private RecyclerView.Adapter mAdapter;
 
     private Socket mSocket;
-
-
     private Boolean isConnected = true;
 
 
@@ -77,16 +74,15 @@ public class ChattingDetailActivity extends BaseActivity {
         setToolbar(true);
 
 
-        SharedPreferenceUtil sharedPreferenceUtil = new SharedPreferenceUtil();
-        userAccount = sharedPreferenceUtil.getSharedPreference(this, "userAccount");
+        SharedPreferenceUtil  sharedPreferenceUtil = new SharedPreferenceUtil();
+        userAccount = sharedPreferenceUtil.getSharedPreference(this,"userAccount");
 
 
-        getTypeIntent(); //itent로 넘어 온 데이터들
-
+        getTypeIntent(); //intent로 넘어 온 데이터들 받아옴옴
 
         conUserImageView = (ImageView) findViewById(R.id.conUserImageView);
         contUserNameTextView = (TextView) findViewById(R.id.contUserNameTextView);
-        conPositionTextView = (TextView) findViewById(R.id.conPositionTextView);
+        //conPositionTextView = (TextView) findViewById(conPositionTextView);
 
 
         Glide.with(SadajoContext.getContext())
@@ -111,10 +107,8 @@ public class ChattingDetailActivity extends BaseActivity {
             object.put("room", roomNum);
             object.put("user", userAccount); //본인 아이디
             //perform the sending message attempt.
-
-
-            Log.e("Chatting User sender", String.valueOf(userAccount));
-            Log.e("Chatting roomnum", String.valueOf(roomNum));
+            Log.e("Chatting User sender",String.valueOf(userAccount));
+            Log.e("Chatting roomnum",String.valueOf(roomNum));
             mSocket.emit("joinRoom", object);
         } catch (JSONException e) {
             Log.d("SEND MESSAGE", "ERROR");
@@ -294,6 +288,11 @@ public class ChattingDetailActivity extends BaseActivity {
             switch (view.getId()) {
                 case R.id.requestButton:
                     RequestDialogFragment dialog = new RequestDialogFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("conUserCode",conUserCode);
+                    Log.e("conUsercode detail",String.valueOf(conUserCode));
+                    dialog.setArguments(bundle);
+                    //TODO: targetUesrCOde보내주기
                     dialog.show(getFragmentManager(), "requestDialog");
                     break;
                 case R.id.chatDetailSendButton:
@@ -303,27 +302,7 @@ public class ChattingDetailActivity extends BaseActivity {
         }
     };
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;//false하면 메뉴아이콘 hidden
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_delete) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 
     public void setToolbar(boolean b) {
 
@@ -338,22 +317,23 @@ public class ChattingDetailActivity extends BaseActivity {
 
 
     }
-
     public void getTypeIntent() {
         Intent intent = getIntent();
         type = intent.getBooleanExtra("type", true);
-        if (type == true) { //bottom navigation으로 이동한 것이 아닌 경우
-            roomNum = intent.getIntExtra("roomNum", 0);
+        if (type == true) {
+            //bottom navigation으로 이동한 것이 아닌 경우
+            roomNum =  intent.getIntExtra("roomNum", 0);
             conUserImg = intent.getExtras().getString("conUserImg"); //상대방 이미지
             conUserName = intent.getExtras().getString("conUserName"); //상대방 이름
+            conUserCode = intent.getIntExtra("conUserCode",0);
 
 
-        } else {//bottom navigation으로 이동한 것이 아닌 경우
+        } else {
 
-            // OtherMypage에서 넘어온 데이터들
+            // OtherMypageActivity에서 넘어온 데이터들
             roomNum = intent.getIntExtra("roomNum", 0);
-            sender = intent.getIntExtra("sender", 0);
-            receiver = intent.getIntExtra("receiver", 0);
+            sender = intent.getIntExtra("sender", 0); //본인
+            conUserCode = intent.getIntExtra("receiver", 0); //상대방
             conUserName = intent.getStringExtra("receiverName");
             conUserImg = intent.getStringExtra("receiverImg");
 

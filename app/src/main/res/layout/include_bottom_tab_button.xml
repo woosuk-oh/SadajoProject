@@ -29,7 +29,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/selector_home"
-                android:scaleType="fitCenter"
+                android:scaleType="centerInside"
                 android:layout_weight="1" />
 
             <ImageButton
@@ -37,7 +37,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/selector_search"
-                android:scaleType="fitCenter"
+                android:scaleType="centerInside"
                 android:layout_weight="1" />
 
             <ImageButton
@@ -45,7 +45,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/selector_shopping"
-                android:scaleType="fitCenter"
+                android:scaleType="centerInside"
                 android:layout_weight="1" />
 
             <ImageButton
@@ -53,7 +53,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/selector_chatting"
-                android:scaleType="fitCenter"
+                android:scaleType="centerInside"
                 android:layout_weight="1" />
 
             <ImageButton
@@ -61,7 +61,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/selector_my"
-                android:scaleType="fitCenter"
+                android:scaleType="centerInside"
                 android:layout_weight="1" />
         </LinearLayout>
     </LinearLayout>
