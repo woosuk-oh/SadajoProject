@@ -1,6 +1,7 @@
 package com.tacademy.sadajo.search.searchdetail;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.tacademy.sadajo.R;
 import com.tacademy.sadajo.SadajoContext;
+import com.tacademy.sadajo.mypage.MyPageOtherActivity;
 import com.tacademy.sadajo.network.Search.SeachDetail.ShopermanDB;
 
 import java.util.ArrayList;
@@ -58,13 +60,21 @@ public class DetailShopermanRecyclerAdapter extends RecyclerView.Adapter<DetailS
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
 
 
 
         holder.itemName.setText(mItems.get(position).getUser_name());
         Log.d("쇼퍼맨",""+mItems.get(position).getUser_name());
 
+        holder.itemContainer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, MyPageOtherActivity.class);
+                intent.putExtra("userCode", mItems.get(position).getUser_id());
+                context.startActivity(intent);
+            }
+        });
 
 
 
@@ -97,6 +107,8 @@ public class DetailShopermanRecyclerAdapter extends RecyclerView.Adapter<DetailS
             itemImage = (ImageView) itemView.findViewById(R.id.detail_circleimageuser);
             itemName = (TextView) itemView.findViewById(R.id.detail_shopperuser_name);
             itemContainer = (LinearLayout) itemView.findViewById(R.id.search_detail_user_set);
+
+
 
 
 

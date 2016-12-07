@@ -115,6 +115,7 @@ public class MyPageOtherActivity extends BaseActivity {
         Intent intent = getIntent();
         pageUserCode = intent.getIntExtra("userCode", 0); //해당페이지의 유저아이디
 
+
         SharedPreferenceUtil sharedPreferenceUtil = new SharedPreferenceUtil();
         userAccount = sharedPreferenceUtil.getSharedPreference(this, "userAccount");
 
