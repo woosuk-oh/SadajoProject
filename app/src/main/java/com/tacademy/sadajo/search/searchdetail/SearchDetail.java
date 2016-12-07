@@ -93,7 +93,7 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
 
     int img_count; // 가져온 아이템의 이미지 갯수
 
-    int itemidValue; // searchListActivity에서 넘겨준 키("key") + 값(itemName.getText().toString()) 을 "key"로 받아옴
+    String itemidValue; // searchListActivity에서 넘겨준 키("key") + 값(itemName.getText().toString()) 을 "key"로 받아옴
 
 
     @Override
@@ -117,7 +117,7 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
         String countryValue;
         String countryimgresource;
 
-        itemidValue = intent.getExtras().getInt("key");
+        itemidValue = intent.getExtras().getString("key");
         itemValue = intent.getExtras().getString("key2");
         countryValue = intent.getExtras().getString("key3");
         countryimgresource = intent.getExtras().getString("key4");
@@ -201,7 +201,7 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
     }
 
 
-    public class AsyncSearchDetailRequest extends AsyncTask<Integer, Void, SearchDetailDB> {
+    public class AsyncSearchDetailRequest extends AsyncTask<String, Void, SearchDetailDB> {
     /*     인자값 설명
         첫번째 Void: doInBackgorund로 보내는
         두번째 Void: Progress
@@ -217,10 +217,10 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
 
 
         @Override
-        protected SearchDetailDB doInBackground(Integer... params) {
+        protected SearchDetailDB doInBackground(String... params) {
             OkHttpClient toServer;
             toServer = OkHttpInitManager.getOkHttpClient();
-            int itemidValue = params[0];
+            String itemidValue = params[0];
             Response response = null; // 응답
 
             SearchDetailDB searchDetailDB = new SearchDetailDB();
@@ -248,7 +248,7 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
                 }
             } catch (IOException e) {
                 e.printStackTrace();
-                Toast.makeText(SadajoContext.getContext(), "서버와의 연결이 원활치 않음", Toast.LENGTH_SHORT).show();
+              //  Toast.makeText(SearchDetail.this, "서버와의 연결이 원활치 않음", Toast.LENGTH_SHORT).show();
             } finally {
                 if (response != null) {
                     response.close();
@@ -345,7 +345,7 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
 
                             RequestBody postBody = new FormBody.Builder()
                                     .add("user", "1")
-                                    .add("goods", String.valueOf(itemidValue))
+                                    .add("goods", itemidValue)
                                     .build();
 
                             Request request = new Request.Builder()
