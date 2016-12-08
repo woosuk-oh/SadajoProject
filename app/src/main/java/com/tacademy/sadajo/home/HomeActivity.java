@@ -24,6 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.tacademy.sadajo.BaseActivity;
 import com.tacademy.sadajo.BottomBarClickListener;
 import com.tacademy.sadajo.CustomRecyclerDecoration;
@@ -132,11 +133,15 @@ public class HomeActivity extends BaseActivity {
 
 
         //로그인할 때 UserId 저장
-        SharedPreferenceUtil sharedPreferenceUtil = new SharedPreferenceUtil(this);
+        SharedPreferenceUtil sharedPreferenceUtil = new SharedPreferenceUtil(SadajoContext.getContext());
         sharedPreferenceUtil.setAccessToken(1);
 
         userAccount = sharedPreferenceUtil.getAccessToken();
+
+        String fcmToken = FirebaseInstanceId.getInstance().getToken();
+
         Log.e("Home Activity :",String.valueOf(userAccount));
+        Log.e("Home fcmToken :",fcmToken);
     }
 
     @Override

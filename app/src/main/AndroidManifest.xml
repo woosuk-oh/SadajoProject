@@ -68,6 +68,7 @@
             android:name="com.tacademy.sadajo.SadajoGlideModule"
             android:value="GlideModule" />
 
+        //FCM 토큰을 발급하는 서비스
         <service
             android:name=".SadajoFirebaseInstanceIDService"
             android:enabled="true"

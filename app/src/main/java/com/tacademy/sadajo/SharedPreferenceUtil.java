@@ -11,7 +11,7 @@ import static android.content.Context.MODE_PRIVATE;
 
 public class SharedPreferenceUtil {
     private static Context mContext;
-    private static SharedPreferences mPref;
+    private static SharedPreferences mPrefs;
     private static SharedPreferences.Editor mEditor;
 
     private static final String USER_TOKEN = "Token";
@@ -19,8 +19,8 @@ public class SharedPreferenceUtil {
 
     public SharedPreferenceUtil(Context context) {
         mContext = context;
-        mPref = mContext.getSharedPreferences("userInfo", MODE_PRIVATE);
-        mEditor = mPref.edit();
+        mPrefs = mContext.getSharedPreferences("userInfo", MODE_PRIVATE);
+        mEditor = mPrefs.edit();
 
     }
 //
@@ -51,7 +51,7 @@ public class SharedPreferenceUtil {
     public static int getAccessToken() {
 
 
-        return mPref.getInt(USER_TOKEN,0);
+        return mPrefs.getInt(USER_TOKEN,0);
 
     }
 
@@ -63,4 +63,21 @@ public class SharedPreferenceUtil {
 
 
     }
+
+    private static final String FCM_TOKEN_KEY = "fcmTokenKey";
+    private static final String UUID_KEY = "uuidKey";
+
+
+    public  String getFcmTokenKey() {
+        return mPrefs.getString(FCM_TOKEN_KEY,"");
+    }
+
+    public void setUuidKey(String uuid){
+        mEditor.putString(UUID_KEY, uuid);
+        mEditor.commit();
+    }
+    public String getUuidKey() {
+        return mPrefs.getString(UUID_KEY, "");
+    }
+
 }
