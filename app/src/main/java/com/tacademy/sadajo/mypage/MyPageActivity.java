@@ -109,9 +109,8 @@ public class MyPageActivity extends BaseActivity {
         buyCountButton.setOnClickListener(clickListener);
         mypageSell.setOnClickListener(clickListener);
         mypageBuy.setOnClickListener(clickListener);
-
-        SharedPreferenceUtil sharedPreferenceUtil = new SharedPreferenceUtil();
-        userAccount = sharedPreferenceUtil.getSharedPreference(this, "userAccount");
+        SharedPreferenceUtil sharedPreferenceUtil = new SharedPreferenceUtil(this);
+        userAccount = sharedPreferenceUtil.getAccessToken();
         Log.e("userAccount", "현재 유저 아이디"+userAccount);
 
 

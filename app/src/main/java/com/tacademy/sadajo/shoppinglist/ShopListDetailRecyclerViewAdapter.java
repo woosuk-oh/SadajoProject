@@ -67,9 +67,11 @@ public class ShopListDetailRecyclerViewAdapter
 
         Glide.with(SadajoContext.getContext())
                 .load(shopGoodsArrayList.get(position).goodsImg)
+                .thumbnail(0.1f)
                 .into(holder.itemProductImageView);
         Glide.with(SadajoContext.getContext())
                 .load(shopGoodsArrayList.get(position).goodscountryFlagImg)
+                .thumbnail(0.1f)
                 .into(holder.itemFlagImageView);
         holder.itemProductNameTextView.setText(shopGoodsArrayList.get(position).goodsName);
         holder.itemCountryNameTextView.setText(shopGoodsArrayList.get(position).goodsCountryName);

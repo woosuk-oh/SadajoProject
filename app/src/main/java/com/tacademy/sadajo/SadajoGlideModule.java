@@ -25,8 +25,8 @@ public class SadajoGlideModule implements GlideModule {
         /*
           현재 Glide이 관리하는 캐쉬사이즈에 10%를 증가한다.
          */
-        int customMemoryCacheSize = (int) (1.15 * defaultMemoryCacheSize);
-        int customBitmapPoolSize = (int) (1.15 * defaultBitmapPoolSize);
+        int customMemoryCacheSize = (int) (1.2 * defaultMemoryCacheSize);
+        int customBitmapPoolSize = (int) (1.2 * defaultBitmapPoolSize);
 
         builder.setMemoryCache(new LruResourceCache(customMemoryCacheSize));
         builder.setBitmapPool(new LruBitmapPool(customBitmapPoolSize));

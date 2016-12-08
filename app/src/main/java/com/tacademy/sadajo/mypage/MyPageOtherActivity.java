@@ -55,8 +55,9 @@ public class MyPageOtherActivity extends BaseActivity {
     ChatListDB chatListDBs = new ChatListDB();
 
     TextView customToolbarTitle;
-    int pageUserCode;
+    int targetUserCode;
     int userAccount;
+    String targetUserName;
 
 
     @Override
@@ -113,10 +114,11 @@ public class MyPageOtherActivity extends BaseActivity {
 
 
         Intent intent = getIntent();
-        pageUserCode = intent.getIntExtra("userCode", 0); //해당페이지의 유저아이디
+        targetUserCode = intent.getIntExtra("targetUserCode", 0); //해당페이지의 유저아이디
+        targetUserName = intent.getStringExtra("targetUserName");
 
-        SharedPreferenceUtil sharedPreferenceUtil = new SharedPreferenceUtil();
-        userAccount = sharedPreferenceUtil.getSharedPreference(this, "userAccount");
+        SharedPreferenceUtil sharedPreferenceUtil = new SharedPreferenceUtil(this);
+        userAccount = sharedPreferenceUtil.getAccessToken();
 
 
     }
@@ -146,8 +148,10 @@ public class MyPageOtherActivity extends BaseActivity {
                     break;
                 case R.id.otherShopListButton:
                     intent = new Intent(MyPageOtherActivity.this, OtherShoppingListActivity.class);
-                    intent.putExtra("userCode", pageUserCode); //해당페이지의 유저Id
-                    Log.e("otherMypage", String.valueOf(pageUserCode));
+                    intent.putExtra("targetUserCode", targetUserCode); //해당페이지의 유저Id
+                    intent.putExtra("targetUserName",targetUserName);
+                    Log.e("otherMypage", String.valueOf(targetUserCode));
+                    Log.e("targetUserName", String.valueOf(targetUserName));
                     startActivity(intent);
 
                     break;
@@ -198,7 +202,7 @@ public class MyPageOtherActivity extends BaseActivity {
                 RequestBody postBody = new FormBody.Builder()
                         .add("user", String.valueOf(userAccount)) //대화하기 클릭한 userCode
                         .add("type", "new") // 채팅방 생성  type : new
-                        .add("carr", String.valueOf(pageUserCode)) //메세지 받는사람 userCode(해당 페이지 userCode)
+                        .add("carr", String.valueOf(targetUserCode)) //메세지 받는사람 userCode(해당 페이지 userCode)
                         .build();
 
                 Request request = new Request.Builder()
@@ -266,7 +270,7 @@ public class MyPageOtherActivity extends BaseActivity {
 
                 RequestBody postBody = new FormBody.Builder()
                         .add("user", String.valueOf(userAccount))
-                        .add("owner", String.valueOf(pageUserCode))
+                        .add("owner", String.valueOf(targetUserCode))
                         .build();
 
                 Request request = new Request.Builder()
@@ -300,13 +304,13 @@ public class MyPageOtherActivity extends BaseActivity {
         public void onPostExecute(MyPageData myPage) {
             super.onPostExecute(myPage);
 
-
             otherBuyTextView.setText(String.valueOf(myPage.buyNum));
             otherSellTextView.setText(String.valueOf(myPage.sellNum));
             otherUserNameTextView.setText(myPage.targetUserName);
             otherLocTextView.setText(myPage.targetUserLocation);
             Glide.with(SadajoContext.getContext())
                     .load(myPage.targetUserImg)
+                    .thumbnail(0.1f)
                     .into(otherProfileImageView);
 
 

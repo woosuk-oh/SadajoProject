@@ -30,13 +30,14 @@ public class HomeUserRecyclerViewAdapter
     private ArrayList<HomeShoplistDB> shoppingListDatas;
     private Context context;
 
-    private int userAccount;
+     int userAccount;
 
     public HomeUserRecyclerViewAdapter(Context context, ArrayList<HomeShoplistDB> shoppingListDatas) {
         this.context = context;
         this.shoppingListDatas = shoppingListDatas;
-        SharedPreferenceUtil sharedPreferenceUtil = new SharedPreferenceUtil();
-        userAccount = sharedPreferenceUtil.getSharedPreference(context, "userAccount");
+        SharedPreferenceUtil sharedPreferenceUtil = new SharedPreferenceUtil(context);
+        userAccount = sharedPreferenceUtil.getAccessToken();
+
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -75,6 +76,7 @@ public class HomeUserRecyclerViewAdapter
 
         Glide.with(SadajoContext.getContext())
                 .load(shoppingListDatas.get(position).getUserImg())
+                .thumbnail(0.1f)
                 .into(holder.userProfileImageView);
 
 
@@ -84,7 +86,7 @@ public class HomeUserRecyclerViewAdapter
             @Override
             public void onClick(View v) {
 
-                //TODO: 본인일 경우 조건 필요
+                //user 본인/상대방 구분
                 if (shoppingListDatas.get(position).getUserId() == userAccount) {
                     intent = new Intent(context, MyPageActivity.class);
                     intent.putExtra("type", false); //type이 1일 경우는 bottombar GONE & backNavigation생성
@@ -92,7 +94,8 @@ public class HomeUserRecyclerViewAdapter
 
                 } else {
                     intent = new Intent(context, MyPageOtherActivity.class);//해당 유저의 마이페이지로 이동
-                    intent.putExtra("userCode", shoppingListDatas.get(position).getUserId()); //해당페이지userID넘겨줌
+                    intent.putExtra("targetUserCode", shoppingListDatas.get(position).getUserId()); //해당페이지userID넘겨줌
+                    intent.putExtra("targetUserName",shoppingListDatas.get(position).getUserName());
                     Log.e("userCode", shoppingListDatas.get(position).getUserId().toString());
                     context.startActivity(intent);
                 }

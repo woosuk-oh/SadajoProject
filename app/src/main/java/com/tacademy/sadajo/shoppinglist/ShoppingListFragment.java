@@ -3,6 +3,7 @@ package com.tacademy.sadajo.shoppinglist;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,6 +14,7 @@ import android.view.ViewGroup;
 
 import com.tacademy.sadajo.CustomRecyclerDecoration;
 import com.tacademy.sadajo.R;
+import com.tacademy.sadajo.SharedPreferenceUtil;
 import com.tacademy.sadajo.network.NetworkDefineConstant;
 import com.tacademy.sadajo.network.OkHttpInitManager;
 import com.tacademy.sadajo.network.shoppinglist.ShopListDB;
@@ -35,13 +37,13 @@ public class ShoppingListFragment extends Fragment {
 
     ShoppingListRecyclerViewAdapter recyclerViewAdapter;
     RecyclerView shoppingListRecyclerView;
+    int userAccount;
 
     public ShoppingListFragment() {
     }
 
     public static ShoppingListFragment newInstance(int initValue) {
         ShoppingListFragment shoppingListFragment = new ShoppingListFragment();
-
         return shoppingListFragment;
     }
 
@@ -66,6 +68,13 @@ public class ShoppingListFragment extends Fragment {
 
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        SharedPreferenceUtil sharedPreferenceUtil = new SharedPreferenceUtil(getContext());
+        userAccount = sharedPreferenceUtil.getAccessToken();
+
+    }
 
     @Override
     public void onResume() {
@@ -92,7 +101,7 @@ public class ShoppingListFragment extends Fragment {
 
 
                 RequestBody postBody = new FormBody.Builder()
-                        .add("user", "1")
+                        .add("user", String.valueOf(userAccount))
                         .build();
 
                 Request request = new Request.Builder()
@@ -127,8 +136,6 @@ public class ShoppingListFragment extends Fragment {
             super.onPostExecute(shopListDBs);
             if(shopListDBs != null && shopListDBs.size() > 0 ){
                 recyclerViewAdapter.addShopList(shopListDBs);
-            }else{
-
             }
 
         }

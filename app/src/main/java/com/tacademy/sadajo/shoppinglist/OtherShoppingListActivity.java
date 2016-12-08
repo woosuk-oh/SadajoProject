@@ -19,7 +19,8 @@ public class OtherShoppingListActivity extends BaseActivity {
     TextView toolbarTitle;
     Toolbar toolbar;
 
-    int pageUserCode;
+    int targetUserCode;
+    String targetUserName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,14 +29,15 @@ public class OtherShoppingListActivity extends BaseActivity {
 
 
         Intent intent = getIntent();
-        pageUserCode = intent.getIntExtra("userCode", 0); //해당 페이지 user의 userCode
-        Log.e("otherActivity",String.valueOf(pageUserCode));
+        targetUserCode = intent.getIntExtra("targetUserCode", 0); //해당 페이지 user의 userCode
+        targetUserName = intent.getExtras().getString("targetUserName");
+        Log.e("otherActivity",String.valueOf(targetUserCode));
 
         toolbar = (Toolbar) findViewById(R.id.toolbar); //toolbar background image
         setSupportActionBar(toolbar);
 
         toolbarTitle = (TextView) findViewById(R.id.customToolbarTitle);
-        toolbarTitle.setText(" 님의 쇼핑리스트");//TODO:user Name 받아오기
+        toolbarTitle.setText(targetUserName+" 님의 쇼핑리스트");//TODO:user Name 받아오기
 
 
         getSupportActionBar().setDisplayShowTitleEnabled(false);//title hidden
@@ -69,8 +71,8 @@ public class OtherShoppingListActivity extends BaseActivity {
 
     private void setupShoppingListViewPager(ViewPager viewPager) {
         MyPagerAdapter otherShoppingListAdapter = new MyPagerAdapter(getSupportFragmentManager());
-        otherShoppingListAdapter.appendFragment(OtherLikeListFragment.newInstance(pageUserCode), "찜");
-        otherShoppingListAdapter.appendFragment(OtherShoppingListFragment.newInstance(pageUserCode), "쇼핑리스트");
+        otherShoppingListAdapter.appendFragment(OtherLikeListFragment.newInstance(targetUserCode), "찜");
+        otherShoppingListAdapter.appendFragment(OtherShoppingListFragment.newInstance(targetUserCode), "쇼핑리스트");
         viewPager.setAdapter(otherShoppingListAdapter);
     }
 

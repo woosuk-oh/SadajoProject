@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 
 import com.tacademy.sadajo.CustomRecyclerDecoration;
 import com.tacademy.sadajo.R;
-import com.tacademy.sadajo.SadajoContext;
 import com.tacademy.sadajo.SharedPreferenceUtil;
 import com.tacademy.sadajo.network.NetworkDefineConstant;
 import com.tacademy.sadajo.network.OkHttpInitManager;
@@ -73,9 +72,8 @@ public class DealSellListFragment extends Fragment {
         recyclerView.addItemDecoration(decoration2);
         recyclerView.setLayoutManager(layoutManager);
 
-        SharedPreferenceUtil sharedPreferenceUtil = new SharedPreferenceUtil();
-        userAccount = sharedPreferenceUtil.getSharedPreference(SadajoContext.getContext(), "userAccount");
-
+        SharedPreferenceUtil sharedPreferenceUtil = new SharedPreferenceUtil(getContext());
+        userAccount = sharedPreferenceUtil.getAccessToken();
         return view;
 
     }

@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.tacademy.sadajo.BaseActivity;
 import com.tacademy.sadajo.CustomRecyclerDecoration;
 import com.tacademy.sadajo.R;
+import com.tacademy.sadajo.SharedPreferenceUtil;
 import com.tacademy.sadajo.network.NetworkDefineConstant;
 import com.tacademy.sadajo.network.OkHttpInitManager;
 import com.tacademy.sadajo.network.shoppinglist.LikeListDetail;
@@ -30,12 +31,20 @@ public class ShoppingListDetailActivity extends BaseActivity {
     TextView  shopListTitleTextView;
     ShopListDetailRecyclerViewAdapter shopListDetailRecyclerViewAdapter;
     int listCode;
+    int userAccount;
+    int userCode;
+    String countryName;
 
+    final int SHOPLIST = 0;
+    final int OTHER_SHOPLIST = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopping_list_detail);
+
+        SharedPreferenceUtil sharedPreferenceUtil = new SharedPreferenceUtil(this);
+        userAccount = sharedPreferenceUtil.getAccessToken();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -91,12 +100,12 @@ public class ShoppingListDetailActivity extends BaseActivity {
 
 
                 RequestBody postBody = new FormBody.Builder()
-                        .add("user", "2")
+                        .add("user", String.valueOf(userCode))
                         .add("listcode", String.valueOf(listCode)) //TODO:수정하기
                         .build();
 
                 Request request = new Request.Builder()
-                        .url(String.format(NetworkDefineConstant.SERVER_URL_REQUEST_SHOPLIST))
+                        .url(String.format(NetworkDefineConstant.SERVER_URL_REQUST_SHOPDETAIL))
                         .post(postBody)
                         .build();
 
@@ -132,5 +141,35 @@ public class ShoppingListDetailActivity extends BaseActivity {
             shopListDetailRecyclerViewAdapter.notifyDataSetChanged();
 
         }
+    }
+
+    public void getTypeIntent() {
+        Intent intent = getIntent();
+        int type = intent.getExtras().getInt("type");
+        Log.e("shoplistDetail", String.valueOf(type));
+
+        switch (type) {
+            case SHOPLIST:
+                userCode = userAccount;
+
+                countryName = intent.getExtras().getString("countryName");
+                listCode = intent.getIntExtra("listCode", 0); //리스트코드 받아옴
+                shopListTitleTextView = (TextView) findViewById(R.id.customToolbarTitle);
+                shopListTitleTextView.setText(countryName + " 쇼핑 리스트");
+
+            case OTHER_SHOPLIST:
+                userCode = intent.getIntExtra("targetUserCode",0);
+                countryName = intent.getExtras().getString("countryName");
+                listCode = intent.getIntExtra("listCode", 0); //리스트코드 받아옴
+                shopListTitleTextView = (TextView) findViewById(R.id.customToolbarTitle);
+                shopListTitleTextView.setText(countryName + " 쇼핑 리스트");
+
+
+
+
+
+
+        }
+
     }
 }

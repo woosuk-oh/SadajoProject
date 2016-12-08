@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="120dp"
+    android:background="@color/white"
+    android:orientation="horizontal">
+
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical"
+
+        >
+
+        <TextView
+            android:id="@+id/otherShopCountryNameTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="26dp"
+            android:text="ITALY"
+            android:textColor="@color/blackFont"
+            android:textSize="20sp"
+            android:textStyle="italic"/>
+
+        <TextView
+            android:id="@+id/otherShopCityNameTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="24dp"
+            android:text="이탈리아, 피렌체"
+            android:textColor="@color/blackFont"
+            android:textSize="13sp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/otherShopDateTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="8dp"
+            android:text="2016.11.10 ~ 2016.11.20"
+            android:textColor="@color/grayFont"
+            android:textSize="10dp"
+            android:textStyle="normal"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/otherShopProductImageView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY"
+
+                android:visibility="visible" />
+
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:id="@+id/linear"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:alpha="0.5"
+                android:background="@drawable/sl_image_black"
+                android:gravity="center"
+
+                />
+
+            <TextView
+                android:id="@+id/otherShopEmptyTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/linear"
+                android:layout_alignLeft="@id/linear"
+                android:layout_alignRight="@id/linear"
+                android:layout_alignTop="@id/linear"
+                android:text="쇼핑리스트를 채워주세요!"
+                android:gravity="center"
+                android:textColor="@color/blackFont"
+                android:textSize="13sp"
+                android:visibility="invisible"
+                android:textStyle="normal"/>
+
+            <TextView
+                android:id="@+id/otherShopCountTextView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignBottom="@id/otherShopProductImageView"
+                android:layout_alignLeft="@id/otherShopProductImageView"
+                android:layout_alignRight="@id/otherShopProductImageView"
+                android:layout_alignTop="@id/otherShopProductImageView"
+                android:gravity="center"
+                android:text="99+"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:visibility="visible"
+                android:textStyle="italic"/>
+
+        </RelativeLayout>
+    </LinearLayout>
+
+</LinearLayout>

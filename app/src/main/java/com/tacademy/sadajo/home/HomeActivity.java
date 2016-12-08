@@ -132,9 +132,11 @@ public class HomeActivity extends BaseActivity {
 
 
         //로그인할 때 UserId 저장
-        SharedPreferenceUtil sharedPreferenceUtil = new SharedPreferenceUtil();
-        sharedPreferenceUtil.putSharedPreference(this,"userAccount",1);
-        userAccount = sharedPreferenceUtil.getSharedPreference(this,"userAccount");
+        SharedPreferenceUtil sharedPreferenceUtil = new SharedPreferenceUtil(this);
+        sharedPreferenceUtil.setAccessToken(1);
+
+        userAccount = sharedPreferenceUtil.getAccessToken();
+        Log.e("Home Activity :",String.valueOf(userAccount));
     }
 
     @Override

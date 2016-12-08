@@ -56,7 +56,7 @@ public class RequestDialogFragment extends DialogFragment implements View.OnClic
     ArrayAdapter<CharSequence> countrySpinnerAdapter;
 
     int userAccount;
-    int conUserCode;
+    int targetUserCode;
 
     public static RequestDialogFragment newInstance() {
         RequestDialogFragment fragment = new RequestDialogFragment();
@@ -69,10 +69,11 @@ public class RequestDialogFragment extends DialogFragment implements View.OnClic
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setStyle(STYLE_NO_FRAME, R.style.CustomDialog);
-        SharedPreferenceUtil sharedPreferenceUtil = new SharedPreferenceUtil();
-        userAccount = sharedPreferenceUtil.getSharedPreference(getActivity(),"userAccount");
+        SharedPreferenceUtil sharedPreferenceUtil = new SharedPreferenceUtil(getActivity());
+        userAccount = sharedPreferenceUtil.getAccessToken();
+        //본인 userCode
         Bundle bundle = getArguments();
-        conUserCode = bundle.getInt("conUserCode",0);
+        targetUserCode = bundle.getInt("targetUserCode",0); //요청받은 userCode
 
     }
 
@@ -186,7 +187,7 @@ public class RequestDialogFragment extends DialogFragment implements View.OnClic
                 //요청 Form세팅
                 RequestBody postBody = new FormBody.Builder()
                         .add("req", String.valueOf(userAccount)) //요청하는 userCode
-                        .add("carr", String.valueOf(conUserCode)) //요청받는 userCode
+                        .add("carr", String.valueOf(targetUserCode)) //요청받는 userCode
                         .add("country", reqParams.countryName)// 상품국가명
                         .add("goods", reqParams.productName) //상품명
                         .add("price", reqParams.productPrice) //상품가격
@@ -195,7 +196,7 @@ public class RequestDialogFragment extends DialogFragment implements View.OnClic
 
 
                 Log.e("req", String.valueOf(userAccount));
-                Log.e("carr", String.valueOf(conUserCode));
+                Log.e("carr", String.valueOf(targetUserCode));
 
                 //요청 세팅(form(Query String) 방식의 포스트)
                 Request request = new Request.Builder()

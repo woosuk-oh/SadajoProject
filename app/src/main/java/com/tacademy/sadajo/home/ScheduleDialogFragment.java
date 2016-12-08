@@ -74,8 +74,11 @@ public class ScheduleDialogFragment extends DialogFragment implements View.OnCli
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setStyle(STYLE_NO_FRAME, R.style.CustomDialog);
-        SharedPreferenceUtil sharedPreferenceUtil = new SharedPreferenceUtil();
-        userAccount = sharedPreferenceUtil.getSharedPreference(this.getActivity(),"userAccount");
+        SharedPreferenceUtil sharedPreferenceUtil = new SharedPreferenceUtil(getActivity());
+        userAccount = sharedPreferenceUtil.getAccessToken();
+
+
+
     }
 
     @Override

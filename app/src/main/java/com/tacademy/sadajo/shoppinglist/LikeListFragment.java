@@ -2,6 +2,7 @@ package com.tacademy.sadajo.shoppinglist;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,6 +14,7 @@ import android.widget.ImageView;
 
 import com.tacademy.sadajo.CustomRecyclerDecoration;
 import com.tacademy.sadajo.R;
+import com.tacademy.sadajo.SharedPreferenceUtil;
 import com.tacademy.sadajo.network.NetworkDefineConstant;
 import com.tacademy.sadajo.network.OkHttpInitManager;
 import com.tacademy.sadajo.network.shoppinglist.LikeListJSONParser;
@@ -36,13 +38,25 @@ public class LikeListFragment extends Fragment {
     LikeListRecyclerViewAdapter likeRecyclerViewAdapter;
     RecyclerView likeListRecyclerView;
     ImageView noItemImageView;
+    int userAccount;
 
     public LikeListFragment() {
     }
 
     public static LikeListFragment newInstance(int initValue) {
         LikeListFragment likeListFragment = new LikeListFragment();
+
         return likeListFragment;
+    }
+
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        SharedPreferenceUtil sharedPreferenceUtil = new SharedPreferenceUtil(getContext());
+        userAccount = sharedPreferenceUtil.getAccessToken();
+
+
     }
 
     @Override
@@ -90,7 +104,7 @@ public class LikeListFragment extends Fragment {
 
 
                 RequestBody postBody = new FormBody.Builder()
-                        .add("user", "1")
+                        .add("user", String.valueOf(userAccount))
                         .build();
 
                 Request request = new Request.Builder()
