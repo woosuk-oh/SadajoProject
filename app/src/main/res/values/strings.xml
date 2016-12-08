@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">사다조</string>
-
+<string name="facebook_app_id">1206308966129089</string>
     <string name="transitionName">ItemName</string>
     <string name="title_activity_profile_page">ProfilePageActivity</string>
 

@@ -576,7 +576,9 @@
             android:layout_marginLeft="20dp"
 
             android:layout_toRightOf="@+id/chatt_img"
-            android:hint="실시간 쇼핑 TIP을 알려주세요!" />
+            android:hint="실시간 쇼핑 TIP을 알려주세요!"
+            android:imeOptions="actionSearch"
+            android:inputType="text"/>
 
 
     </RelativeLayout>

@@ -1,17 +1,7 @@
 <resources>
 
-    <!-- Base application theme.
-     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-         <!- Customize your theme here.
-         <item name="colorPrimary">@color/colorPrimary</item>
-         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-         <item name="colorAccent">@color/colorAccent</item>
-     </style>-->
-
 
     <!-- Theme추가  NoACtionBar-->
-    <!--<style name="Theme.DesignDemo" parent="Theme.Sadajo"></style>-->
-
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
@@ -22,15 +12,10 @@
         <item name="colorAccent">#2fbcea</item>
         <item name="android:windowBackground">@color/whiteGrayFont</item>
         <item name="android:windowAnimationStyle">@null</item>  <!-- 액티비티 애니메이션 전환 효과 삭제-->
-        <!--<item name="actionOverflowButtonStyle">@style/OverFlow</item>--> <!--overfow style-->
 
 
     </style>
 
-
-    <style name="OverFlow" parent="Widget.AppCompat.ActionButton.Overflow">
-        <item name="android:src">@drawable/mark</item>
-    </style>
 
     <!--TabLayout tabBackground textColor 수정 -->
     <style name="TabLayout" parent="Widget.Design.TabLayout">

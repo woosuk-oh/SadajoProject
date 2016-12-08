@@ -135,6 +135,9 @@ public class HomeActivity extends BaseActivity {
         SharedPreferenceUtil sharedPreferenceUtil = new SharedPreferenceUtil();
         sharedPreferenceUtil.putSharedPreference(this,"userAccount",1);
         userAccount = sharedPreferenceUtil.getSharedPreference(this,"userAccount");
+
+        // 페이스북 아이디 됐는지 확인
+        Log.d("페북로그인","가져온 페북아이디:"+sharedPreferenceUtil.getFaceBookId());
     }
 
     @Override
@@ -194,14 +197,10 @@ public class HomeActivity extends BaseActivity {
                 progressDialog.dismiss();
             } catch (IOException e) {
                 e.printStackTrace();
-                networkfail.sendEmptyMessage(0);
-                Log.d("네트워크","네트워크 통신 에러 테스트");
-
-
-                  progressDialog.dismiss();
-            }
-
-            finally {
+//                Toast.makeText(SadajoContext.getContext(),
+//                        "서버와의 통신 연결이 원활치 않습니다.", Toast.LENGTH_SHORT).show();
+//                  progressDialog.dismiss();
+            } finally {
                 if (response != null) {
                     response.close();
                 }
@@ -213,14 +212,12 @@ public class HomeActivity extends BaseActivity {
 
         @Override
         protected void onPostExecute(HomeDB s) {
-            progressDialog.dismiss();
+           // progressDialog.dismiss();
             super.onPostExecute(s);
              progressDialog.dismiss();
 
 //            if (homeDB != null) {
-
-
-                if (homeDB.getMsg().length() > 0 ) { //서버로부터 msg를 받았으면.
+                if (s != null ) { //서버로부터 msg를 받았으면.
 
                 cardView2CountryTextView.setText(s.getTravelCountry()); // 추천리스트 : 해당 국가
                 cardView3CountryTextView.setText(s.getTravelCountry()); // 추천리스트2(다른 쇼퍼맨 쇼핑리스트) : 해당 국가

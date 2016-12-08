@@ -5,10 +5,22 @@ package com.tacademy.sadajo.network.Search.SeachDetail;
  */
 public class TipsDB {
 
+    public int user_code;
+
+
+
     public String writer;
     public String tips_content;
     public String tips_user_img;
     public String regdate;
+
+    public int getUser_code() {
+        return user_code;
+    }
+
+    public void setUser_code(int user_code) {
+        this.user_code = user_code;
+    }
 
     public String getRegdate() {
         return regdate;

@@ -71,7 +71,6 @@ public class RequestDialogFragment extends DialogFragment implements View.OnClic
         setStyle(STYLE_NO_FRAME, R.style.CustomDialog);
         SharedPreferenceUtil sharedPreferenceUtil = new SharedPreferenceUtil();
         userAccount = sharedPreferenceUtil.getSharedPreference(getActivity(),"userAccount");
-//TODO: conUserCode받아오기
         Bundle bundle = getArguments();
         conUserCode = bundle.getInt("conUserCode",0);
 

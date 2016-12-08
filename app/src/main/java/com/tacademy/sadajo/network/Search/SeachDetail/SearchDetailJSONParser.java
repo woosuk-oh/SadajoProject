@@ -104,7 +104,7 @@ public class SearchDetailJSONParser {
                 TipsDB tipsDB = new TipsDB();
                 JSONObject tips = tipsArray.getJSONObject(i);
 
-                tipsDB.setWriter(tips.getString("writer"));
+                tipsDB.setWriter(tips.getString("user_name"));
                 tipsDB.setTips_content(tips.getString("content"));
                 tipsDB.setTips_user_img(tips.getString("user_img"));
                 tipsDB.setRegdate(tips.getString("regdate"));

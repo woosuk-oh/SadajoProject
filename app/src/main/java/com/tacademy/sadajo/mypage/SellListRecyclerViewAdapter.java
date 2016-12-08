@@ -23,6 +23,10 @@ import com.tacademy.sadajo.network.mypage.DealListData;
 
 import java.util.ArrayList;
 
+
+// 사다줌 부분.
+
+
 public class SellListRecyclerViewAdapter
         extends RecyclerView.Adapter<SellListRecyclerViewAdapter.ViewHolder> {
 
@@ -102,22 +106,22 @@ public class SellListRecyclerViewAdapter
         Log.d("countryCode","국가명"+countryCode);
 */
 
-        holder.countryEngName.setText(dealListDatas.get(position).country_name); // TODO 서버로부터 국가명 받아와야 됌
+        holder.countryEngName.setText(dealListDatas.get(position).country_name);
 
-        holder.countryKorName.setText(dealListDatas.get(position).country_name); // TODO 서버로부터 한글 국가명,도시명 받아와야 됌
-        holder.userNameTextView.setText(""); // TODO 서버로부터 받아온 값 없음.
+        holder.countryKorName.setText(dealListDatas.get(position).country_name);
+        holder.userNameTextView.setText(dealListDatas.get(position).nick);
         holder.productNameTextView.setText(dealListDatas.get(position).goods_name);
         holder.dateTextView.setText(dealListDatas.get(position).thedate);
 
         Glide.with(SadajoContext.getContext())
                 .load(dealListDatas.get(position).carr_img)
-                .placeholder(R.drawable.profile_empty)
+
                 .thumbnail(0.1f)
                 .into(holder.profileImageView);
 
         Glide.with(SadajoContext.getContext())
                 .load(dealListDatas.get(position).country_img)
-                .placeholder(R.drawable.profile_empty)
+
                 .thumbnail(0.1f)
                 .into(holder.productImageView);
 

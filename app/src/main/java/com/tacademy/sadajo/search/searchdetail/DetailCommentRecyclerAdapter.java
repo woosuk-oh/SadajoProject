@@ -46,7 +46,7 @@ public class DetailCommentRecyclerAdapter extends RecyclerView.Adapter<DetailCom
         // 레이아웃을 뷰(홀더)에 붙이기 위한 인플레이터임.
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.search_detail_comment_recycler, parent, false);
 
-        Log.d("ItemSize", ""+mItems.size());
+        Log.d("받은 Tips","받은 댓글들:"+mItems.get(0).getTips_content());
 
 
         ViewHolder holder = new ViewHolder(v);
@@ -64,7 +64,7 @@ public class DetailCommentRecyclerAdapter extends RecyclerView.Adapter<DetailCom
         holder.itemText.setText(mItems.get(position).getTips_content());
         Glide.with(SadajoContext.getContext())
                 .load(mItems.get(position).getTips_user_img())
-                .placeholder(R.drawable.search_profile_105)
+
                 .into(holder.itemImg);
     }
 

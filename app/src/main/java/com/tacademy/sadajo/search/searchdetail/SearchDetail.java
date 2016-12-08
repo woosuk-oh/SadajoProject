@@ -12,12 +12,15 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.InputType;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -33,8 +36,10 @@ import com.tacademy.sadajo.network.NetworkDefineConstant;
 import com.tacademy.sadajo.network.OkHttpInitManager;
 import com.tacademy.sadajo.network.Search.SeachDetail.SearchDetailDB;
 import com.tacademy.sadajo.network.Search.SeachDetail.SearchDetailJSONParser;
+import com.tacademy.sadajo.network.Search.SeachDetail.SearchDetailTipsJSONParser;
 import com.tacademy.sadajo.network.Search.SeachDetail.SearchDetailzzimDB;
 import com.tacademy.sadajo.network.Search.SeachDetail.SearchDetailzzimJSONParser;
+import com.tacademy.sadajo.network.Search.SeachDetail.TipsContainer;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -64,6 +69,7 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
     LinearLayout detailhashbutton;
     ImageView countryimg;
     EditText tipsinput;
+
 
     //푸쉬 테스트
 
@@ -110,6 +116,36 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
         contenttext = (TextView) findViewById(R.id.search_detail_content_text);
         unit = (TextView) findViewById(R.id.detail_price_unit);
         tipsinput = (EditText) findViewById(R.id.search_detail_comment_ed);
+        tipsinput.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
+        tipsinput.setInputType(InputType.TYPE_CLASS_TEXT);
+
+        tipsinput.post(new Runnable() {
+            @Override
+            public void run() {
+                tipsinput.setOnEditorActionListener(new TextView.OnEditorActionListener(){ //입력창 입력후 엔터누르면.
+                    @Override
+                    public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+                        Log.d("엔터여부","엔터눌림1");
+
+                        switch (i){
+                            case EditorInfo.IME_ACTION_SEARCH:
+                                new TipsInputAsync().execute(tipsinput.getText().toString());
+                                Log.d("엔터여부","서치 눌림림");
+                                break;
+                            default:
+                                new TipsInputAsync().execute(tipsinput.getText().toString());
+                                Log.d("엔터여부","엔터눌림2");
+                                return false;
+                        }
+
+                        return true;
+                    }
+                });
+            }
+
+        });
+
+
 
 
         /* 상품의 ID값과 상품명, 판매가능 국가명을 인텐트로 가져옴 */
@@ -294,6 +330,8 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
             mRecycler4.setAdapter(mAdapter4);
             mAdapter4.notifyDataSetChanged();
 
+
+
             // 어디서 살 수 있어요?
             mAdapter5 = new DetailItemLocationRecyclerAdapter(s.sell_place, SadajoContext.getContext());
             mRecycler5.setAdapter(mAdapter5);
@@ -326,7 +364,82 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
     }
 
 
-    View.OnClickListener onClickListener = new View.OnClickListener() {
+
+    public class TipsInputAsync extends AsyncTask<String, Void, TipsContainer>{
+// TODO 서버에서 TIPS만 내려주면 onPostExcute에서 실행할 TIPS전용 파서 만들어야됌.
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+        @Override
+        protected TipsContainer doInBackground(String... strings) {
+            String inputValue = strings[0];
+
+            OkHttpClient toServer;
+            toServer = OkHttpInitManager.getOkHttpClient();
+            okhttp3.Response response = null;
+
+            TipsContainer searchDetailTipsDB = new TipsContainer();
+
+
+            try{
+                toServer = OkHttpInitManager.getOkHttpClient();
+
+
+                RequestBody postBody = new FormBody.Builder()
+                        .add("user_code", String.valueOf(21)) //TODO 쉐어드프리페어런스로 적용.
+                        .add("content",String.valueOf(inputValue))
+                        .build();
+
+                Log.d("요청한값","입력해서 요청한값(TIPS):"+inputValue);
+
+                Request request = new Request.Builder()
+                        .url(NetworkDefineConstant.SEARCH_LIST_DETAIL_TIPS + "/"+ itemidValue)
+                        .post(postBody)
+                        .build();
+                Log.d("요청한url","입력된 url:"+(NetworkDefineConstant.SEARCH_LIST_DETAIL_TIPS+"/"+ itemidValue).toString());
+
+                response = toServer.newCall(request).execute();
+
+                if (response.isSuccessful()){
+                    String returnMessage = response.body().string();
+                    searchDetailTipsDB = SearchDetailTipsJSONParser.getSearchDetailTipsJsonParser(returnMessage); //만들어둔 파서로 returedMessage를 넣어서 파싱하여 homeDB에 값을 넣음.
+
+                }
+            }catch (Exception e){
+                Log.e("파싱에러", e.toString());
+            }finally {
+                if(response != null){
+                    response.close();
+                }
+            }
+
+
+            return searchDetailTipsDB;
+        }
+
+        @Override
+        protected void onPostExecute(TipsContainer s) {
+            super.onPostExecute(s);
+
+                mAdapter4 = new DetailCommentRecyclerAdapter(s.tips, SadajoContext.getContext());
+                mRecycler4.setAdapter(mAdapter4);
+                mAdapter4.notifyDataSetChanged();
+                scrollToBottom();
+
+
+        }
+
+
+    }
+
+
+
+
+
+
+            View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
             switch (view.getId()) {
@@ -480,6 +593,10 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
     }
 
 
+    // TODO 댓글 작성 완료하면 다시 받아와서 스크롤 포지션 내려야됌.
+    private void scrollToBottom() {
+        mRecycler4.scrollToPosition(mAdapter4.getItemCount() - 1);
+    }
 
 
     public Button createTagButton(String str, int i) {
