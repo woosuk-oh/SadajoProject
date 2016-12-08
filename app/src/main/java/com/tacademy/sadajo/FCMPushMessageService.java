@@ -40,7 +40,7 @@ public class FCMPushMessageService extends FirebaseMessagingService {
         try {
             //한글은 반드시 디코딩 해준다.
             //키 맞춰주기
-            sendPushNotification(URLDecoder.decode(receiveData.get("pushMessage"), "UTF-8"));
+            sendPushNotification(URLDecoder.decode(receiveData.get("message"), "UTF-8"));
         } catch (Exception e) {
 
         }

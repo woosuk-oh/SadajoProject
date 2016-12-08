@@ -47,7 +47,10 @@ public class ChattingDetailActivity extends BaseActivity {
 
     private int userAccount; //본인유저코드
 
-    private  boolean type = true;
+    private  int type;
+    private  int BOTTOMBAR = 0;
+    private  int MYPAGE = 1;
+
 
     private RecyclerView mMessagesView;
     private EditText mInputMessageView;
@@ -318,16 +321,16 @@ public class ChattingDetailActivity extends BaseActivity {
     }
     public void getTypeIntent() {
         Intent intent = getIntent();
-        type = intent.getBooleanExtra("type", true);
-        if (type == true) {
+        type = intent.getIntExtra("type", 0);
+        if (type == BOTTOMBAR) {
             //bottom navigation으로 이동한 경우 ChattingActivity에서 넘어옴
             roomNum =  intent.getIntExtra("roomNum", 0);
-            targetUserImg = intent.getExtras().getString("conUserImg"); //상대방 이미지
-            targetUserName = intent.getExtras().getString("conUserName"); //상대방 이름
-            targetUserCode = intent.getIntExtra("conUserCode",0);
+            targetUserImg = intent.getExtras().getString("targetUserImg"); //상대방 이미지
+            targetUserName = intent.getExtras().getString("targetUserName"); //상대방 이름
+            targetUserCode = intent.getIntExtra("targetUserCode",0);
 
 
-        } else if(type == false){
+        } else if(type == MYPAGE){
 
             // OtherMypageActivity에서 넘어온 데이터들
             roomNum = intent.getIntExtra("roomNum", 0);

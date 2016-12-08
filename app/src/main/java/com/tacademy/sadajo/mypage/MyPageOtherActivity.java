@@ -245,7 +245,7 @@ public class MyPageOtherActivity extends BaseActivity {
             intent.putExtra("receiver", chatListDBs.receiverCode); //요청받은 user 코드
             intent.putExtra("receiverName", chatListDBs.receiverName); //요청받은 user 이름
             intent.putExtra("receiverImg", chatListDBs.receiverImg); //요청받은 user 이미지
-            intent.putExtra("type", false);
+            intent.putExtra("type", 1);
             startActivity(intent);
             Log.e("roomitent", String.valueOf(chatListDBs.roomNum));
         }

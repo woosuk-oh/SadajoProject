@@ -134,11 +134,11 @@ public class HomeActivity extends BaseActivity {
 
         //로그인할 때 UserId 저장
         SharedPreferenceUtil sharedPreferenceUtil = new SharedPreferenceUtil(SadajoContext.getContext());
-        sharedPreferenceUtil.setAccessToken(1);
+        sharedPreferenceUtil.setAccessToken(2);
 
         userAccount = sharedPreferenceUtil.getAccessToken();
 
-        String fcmToken = FirebaseInstanceId.getInstance().getToken();
+        String fcmToken = FirebaseInstanceId.getInstance().getToken(); //푸시 토큰받아옴
 
         Log.e("Home Activity :",String.valueOf(userAccount));
         Log.e("Home fcmToken :",fcmToken);
