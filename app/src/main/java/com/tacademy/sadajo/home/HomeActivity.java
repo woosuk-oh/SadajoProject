@@ -1,6 +1,5 @@
 package com.tacademy.sadajo.home;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -142,13 +141,13 @@ public class HomeActivity extends BaseActivity {
     }
 
     public class AsyncHomeRequest extends AsyncTask<Void, Void, HomeDB> {
-        private ProgressDialog progressDialog;
+       // private ProgressDialog progressDialog;
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            progressDialog = ProgressDialog.show(HomeActivity.this,
-                    "서버입력중", "잠시만 기다려 주세요 ...", true);
+//            progressDialog = ProgressDialog.show(HomeActivity.this,
+//                    "서버입력중", "잠시만 기다려 주세요 ...", true);
         }
 
         @Override
@@ -190,9 +189,9 @@ public class HomeActivity extends BaseActivity {
                 e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
-                Toast.makeText(SadajoContext.getContext(),
-                        "서버와의 통신 연결이 원활치 않습니다.", Toast.LENGTH_SHORT).show();
-                  progressDialog.dismiss();
+//                Toast.makeText(SadajoContext.getContext(),
+//                        "서버와의 통신 연결이 원활치 않습니다.", Toast.LENGTH_SHORT).show();
+//                  progressDialog.dismiss();
             } finally {
                 if (response != null) {
                     response.close();
@@ -205,12 +204,12 @@ public class HomeActivity extends BaseActivity {
 
         @Override
         protected void onPostExecute(HomeDB s) {
-            progressDialog.dismiss();
+           // progressDialog.dismiss();
             super.onPostExecute(s);
-             progressDialog.dismiss();
+            // progressDialog.dismiss();
 
 //            if (homeDB != null) {
-                if (homeDB.getMsg().length() > 0 ) { //서버로부터 msg를 받았으면.
+                if (s != null ) { //서버로부터 msg를 받았으면.
 
                 cardView2CountryTextView.setText(s.getTravelCountry()); // 추천리스트 : 해당 국가
                 cardView3CountryTextView.setText(s.getTravelCountry()); // 추천리스트2(다른 쇼퍼맨 쇼핑리스트) : 해당 국가

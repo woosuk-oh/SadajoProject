@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.tacademy.sadajo.BaseActivity;
 import com.tacademy.sadajo.CustomRecyclerDecoration;
 import com.tacademy.sadajo.R;
+import com.tacademy.sadajo.SharedPreferenceUtil;
 import com.tacademy.sadajo.network.NetworkDefineConstant;
 import com.tacademy.sadajo.network.OkHttpInitManager;
 import com.tacademy.sadajo.network.shoppinglist.LikeListDetail;
@@ -30,6 +31,7 @@ public class LikeListDetailActivity extends BaseActivity {
     TextView toolbarTitle;
     LikeListDetailRecyclerViewAdapter likeDetailRecyclerViewAdapter;
     int listCode;
+    int userAccount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +42,9 @@ public class LikeListDetailActivity extends BaseActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);//title hidden
         getSupportActionBar().setDisplayHomeAsUpEnabled(true); //back icon
+
+        SharedPreferenceUtil sharedPreferenceUtil = new SharedPreferenceUtil();
+        userAccount = sharedPreferenceUtil.getSharedPreference(this, "userAccount");
 
         //타이틀 세팅
         Intent intent = getIntent();
@@ -95,7 +100,7 @@ public class LikeListDetailActivity extends BaseActivity {
 
 
                 RequestBody postBody = new FormBody.Builder()
-                        .add("user", "2")
+                        .add("user", String.valueOf(userAccount))
                         .add("listcode", String.valueOf(listCode)) //TODO:수정하기
                         .build();
 
