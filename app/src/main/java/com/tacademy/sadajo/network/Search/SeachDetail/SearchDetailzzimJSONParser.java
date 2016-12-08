@@ -18,7 +18,7 @@ public class SearchDetailzzimJSONParser {
             JSONObject searchDetailzzim = new JSONObject(responsedJSON);
 
 
-            searchDetailzzimDB.setZzimcount(searchDetailzzim.optInt("insertId"));
+            searchDetailzzimDB.setZzimcount(searchDetailzzim.optInt("likeCount"));
 
 
         } catch (JSONException e) {

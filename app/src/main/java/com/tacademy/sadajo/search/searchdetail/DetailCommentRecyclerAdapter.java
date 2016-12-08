@@ -52,7 +52,6 @@ public class DetailCommentRecyclerAdapter extends RecyclerView.Adapter<DetailCom
         ViewHolder holder = new ViewHolder(v);
 
 
-
         return holder;
     }
 

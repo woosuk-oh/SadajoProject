@@ -37,6 +37,8 @@ import com.tacademy.sadajo.network.OkHttpInitManager;
 import com.tacademy.sadajo.network.Search.SeachDetail.SearchDetailDB;
 import com.tacademy.sadajo.network.Search.SeachDetail.SearchDetailJSONParser;
 import com.tacademy.sadajo.network.Search.SeachDetail.SearchDetailTipsJSONParser;
+import com.tacademy.sadajo.network.Search.SeachDetail.SearchDetailshoppingDB;
+import com.tacademy.sadajo.network.Search.SeachDetail.SearchDetailshoppingJSONParser;
 import com.tacademy.sadajo.network.Search.SeachDetail.SearchDetailzzimDB;
 import com.tacademy.sadajo.network.Search.SeachDetail.SearchDetailzzimJSONParser;
 import com.tacademy.sadajo.network.Search.SeachDetail.TipsContainer;
@@ -70,7 +72,15 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
     ImageView countryimg;
     EditText tipsinput;
 
+    TextView zzimtext;
+    TextView shoptext;
+    LinearLayout itemexpandarea;
 
+    SearchDetailzzimDB zzimcountint = new SearchDetailzzimDB(); // 찜한 카운트
+    SearchDetailshoppingDB shoppingcountint = new SearchDetailshoppingDB(); // 쇼핑리스트 담은 카운트
+
+
+    private LinearLayoutManager layoutManager2; // 댓글달면 scrolltobottm 하기 위해 해줌.
     //푸쉬 테스트
 
     RecyclerView.LayoutManager layoutManager;
@@ -90,13 +100,14 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
 
     ArrayList<Integer> imageList = new ArrayList<>();
 
-    Button zzim;
+    Button zzim; //찜하기 버튼
     Button shopping;
 
     Toolbar searchDetailToolbar;
 
     SearchDetailPagerAdapter searchDetailPagerAdapter;
     SearchDetailDB searchDetailDB;
+
 
     int img_count; // 가져온 아이템의 이미지 갯수
 
@@ -111,6 +122,9 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
         /* onCreate에서 생성할 위젯 (텍스트뷰) */
         final TextView itemID = (TextView) findViewById(R.id.search_detail_item_name);
         itemID.setSelected(true);
+
+        zzimtext = (TextView) findViewById(R.id.detail_zzim_text);
+        shoptext = (TextView)findViewById(R.id.detail_shopping_text);
         country = (TextView) findViewById(R.id.search_detail_country_name);
         countryimg = (ImageView) findViewById(R.id.cuntry_detail_image);
         contenttext = (TextView) findViewById(R.id.search_detail_content_text);
@@ -212,8 +226,9 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
         layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         mRecycler3.setLayoutManager(layoutManager);
 
-        layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-        mRecycler4.setLayoutManager(layoutManager);
+         layoutManager2 = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        mRecycler4.setLayoutManager(layoutManager2);
+
 
         layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         mRecycler5.setLayoutManager(layoutManager);
@@ -224,8 +239,6 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
         /* 콜랩싱바에 있는 버튼 (찜하기, 담기) 위젯들. */
         zzim = (Button) findViewById(R.id.detail_zzim_button);
         zzim.setOnClickListener(onClickListener);
-
-
 
         shopping = (Button) findViewById(R.id.detail_shopping_button);
         shopping.setOnClickListener(onClickListener);
@@ -426,7 +439,18 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
                 mAdapter4 = new DetailCommentRecyclerAdapter(s.tips, SadajoContext.getContext());
                 mRecycler4.setAdapter(mAdapter4);
                 mAdapter4.notifyDataSetChanged();
-                scrollToBottom();
+
+            // TODO 스크롤 내리기 안됌
+            mAdapter4.notifyItemMoved(1,5);
+            mRecycler4.scrollTo(300, 300);
+
+        /*    scrollToPosition(mRecycler4.getAdapter().getItemCount());
+            itemexpandarea = (LinearLayout) v.findViewById(R.id.item_expand_area);
+
+            itemexpandarea.*/
+
+                    //mAdapter4.getItemCount()-1);
+
 
 
         }
@@ -447,7 +471,6 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
                     Toast.makeText(SearchDetail.this, "찜하기 완료!", Toast.LENGTH_SHORT).show();
 
 
-
                     zzim.post(new Runnable() {
                         @Override
                         public void run() {
@@ -455,58 +478,62 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
                                 @Override
                                 public void run() {
 
-                                OkHttpClient toServer;
-                                toServer=OkHttpInitManager.getOkHttpClient();
-                                Response response = null; // 응답
-
-
-                                SearchDetailzzimDB zzimcountint = new SearchDetailzzimDB();
-                                toServer=OkHttpInitManager.getOkHttpClient();
-
-                                RequestBody postBody = new FormBody.Builder()
-                                        .add("user", "1")
-                                        .add("goods", itemidValue)
-                                        .build();
-
-                                Request request = new Request.Builder()
-                                        .url(String.format(NetworkDefineConstant.SEARCH_LIST_DETAIL_ZZIM))
-                                        .post(postBody)
-                                        .build();
+                                    OkHttpClient toServer;
+                                    toServer = OkHttpInitManager.getOkHttpClient();
+                                    Response response = null; // 응답
 
 
 
-                                //동기 방식
-                                try
+                                    toServer = OkHttpInitManager.getOkHttpClient();
 
-                                {
-                                    response = toServer.newCall(request).execute();
+                                    RequestBody postBody = new FormBody.Builder()
+                                            .add("user", "1")
+                                            .add("goods", itemidValue)
+                                            .build();
+
+                                    Request request = new Request.Builder()
+                                            .url(String.format(NetworkDefineConstant.SEARCH_LIST_DETAIL_ZZIM))
+                                            .post(postBody)
+                                            .build();
 
 
-                                    if (response.isSuccessful()) { //연결에 성공하면
+                                    //동기 방식
+                                    try
 
-                                        String returedMessage = response.body().string(); // okhttp로 부터 받아온 데이터 json을 스트링형태로 변환하여 returendMessage에 담아둠. 이때, home부분의 모든 오브젝트를 가져와 담아둠.
+                                    {
+                                        response = toServer.newCall(request).execute();
 
-                                        zzimcountint = SearchDetailzzimJSONParser.getSearchDetailzzimJsonParser(returedMessage);
-                                        Log.d("찜","insertID 값 테스트. 들어갔는지??"+zzimcountint.getZzimcount());
 
-                                        //TODO 서버에서 goods(goods_code)별 count, state(눌림,안눌림) 처리가 완료되면 paser 수정, TextView에 적용 필요, selector 또한.
+                                        if (response.isSuccessful()) { //연결에 성공하면
+
+                                            String returedMessage = response.body().string(); // okhttp로 부터 받아온 데이터 json을 스트링형태로 변환하여 returendMessage에 담아둠. 이때, home부분의 모든 오브젝트를 가져와 담아둠.
+
+                                             zzimcountint = SearchDetailzzimJSONParser.getSearchDetailzzimJsonParser(returedMessage);
+                                            //Log.d("찜", "insertID 값 테스트. 들어갔는지??" + zzimcountint.getZzimcount());
+                                            runOnUiThread(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    zzimtext.setText(String.valueOf(zzimcountint.getZzimcount()));
+                                                }
+                                            });
+
+
+                                            Log.d("찜카운트",""+zzimcountint.getZzimcount());
+                                            //TODO 서버에서 goods(goods_code)별 count, state(눌림,안눌림) 처리가 완료되면 paser 수정, TextView에 적용 필요, selector 또한.
+                                        }
+
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                        Toast.makeText(SearchDetail.this, "일시적 네트워크 에러로 찜하기 실패", Toast.LENGTH_SHORT).show();
+                                    } finally
+
+                                    {
+                                        if (response != null) {
+                                            response.close();
+                                        }
                                     }
 
-                                }catch(IOException e)
-                                {
-                                    e.printStackTrace();
-                                    Toast.makeText(SearchDetail.this, "일시적 네트워크 에러로 찜하기 실패", Toast.LENGTH_SHORT).show();
-                                }
-
-                                finally
-
-                                {
-                                    if (response != null) {
-                                        response.close();
-                                    }
-                                }
-
-                                return;
+                                    return;
                                 }
                             }).start();
                         }
@@ -517,10 +544,81 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
                 // TODO 위 찜하기 처럼 .post내려주고 파서 만들기. (서버 완료되면)
                 case R.id.detail_shopping_button: //쇼핑리스트 클릭한 경우우
 
-                   Toast.makeText(SearchDetail.this, "쇼핑리스트에 담겼습니다", Toast.LENGTH_SHORT).show();
-                    break;
 
-            }
+
+
+
+                shopping.post(new Runnable() {
+                                  @Override
+                                  public void run() {
+                                      new Thread(new Runnable() {
+                                          @Override
+                                          public void run() {
+                                              OkHttpClient toServer;
+                                              toServer = OkHttpInitManager.getOkHttpClient();
+                                              Response response = null; // 응답
+
+
+                                              toServer = OkHttpInitManager.getOkHttpClient();
+
+                                              RequestBody postBody = new FormBody.Builder()
+                                                      .add("user", "50")
+                                                      .add("goods", itemidValue)
+                                                      .build();
+
+                                              Request request = new Request.Builder()
+                                                      .url(String.format(NetworkDefineConstant.SEARCH_LIST_DETAIL_SHOPPING))
+                                                      .post(postBody)
+                                                      .build();
+
+
+                                              //동기 방식
+                                              try
+
+                                              {
+                                                  response = toServer.newCall(request).execute();
+
+
+                                                  if (response.isSuccessful()) { //연결에 성공하면
+
+                                                      String returedMessage = response.body().string(); // okhttp로 부터 받아온 데이터 json을 스트링형태로 변환하여 returendMessage에 담아둠. 이때, home부분의 모든 오브젝트를 가져와 담아둠.
+
+                                                      shoppingcountint = SearchDetailshoppingJSONParser.getSearchDetailshoppingJsonParser(returedMessage);
+                                                      Log.d("담기", "insertID 값 테스트. 들어갔는지??" + shoppingcountint.getShoppingcount());
+
+                                                      runOnUiThread(new Runnable() {
+                                                          @Override
+                                                          public void run() {
+
+                                                              if(!shoppingcountint.result.equals("failed")) {
+                                                                  shoptext.setText(String.valueOf(shoppingcountint.getShoppingcount()));
+                                                                  Toast.makeText(SearchDetail.this, "쇼핑리스트에 담겼습니다", Toast.LENGTH_SHORT).show();
+                                                              }else if(shoppingcountint.result.equals("failed")){
+                                                                  Toast.makeText(SearchDetail.this, "여행 일정을 먼저 등록해주세요.", Toast.LENGTH_SHORT).show();
+                                                              }
+                                                          }
+                                                      });
+
+                                                      //TODO 서버에서 goods(goods_code)별 count, state(눌림,안눌림) 처리가 완료되면 paser 수정, TextView에 적용 필요, selector 또한.
+                                                  }
+                                              } catch (IOException e) {
+                                                  e.printStackTrace();
+                                                  Toast.makeText(SearchDetail.this, "일시적 네트워크 에러로 찜하기 실패", Toast.LENGTH_SHORT).show();
+                                              } finally
+
+                                              {
+                                                  if (response != null) {
+                                                      response.close();
+                                                  }
+                                              }
+
+                                              return;
+                                          }
+                                      }).start();
+                                  }
+                              });
+           break;
+            };
         }
     };
 
