@@ -158,10 +158,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="4"
-                    android:gravity="right">
+                    android:gravity="center">
                     <!--android:paddingTop="19dp"-->
 
-                    <ImageView
+                    <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/cuntry_detail_image"
                         android:layout_width="15dp"
                         android:layout_height="15dp"
@@ -568,6 +568,8 @@
             android:src="@drawable/search_chat" />
 
         <EditText
+
+            android:id="@+id/search_detail_comment_ed"
 
             android:layout_width="match_parent"
             android:layout_height="match_parent"

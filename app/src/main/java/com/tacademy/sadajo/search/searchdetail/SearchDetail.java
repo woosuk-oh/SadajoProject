@@ -19,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -32,9 +33,8 @@ import com.tacademy.sadajo.network.NetworkDefineConstant;
 import com.tacademy.sadajo.network.OkHttpInitManager;
 import com.tacademy.sadajo.network.Search.SeachDetail.SearchDetailDB;
 import com.tacademy.sadajo.network.Search.SeachDetail.SearchDetailJSONParser;
-
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.tacademy.sadajo.network.Search.SeachDetail.SearchDetailzzimDB;
+import com.tacademy.sadajo.network.Search.SeachDetail.SearchDetailzzimJSONParser;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -63,6 +63,7 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
     TextView unit;
     LinearLayout detailhashbutton;
     ImageView countryimg;
+    EditText tipsinput;
 
     //푸쉬 테스트
 
@@ -93,7 +94,7 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
 
     int img_count; // 가져온 아이템의 이미지 갯수
 
-    int itemidValue; // searchListActivity에서 넘겨준 키("key") + 값(itemName.getText().toString()) 을 "key"로 받아옴
+    String itemidValue; // searchListActivity에서 넘겨준 키("key") + 값(itemName.getText().toString()) 을 "key"로 받아옴
 
 
     @Override
@@ -108,6 +109,7 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
         countryimg = (ImageView) findViewById(R.id.cuntry_detail_image);
         contenttext = (TextView) findViewById(R.id.search_detail_content_text);
         unit = (TextView) findViewById(R.id.detail_price_unit);
+        tipsinput = (EditText) findViewById(R.id.search_detail_comment_ed);
 
 
         /* 상품의 ID값과 상품명, 판매가능 국가명을 인텐트로 가져옴 */
@@ -117,7 +119,7 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
         String countryValue;
         String countryimgresource;
 
-        itemidValue = intent.getExtras().getInt("key");
+        itemidValue = intent.getExtras().getString("key");
         itemValue = intent.getExtras().getString("key2");
         countryValue = intent.getExtras().getString("key3");
         countryimgresource = intent.getExtras().getString("key4");
@@ -201,7 +203,7 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
     }
 
 
-    public class AsyncSearchDetailRequest extends AsyncTask<Integer, Void, SearchDetailDB> {
+    public class AsyncSearchDetailRequest extends AsyncTask<String, Void, SearchDetailDB> {
     /*     인자값 설명
         첫번째 Void: doInBackgorund로 보내는
         두번째 Void: Progress
@@ -217,10 +219,10 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
 
 
         @Override
-        protected SearchDetailDB doInBackground(Integer... params) {
+        protected SearchDetailDB doInBackground(String... params) {
             OkHttpClient toServer;
             toServer = OkHttpInitManager.getOkHttpClient();
-            int itemidValue = params[0];
+            String itemidValue = params[0];
             Response response = null; // 응답
 
             SearchDetailDB searchDetailDB = new SearchDetailDB();
@@ -248,7 +250,7 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
                 }
             } catch (IOException e) {
                 e.printStackTrace();
-                Toast.makeText(SadajoContext.getContext(), "서버와의 연결이 원활치 않음", Toast.LENGTH_SHORT).show();
+              //  Toast.makeText(SearchDetail.this, "서버와의 연결이 원활치 않음", Toast.LENGTH_SHORT).show();
             } finally {
                 if (response != null) {
                     response.close();
@@ -324,70 +326,82 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
     }
 
 
-    Button.OnClickListener onClickListener = new View.OnClickListener() {
+    View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
             switch (view.getId()) {
                 case R.id.detail_zzim_button:
                     Toast.makeText(SearchDetail.this, "찜하기 완료!", Toast.LENGTH_SHORT).show();
 
+
+
                     zzim.post(new Runnable() {
                         @Override
                         public void run() {
-                            OkHttpClient toServer;
-                            toServer = OkHttpInitManager.getOkHttpClient();
-                            Response response = null; // 응답
+                            new Thread(new Runnable() {
+                                @Override
+                                public void run() {
 
-                            int zzimcountint=0;
-
-                            SearchDetailDB searchDetailDB2 = new SearchDetailDB();
-                            toServer = OkHttpInitManager.getOkHttpClient();
-
-                            RequestBody postBody = new FormBody.Builder()
-                                    .add("user", "1")
-                                    .add("goods", String.valueOf(itemidValue))
-                                    .build();
-
-                            Request request = new Request.Builder()
-                                    .url(String.format(NetworkDefineConstant.SEARCH_LIST_DETAIL_ZZIM))
-                                    .post(postBody)
-                                    .build();
+                                OkHttpClient toServer;
+                                toServer=OkHttpInitManager.getOkHttpClient();
+                                Response response = null; // 응답
 
 
-                            //동기 방식
-                            try {
-                                response = toServer.newCall(request).execute();
+                                SearchDetailzzimDB zzimcountint = new SearchDetailzzimDB();
+                                toServer=OkHttpInitManager.getOkHttpClient();
+
+                                RequestBody postBody = new FormBody.Builder()
+                                        .add("user", "1")
+                                        .add("goods", itemidValue)
+                                        .build();
+
+                                Request request = new Request.Builder()
+                                        .url(String.format(NetworkDefineConstant.SEARCH_LIST_DETAIL_ZZIM))
+                                        .post(postBody)
+                                        .build();
 
 
-                                if (response.isSuccessful()) { //연결에 성공하면
 
-                                    String returedMessage = response.body().string(); // okhttp로 부터 받아온 데이터 json을 스트링형태로 변환하여 returendMessage에 담아둠. 이때, home부분의 모든 오브젝트를 가져와 담아둠.
-                                    //  Log.e("wooseokLog", returedMessage);
+                                //동기 방식
+                                try
 
-                                    try {
-                                        JSONObject zzimcount = new JSONObject(returedMessage);
-                                        zzimcountint = zzimcount.getInt("inertID");
+                                {
+                                    response = toServer.newCall(request).execute();
 
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
-                                        Toast.makeText(SearchDetail.this, "찜하기 실패(갯수못가져옴)", Toast.LENGTH_SHORT).show();
+
+                                    if (response.isSuccessful()) { //연결에 성공하면
+
+                                        String returedMessage = response.body().string(); // okhttp로 부터 받아온 데이터 json을 스트링형태로 변환하여 returendMessage에 담아둠. 이때, home부분의 모든 오브젝트를 가져와 담아둠.
+
+                                        zzimcountint = SearchDetailzzimJSONParser.getSearchDetailzzimJsonParser(returedMessage);
+                                        Log.d("찜","insertID 값 테스트. 들어갔는지??"+zzimcountint.getZzimcount());
+
+                                        //TODO 서버에서 goods(goods_code)별 count, state(눌림,안눌림) 처리가 완료되면 paser 수정, TextView에 적용 필요, selector 또한.
+                                    }
+
+                                }catch(IOException e)
+                                {
+                                    e.printStackTrace();
+                                    Toast.makeText(SearchDetail.this, "일시적 네트워크 에러로 찜하기 실패", Toast.LENGTH_SHORT).show();
+                                }
+
+                                finally
+
+                                {
+                                    if (response != null) {
+                                        response.close();
                                     }
                                 }
 
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                                Toast.makeText(SearchDetail.this, "일시적 네트워크 에러로 찜하기 실패", Toast.LENGTH_SHORT).show();
-                            }finally {
-                                if (response != null) {
-                                    response.close();
+                                return;
                                 }
-                            }
-                            return;
+                            }).start();
                         }
                     });
                     break;
 
 
+                // TODO 위 찜하기 처럼 .post내려주고 파서 만들기. (서버 완료되면)
                 case R.id.detail_shopping_button: //쇼핑리스트 클릭한 경우우
 
                    Toast.makeText(SearchDetail.this, "쇼핑리스트에 담겼습니다", Toast.LENGTH_SHORT).show();
@@ -438,6 +452,8 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
             ImageView itemImg = (ImageView) view.findViewById(R.id.search_detail_viewpager_item_img);
             Glide.with(SadajoContext.getContext())
                     .load(imageList.get(position))
+                    .centerCrop()
+                    .thumbnail(0.1f)
                     .into(itemImg);
             container.addView(view);
             return view;
@@ -462,6 +478,8 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
             this.imageList = imageList;
         }
     }
+
+
 
 
     public Button createTagButton(String str, int i) {

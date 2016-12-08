@@ -12,6 +12,8 @@ public class SearchDetailJSONParser {
     public static SearchDetailDB getSearchDetailJsonParser(String responsedJSON) {
 
 
+
+
         SearchDetailDB searchDetailDB = new SearchDetailDB();
         ArrayList<TipsDB> tipsContainer = new ArrayList<>(); //배열에 있는 TipsDB 객체들 하나씩을 담기위한 Container
         ArrayList<ShopermanDB> shoperContainer = new ArrayList<>();

@@ -98,6 +98,8 @@ public class SearchListRecyclerAdapter extends RecyclerView.Adapter<SearchListRe
 
         Glide.with(SadajoContext.getContext())
                 .load(searchgoodsDBs.get(position).getItem_img())
+                .centerCrop() // 이미지를 중앙에 맞게 자른다.
+                .thumbnail(0.1f)
                 .into(holder.itemImage);
 
         Glide.with(SadajoContext.getContext())
@@ -120,7 +122,7 @@ public class SearchListRecyclerAdapter extends RecyclerView.Adapter<SearchListRe
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, SearchDetail.class);
-                intent.putExtra("key", searchgoodsDBs.get(position).getItem_id());
+                intent.putExtra("key", searchgoodsDBs.get(position).getGoods_code());
                 intent.putExtra("key2", searchgoodsDBs.get(position).getGoods_name());
                 intent.putExtra("key3", searchgoodsDBs.get(position).getCountry());
                 intent.putExtra("key4", searchgoodsDBs.get(position).getCountry_img());

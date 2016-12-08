@@ -112,6 +112,14 @@ public class MyPageActivity extends BaseActivity {
 
         SharedPreferenceUtil sharedPreferenceUtil = new SharedPreferenceUtil();
         userAccount = sharedPreferenceUtil.getSharedPreference(this, "userAccount");
+        Log.e("userAccount", "현재 유저 아이디"+userAccount);
+
+
+     /*   Intent intent;
+        Context context = MyPageActivity.this;
+        intent = new Intent(context, DealSellListFragment.class);
+        intent.putExtra("user", userAccount);
+        startActivity(intent);*/
 
     }
 

@@ -16,20 +16,22 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.tacademy.sadajo.R;
-import com.tacademy.sadajo.shoppinglist.ShoppingListData;
+import com.tacademy.sadajo.SadajoContext;
+import com.tacademy.sadajo.network.mypage.DealListData;
 
 import java.util.ArrayList;
 
 public class SellListRecyclerViewAdapter
         extends RecyclerView.Adapter<SellListRecyclerViewAdapter.ViewHolder> {
 
-    private ArrayList<ShoppingListData> shoppingListDatas;
+    private ArrayList<DealListData> dealListDatas;
     private Context context;
 
-    public SellListRecyclerViewAdapter(Context context, ArrayList<ShoppingListData> shoppingListDatas) {
+    public SellListRecyclerViewAdapter(Context context, ArrayList<DealListData> dealListDatas) {
         this.context = context;
-        this.shoppingListDatas = shoppingListDatas;
+        this.dealListDatas = dealListDatas;
 
     }
 
@@ -92,14 +94,32 @@ public class SellListRecyclerViewAdapter
     @Override
     public void onBindViewHolder(final SellListRecyclerViewAdapter.ViewHolder holder, final int position) {
 
-        holder.countryEngName.setText("PHILIPPINES");
-        holder.countryKorName.setText("필리핀, 마닐라");
-        holder.userNameTextView.setText("닉네임");
-        holder.productNameTextView.setText("산타마리아노벨라 향수 최대여기까");
-        holder.dateTextView.setText("2016.11.20");
+  /*      CountryCodeHashMap countryCodeHashMap = new CountryCodeHashMap();
 
-        //holder.productImageView.setImageResource(R.drawable.taipei);
-        holder.profileImageView.setImageResource(R.drawable.profile_empty);
+        String countryCode = countryCodeHashMap
+                .getCountryCode(dealListDatas.get(position).country_name);
+        dealListDatas.get(position).country_name = countryCode;
+        Log.d("countryCode","국가명"+countryCode);
+*/
+
+        holder.countryEngName.setText(dealListDatas.get(position).country_name); // TODO 서버로부터 국가명 받아와야 됌
+
+        holder.countryKorName.setText(dealListDatas.get(position).country_name); // TODO 서버로부터 한글 국가명,도시명 받아와야 됌
+        holder.userNameTextView.setText(""); // TODO 서버로부터 받아온 값 없음.
+        holder.productNameTextView.setText(dealListDatas.get(position).goods_name);
+        holder.dateTextView.setText(dealListDatas.get(position).thedate);
+
+        Glide.with(SadajoContext.getContext())
+                .load(dealListDatas.get(position).carr_img)
+                .placeholder(R.drawable.profile_empty)
+                .thumbnail(0.1f)
+                .into(holder.profileImageView);
+
+        Glide.with(SadajoContext.getContext())
+                .load(dealListDatas.get(position).country_img)
+                .placeholder(R.drawable.profile_empty)
+                .thumbnail(0.1f)
+                .into(holder.productImageView);
 
         holder.okButton.setOnClickListener(new View.OnClickListener() { //사다조 요청수락버튼 클릭시
 
@@ -141,7 +161,7 @@ public class SellListRecyclerViewAdapter
 
     @Override
     public int getItemCount() {
-        return shoppingListDatas.size();
+        return dealListDatas.size();
     }
 }
 

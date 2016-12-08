@@ -1,5 +1,6 @@
 package com.tacademy.sadajo.search.searchlist;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -236,6 +237,19 @@ public class SearchListActivity extends BaseActivity {
             }
         });
 
+
+        Intent intent = getIntent();
+        String hashtag ="";
+
+        if(intent.hasExtra("tag")){ // tag라는 key값으로 받은 intent의 밸류가 있는지 체크.
+            hashtag = intent.getExtras().getString("tag");
+
+            if (!hashtag.equals("")) {
+                searchBar.setText(hashtag);
+            }
+    Log.d("해시태그", "해시태그값" + hashtag);
+}
+
         /* 초성 검색 부분 */
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this,
                 R.layout.select_searchlist_country_item, getResources().getStringArray(R.array.country)); // 스피너 레이아웃 기본으로 제공.
@@ -339,8 +353,6 @@ public class SearchListActivity extends BaseActivity {
         });
 
 
-
-
 /*       if(mAdapter.size() > 0){
             mAdapter.clearData();
             melonRecyclerViewAdapter.notifyDataSetChanged();
@@ -412,13 +424,13 @@ public class SearchListActivity extends BaseActivity {
                 }
 
                 if(!param2.equals("") && !param3.equals("")){
-                    url = url + "?name="+param2+"&"+param3; //검색창 안에 입력 값있고 인기,최신순 누른 경우.
+                    url = url + "?name="+param2+"&"+param3+"&hashtag="+param2; //검색창 안에 입력 값있고 인기,최신순 누른 경우.
                     Log.d("URL1-5","검색창 안에 입력 값있고 인기,최신순 인 경우:"+url);
                 }
 
                 if(!param2.equals("") && param3.equals("")){
                     // 검색 값 있고 최신,인기순 안누른 경우
-                    url = url + "?name="+param2;
+                    url = url + "?name="+param2+"&hashtag="+param2;
                     Log.d("URL1-6","검색 값 있고 최신,인기순 안누른 경우:"+url);
                 }
 
@@ -440,7 +452,7 @@ public class SearchListActivity extends BaseActivity {
                         Log.d("URL2-2"," URL 주소:"+url);
                     }
                     if(!param2.equals("")){ // 검색값 있는 경우
-                        url = url + "&name="+param2;
+                        url = url + "&name="+param2+"&hashtag="+param2;
                         Log.d("URL2-3","URL 주소:"+url);
                     }
                 }
@@ -452,7 +464,7 @@ public class SearchListActivity extends BaseActivity {
                         Log.d("URL3-1","URL 주소:"+url);
                     }
                     if(!param2.equals("")){ // 검색값 입력됨
-                        url = url + "&name="+ param2;
+                        url = url + "&name="+ param2+"&hashtag="+param2;
                         Log.d("URL3-2","URL 주소:"+url);
                     }
                 }
