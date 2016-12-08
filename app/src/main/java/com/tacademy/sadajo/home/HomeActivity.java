@@ -48,6 +48,7 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
+import static android.app.ProgressDialog.show;
 import static android.graphics.Typeface.NORMAL;
 
 
@@ -89,7 +90,7 @@ public class HomeActivity extends BaseActivity {
 
     HomeUserRecyclerViewAdapter homeUserRecyclerViewAdapter;
     HomeDB homeDB;
-
+    ProgressDialog progressDialog1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -140,14 +141,15 @@ public class HomeActivity extends BaseActivity {
 
         String fcmToken = FirebaseInstanceId.getInstance().getToken(); //푸시 토큰받아옴
 
-        Log.e("Home Activity :",String.valueOf(userAccount));
-        Log.e("Home fcmToken :",fcmToken);
+        Log.e("Home Activity :", String.valueOf(userAccount));
+        Log.e("Home fcmToken :", fcmToken);
     }
 
     @Override
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         new AsyncHomeRequest().execute();
+
     }
 
     public class AsyncHomeRequest extends AsyncTask<Void, Void, HomeDB> {
@@ -156,7 +158,7 @@ public class HomeActivity extends BaseActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            progressDialog = ProgressDialog.show(HomeActivity.this,
+            progressDialog = show(HomeActivity.this,
                     "서버입력중", "잠시만 기다려 주세요 ...", true);
         }
 
@@ -197,18 +199,15 @@ public class HomeActivity extends BaseActivity {
                 }
             } catch (MalformedURLException e) {
                 e.printStackTrace();
-                networkfail.sendEmptyMessage(0);
+                //  networkfail.sendEmptyMessage(0);
                 progressDialog.dismiss();
             } catch (IOException e) {
                 e.printStackTrace();
-                networkfail.sendEmptyMessage(0);
-                Log.d("네트워크","네트워크 통신 에러 테스트");
+                // networkfail.sendEmptyMessage(0);
 
+                Log.d("네트워크", "네트워크 통신 에러 테스트");
 
-                  progressDialog.dismiss();
-            }
-
-            finally {
+            } finally {
                 if (response != null) {
                     response.close();
                 }
@@ -220,15 +219,15 @@ public class HomeActivity extends BaseActivity {
 
         @Override
         protected void onPostExecute(HomeDB s) {
-            progressDialog.dismiss();
             super.onPostExecute(s);
-             progressDialog.dismiss();
+            //progressDialog.dismiss();
 
 //            if (homeDB != null) {
 
 
-                if (homeDB.getMsg().length() > 0 ) { //서버로부터 msg를 받았으면.
-
+            if (s != null) { //서버로부터 msg를 받았으면.
+                progressDialog.dismiss();
+                Log.e("progerss","progress");
                 cardView2CountryTextView.setText(s.getTravelCountry()); // 추천리스트 : 해당 국가
                 cardView3CountryTextView.setText(s.getTravelCountry()); // 추천리스트2(다른 쇼퍼맨 쇼핑리스트) : 해당 국가
 
@@ -259,8 +258,10 @@ public class HomeActivity extends BaseActivity {
 
 
             }
+
         }
     }
+
 
     private void setBottomButtonClickListener() {
         homeBtn = (ImageButton) findViewById(R.id.homeBtn);
