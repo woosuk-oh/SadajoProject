@@ -11,6 +11,7 @@ import android.util.Log;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
+import com.tacademy.sadajo.chatting.ChattingDetailActivity;
 import com.tacademy.sadajo.home.HomeActivity;
 
 import java.net.URLDecoder;
@@ -37,10 +38,14 @@ public class FCMPushMessageService extends FirebaseMessagingService {
         }
         //실제 푸쉬로 넘어온 데이터
         Map<String, String> receiveData = remoteMessage.getData();   //실제 보낸 메세지가 들어가 있음
+       //실제 보낸 메세지가 들어가 있음
         try {
             //한글은 반드시 디코딩 해준다.
             //키 맞춰주기
+//            sendPushNotification(URLDecoder.decode(receiveData.get("message"), "UTF-8"),
+//                    URLDecoder.decode(receiveData.get("room"), "UTF-8"));
             sendPushNotification(URLDecoder.decode(receiveData.get("message"), "UTF-8"));
+
         } catch (Exception e) {
 
         }
@@ -58,7 +63,37 @@ public class FCMPushMessageService extends FirebaseMessagingService {
 
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
                 .setSmallIcon(R.mipmap.ic_launcher)//스테이터스바 아이콘
-                .setContentTitle("FCM 푸쉬 메세지")
+                .setContentTitle("사다조")
+                .setContentText(pushMessage)
+                .setAutoCancel(true)
+                .setSound(defaultSoundUri)
+                .setContentIntent(pendingIntent);
+
+        NotificationManager notificationManager =
+                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.notify(0, notificationBuilder.build());
+    }
+
+    //메세지 푸쉬
+    private void sendPushNotification(String pushMessage,String roomNum) {
+        Intent intent = new Intent(this,ChattingDetailActivity.class);
+//        intent.putExtra("fcmExtra", pushMessage);
+//        intent.putExtra("roomNum",Integer.parseInt(roomNum));
+//        intent.putExtra("receiver", ); //상대방
+//        intent.getStringExtra("receiverName");
+//        intent.getStringExtra("receiverImg");
+//        intent.putExtra("type",2);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
+                PendingIntent.FLAG_ONE_SHOT);//한번 실행하면 스테이터스바에서 없어지게
+
+        Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        //사운드
+
+        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
+                .setSmallIcon(R.mipmap.ic_launcher)//스테이터스바 아이콘
+                .setContentTitle("사다조")
                 .setContentText(pushMessage)
                 .setAutoCancel(true)
                 .setSound(defaultSoundUri)

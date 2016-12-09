@@ -50,6 +50,7 @@ public class ChattingDetailActivity extends BaseActivity {
     private  int type;
     private  int BOTTOMBAR = 0;
     private  int MYPAGE = 1;
+    private  int PUSH = 2;
 
 
     private RecyclerView mMessagesView;
@@ -335,6 +336,12 @@ public class ChattingDetailActivity extends BaseActivity {
             // OtherMypageActivity에서 넘어온 데이터들
             roomNum = intent.getIntExtra("roomNum", 0);
            // sender = intent.getIntExtra("sender", 0); //본인
+            targetUserCode = intent.getIntExtra("receiver", 0); //상대방
+            targetUserName = intent.getStringExtra("receiverName");
+            targetUserImg = intent.getStringExtra("receiverImg");
+
+        }else if(type == PUSH){
+            roomNum = intent.getIntExtra("roomNum", 0);
             targetUserCode = intent.getIntExtra("receiver", 0); //상대방
             targetUserName = intent.getStringExtra("receiverName");
             targetUserImg = intent.getStringExtra("receiverImg");
