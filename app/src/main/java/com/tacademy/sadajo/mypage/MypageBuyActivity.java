@@ -12,6 +12,8 @@ import com.tacademy.sadajo.BaseActivity;
 import com.tacademy.sadajo.MyPagerAdapter;
 import com.tacademy.sadajo.R;
 
+//TODO ViewPager 없애고 tablayout.setOnSelectListener 수정.
+
 public class MypageBuyActivity extends BaseActivity {
     TabLayout tabLayout;
     int tabNum;
@@ -42,8 +44,34 @@ public class MypageBuyActivity extends BaseActivity {
         }
         tabLayout = (TabLayout) findViewById(R.id.mypageDealTab);
         tabLayout.setupWithViewPager(viewPager);
-        setTabImage();
 
+        setTabImage();
+/*
+
+    tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener(){
+        @Override
+        public void onTabReselected(TabLayout.Tab tab) {
+
+        }
+
+        @Override
+        public void onTabSelected(TabLayout.Tab tab) {
+            if(tabLayout.getSelectedTabPosition() == 0){
+                tabLayout.addView()
+            }
+            else{
+
+            }
+        }
+
+        @Override
+        public void onTabUnselected(TabLayout.Tab tab) {
+
+        }
+    });
+
+
+*/
 
         //select될 탭 설정
         Intent intent = getIntent();
@@ -69,6 +97,8 @@ public class MypageBuyActivity extends BaseActivity {
         buySellPagerAdapter.appendFragment(DealSellListFragment.newInstance(2), "사다줌");
         viewPager.setAdapter(buySellPagerAdapter);
     }
+
+
 
 
 

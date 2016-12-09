@@ -31,7 +31,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.tacademy.sadajo.BaseActivity;
 import com.tacademy.sadajo.R;
-import com.tacademy.sadajo.SadajoContext;
+import com.tacademy.sadajo.SharedPreferenceUtil;
 import com.tacademy.sadajo.network.NetworkDefineConstant;
 import com.tacademy.sadajo.network.OkHttpInitManager;
 import com.tacademy.sadajo.network.Search.SeachDetail.SearchDetailDB;
@@ -52,14 +52,13 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
+import static com.tacademy.sadajo.SadajoContext.getContext;
 import static com.tacademy.sadajo.network.NetworkDefineConstant.SEARCH_LIST_DETAIL;
 
 /**
  * Created by woosuk on 2016-11-14.
  */
 
-
-// TODO 여기서 좋아요, 담기 부분 누를때마다 서버콜, 포스트방식으로 -> user, goods (goods_code임)
 
 
 public class SearchDetail extends BaseActivity implements ViewPager.OnPageChangeListener {
@@ -74,13 +73,16 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
 
     TextView zzimtext;
     TextView shoptext;
-    LinearLayout itemexpandarea;
+
+
+    int userAccount=0; //쉐어드 프리페어런스로 받기 전 초기화.
 
     SearchDetailzzimDB zzimcountint = new SearchDetailzzimDB(); // 찜한 카운트
     SearchDetailshoppingDB shoppingcountint = new SearchDetailshoppingDB(); // 쇼핑리스트 담은 카운트
 
 
     private LinearLayoutManager layoutManager2; // 댓글달면 scrolltobottm 하기 위해 해줌.
+
     //푸쉬 테스트
 
     RecyclerView.LayoutManager layoutManager;
@@ -133,6 +135,11 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
         tipsinput.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
         tipsinput.setInputType(InputType.TYPE_CLASS_TEXT);
 
+
+        // SharedPreference 아이디값 userAccount로 가져옴.
+        SharedPreferenceUtil sharedPreferenceUtil = new SharedPreferenceUtil(getContext());
+        userAccount = sharedPreferenceUtil.getAccessToken();
+
         tipsinput.post(new Runnable() {
             @Override
             public void run() {
@@ -178,7 +185,7 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
         itemID.setText(itemValue); // 인텐트로 받아온 아이템의 id와 아이템의 이름 중 이름을 setText 해준다.
         country.setText(countryValue);
 
-        Glide.with(SadajoContext.getContext())
+        Glide.with(getContext())
                 .load(countryimgresource)
                 .into(countryimg);
 
@@ -233,6 +240,7 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
         layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         mRecycler5.setLayoutManager(layoutManager);
 
+//        detailscroll = (ScrollView) findViewById(R.id.detail_body_scrollview); // scrolltobottom 먹이기 위해서 했는데 안됌..
 
 
 
@@ -322,31 +330,35 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
             country.setText(searchDetailDB.getGoods_country());*/
 
             // 쇼퍼맨에게 부탁해볼까요? 리싸이클러뷰 연결. (인자값 보냄)
-            mAdapter = new DetailShopermanRecyclerAdapter(SadajoContext.getContext(), s.shoperman);
+            mAdapter = new DetailShopermanRecyclerAdapter(getContext(), s.shoperman);
             mRecycler.setAdapter(mAdapter);
+            mRecycler.setNestedScrollingEnabled(false); // 리싸이클러뷰 스크롤 내리거나 올리는거 빡빡한 경우 세팅해줌.
             mAdapter.notifyDataSetChanged();
 
             // 얼마에 구매했어요? 리싸이클러뷰 연결
-            mAdapter2 = new DetailPriceItemsRecyclerAdapter(s.tag_price, SadajoContext.getContext());
+            mAdapter2 = new DetailPriceItemsRecyclerAdapter(s.tag_price, getContext());
             mRecycler2.setAdapter(mAdapter2);
+            mRecycler2.setNestedScrollingEnabled(false); // 리싸이클러뷰 스크롤 내리거나 올리는거 빡빡한 경우 세팅해줌.
             mAdapter2.notifyDataSetChanged();
 
             // 얼마에 구매했어요?2번째 부분 리싸이클러뷰 연결
-            mAdapter3 = new DetailPriceItems2RecyclerAdapter(s.price, SadajoContext.getContext());
+            mAdapter3 = new DetailPriceItems2RecyclerAdapter(s.price, getContext());
             mRecycler3.setAdapter(mAdapter3);
+            mRecycler3.setNestedScrollingEnabled(false); // 리싸이클러뷰 스크롤 내리거나 올리는거 빡빡한 경우 세팅해줌.
             mAdapter3.notifyDataSetChanged();
 
             unit.setText(s.getUnit().toString());
 
             // 쇼퍼맨이 알려주는 구매 TIP (댓글)
-            mAdapter4 = new DetailCommentRecyclerAdapter(s.tips, SadajoContext.getContext());
+            mAdapter4 = new DetailCommentRecyclerAdapter(s.tips, getContext());
             mRecycler4.setAdapter(mAdapter4);
+            mRecycler4.setNestedScrollingEnabled(false); // 리싸이클러뷰 스크롤 내리거나 올리는거 빡빡한 경우 세팅해줌.
             mAdapter4.notifyDataSetChanged();
 
 
 
             // 어디서 살 수 있어요?
-            mAdapter5 = new DetailItemLocationRecyclerAdapter(s.sell_place, SadajoContext.getContext());
+            mAdapter5 = new DetailItemLocationRecyclerAdapter(s.sell_place, getContext());
             mRecycler5.setAdapter(mAdapter5);
             mAdapter5.notifyDataSetChanged();
 
@@ -379,7 +391,7 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
 
 
     public class TipsInputAsync extends AsyncTask<String, Void, TipsContainer>{
-// TODO 서버에서 TIPS만 내려주면 onPostExcute에서 실행할 TIPS전용 파서 만들어야됌.
+
 
         @Override
         protected void onPreExecute() {
@@ -401,7 +413,7 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
 
 
                 RequestBody postBody = new FormBody.Builder()
-                        .add("user_code", String.valueOf(21)) //TODO 쉐어드프리페어런스로 적용.
+                        .add("user_code", ""+userAccount)
                         .add("content",String.valueOf(inputValue))
                         .build();
 
@@ -436,14 +448,17 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
         protected void onPostExecute(TipsContainer s) {
             super.onPostExecute(s);
 
-                mAdapter4 = new DetailCommentRecyclerAdapter(s.tips, SadajoContext.getContext());
+                mAdapter4 = new DetailCommentRecyclerAdapter(s.tips, getContext());
                 mRecycler4.setAdapter(mAdapter4);
                 mAdapter4.notifyDataSetChanged();
+                mRecycler4.setNestedScrollingEnabled(false);
 
-            // TODO 스크롤 내리기 안됌
+            scrollToBottom();
+
+ /*           // TODO 스크롤 내리기 안됌
             mAdapter4.notifyItemMoved(1,5);
             mRecycler4.scrollTo(300, 300);
-
+*/
         /*    scrollToPosition(mRecycler4.getAdapter().getItemCount());
             itemexpandarea = (LinearLayout) v.findViewById(R.id.item_expand_area);
 
@@ -457,8 +472,6 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
 
 
     }
-
-
 
 
 
@@ -487,7 +500,7 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
                                     toServer = OkHttpInitManager.getOkHttpClient();
 
                                     RequestBody postBody = new FormBody.Builder()
-                                            .add("user", "1")
+                                            .add("user", ""+userAccount)
                                             .add("goods", itemidValue)
                                             .build();
 
@@ -541,12 +554,7 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
                     break;
 
 
-                // TODO 위 찜하기 처럼 .post내려주고 파서 만들기. (서버 완료되면)
                 case R.id.detail_shopping_button: //쇼핑리스트 클릭한 경우우
-
-
-
-
 
                 shopping.post(new Runnable() {
                                   @Override
@@ -562,7 +570,7 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
                                               toServer = OkHttpInitManager.getOkHttpClient();
 
                                               RequestBody postBody = new FormBody.Builder()
-                                                      .add("user", "50")
+                                                      .add("user", ""+userAccount)
                                                       .add("goods", itemidValue)
                                                       .build();
 
@@ -661,7 +669,7 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
         public Object instantiateItem(ViewGroup container, int position) { // onBindView
             View view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.search_detail_view_pager_item, container, false);
             ImageView itemImg = (ImageView) view.findViewById(R.id.search_detail_viewpager_item_img);
-            Glide.with(SadajoContext.getContext())
+            Glide.with(getContext())
                     .load(imageList.get(position))
                     .centerCrop()
                     .thumbnail(0.1f)
@@ -698,7 +706,7 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
 
 
     public Button createTagButton(String str, int i) {
-        Button button = new Button(SadajoContext.getContext());
+        Button button = new Button(getContext());
         button.setText(str); //서버로부터 받아온 tag text set
         button.setBackgroundResource(R.drawable.tag_button_file); //tag ninepatch background적용
 
