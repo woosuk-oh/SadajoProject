@@ -64,7 +64,9 @@ public class MyPageActivity extends BaseActivity {
     TabLayout tabLayout;
     Toolbar toolbar;
 
-    boolean type;
+    int type;
+    int BOTTOM = 0;
+    int SHOPERMAN =1;
     int userAccount;
 
     @Override
@@ -205,7 +207,7 @@ public class MyPageActivity extends BaseActivity {
         long currentTime = System.currentTimeMillis();
         long intervalTime = currentTime - backPressedTime;
 
-        if (type == true) {
+        if (type == BOTTOM) {
             if (0 <= intervalTime && FINSH_INTERVAL_TIME >= intervalTime) {
                 super.onBackPressed();
             } else {
@@ -242,8 +244,8 @@ public class MyPageActivity extends BaseActivity {
 
     public void getTypeIntent() {
         Intent intent = getIntent();
-        type = intent.getBooleanExtra("type", true);
-        if (type == false) { //bottom navigation으로 이동한 것이 아닌 경우
+        type = intent.getIntExtra("type", 0);
+        if (type == SHOPERMAN) { //bottom navigation으로 이동한 것이 아닌 경우
             FrameLayout bottomBar = (FrameLayout) findViewById(R.id.frameBottomBar);
             bottomBar.setVisibility(View.GONE);//bottom navigation 제거
             getSupportActionBar().setDisplayHomeAsUpEnabled(true); //back icon 생성

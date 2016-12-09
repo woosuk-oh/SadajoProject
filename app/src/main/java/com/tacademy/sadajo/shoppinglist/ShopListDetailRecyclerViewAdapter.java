@@ -84,7 +84,9 @@ public class ShopListDetailRecyclerViewAdapter
             public void onClick(View v) {
 
                 Intent intent = new Intent(context, SearchDetail.class);
-                intent.putExtra("key", holder.itemProductNameTextView.getText());
+                intent.putExtra("key",  shopGoodsArrayList.get(position).goodsCode);
+                intent.putExtra("key2",  shopGoodsArrayList.get(position).goodsName);
+                intent.putExtra("key3",  shopGoodsArrayList.get(position).goodsCountryName);
                 context.startActivity(intent);
             }
         });

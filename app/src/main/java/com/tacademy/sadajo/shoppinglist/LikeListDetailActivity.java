@@ -30,6 +30,7 @@ import okhttp3.Response;
 public class LikeListDetailActivity extends BaseActivity {
 
     TextView toolbarTitle;
+    TextView goodsCountTextView;
     String countryName;
 
     LikeListDetailRecyclerViewAdapter likeDetailRecyclerViewAdapter;
@@ -54,6 +55,8 @@ public class LikeListDetailActivity extends BaseActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);//title hidden
         getSupportActionBar().setDisplayHomeAsUpEnabled(true); //back icon
 
+        goodsCountTextView = (TextView) findViewById(R.id.goodsCountTextView);
+
         getTypeIntent();
 
         SharedPreferenceUtil sharedPreferenceUtil = new SharedPreferenceUtil(this);
@@ -77,9 +80,12 @@ public class LikeListDetailActivity extends BaseActivity {
             }
         });
 
+
+
         CustomRecyclerDecoration decoration = new CustomRecyclerDecoration(30, "bottom");
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.shoppinListFirstDetailRecyclerView);
         LinearLayoutManager layoutManager = new LinearLayoutManager(LikeListDetailActivity.this, LinearLayoutManager.VERTICAL, false);
+
 
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.addItemDecoration(decoration);
@@ -167,16 +173,22 @@ public class LikeListDetailActivity extends BaseActivity {
 
                 countryName = intent.getExtras().getString("countryName");
                 listCode = intent.getIntExtra("listCode", 0); //리스트코드 받아옴
+                if(intent.getExtras().getInt("goodsCount")!= 0) {
+                    goodsCountTextView.setText( String.valueOf(intent.getIntExtra("goodsCount", 0)));
+                }
                 toolbarTitle = (TextView) findViewById(R.id.customToolbarTitle);
                 toolbarTitle.setText(countryName + " 찜 리스트");
 
+               // Log.e("찜리스트 goodsCount",intent.getIntExtra("goodsCount",0));
 
             case OTHER_LIKELIST:
                 userCode = intent.getIntExtra("targetUserCode",0);
                 countryName = intent.getExtras().getString("countryName");
                 listCode = intent.getIntExtra("listCode", 0); //리스트코드 받아옴
                 toolbarTitle = (TextView) findViewById(R.id.customToolbarTitle);
-                toolbarTitle.setText(countryName + " 찜 리스트");
+                if(intent.getExtras().getInt("goodsCount")!= 0) {
+                    goodsCountTextView.setText( String.valueOf(intent.getIntExtra("goodsCount", 0)));
+                }                toolbarTitle.setText(countryName + " 찜 리스트");
 
 
 

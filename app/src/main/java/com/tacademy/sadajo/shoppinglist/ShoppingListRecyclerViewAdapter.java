@@ -151,6 +151,7 @@ public class ShoppingListRecyclerViewAdapter
                     intent.putExtra("listCode", shopListDB.get(position-1).listCode); //listCode넘겨줌
                     intent.putExtra("countryName", shopListDB.get(position-1).countryNameKor.toString()); //국가명 넘겨줌
                     intent.putExtra("type",0);
+                    intent.putExtra("goodsCount",shopListDB.get(position-1).goodsCount);
                     Log.e("shopListCode", shopListDB.get(position-1).listCode.toString());
                     mContext.startActivity(intent);
                 }

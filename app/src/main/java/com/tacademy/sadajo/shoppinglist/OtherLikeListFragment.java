@@ -248,6 +248,7 @@ public class OtherLikeListFragment extends Fragment {
                         intent.putExtra("countryName", shopList.countryNameKor.toString());
                         intent.putExtra("type",3); //
                         intent.putExtra("targetUserCode",targetUserCode);
+                        intent.putExtra("goodsCount",shopList.goodsCount);
                         Log.e("shopListCode", shopList.listCode.toString());
                         context.startActivity(intent);
 

@@ -483,7 +483,7 @@ public class SearchListActivity extends BaseActivity {
 
                 if (response.isSuccessful()) { //연결에 성공하면
                     String returedMessage = response.body().string(); // okhttp로 부터 받아온 데이터 json을 스트링형태로 변환하여 returendMessage에 담아둠. 이때, home부분의 모든 오브젝트를 가져와 담아둠.
-                    Log.e("searchActivity", returedMessage);
+                  //  Log.e("searchActivity", returedMessage);
 
                     searchDB = SearchJSONParser.getSearchJsonParser(returedMessage); //만들어둔 파서로 returedMessage를 넣어서 파싱하여 homeDB에 값을 넣음.
 

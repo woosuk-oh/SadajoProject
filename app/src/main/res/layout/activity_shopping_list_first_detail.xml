@@ -20,16 +20,42 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingLeft="16dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
             android:background="@color/white">
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="총 4개" />
+                android:textColor="@color/blackFont"
+                android:textSize="13sp"
+                android:textStyle="normal"
+                android:text="총" />
+            <TextView
+
+                android:id="@+id/goodsCountTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/pink"
+                android:textSize="13sp"
+                android:textStyle="normal"
+                android:layout_marginRight="6dp"
+                android:layout_marginLeft="6dp"
+                 />
+            <TextView
+
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/blackFont"
+                android:textSize="13sp"
+                android:textStyle="normal"
+                android:text="개" />
 
         </LinearLayout>
 
-        <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+        <android.support.v7.widget.RecyclerView
             android:id="@+id/shoppinListFirstDetailRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />

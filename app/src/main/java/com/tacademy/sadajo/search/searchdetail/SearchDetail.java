@@ -562,7 +562,7 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
                                               toServer = OkHttpInitManager.getOkHttpClient();
 
                                               RequestBody postBody = new FormBody.Builder()
-                                                      .add("user", "50")
+                                                      .add("user", "3")
                                                       .add("goods", itemidValue)
                                                       .build();
 

@@ -82,7 +82,10 @@ public class LikeListDetailRecyclerViewAdapter
             public void onClick(View v) {
 
                 Intent intent = new Intent(context, SearchDetail.class);
-                intent.putExtra("key", holder.itemProductNameTextView.getText()); //상품명으로 넘겨줌 TODO:서치에서 상품명Intent처리
+                intent.putExtra("key", goodsArrayList.get(position).goodsCode); //상품코드 넘겨줌
+                intent.putExtra("key2", goodsArrayList.get(position).goodsName); //상품코드 넘겨줌
+                intent.putExtra("key3", goodsArrayList.get(position).goodsCountryName); //상품코드 넘겨줌
+              //  intent.putExtra()
                 context.startActivity(intent);
             }
         });
