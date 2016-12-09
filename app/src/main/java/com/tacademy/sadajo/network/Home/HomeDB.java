@@ -10,7 +10,7 @@ import java.util.List;
 public class HomeDB {
     public String msg;
     //public ArrayList<HomeTravelDB> travelInfos = new ArrayList<>();
-    public HomeTravelDB travelInfos;
+    public HomeTravelDB travelInfos = new HomeTravelDB();
     public String travelCountry;
     public String countryImg;
     public ArrayList<String> tag = new ArrayList<>();

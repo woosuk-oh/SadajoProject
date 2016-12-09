@@ -49,9 +49,8 @@ public class ChattingActivity extends BaseActivity {
         //  this.overridePendingTransition(0,0);
         setContentView(R.layout.activity_chatting);
         setBottomButtonClickListener();
-
-        SharedPreferenceUtil sharedPreferenceUtil = new SharedPreferenceUtil();
-        userAccount = sharedPreferenceUtil.getSharedPreference(this,"userAccount");
+        SharedPreferenceUtil sharedPreferenceUtil = new SharedPreferenceUtil(this);
+        userAccount = sharedPreferenceUtil.getAccessToken();
 
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);

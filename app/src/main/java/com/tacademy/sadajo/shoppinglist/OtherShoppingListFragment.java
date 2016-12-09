@@ -1,5 +1,7 @@
 package com.tacademy.sadajo.shoppinglist;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,9 +11,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.tacademy.sadajo.CustomRecyclerDecoration;
 import com.tacademy.sadajo.R;
+import com.tacademy.sadajo.SadajoContext;
 import com.tacademy.sadajo.network.NetworkDefineConstant;
 import com.tacademy.sadajo.network.OkHttpInitManager;
 import com.tacademy.sadajo.network.shoppinglist.LikeListJSONParser;
@@ -29,8 +35,8 @@ import okhttp3.Response;
 public class OtherShoppingListFragment extends Fragment {
 
     RecyclerView otherShopListRecyclerView;
-    LikeListRecyclerViewAdapter otherShopListRecyclerViewAdapter;
-    private int userCode;
+    OtherShopListRecyclerViewAdapter otherShopListRecyclerViewAdapter;
+    private int targetUserCode;
 
     public OtherShoppingListFragment() {
         // Required empty public constructor
@@ -39,7 +45,7 @@ public class OtherShoppingListFragment extends Fragment {
     public static OtherShoppingListFragment newInstance(int initValue) {
         OtherShoppingListFragment fragment = new OtherShoppingListFragment();
         Bundle args = new Bundle();
-        args.putInt("userCode", initValue);
+        args.putInt("targetUserCode", initValue);
         fragment.setArguments(args);
         return fragment;
     }
@@ -47,7 +53,7 @@ public class OtherShoppingListFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        userCode = getArguments().getInt("userCode", 0);
+        targetUserCode = getArguments().getInt("targetUserCode", 0);
     }
 
     @Override
@@ -62,7 +68,7 @@ public class OtherShoppingListFragment extends Fragment {
         CustomRecyclerDecoration decoration = new CustomRecyclerDecoration(30, "bottom"); //아이템간 간격
         otherShopListRecyclerView.addItemDecoration(decoration);
 
-        otherShopListRecyclerViewAdapter = new LikeListRecyclerViewAdapter(getActivity());
+        otherShopListRecyclerViewAdapter = new OtherShopListRecyclerViewAdapter(getActivity());
         otherShopListRecyclerView.setAdapter(otherShopListRecyclerViewAdapter);
 
         return otherShopListRecyclerView;
@@ -91,7 +97,7 @@ public class OtherShoppingListFragment extends Fragment {
 
 
                 RequestBody postBody = new FormBody.Builder()
-                        .add("user", String.valueOf(userCode))
+                        .add("user", String.valueOf(targetUserCode))
                         .build();
 
                 Request request = new Request.Builder()
@@ -125,10 +131,115 @@ public class OtherShoppingListFragment extends Fragment {
         public void onPostExecute(ArrayList<ShopListDB> listDBs) {
             super.onPostExecute(listDBs);
             if (listDBs != null && listDBs.size() > 0) {
-                otherShopListRecyclerViewAdapter.addLikeList(listDBs);
+                otherShopListRecyclerViewAdapter.addOtherShopList(listDBs);
             }else{
                 Log.e("size---", String.valueOf(listDBs.size()));
             }
         }
     }
+    public  class OtherShopListRecyclerViewAdapter
+            extends RecyclerView.Adapter<OtherShopListRecyclerViewAdapter.ViewHolder>{
+
+        private ArrayList<ShopListDB> otherListDBs;
+        private Context context;
+        public OtherShopListRecyclerViewAdapter(Context context) {
+            this.context = context;
+            otherListDBs = new ArrayList<>();
+        }
+
+        public  class ViewHolder extends RecyclerView.ViewHolder {
+
+            public final View mView;
+            public final TextView countryNameTextView;
+            public final TextView cityNameTextView;
+            public final TextView productCountTextView;
+            public final TextView listEmptyTextView;
+            public final ImageView productImageView;
+            public final TextView dateTextView;
+
+            public ViewHolder(View view) {
+                super(view);
+                mView = view;
+                countryNameTextView = (TextView) view.findViewById(R.id.otherShopCountryNameTextView);
+                cityNameTextView = (TextView) view.findViewById(R.id.otherShopCityNameTextView);
+                productCountTextView = (TextView) view.findViewById(R.id.otherShopCountTextView);
+                dateTextView = (TextView) view.findViewById(R.id.otherShopDateTextView);
+                listEmptyTextView = (TextView) view.findViewById(R.id.otherShopEmptyTextView);
+                productImageView = (ImageView) view.findViewById(R.id.otherShopProductImageView);
+            }
+        }
+
+
+        @Override
+        public OtherShopListRecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+
+
+
+            View view = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.shoppinglist_other_shoplist_recyclerview_item, parent, false);
+            return new ViewHolder(view);
+
+        }
+
+
+        @Override
+        public void onBindViewHolder(final OtherShopListRecyclerViewAdapter.ViewHolder holder, final int position) {
+
+
+            final  ShopListDB shopList = otherListDBs.get(position);
+            holder.countryNameTextView.setText(shopList.countryNameEng);
+            holder.cityNameTextView.setText(shopList.countryNameKor);
+
+
+            //담은 상품이 없을 경우 default이미지 보여줌
+            if (shopList.goodsCount == 0) {
+                holder.productCountTextView.setVisibility(View.GONE);
+                holder.listEmptyTextView.setVisibility(View.VISIBLE);
+                holder.productImageView.setVisibility(View.GONE);
+
+            } else {
+                holder.productCountTextView.setText(String.valueOf(shopList.goodsCount));
+                holder.productCountTextView.setVisibility(View.VISIBLE);
+                holder.listEmptyTextView.setVisibility(View.GONE);
+                Glide.with(SadajoContext.getContext())
+                        .load(shopList.img)
+                        .thumbnail(0.1f)
+                        .into(holder.productImageView);
+            }
+
+            holder.mView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    Intent intent = new Intent(context, ShoppingListDetailActivity.class); //찜리스트 디테일페이지로이동
+                    intent.putExtra("listCode", shopList.listCode); //쇼핑리스트 listCode 넘겨줌
+                    intent.putExtra("countryName", shopList.countryNameKor.toString());
+                    intent.putExtra("targetUserCode",targetUserCode);
+                    intent.putExtra("type",1);
+
+                    Log.e("shopListCode", shopList.listCode.toString());
+                    context.startActivity(intent);
+
+                }
+            });
+        }
+
+
+
+
+        public void addOtherShopList(ArrayList<ShopListDB> likeListDBs) {
+            if(otherListDBs != null && otherListDBs.size() > 0){
+                otherListDBs.removeAll(otherListDBs);
+            }
+            otherListDBs.addAll(likeListDBs);
+            notifyDataSetChanged();
+        }
+
+
+        @Override
+        public int getItemCount() {
+            return otherListDBs.size();
+        }
+    }
+
 }

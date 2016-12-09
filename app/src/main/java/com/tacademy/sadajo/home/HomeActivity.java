@@ -24,6 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.tacademy.sadajo.BaseActivity;
 import com.tacademy.sadajo.BottomBarClickListener;
 import com.tacademy.sadajo.CustomRecyclerDecoration;
@@ -47,6 +48,7 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
+import static android.app.ProgressDialog.show;
 import static android.graphics.Typeface.NORMAL;
 
 
@@ -88,7 +90,7 @@ public class HomeActivity extends BaseActivity {
 
     HomeUserRecyclerViewAdapter homeUserRecyclerViewAdapter;
     HomeDB homeDB;
-
+    ProgressDialog progressDialog1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -131,19 +133,26 @@ public class HomeActivity extends BaseActivity {
         recyclerView.addItemDecoration(decoration);
 
 
-        //로그인할 때 UserId 저장
-        SharedPreferenceUtil sharedPreferenceUtil = new SharedPreferenceUtil();
-        sharedPreferenceUtil.putSharedPreference(this,"userAccount",1);
-        userAccount = sharedPreferenceUtil.getSharedPreference(this,"userAccount");
 
+
+
+        SharedPreferenceUtil sharedPreferenceUtil = new SharedPreferenceUtil(SadajoContext.getContext());
+        sharedPreferenceUtil.setAccessToken(2);
+        userAccount = sharedPreferenceUtil.getAccessToken();
+
+        String fcmToken = FirebaseInstanceId.getInstance().getToken(); //푸시 토큰받아옴
+
+        Log.e("Home Activity :", String.valueOf(userAccount));
+        Log.e("Home fcmToken :", fcmToken);
         // 페이스북 아이디 됐는지 확인
-        Log.d("페북로그인","가져온 페북아이디:"+sharedPreferenceUtil.getFaceBookId());
+        Log.d("페북로그인", "가져온 페북아이디:" + sharedPreferenceUtil.getFaceBookId());
     }
 
     @Override
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         new AsyncHomeRequest().execute();
+
     }
 
     public class AsyncHomeRequest extends AsyncTask<Void, Void, HomeDB> {
@@ -152,7 +161,7 @@ public class HomeActivity extends BaseActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            progressDialog = ProgressDialog.show(HomeActivity.this,
+            progressDialog = show(HomeActivity.this,
                     "서버입력중", "잠시만 기다려 주세요 ...", true);
         }
 
@@ -212,13 +221,16 @@ public class HomeActivity extends BaseActivity {
 
         @Override
         protected void onPostExecute(HomeDB s) {
-           // progressDialog.dismiss();
+            // progressDialog.dismiss();
             super.onPostExecute(s);
-             progressDialog.dismiss();
+            progressDialog.dismiss();
 
 //            if (homeDB != null) {
-                if (s != null ) { //서버로부터 msg를 받았으면.
 
+
+            if (s != null) { //서버로부터 msg를 받았으면.
+                progressDialog.dismiss();
+                Log.e("progerss", "progress");
                 cardView2CountryTextView.setText(s.getTravelCountry()); // 추천리스트 : 해당 국가
                 cardView3CountryTextView.setText(s.getTravelCountry()); // 추천리스트2(다른 쇼퍼맨 쇼핑리스트) : 해당 국가
 

@@ -26,12 +26,23 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
+
 public class LikeListDetailActivity extends BaseActivity {
 
     TextView toolbarTitle;
+    String countryName;
+
     LikeListDetailRecyclerViewAdapter likeDetailRecyclerViewAdapter;
+
     int listCode;
     int userAccount;
+    int userCode;
+
+    final int LIKELIST = 2;
+
+    final int OTHER_LIKELIST = 3;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,17 +54,20 @@ public class LikeListDetailActivity extends BaseActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);//title hidden
         getSupportActionBar().setDisplayHomeAsUpEnabled(true); //back icon
 
-        SharedPreferenceUtil sharedPreferenceUtil = new SharedPreferenceUtil();
-        userAccount = sharedPreferenceUtil.getSharedPreference(this, "userAccount");
+        getTypeIntent();
 
-        //타이틀 세팅
-        Intent intent = getIntent();
-        String countryName = intent.getExtras().getString("countryName");
+        SharedPreferenceUtil sharedPreferenceUtil = new SharedPreferenceUtil(this);
+        userAccount = sharedPreferenceUtil.getAccessToken();
 
-        listCode = intent.getIntExtra("listCode", 0); //리스트코드 받아옴
-        toolbarTitle = (TextView) findViewById(R.id.customToolbarTitle);
 
-        toolbarTitle.setText(countryName + " 찜 리스트");
+//        //타이틀 세팅
+//        Intent intent = getIntent();
+//        String countryName = intent.getExtras().getString("countryName");
+//
+//        listCode = intent.getIntExtra("listCode", 0); //리스트코드 받아옴
+//        toolbarTitle = (TextView) findViewById(R.id.customToolbarTitle);
+//
+//        toolbarTitle.setText(countryName + " 찜 리스트");
 
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -100,7 +114,7 @@ public class LikeListDetailActivity extends BaseActivity {
 
 
                 RequestBody postBody = new FormBody.Builder()
-                        .add("user", String.valueOf(userAccount))
+                        .add("user", String.valueOf(userCode))
                         .add("listcode", String.valueOf(listCode)) //TODO:수정하기
                         .build();
 
@@ -139,5 +153,34 @@ public class LikeListDetailActivity extends BaseActivity {
             likeDetailRecyclerViewAdapter.notifyDataSetChanged();
 
         }
+    }
+
+    public void getTypeIntent() {
+        Intent intent = getIntent();
+        int type = intent.getExtras().getInt("type");
+        Log.e("shoplistDetail", String.valueOf(type));
+
+        switch (type) {
+
+            case LIKELIST:
+                userCode = userAccount;
+
+                countryName = intent.getExtras().getString("countryName");
+                listCode = intent.getIntExtra("listCode", 0); //리스트코드 받아옴
+                toolbarTitle = (TextView) findViewById(R.id.customToolbarTitle);
+                toolbarTitle.setText(countryName + " 찜 리스트");
+
+
+            case OTHER_LIKELIST:
+                userCode = intent.getIntExtra("targetUserCode",0);
+                countryName = intent.getExtras().getString("countryName");
+                listCode = intent.getIntExtra("listCode", 0); //리스트코드 받아옴
+                toolbarTitle = (TextView) findViewById(R.id.customToolbarTitle);
+                toolbarTitle.setText(countryName + " 찜 리스트");
+
+
+
+        }
+
     }
 }

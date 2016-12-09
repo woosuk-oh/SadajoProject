@@ -25,15 +25,17 @@ public class ChattingRecyclerViewAdapter
         extends RecyclerView.Adapter<ChattingRecyclerViewAdapter.ViewHolder> {
 
     private ArrayList<ChatDataList> chatDataLists;
-    private Context context;
+    private Context mContext;
 
     int userAccount;
 
     public ChattingRecyclerViewAdapter(Context context) {
-        this.context = context;
+        mContext = context;
         this.chatDataLists = new ArrayList<>();
-        SharedPreferenceUtil sharedPreferenceUtil = new SharedPreferenceUtil();
-        userAccount = sharedPreferenceUtil.getSharedPreference(context,"userAccount");
+        SharedPreferenceUtil sharedPreferenceUtil = new SharedPreferenceUtil(mContext);
+        userAccount = sharedPreferenceUtil.getAccessToken();
+
+
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -80,16 +82,18 @@ public class ChattingRecyclerViewAdapter
                 @Override
                 public void onClick(View v) {
 
-                    Intent intent = new Intent(context, ChattingDetailActivity.class);
+                    Intent intent = new Intent(mContext, ChattingDetailActivity.class);
                     intent.putExtra("roomNum", chatDataLists.get(position).roomNum);//roomNum넘겨주기
-                    intent.putExtra("conUserImg", chatDataLists.get(position).carrierImg);
-                    intent.putExtra("conUseCode", chatDataLists.get(position).carrierCode);
-                    intent.putExtra("conUserName", chatDataLists.get(position).carrierName);
-                    context.startActivity(intent);
+                    intent.putExtra("targetUserImg", chatDataLists.get(position).carrierImg);
+                    intent.putExtra("targetUserCode", chatDataLists.get(position).carrierCode);
+                    intent.putExtra("targetUserName", chatDataLists.get(position).carrierName);
+                    intent.putExtra("type", 0);
+
+                    mContext.startActivity(intent);
 
                 }
             });
-        } else {
+        } else { //대화를 요청받은 경우
 
             holder.chattingNameTextView.setText(chatDataLists.get(position).requestUserName);
 
@@ -100,13 +104,13 @@ public class ChattingRecyclerViewAdapter
                 @Override
                 public void onClick(View v) {
 
-                    Intent intent = new Intent(context, ChattingDetailActivity.class);
+                    Intent intent = new Intent(mContext, ChattingDetailActivity.class);
                     intent.putExtra("roomNum", chatDataLists.get(position).roomNum);//roomNum넘겨주기
-                    intent.putExtra("conUserImg", chatDataLists.get(position).requestUserImg);
-                    intent.putExtra("conUseCode", chatDataLists.get(position).requestUserCode);
-                    intent.putExtra("conUserName", chatDataLists.get(position).requestUserName);
-                    intent.putExtra("type", true);
-                    context.startActivity(intent);
+                    intent.putExtra("targetUserImg", chatDataLists.get(position).requestUserImg);
+                    intent.putExtra("targetUserCode", chatDataLists.get(position).requestUserCode);
+                    intent.putExtra("targetUserName", chatDataLists.get(position).requestUserName);
+                    intent.putExtra("type", 0);
+                    mContext.startActivity(intent);
                 }
             });
 

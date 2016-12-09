@@ -10,7 +10,8 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/Sadajo">
+        android:theme="@style/Sadajo"
+        android:largeHeap="true">
         <activity
             android:name=".home.HomeActivity"
             android:screenOrientation="portrait">
@@ -68,6 +69,7 @@
             android:name="com.tacademy.sadajo.SadajoGlideModule"
             android:value="GlideModule" />
 
+
         <provider
             android:name="com.facebook.FacebookContentProvider"
             android:authorities="com.facebook.app.FacebookContentProvider1206308966129089"
@@ -81,7 +83,7 @@
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id"/>
 
-
+        //FCM 토큰을 발급하는 서비스
         <service
             android:name=".SadajoFirebaseInstanceIDService"
             android:enabled="true"

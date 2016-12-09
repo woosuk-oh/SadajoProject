@@ -67,9 +67,11 @@ public class LikeListDetailRecyclerViewAdapter
 
         Glide.with(SadajoContext.getContext())
                 .load(goodsArrayList.get(position).goodsImg)
+                .thumbnail(0.1f)
                 .into(holder.itemProductImageView);
         Glide.with(SadajoContext.getContext())
                 .load(goodsArrayList.get(position).goodscountryFlagImg)
+                .thumbnail(0.1f)
                 .into(holder.itemFlagImageView);
         holder.itemProductNameTextView.setText(goodsArrayList.get(position).goodsName);
         holder.itemCountryNameTextView.setText(goodsArrayList.get(position).goodsCountryName);
@@ -80,7 +82,7 @@ public class LikeListDetailRecyclerViewAdapter
             public void onClick(View v) {
 
                 Intent intent = new Intent(context, SearchDetail.class);
-                intent.putExtra("key", holder.itemProductNameTextView.getText());
+                intent.putExtra("key", holder.itemProductNameTextView.getText()); //상품명으로 넘겨줌 TODO:서치에서 상품명Intent처리
                 context.startActivity(intent);
             }
         });

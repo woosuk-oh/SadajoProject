@@ -30,6 +30,9 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.tacademy.sadajo.R.id.conUserImageView;
+import static com.tacademy.sadajo.R.id.contUserNameTextView;
+
 public class ChattingDetailActivity extends BaseActivity {
 
     Toolbar toolbar;
@@ -38,22 +41,22 @@ public class ChattingDetailActivity extends BaseActivity {
 
     //OtherMyPageActivity에서 넘어 온 데이터
     int roomNum; //방번호
-    int sender;//senderID
-    int receiver;//receiverID;
+    String targetUserImg; //상대방이미지
+    String targetUserName; //상대방이름
+    int targetUserCode; //상대방유저코드
 
+    private int userAccount; //본인유저코드
 
-    String conUserImg;
-    String conUserName;
-    int conUserCode;
+    private  int type;
+    private  int BOTTOMBAR = 0;
+    private  int MYPAGE = 1;
+    private  int PUSH = 2;
 
-    private int userAccount;
-
-    private  boolean type = true;
 
     private RecyclerView mMessagesView;
     private EditText mInputMessageView;
-    private ImageView conUserImageView;
-    private TextView contUserNameTextView;
+    private ImageView targetUserImageView;
+    private TextView targetUserNameTextView;
     //private TextView conPositionTextView;
 
     private List<Message> mMessages = new ArrayList<>();
@@ -74,22 +77,23 @@ public class ChattingDetailActivity extends BaseActivity {
         setToolbar(true);
 
 
-        SharedPreferenceUtil  sharedPreferenceUtil = new SharedPreferenceUtil();
-        userAccount = sharedPreferenceUtil.getSharedPreference(this,"userAccount");
+        SharedPreferenceUtil sharedPreferenceUtil = new SharedPreferenceUtil(this);
+        userAccount = sharedPreferenceUtil.getAccessToken();
 
 
-        getTypeIntent(); //intent로 넘어 온 데이터들 받아옴옴
+        getTypeIntent(); //intent로 넘어 온 데이터들 받아옴
 
-        conUserImageView = (ImageView) findViewById(R.id.conUserImageView);
-        contUserNameTextView = (TextView) findViewById(R.id.contUserNameTextView);
+        targetUserImageView = (ImageView) findViewById(conUserImageView);
+        targetUserNameTextView = (TextView) findViewById(contUserNameTextView);
         //conPositionTextView = (TextView) findViewById(conPositionTextView);
 
 
         Glide.with(SadajoContext.getContext())
-                .load(conUserImg)
-                .into(conUserImageView);
+                .load(targetUserImg)
+                .thumbnail(0.1f)
+                .into(targetUserImageView);
 
-        contUserNameTextView.setText(conUserName);
+        targetUserNameTextView.setText(targetUserName);
 
 
         SadajoContext app = (SadajoContext) getApplication();
@@ -289,10 +293,9 @@ public class ChattingDetailActivity extends BaseActivity {
                 case R.id.requestButton:
                     RequestDialogFragment dialog = new RequestDialogFragment();
                     Bundle bundle = new Bundle();
-                    bundle.putInt("conUserCode",conUserCode);
-                    Log.e("conUsercode detail",String.valueOf(conUserCode));
+                    bundle.putInt("targetUserCode",targetUserCode);
+                    Log.e("targetUserCode detail",String.valueOf(targetUserCode));
                     dialog.setArguments(bundle);
-                    //TODO: targetUesrCOde보내주기
                     dialog.show(getFragmentManager(), "requestDialog");
                     break;
                 case R.id.chatDetailSendButton:
@@ -319,23 +322,29 @@ public class ChattingDetailActivity extends BaseActivity {
     }
     public void getTypeIntent() {
         Intent intent = getIntent();
-        type = intent.getBooleanExtra("type", true);
-        if (type == true) {
-            //bottom navigation으로 이동한 것이 아닌 경우
+        type = intent.getIntExtra("type", 0);
+        if (type == BOTTOMBAR) {
+            //bottom navigation으로 이동한 경우 ChattingActivity에서 넘어옴
             roomNum =  intent.getIntExtra("roomNum", 0);
-            conUserImg = intent.getExtras().getString("conUserImg"); //상대방 이미지
-            conUserName = intent.getExtras().getString("conUserName"); //상대방 이름
-            conUserCode = intent.getIntExtra("conUserCode",0);
+            targetUserImg = intent.getExtras().getString("targetUserImg"); //상대방 이미지
+            targetUserName = intent.getExtras().getString("targetUserName"); //상대방 이름
+            targetUserCode = intent.getIntExtra("targetUserCode",0);
 
 
-        } else {
+        } else if(type == MYPAGE){
 
             // OtherMypageActivity에서 넘어온 데이터들
             roomNum = intent.getIntExtra("roomNum", 0);
-            sender = intent.getIntExtra("sender", 0); //본인
-            conUserCode = intent.getIntExtra("receiver", 0); //상대방
-            conUserName = intent.getStringExtra("receiverName");
-            conUserImg = intent.getStringExtra("receiverImg");
+           // sender = intent.getIntExtra("sender", 0); //본인
+            targetUserCode = intent.getIntExtra("receiver", 0); //상대방
+            targetUserName = intent.getStringExtra("receiverName");
+            targetUserImg = intent.getStringExtra("receiverImg");
+
+        }else if(type == PUSH){
+            roomNum = intent.getIntExtra("roomNum", 0);
+            targetUserCode = intent.getIntExtra("receiver", 0); //상대방
+            targetUserName = intent.getStringExtra("receiverName");
+            targetUserImg = intent.getStringExtra("receiverImg");
 
         }
 

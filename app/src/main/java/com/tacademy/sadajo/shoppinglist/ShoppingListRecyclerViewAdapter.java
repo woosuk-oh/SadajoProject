@@ -147,9 +147,10 @@ public class ShoppingListRecyclerViewAdapter
                 @Override
                 public void onClick(View v) {
 
-                    Intent intent = new Intent(mContext, ShoppingListDetailActivity.class); //LikeList의 Detail 액티비티로 이동
+                    Intent intent = new Intent(mContext, ShoppingListDetailActivity.class); //ShopList의 Detail 액티비티로 이동
                     intent.putExtra("listCode", shopListDB.get(position-1).listCode); //listCode넘겨줌
                     intent.putExtra("countryName", shopListDB.get(position-1).countryNameKor.toString()); //국가명 넘겨줌
+                    intent.putExtra("type",0);
                     Log.e("shopListCode", shopListDB.get(position-1).listCode.toString());
                     mContext.startActivity(intent);
                 }
@@ -172,7 +173,7 @@ public class ShoppingListRecyclerViewAdapter
     public void addShopList(ArrayList<ShopListDB> shopLists) {
 
         if (shopListDB != null && shopListDB.size() > 0) {
-            shopListDB.removeAll(shopLists);
+            shopListDB.removeAll(shopListDB);
         }
         shopListDB.addAll(shopLists);
         notifyDataSetChanged();

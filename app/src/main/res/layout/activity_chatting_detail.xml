@@ -52,7 +52,8 @@
                 android:text="이탈리아, 피렌체(4시간전)"
                 android:textColor="@color/blackFont"
                 android:textSize="11sp"
-                android:textStyle="normal"/>
+                android:textStyle="normal"
+                android:visibility="gone"/>
 
 
         <LinearLayout
@@ -70,14 +71,14 @@
         </LinearLayout>
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_below="@+id/frameToolbarHome">
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/messages"
                 android:divider="@null"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:background="@color/whiteGrayFont" />
 
         </FrameLayout>
@@ -94,11 +95,11 @@
         >
 
         <LinearLayout
-            android:layout_width="386dp"
+            android:layout_width="match_parent"
             android:layout_height="45dp"
             android:background="@color/white"
             android:orientation="horizontal"
-            android:layout_marginRight="16dp">
+            android:paddingRight="16dp">
 
             <ImageButton
                 android:id="@+id/chatAttachButton"

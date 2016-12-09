@@ -109,6 +109,7 @@ public class LikeListRecyclerViewAdapter
                 holder.listEmptyTextView.setVisibility(View.GONE);
                 Glide.with(SadajoContext.getContext())
                     .load(shopList.img)
+                        .thumbnail(0.1f)
                     .into(holder.productImageView);
             }
 
@@ -119,6 +120,7 @@ public class LikeListRecyclerViewAdapter
                     Intent intent = new Intent(context, LikeListDetailActivity.class); //찜리스트 디테일페이지로이동
                     intent.putExtra("listCode", shopList.listCode); //찜리스트이 listCode 넘겨줌
                     intent.putExtra("countryName", shopList.countryNameKor.toString());
+                    intent.putExtra("type",2); //
                     Log.e("shopListCode", shopList.listCode.toString());
                     context.startActivity(intent);
 
