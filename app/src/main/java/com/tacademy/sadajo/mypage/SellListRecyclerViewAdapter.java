@@ -24,7 +24,7 @@ import com.tacademy.sadajo.network.mypage.DealListData;
 import java.util.ArrayList;
 
 
-// 사다줌 부분.
+// 사다줌 어댑터
 
 
 public class SellListRecyclerViewAdapter
@@ -114,7 +114,7 @@ public class SellListRecyclerViewAdapter
         holder.dateTextView.setText(dealListDatas.get(position).thedate);
 
         Glide.with(SadajoContext.getContext())
-                .load(dealListDatas.get(position).carr_img)
+                .load(dealListDatas.get(position).req_img)
 
                 .thumbnail(0.1f)
                 .into(holder.profileImageView);

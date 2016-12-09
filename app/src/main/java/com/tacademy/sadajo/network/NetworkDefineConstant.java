@@ -10,6 +10,7 @@ public class NetworkDefineConstant {
     public static String SERVER_URL_REQUEST_SHOPLIST;
     public static String SERVER_URL_REQUEST_LIKELIST;
     public static String SERVER_URL_REQUEST_DEALLIST;
+    public static String SERVER_URL_REQUEST_BUYLIST;
     public static String SERVER_URL_REQUST_CHATLIST;
     public static String SERVER_URL_REQUST_CHATTINGLIST;
     public static String SERVER_URL_REQUST_LIKEDETAIL;
@@ -36,6 +37,8 @@ public class NetworkDefineConstant {
         SERVER_URL_REQUEST_LIKELIST =
                 HOST_URL + "/likelist";
         SERVER_URL_REQUEST_DEALLIST =
+                HOST_URL + "/carrlist";
+        SERVER_URL_REQUEST_BUYLIST =
                 HOST_URL + "/reqlist";
         SERVER_URL_INSERT_SCHEDULE =
                 HOST_URL + "/registerSchedule";

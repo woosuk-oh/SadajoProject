@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * Created by woosuk
  */
 
-
+// 사다줌 파서
 public class DealListJsonParser {
 
     public static ArrayList<DealListData> getDealListDataParsing(String responsedJSON) {
@@ -29,7 +29,7 @@ public class DealListJsonParser {
 
                 deallistdata.country_name = deals.getString("country");
                 deallistdata.country_img = deals.getString("img");
-                deallistdata.carr_img = deals.getString("carr_img");
+                deallistdata.req_img = deals.getString("req_img");
                 deallistdata.nick = deals.getString("nick");
                 deallistdata.thedate = deals.getString("thedate");
                 deallistdata.goods_name = deals.getString("goods_name");

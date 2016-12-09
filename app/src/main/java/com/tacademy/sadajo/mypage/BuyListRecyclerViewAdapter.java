@@ -13,20 +13,22 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.tacademy.sadajo.R;
-import com.tacademy.sadajo.shoppinglist.ShoppingListData;
+import com.tacademy.sadajo.SadajoContext;
+import com.tacademy.sadajo.network.mypage.BuyListData;
 
 import java.util.ArrayList;
 
 public class BuyListRecyclerViewAdapter
         extends RecyclerView.Adapter<BuyListRecyclerViewAdapter.ViewHolder> {
 
-    private ArrayList<ShoppingListData> shoppingListDatas;
+    private ArrayList<BuyListData> buyListDatas;
     private Context context;
 
-    public BuyListRecyclerViewAdapter(Context context, ArrayList<ShoppingListData> shoppingListDatas) {
+    public BuyListRecyclerViewAdapter(Context context, ArrayList<BuyListData> buyListDatas) {
         this.context = context;
-        this.shoppingListDatas = shoppingListDatas;
+        this.buyListDatas = buyListDatas;
 
     }
 
@@ -89,14 +91,24 @@ public class BuyListRecyclerViewAdapter
     @Override
     public void onBindViewHolder(final BuyListRecyclerViewAdapter.ViewHolder holder, final int position) {
 
-        holder.countryEngName.setText("PHILIPPINES");
-        holder.countryKorName.setText("필리핀, 마닐라");
-        holder.userNameTextView.setText("닉네임");
-        holder.productNameTextView.setText("산타마리아노벨라 향수 최대여기까");
-        holder.dateTextView.setText("2016.11.20");
+        holder.countryEngName.setText(buyListDatas.get(position).country_name);
 
-        //holder.productImageView.setImageResource(R.drawable.taipei);
-        holder.profileImageView.setImageResource(R.drawable.profile_empty);
+        holder.countryKorName.setText(buyListDatas.get(position).country_name);
+        holder.userNameTextView.setText(buyListDatas.get(position).nick);
+        holder.productNameTextView.setText(buyListDatas.get(position).goods_name);
+        holder.dateTextView.setText(buyListDatas.get(position).thedate);
+
+        Glide.with(SadajoContext.getContext())
+                .load(buyListDatas.get(position).carr_img)
+
+                .thumbnail(0.1f)
+                .into(holder.profileImageView);
+
+        Glide.with(SadajoContext.getContext())
+                .load(buyListDatas.get(position).country_img)
+
+                .thumbnail(0.1f)
+                .into(holder.productImageView);
         holder.buyRequestTextView.setVisibility(View.VISIBLE);
 
 //        holder.okButton.setOnClickListener(new View.OnClickListener() { //사다조 요청수락버튼 클릭시
@@ -139,7 +151,7 @@ public class BuyListRecyclerViewAdapter
 
     @Override
     public int getItemCount() {
-        return shoppingListDatas.size();
+        return buyListDatas.size();
     }
 }
 
