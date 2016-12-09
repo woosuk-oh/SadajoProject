@@ -215,9 +215,11 @@ public class OtherShoppingListFragment extends Fragment {
                     intent.putExtra("listCode", shopList.listCode); //쇼핑리스트 listCode 넘겨줌
                     intent.putExtra("countryName", shopList.countryNameKor.toString());
                     intent.putExtra("targetUserCode",targetUserCode);
+                    intent.putExtra("goodsCount",shopList.goodsCount);
                     intent.putExtra("type",1);
 
                     Log.e("shopListCode", shopList.listCode.toString());
+                    Log.e("shopLisCount", shopList.goodsCount.toString());
                     context.startActivity(intent);
 
                 }

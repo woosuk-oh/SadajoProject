@@ -89,7 +89,7 @@ public class HomeUserRecyclerViewAdapter
                 //user 본인/상대방 구분
                 if (shoppingListDatas.get(position).getUserId() == userAccount) {
                     intent = new Intent(context, MyPageActivity.class);
-                    intent.putExtra("type", false); //type이 1일 경우는 bottombar GONE & backNavigation생성
+                    intent.putExtra("type", 1); //type이 1일 경우는 bottombar GONE & backNavigation생성
                     context.startActivity(intent);
 
                 } else {

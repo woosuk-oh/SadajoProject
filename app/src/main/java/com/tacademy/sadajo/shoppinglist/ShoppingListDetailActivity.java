@@ -28,7 +28,8 @@ import okhttp3.Response;
 
 public class ShoppingListDetailActivity extends BaseActivity {
 
-    TextView  shopListTitleTextView;
+    TextView shopListTitleTextView;
+    TextView goodsCountTextView;
     ShopListDetailRecyclerViewAdapter shopListDetailRecyclerViewAdapter;
     int listCode;
     int userAccount;
@@ -51,12 +52,16 @@ public class ShoppingListDetailActivity extends BaseActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);//title hidden
         getSupportActionBar().setDisplayHomeAsUpEnabled(true); //back icon
 
+
+        goodsCountTextView = (TextView) findViewById(R.id.shopGoodsCountTextView);
+
+        getTypeIntent();
         //타이틀 세팅
-        Intent intent = getIntent();
-        String countryName = intent.getExtras().getString("countryName");
-        listCode = intent.getIntExtra("listCode", 0); //리스트코드 받아옴
-        shopListTitleTextView = (TextView) findViewById(R.id.customToolbarTitle);
-        shopListTitleTextView.setText(countryName + " 쇼핑 리스트");
+//        Intent intent = getIntent();
+//        String countryName = intent.getExtras().getString("countryName");
+//        listCode = intent.getIntExtra("listCode", 0); //리스트코드 받아옴
+//        shopListTitleTextView = (TextView) findViewById(R.id.customToolbarTitle);
+//        shopListTitleTextView.setText(countryName + " 쇼핑 리스트");
 
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -136,7 +141,6 @@ public class ShoppingListDetailActivity extends BaseActivity {
             super.onPostExecute(likeListDetail);
 
 
-
             shopListDetailRecyclerViewAdapter.addDetail(likeListDetail.goodsList);
             shopListDetailRecyclerViewAdapter.notifyDataSetChanged();
 
@@ -155,18 +159,21 @@ public class ShoppingListDetailActivity extends BaseActivity {
                 countryName = intent.getExtras().getString("countryName");
                 listCode = intent.getIntExtra("listCode", 0); //리스트코드 받아옴
                 shopListTitleTextView = (TextView) findViewById(R.id.customToolbarTitle);
+
+                goodsCountTextView.setText(String.valueOf(intent.getIntExtra("goodsCount", 0)));
+
                 shopListTitleTextView.setText(countryName + " 쇼핑 리스트");
 
             case OTHER_SHOPLIST:
-                userCode = intent.getIntExtra("targetUserCode",0);
+                userCode = intent.getIntExtra("targetUserCode", 0);
                 countryName = intent.getExtras().getString("countryName");
                 listCode = intent.getIntExtra("listCode", 0); //리스트코드 받아옴
                 shopListTitleTextView = (TextView) findViewById(R.id.customToolbarTitle);
+
+                goodsCountTextView.setText(String.valueOf(intent.getIntExtra("goodsCount", 0)));
+                Log.e("shopLisCount", String.valueOf(intent.getIntExtra("goodsCount", 0)));
+
                 shopListTitleTextView.setText(countryName + " 쇼핑 리스트");
-
-
-
-
 
 
         }

@@ -1,7 +1,6 @@
 package com.tacademy.sadajo.search.searchdetail;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,7 +13,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.tacademy.sadajo.R;
 import com.tacademy.sadajo.SadajoContext;
-import com.tacademy.sadajo.mypage.MyPageOtherActivity;
+import com.tacademy.sadajo.SharedPreferenceUtil;
 import com.tacademy.sadajo.network.Search.SeachDetail.ShopermanDB;
 
 import java.util.ArrayList;
@@ -24,21 +23,22 @@ import java.util.ArrayList;
  */
 
 
-
 // 쇼퍼맨에게 부탁해볼까요? 부분임.
 
-public class DetailShopermanRecyclerAdapter extends RecyclerView.Adapter<DetailShopermanRecyclerAdapter.ViewHolder>{
+public class DetailShopermanRecyclerAdapter extends RecyclerView.Adapter<DetailShopermanRecyclerAdapter.ViewHolder> {
     private Context context;
     private ArrayList<ShopermanDB> mItems;
-
-
-
+    int userAccount;
+    int targetUserCode;
 
 
     public DetailShopermanRecyclerAdapter(Context mCotext, ArrayList<ShopermanDB> items) {
 
         mItems = items;
         context = mCotext;
+
+        SharedPreferenceUtil sharedPreferenceUtil = new SharedPreferenceUtil(context);
+        userAccount = sharedPreferenceUtil.getAccessToken();
 
     }
 
@@ -49,11 +49,10 @@ public class DetailShopermanRecyclerAdapter extends RecyclerView.Adapter<DetailS
         // 레이아웃을 뷰(홀더)에 붙이기 위한 인플레이터임.
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.search_detail_shopperuser_recycler, parent, false);
 
-        Log.d("ItemSize", ""+mItems.size());
+        Log.d("ItemSize", "" + mItems.size());
 
 
         ViewHolder holder = new ViewHolder(v);
-
 
 
         return holder;
@@ -63,20 +62,39 @@ public class DetailShopermanRecyclerAdapter extends RecyclerView.Adapter<DetailS
     public void onBindViewHolder(final ViewHolder holder, final int position) {
 
 
+        //TODO : usercode int형으로 바뀌면 다시 수정하기기
+      // targetUserCode = Integer.parseInt(mItems.get(position).getUser_id());
 
         holder.itemName.setText(mItems.get(position).getUser_name());
-        Log.d("쇼퍼맨",""+mItems.get(position).getUser_name());
+        Log.d("쇼퍼맨", "" + mItems.get(position).getUser_name());
 
         holder.itemContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, MyPageOtherActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.putExtra("userCode", mItems.get(position).getUser_id());
-                context.startActivity(intent);
+
+
+//                if (userAccount == targetUserCode) { //내 프로필일 경우
+//                    Intent intent = new Intent(context, MyPageActivity.class);
+//                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                    intent.putExtra("type", 1);
+//                    context.startActivity(intent);
+//                } else {
+//                    Intent intent = new Intent(context, MyPageOtherActivity.class);
+//                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                    intent.putExtra("targetUserCode", targetUserCode);
+//                    intent.putExtra("targetUserName", mItems.get(position).getUser_name());
+//                    context.startActivity(intent);
+//
+//                }
+
+//                Intent intent = new Intent(context, MyPageOtherActivity.class);
+//                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+////                intent.putExtra("targetUserCode", targetUserCode);
+////                intent.putExtra("targetUserName", mItems.get(position).getUser_name());
+//                context.startActivity(intent);
+
             }
         });
-
 
 
         Glide.with(SadajoContext.getContext())
@@ -84,8 +102,6 @@ public class DetailShopermanRecyclerAdapter extends RecyclerView.Adapter<DetailS
 
                 .thumbnail(0.1f)
                 .into(holder.itemImage);
-
-
 
 
     }
@@ -96,12 +112,11 @@ public class DetailShopermanRecyclerAdapter extends RecyclerView.Adapter<DetailS
 
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder {
         public ImageView itemImage; //쇼퍼맨 이미지
         public TextView itemName; // 쇼퍼맨 이름
 
         LinearLayout itemContainer;
-
 
 
         public ViewHolder(final View itemView) {
@@ -111,15 +126,8 @@ public class DetailShopermanRecyclerAdapter extends RecyclerView.Adapter<DetailS
             itemContainer = (LinearLayout) itemView.findViewById(R.id.search_detail_user_set);
 
 
-
-
-
         }
     }
-
-
-
-
 
 
 }

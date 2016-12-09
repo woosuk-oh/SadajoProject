@@ -121,6 +121,7 @@ public class LikeListFragment extends Fragment {
                     dbs = LikeListJSONParser.getLikeListParsing(returedMessage);
 
                 } else {
+
                     Log.e("요청에러", response.message().toString());
                 }
 

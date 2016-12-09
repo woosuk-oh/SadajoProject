@@ -6,8 +6,8 @@ package com.tacademy.sadajo.network.chatting;
 
 public class ChatDataList {
     public  int roomNum;
-    public int requestUserCode;
-    public int carrierCode;
+    public Integer requestUserCode;
+    public Integer carrierCode;
     public String lastDate;
     public String requestUserName;
     public String carrierName;
