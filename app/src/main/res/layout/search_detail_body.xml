@@ -189,7 +189,7 @@
 
             <HorizontalScrollView
                 android:layout_width="match_parent"
-                android:layout_height="53dp"
+                android:layout_height="wrap_content"
                 android:layout_above="@+id/list_detail_hash_button"
                 android:layout_below="@+id/list_detail_hash_button"
                 android:layout_marginTop="1dp"
