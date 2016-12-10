@@ -60,12 +60,15 @@ public class ChattingDetailActivity extends BaseActivity {
     //private TextView conPositionTextView;
 
     private List<Message> mMessages = new ArrayList<>();
+    private ArrayList<MsgDBEntity> pastMessages = new ArrayList<>();
     private RecyclerView.Adapter mAdapter;
 
     private Socket mSocket;
     private Boolean isConnected = true;
 
     MsgDB dbHelper;
+    int count=0;
+
 
 
     @Override
@@ -78,6 +81,9 @@ public class ChattingDetailActivity extends BaseActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);//title hidden
         setToolbar(true);
 
+        getTypeIntent(); //intent로 넘어 온 데이터들 받아옴
+
+        //MsgDB
         dbHelper = new MsgDB(getApplicationContext(), "MessageHistory", null, 1);
 
 
@@ -87,7 +93,7 @@ public class ChattingDetailActivity extends BaseActivity {
         userAccount = sharedPreferenceUtil.getAccessToken();
 
 
-        getTypeIntent(); //intent로 넘어 온 데이터들 받아옴
+
 
         targetUserImageView = (ImageView) findViewById(conUserImageView);
         targetUserNameTextView = (TextView) findViewById(contUserNameTextView);
@@ -131,14 +137,30 @@ public class ChattingDetailActivity extends BaseActivity {
         mMessagesView.setLayoutManager(new LinearLayoutManager(this));
         mMessagesView.setAdapter(mAdapter);
 
-
         //지난 메세지 출력
 
+        if(dbHelper.getResult(roomNum).size() >0 && dbHelper.getResult(roomNum) != null) {
+            pastMessages = dbHelper.getResult(roomNum);
 
-        mMessages.add(new Message.Builder(Message.TYPE_RIGHT)
-                .message(dbHelper.getResult()).build());
-        mAdapter.notifyItemInserted(mMessages.size() - 1);
-        scrollToBottom();
+            for (int i = count; i < pastMessages.size(); i++) {
+
+                Log.e("messge+"+pastMessages.get(i).id ,pastMessages.get(i).message);
+               if(pastMessages.get(i).user == userAccount){
+
+                       mMessages.add(new Message.Builder(Message.TYPE_RIGHT)
+                               .username(pastMessages.get(i).user).message(pastMessages.get(i).message).build());
+                       mAdapter.notifyItemInserted(mMessages.size() - 1);
+                       scrollToBottom();
+
+               }else{
+                   mMessages.add(new Message.Builder(Message.TYPE_LEFT)
+                           .username(pastMessages.get(i).user).message(pastMessages.get(i).message).build());
+                   mAdapter.notifyItemInserted(mMessages.size() - 1);
+                   scrollToBottom();
+                }
+                count++;
+            }
+        }
 
         mInputMessageView = (EditText) findViewById(R.id.chattingEditText);
         mInputMessageView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -174,12 +196,22 @@ public class ChattingDetailActivity extends BaseActivity {
     }
 
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(pastMessages != null && pastMessages.size() > 0){
+            pastMessages.removeAll(pastMessages);
+        }
+
+    }
+
     private void addMessage(int username, String message) {
         if (username == userAccount) {
             mMessages.add(new Message.Builder(Message.TYPE_RIGHT)
                     .username(username).message(message).build());
             Log.e("right", String.valueOf(username));
             mAdapter.notifyItemInserted(mMessages.size() - 1);
+
             scrollToBottom();
         }
     }
@@ -190,8 +222,8 @@ public class ChattingDetailActivity extends BaseActivity {
             mMessages.add(new Message.Builder(Message.TYPE_LEFT)
                     .username(username).message(message).build());
             Log.e("left", String.valueOf(username));
-            dbHelper.insert(message);
             mAdapter.notifyItemInserted(mMessages.size() - 1);
+
             scrollToBottom();
         }
     }
@@ -209,15 +241,11 @@ public class ChattingDetailActivity extends BaseActivity {
 
         mInputMessageView.setText("");
         addMessage(userAccount, message);
-
         JSONObject object = new JSONObject();
         try {
             object.put("sender", userAccount);
             object.put("msg", message);
             //perform the sending message attempt.
-
-
-
 
 
             mSocket.emit("toServer", object);
@@ -292,7 +320,8 @@ public class ChattingDetailActivity extends BaseActivity {
                         Log.e("to client sender", String.valueOf(data.getInt("sender")));
                         username = data.getInt("sender");
                         message = data.getString("msg");
-                        dbHelper.insert(message);
+                        insertMessage(message,username);
+
 
                     } catch (JSONException e) {
                         return;
@@ -371,5 +400,9 @@ public class ChattingDetailActivity extends BaseActivity {
 
 
     //TODO : insert message 만들기
+    public void insertMessage(String message,int user){
+
+        dbHelper.insert(roomNum,message,user);
+    }
 
 }
