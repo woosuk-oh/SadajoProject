@@ -3,7 +3,6 @@ package com.tacademy.sadajo.mypage;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
@@ -12,7 +11,7 @@ import com.tacademy.sadajo.BaseActivity;
 import com.tacademy.sadajo.MyPagerAdapter;
 import com.tacademy.sadajo.R;
 
-//TODO ViewPager 없애고 tablayout.setOnSelectListener 수정.
+
 
 public class MypageBuyActivity extends BaseActivity {
     TabLayout tabLayout;
@@ -30,6 +29,8 @@ public class MypageBuyActivity extends BaseActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);//title hidden
         getSupportActionBar().setDisplayHomeAsUpEnabled(true); //back icon
 
+
+
         toolbar.setNavigationOnClickListener(new View.OnClickListener() { //뒤로가기
             @Override
             public void onClick(View view) {
@@ -38,7 +39,9 @@ public class MypageBuyActivity extends BaseActivity {
         });
 
 
-        ViewPager viewPager = (ViewPager) findViewById(R.id.mypageDealViewpager);
+
+        // 커스텀 뷰페이저 선언.
+        TradeListViewPager viewPager = (TradeListViewPager) findViewById(R.id.mypageDealViewpager);
         if (viewPager != null) {
             setupBuySellViewPager(viewPager);
         }
@@ -46,37 +49,13 @@ public class MypageBuyActivity extends BaseActivity {
         tabLayout.setupWithViewPager(viewPager);
 
         setTabImage();
-/*
-
-    tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener(){
-        @Override
-        public void onTabReselected(TabLayout.Tab tab) {
-
-        }
-
-        @Override
-        public void onTabSelected(TabLayout.Tab tab) {
-            if(tabLayout.getSelectedTabPosition() == 0){
-                tabLayout.addView()
-            }
-            else{
-
-            }
-        }
-
-        @Override
-        public void onTabUnselected(TabLayout.Tab tab) {
-
-        }
-    });
-
-
-*/
 
         //select될 탭 설정
         Intent intent = getIntent();
         tabNum = intent.getExtras().getInt("tabNum");
         tabLayout.getTabAt(tabNum).select();
+
+
 
 
     }
@@ -91,11 +70,12 @@ public class MypageBuyActivity extends BaseActivity {
         tabLayout.getTabAt(1).setCustomView(imageView2);
 
     }
-    private void setupBuySellViewPager(ViewPager viewPager) {
+    private void setupBuySellViewPager(TradeListViewPager viewPager) { //커스텀 뷰페이저 사용함.
         MyPagerAdapter buySellPagerAdapter = new MyPagerAdapter(getSupportFragmentManager());
         buySellPagerAdapter.appendFragment(BuyListFragment.newInstance(1), "사다조");
         buySellPagerAdapter.appendFragment(DealSellListFragment.newInstance(2), "사다줌");
         viewPager.setAdapter(buySellPagerAdapter);
+        viewPager.setPagingEnabled(false); // 커스텀뷰페이저의 setpagingEnabled로 page swipe disable.
     }
 
 
