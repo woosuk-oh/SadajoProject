@@ -1,5 +1,6 @@
 package com.tacademy.sadajo.search.searchdetail;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
@@ -43,6 +44,7 @@ import com.tacademy.sadajo.network.Search.SeachDetail.SearchDetailshoppingJSONPa
 import com.tacademy.sadajo.network.Search.SeachDetail.SearchDetailzzimDB;
 import com.tacademy.sadajo.network.Search.SeachDetail.SearchDetailzzimJSONParser;
 import com.tacademy.sadajo.network.Search.SeachDetail.TipsContainer;
+import com.tacademy.sadajo.search.searchlist.SearchListActivity;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -285,7 +287,7 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
             String itemidValue = params[0];
             Response response = null; // 응답
 
-            SearchDetailDB searchDetailDB = new SearchDetailDB();
+            // searchDetailDB = new SearchDetailDB();
             url = String.format(SEARCH_LIST_DETAIL, itemidValue);
 
             try {
@@ -739,6 +741,24 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
     }
 
 
+
+    Button.OnClickListener buttonClickListener = new View.OnClickListener() { // 해시태그 tag Button ClickListener
+        @Override
+        public void onClick(View view) {
+            Intent intent;
+            Context context = SearchDetail.this;
+            String str;
+            str = searchDetailDB.getHashtag().get(view.getId()).toString();
+            intent = new Intent(context, SearchListActivity.class);
+            intent.putExtra("tag", str); //tag String 넘겨줌
+            Log.e("tag", str);
+            startActivity(intent);
+            finish();
+
+        }
+    };
+
+
     public Button createTagButton(String str, int i) {
         Button button = new Button(getContext());
         button.setText(str); //서버로부터 받아온 tag text set
@@ -747,8 +767,6 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
         int width = ViewGroup.LayoutParams.WRAP_CONTENT;
         int height = 69;
 
-
-        // TODO 버튼 셋 온클릭 리스너 달아줘야함.
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(width, height);
         button.setPadding(15, 0, 15, 0); // left,right padding : 3
         params.setMargins(0, 0, 45, 45); // top, right margin : 15
@@ -758,7 +776,7 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
         button.setLayoutParams(params);
         button.setTag("HomeTag");
         button.setId(i);
-        //button.setOnClickListener(buttonClickListener);
+        button.setOnClickListener(buttonClickListener);
         return button;
 //        list_item_hash_button.addView(button); // button added
 
