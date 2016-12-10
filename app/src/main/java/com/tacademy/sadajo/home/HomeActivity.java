@@ -137,7 +137,7 @@ public class HomeActivity extends BaseActivity {
 
 
         SharedPreferenceUtil sharedPreferenceUtil = new SharedPreferenceUtil(SadajoContext.getContext());
-        sharedPreferenceUtil.setAccessToken(2);
+        sharedPreferenceUtil.setAccessToken(1);
         userAccount = sharedPreferenceUtil.getAccessToken();
 
         String fcmToken = FirebaseInstanceId.getInstance().getToken(); //푸시 토큰받아옴

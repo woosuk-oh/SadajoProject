@@ -47,10 +47,10 @@ public class ChattingDetailActivity extends BaseActivity {
 
     private int userAccount; //본인유저코드
 
-    private  int type;
-    private  int BOTTOMBAR = 0;
-    private  int MYPAGE = 1;
-    private  int PUSH = 2;
+    private int type;
+    private int BOTTOMBAR = 0;
+    private int MYPAGE = 1;
+    private int PUSH = 2;
 
 
     private RecyclerView mMessagesView;
@@ -65,10 +65,9 @@ public class ChattingDetailActivity extends BaseActivity {
 
     private Socket mSocket;
     private Boolean isConnected = true;
-
+     Boolean isAleady = false;
     MsgDB dbHelper;
-    int count=0;
-
+    int i = 0;
 
 
     @Override
@@ -87,12 +86,8 @@ public class ChattingDetailActivity extends BaseActivity {
         dbHelper = new MsgDB(getApplicationContext(), "MessageHistory", null, 1);
 
 
-
-
         SharedPreferenceUtil sharedPreferenceUtil = new SharedPreferenceUtil(this);
         userAccount = sharedPreferenceUtil.getAccessToken();
-
-
 
 
         targetUserImageView = (ImageView) findViewById(conUserImageView);
@@ -108,23 +103,31 @@ public class ChattingDetailActivity extends BaseActivity {
         targetUserNameTextView.setText(targetUserName);
 
 
+        mAdapter = new MessageAdapter(ChattingDetailActivity.this, mMessages);
+        mMessagesView = (RecyclerView) findViewById(R.id.messages);
+        mMessagesView.setLayoutManager(new LinearLayoutManager(this));
+        mMessagesView.setAdapter(mAdapter);
         SadajoContext app = (SadajoContext) getApplication();
         mSocket = app.getSocket();
         mSocket.on(Socket.EVENT_CONNECT, onConnect);
         mSocket.on(Socket.EVENT_DISCONNECT, onDisconnect);
         mSocket.on(Socket.EVENT_CONNECT_ERROR, onConnectError);
         mSocket.on(Socket.EVENT_CONNECT_TIMEOUT, onConnectError);
-        mSocket.on("toClient", toClient);
+        if (!isAleady) {
+            mSocket.on("toClient", toClient);
+
+        }
 
 
         mSocket.connect();
+
+
         JSONObject object = new JSONObject();
         try {
             object.put("room", roomNum);
             object.put("user", userAccount); //본인 아이디
-            //perform the sending message attempt.
-            Log.e("Chatting User sender",String.valueOf(userAccount));
-            Log.e("Chatting roomnum",String.valueOf(roomNum));
+            Log.e("Chatting User sender", String.valueOf(userAccount));
+            Log.e("Chatting roomnum", String.valueOf(roomNum));
             mSocket.emit("joinRoom", object);
         } catch (JSONException e) {
             Log.d("SEND MESSAGE", "ERROR");
@@ -132,33 +135,28 @@ public class ChattingDetailActivity extends BaseActivity {
         }
 
 
-        mAdapter = new MessageAdapter(ChattingDetailActivity.this, mMessages);
-        mMessagesView = (RecyclerView) findViewById(R.id.messages);
-        mMessagesView.setLayoutManager(new LinearLayoutManager(this));
-        mMessagesView.setAdapter(mAdapter);
 
         //지난 메세지 출력
 
-        if(dbHelper.getResult(roomNum).size() >0 && dbHelper.getResult(roomNum) != null) {
+        if (dbHelper.getResult(roomNum).size() > 0 && dbHelper.getResult(roomNum) != null) {
             pastMessages = dbHelper.getResult(roomNum);
 
-            for (int i = count; i < pastMessages.size(); i++) {
+            for (int i = 0; i < pastMessages.size(); i++) {
 
-                Log.e("messge+"+pastMessages.get(i).id ,pastMessages.get(i).message);
-               if(pastMessages.get(i).user == userAccount){
+                Log.e("messge+" + pastMessages.get(i).id, pastMessages.get(i).message);
+                if (pastMessages.get(i).user == userAccount) {
 
-                       mMessages.add(new Message.Builder(Message.TYPE_RIGHT)
-                               .username(pastMessages.get(i).user).message(pastMessages.get(i).message).build());
-                       mAdapter.notifyItemInserted(mMessages.size() - 1);
-                       scrollToBottom();
+                    mMessages.add(new Message.Builder(Message.TYPE_RIGHT)
+                            .username(pastMessages.get(i).user).message(pastMessages.get(i).message).build());
+                    mAdapter.notifyItemInserted(mMessages.size() - 1);
+                    scrollToBottom();
 
-               }else{
-                   mMessages.add(new Message.Builder(Message.TYPE_LEFT)
-                           .username(pastMessages.get(i).user).message(pastMessages.get(i).message).build());
-                   mAdapter.notifyItemInserted(mMessages.size() - 1);
-                   scrollToBottom();
+                } else {
+                    mMessages.add(new Message.Builder(Message.TYPE_LEFT)
+                            .username(pastMessages.get(i).user).message(pastMessages.get(i).message).build());
+                    mAdapter.notifyItemInserted(mMessages.size() - 1);
+                    scrollToBottom();
                 }
-                count++;
             }
         }
 
@@ -199,8 +197,11 @@ public class ChattingDetailActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if(pastMessages != null && pastMessages.size() > 0){
+        isAleady = true;
+        if (pastMessages != null && pastMessages.size() > 0) {
             pastMessages.removeAll(pastMessages);
+
+            Log.e("resumesize", String.valueOf(pastMessages.size()));
         }
 
     }
@@ -211,7 +212,7 @@ public class ChattingDetailActivity extends BaseActivity {
                     .username(username).message(message).build());
             Log.e("right", String.valueOf(username));
             mAdapter.notifyItemInserted(mMessages.size() - 1);
-
+            insertMessage(message, username);
             scrollToBottom();
         }
     }
@@ -223,7 +224,7 @@ public class ChattingDetailActivity extends BaseActivity {
                     .username(username).message(message).build());
             Log.e("left", String.valueOf(username));
             mAdapter.notifyItemInserted(mMessages.size() - 1);
-
+            insertMessage(message, username);
             scrollToBottom();
         }
     }
@@ -248,6 +249,7 @@ public class ChattingDetailActivity extends BaseActivity {
             //perform the sending message attempt.
 
 
+            Log.e("toserver:", message);
             mSocket.emit("toServer", object);
         } catch (JSONException e) {
             Log.d("SEND MESSAGE", "ERROR");
@@ -317,10 +319,13 @@ public class ChattingDetailActivity extends BaseActivity {
                     int username;
                     String message;
                     try {
+
+
                         Log.e("to client sender", String.valueOf(data.getInt("sender")));
+                        Log.e("to client sender", String.valueOf(data.getString("msg")));
                         username = data.getInt("sender");
                         message = data.getString("msg");
-                        insertMessage(message,username);
+//                        insertMessage(message,username);
 
 
                     } catch (JSONException e) {
@@ -329,7 +334,10 @@ public class ChattingDetailActivity extends BaseActivity {
 
 
                     //  removeTyping(username);
-                    addMessageLeft(username, message);
+                  //  if (username != userAccount) {
+                        addMessageLeft(username, message);
+
+                  //  }
                 }
             });
         }
@@ -341,8 +349,8 @@ public class ChattingDetailActivity extends BaseActivity {
                 case R.id.requestButton:
                     RequestDialogFragment dialog = new RequestDialogFragment();
                     Bundle bundle = new Bundle();
-                    bundle.putInt("targetUserCode",targetUserCode);
-                    Log.e("targetUserCode detail",String.valueOf(targetUserCode));
+                    bundle.putInt("targetUserCode", targetUserCode);
+                    Log.e("targetUserCode detail", String.valueOf(targetUserCode));
                     dialog.setArguments(bundle);
                     dialog.show(getFragmentManager(), "requestDialog");
                     break;
@@ -352,7 +360,6 @@ public class ChattingDetailActivity extends BaseActivity {
             }
         }
     };
-
 
 
     public void setToolbar(boolean b) {
@@ -368,27 +375,28 @@ public class ChattingDetailActivity extends BaseActivity {
 
 
     }
+
     public void getTypeIntent() {
         Intent intent = getIntent();
         type = intent.getIntExtra("type", 0);
         if (type == BOTTOMBAR) {
             //bottom navigation으로 이동한 경우 ChattingActivity에서 넘어옴
-            roomNum =  intent.getIntExtra("roomNum", 0);
+            roomNum = intent.getIntExtra("roomNum", 0);
             targetUserImg = intent.getExtras().getString("targetUserImg"); //상대방 이미지
             targetUserName = intent.getExtras().getString("targetUserName"); //상대방 이름
-            targetUserCode = intent.getIntExtra("targetUserCode",0);
+            targetUserCode = intent.getIntExtra("targetUserCode", 0);
 
 
-        } else if(type == MYPAGE){
+        } else if (type == MYPAGE) {
 
             // OtherMypageActivity에서 넘어온 데이터들
             roomNum = intent.getIntExtra("roomNum", 0);
-           // sender = intent.getIntExtra("sender", 0); //본인
+            // sender = intent.getIntExtra("sender", 0); //본인
             targetUserCode = intent.getIntExtra("receiver", 0); //상대방
             targetUserName = intent.getStringExtra("receiverName");
             targetUserImg = intent.getStringExtra("receiverImg");
 
-        }else if(type == PUSH){
+        } else if (type == PUSH) {
             roomNum = intent.getIntExtra("roomNum", 0);
             targetUserCode = intent.getIntExtra("receiver", 0); //상대방
             targetUserName = intent.getStringExtra("receiverName");
@@ -400,9 +408,54 @@ public class ChattingDetailActivity extends BaseActivity {
 
 
     //TODO : insert message 만들기
-    public void insertMessage(String message,int user){
+    public void insertMessage(String message, int user) {
 
-        dbHelper.insert(roomNum,message,user);
+        dbHelper.insert(roomNum, message, user);
+        Log.e("message ", user + message);
     }
 
+//
+//    @Override
+//    protected void onDestroy() {
+//        super.onDestroy();
+//
+//        mSocket.disconnect();
+//
+//        mSocket.off(Socket.EVENT_CONNECT, onConnect);
+//        mSocket.off(Socket.EVENT_DISCONNECT, onDisconnect);
+//        mSocket.off(Socket.EVENT_CONNECT_ERROR, onConnectError);
+//        mSocket.off(Socket.EVENT_CONNECT_TIMEOUT, onConnectError);
+//        mSocket.off("toClinet", toClient);
+//        isAleady = true;
+//
+//
+//    }
+
+//    @Override
+//    protected void onStop() {
+//        super.onStop();
+//
+//        mSocket.disconnect();
+//
+//        mSocket.off(Socket.EVENT_CONNECT, onConnect);
+//        mSocket.off(Socket.EVENT_DISCONNECT, onDisconnect);
+//        mSocket.off(Socket.EVENT_CONNECT_ERROR, onConnectError);
+//        mSocket.off(Socket.EVENT_CONNECT_TIMEOUT, onConnectError);
+//        mSocket.off("toClinet", toClient);
+//        isAleady = true;
+//
+//    }
+//
+//    @Override
+//    protected void onPause() {
+//        super.onPause();
+//        mSocket.disconnect();
+//
+//        mSocket.off(Socket.EVENT_CONNECT, onConnect);
+//        mSocket.off(Socket.EVENT_DISCONNECT, onDisconnect);
+//        mSocket.off(Socket.EVENT_CONNECT_ERROR, onConnectError);
+//        mSocket.off(Socket.EVENT_CONNECT_TIMEOUT, onConnectError);
+//        mSocket.off("toClinet", toClient);
+//        isAleady = true;
+//    }
 }
