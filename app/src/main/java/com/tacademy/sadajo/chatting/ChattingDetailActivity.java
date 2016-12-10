@@ -65,6 +65,8 @@ public class ChattingDetailActivity extends BaseActivity {
     private Socket mSocket;
     private Boolean isConnected = true;
 
+    MsgDB dbHelper;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +77,10 @@ public class ChattingDetailActivity extends BaseActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);//title hidden
         setToolbar(true);
+
+        dbHelper = new MsgDB(getApplicationContext(), "MessageHistory", null, 1);
+
+
 
 
         SharedPreferenceUtil sharedPreferenceUtil = new SharedPreferenceUtil(this);
@@ -124,6 +130,15 @@ public class ChattingDetailActivity extends BaseActivity {
         mMessagesView = (RecyclerView) findViewById(R.id.messages);
         mMessagesView.setLayoutManager(new LinearLayoutManager(this));
         mMessagesView.setAdapter(mAdapter);
+
+
+        //지난 메세지 출력
+
+
+        mMessages.add(new Message.Builder(Message.TYPE_RIGHT)
+                .message(dbHelper.getResult()).build());
+        mAdapter.notifyItemInserted(mMessages.size() - 1);
+        scrollToBottom();
 
         mInputMessageView = (EditText) findViewById(R.id.chattingEditText);
         mInputMessageView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -175,7 +190,7 @@ public class ChattingDetailActivity extends BaseActivity {
             mMessages.add(new Message.Builder(Message.TYPE_LEFT)
                     .username(username).message(message).build());
             Log.e("left", String.valueOf(username));
-
+            dbHelper.insert(message);
             mAdapter.notifyItemInserted(mMessages.size() - 1);
             scrollToBottom();
         }
@@ -200,6 +215,10 @@ public class ChattingDetailActivity extends BaseActivity {
             object.put("sender", userAccount);
             object.put("msg", message);
             //perform the sending message attempt.
+
+
+
+
 
             mSocket.emit("toServer", object);
         } catch (JSONException e) {
@@ -273,7 +292,7 @@ public class ChattingDetailActivity extends BaseActivity {
                         Log.e("to client sender", String.valueOf(data.getInt("sender")));
                         username = data.getInt("sender");
                         message = data.getString("msg");
-
+                        dbHelper.insert(message);
 
                     } catch (JSONException e) {
                         return;
@@ -349,5 +368,8 @@ public class ChattingDetailActivity extends BaseActivity {
         }
 
     }
+
+
+    //TODO : insert message 만들기
 
 }
