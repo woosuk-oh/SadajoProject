@@ -112,7 +112,7 @@ public class DealSellListFragment extends Fragment {
                         .build();
 
                 Request request = new Request.Builder()
-                        .url(String.format(NetworkDefineConstant.SERVER_URL_REQUEST_DEALLIST)) // TODO 사다조, 사다줌 페이지가 바뀌어서 요청 URL이 반대로 되어있음. (파일명을 바꾸던..)
+                        .url(String.format(NetworkDefineConstant.SERVER_URL_REQUEST_DEALLIST)) // T
                         .post(postBody)
                         .build();
 

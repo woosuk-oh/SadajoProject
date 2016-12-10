@@ -31,6 +31,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.tacademy.sadajo.BaseActivity;
 import com.tacademy.sadajo.R;
+import com.tacademy.sadajo.SadajoContext;
 import com.tacademy.sadajo.SharedPreferenceUtil;
 import com.tacademy.sadajo.network.NetworkDefineConstant;
 import com.tacademy.sadajo.network.OkHttpInitManager;
@@ -151,11 +152,13 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
                         switch (i){
                             case EditorInfo.IME_ACTION_SEARCH:
                                 new TipsInputAsync().execute(tipsinput.getText().toString());
+                                tipsinput.setText("");
                                 Log.d("엔터여부","서치 눌림림");
                                 break;
                             default:
                                 new TipsInputAsync().execute(tipsinput.getText().toString());
                                 Log.d("엔터여부","엔터눌림2");
+                                tipsinput.setText("");
                                 return false;
                         }
 
@@ -453,8 +456,22 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
                 mAdapter4.notifyDataSetChanged();
                 mRecycler4.setNestedScrollingEnabled(false);
 
-            scrollToBottom();
 
+
+           /* HorizontalScrollView hsv = (HorizontalScrollView) findViewById(R.id.detail_body_scrollview);
+            TextView textView = (TextView) findViewById(R.id.detail_comment_body);
+            int x, y;
+            x = textView.getLeft();
+            y = textView.getTop();
+            hsv.scrollTo(x, y);
+
+
+
+            mAdapter4.setTranscriptMode(RecyclerView.TRANSCRIPT_MODE_ALWAYS_SCROLL);
+
+
+            scrollToBottom();
+*/
  /*           // TODO 스크롤 내리기 안됌
             mAdapter4.notifyItemMoved(1,5);
             mRecycler4.scrollTo(300, 300);
@@ -481,7 +498,14 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
         public void onClick(View view) {
             switch (view.getId()) {
                 case R.id.detail_zzim_button:
-                    Toast.makeText(SearchDetail.this, "찜하기 완료!", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(SearchDetail.this, "찜하기 완료!", Toast.LENGTH_SHORT).show();
+                    Toast toast = new Toast(SadajoContext.getContext());
+                    toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+                    toast.setDuration(Toast.LENGTH_LONG);
+                    ImageView zzimtoast = new ImageView(SadajoContext.getContext());
+                    zzimtoast.setImageResource(R.drawable.search_toast3);
+                    toast.setView(zzimtoast);
+                    toast.show();
 
 
                     zzim.post(new Runnable() {
@@ -600,7 +624,17 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
 
                                                               if(!shoppingcountint.result.equals("failed")) {
                                                                   shoptext.setText(String.valueOf(shoppingcountint.getShoppingcount()));
-                                                                  Toast.makeText(SearchDetail.this, "쇼핑리스트에 담겼습니다", Toast.LENGTH_SHORT).show();
+
+                                                                  Toast toast = new Toast(SadajoContext.getContext());
+                                                                  toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+                                                                  toast.setDuration(Toast.LENGTH_LONG);
+                                                                  ImageView shoppingtoast = new ImageView(SadajoContext.getContext());
+                                                                  shoppingtoast.setImageResource(R.drawable.search_toast3);
+                                                                  toast.setView(shoppingtoast);
+                                                                  toast.show();
+
+
+                                                                 // Toast.makeText(SearchDetail.this, "쇼핑리스트에 담겼습니다", Toast.LENGTH_SHORT).show();
                                                               }else if(shoppingcountint.result.equals("failed")){
                                                                   Toast.makeText(SearchDetail.this, "여행 일정을 먼저 등록해주세요.", Toast.LENGTH_SHORT).show();
                                                               }

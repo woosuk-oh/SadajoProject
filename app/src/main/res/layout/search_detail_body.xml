@@ -4,7 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/whiteGrayFont">
+    android:background="@color/whiteGrayFont"
+    >
 
 
     <android.support.design.widget.AppBarLayout
@@ -545,7 +546,10 @@
                 android:layout_marginTop="1dp"
                 android:fadeScrollbars="true"
 
+
                 />
+            <!--  android:transcriptMode="alwaysScroll"
+   android:stackFromBottom="true" 는 아이템이 새로 생기면 스크롤을 내려주는것.-->
 
 
         </LinearLayout>

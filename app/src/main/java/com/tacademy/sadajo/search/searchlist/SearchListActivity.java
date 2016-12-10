@@ -45,7 +45,7 @@ import static com.tacademy.sadajo.network.NetworkDefineConstant.SEARCH_LIST_COUN
 
 public class SearchListActivity extends BaseActivity {
 
-
+// 검색 부분은 해시태그랑 상품명으로 검색이 가능하도록 해놓았음.
 
     String url;
     String sortvalue = ""; //인기순 최신순을 onResume에서도 사용하기 위해 전역변수로 빼둠. 기본 초기화값으로 공백 세팅
@@ -113,9 +113,6 @@ public class SearchListActivity extends BaseActivity {
 
 
 
-     /*   //맨처음 기본 셋팅.
-        popularity.setPressed(true);
-        latest.setPressed(false);*/
 
         popularity = (TextView) findViewById(R.id.popularity);
 
@@ -161,17 +158,6 @@ public class SearchListActivity extends BaseActivity {
                 return false;
             }
         });
-       /* ClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                view.setClickable(true);
-                view.setPressed(true);
-
-                latest.setTextColor(getResources().getColorStateList(R.color.search_list_selector));
-                new AsyncSearchRequest().execute(countrySpinner.getSelectedItem().toString(), searchBar.getText().toString(), "date=1");
-
-            }
-        });*/
 
 
         // 리싸이클러뷰 xml 붙이기.
@@ -190,10 +176,7 @@ public class SearchListActivity extends BaseActivity {
 
   /*      searchBar.setOnFocusChangeListener(FocusListener); // Search Bar 클릭 시, 이미지 변경*/
 
-        //////////////////////
-        //  리프레쉬 할때 출력되는 새로고침 애니메이션.
-        // //확장 가능한 TitleBar(~~액션바를 붙이지 않아도)   //
-        //////////////////////
+
         inAnim = AnimationUtils.loadAnimation(this, R.anim.abc_slide_in_top);
         outAnim = AnimationUtils.loadAnimation(this, R.anim.abc_slide_out_top);
 
@@ -257,7 +240,6 @@ public class SearchListActivity extends BaseActivity {
         countrySpinner.setAdapter(spinnerAdapter);
 
 
-       // searchBar.setHint("검색어를 입력 바람");
 
         searchBar.addTextChangedListener(new TextWatcher() {
                                              @Override
@@ -400,18 +382,6 @@ public class SearchListActivity extends BaseActivity {
                 url = SEARCH_LIST; //url에 /goods를 넣어줌.
                 Log.d("URL1","입력한 URL 주소:"+url);
 
-      /*          if (!param3.equals("")) { // 전세계인 상태에서 인기순이나 최신순을 누른 경우.
-                    url = url + "?"+param3;
-                    Log.d("URL1-1","입력한 URL 주소:"+url);
-                }
-
-                // 에딧 텍스트에서 입력한 값 가져와서
-                if (!TextUtils.isEmpty(param2)) { // EditText에 입력한 값이 넘어와서 그 값이 공백이 아닐경우.
-                    Log.d("입력한 파람스", "" + param2);
-                    url = url + "?name=" + param2;  //  url = url + "?name=" + "시세이도";
-                    Log.d("URL1-2","입력한 URL 주소:"+url);
-
-                }*/
                 if(param2.equals("") && !param3.equals("")){
                     url = url + "?"+ param3; //검색창 안에 입력이 공백이고 인기,최신순 누른 경우.
                     Log.d("URL1-1","검색값 없고, 인기,최신순 누른경우.:"+url);
