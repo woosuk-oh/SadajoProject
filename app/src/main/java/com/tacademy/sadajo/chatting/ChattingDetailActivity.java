@@ -69,6 +69,8 @@ public class ChattingDetailActivity extends BaseActivity {
     MsgDB dbHelper;
     int i = 0;
 
+    SharedPreferenceUtil sharedPreferenceUtil;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,7 +88,7 @@ public class ChattingDetailActivity extends BaseActivity {
         dbHelper = new MsgDB(getApplicationContext(), "MessageHistory", null, 1);
 
 
-        SharedPreferenceUtil sharedPreferenceUtil = new SharedPreferenceUtil(this);
+         sharedPreferenceUtil = new SharedPreferenceUtil(this);
         userAccount = sharedPreferenceUtil.getAccessToken();
 
 
@@ -107,35 +109,20 @@ public class ChattingDetailActivity extends BaseActivity {
         mMessagesView = (RecyclerView) findViewById(R.id.messages);
         mMessagesView.setLayoutManager(new LinearLayoutManager(this));
         mMessagesView.setAdapter(mAdapter);
+
+
         SadajoContext app = (SadajoContext) getApplication();
         mSocket = app.getSocket();
         mSocket.on(Socket.EVENT_CONNECT, onConnect);
         mSocket.on(Socket.EVENT_DISCONNECT, onDisconnect);
         mSocket.on(Socket.EVENT_CONNECT_ERROR, onConnectError);
         mSocket.on(Socket.EVENT_CONNECT_TIMEOUT, onConnectError);
-        if (!isAleady) {
-            mSocket.on("toClient", toClient);
-
-        }
-
 
         mSocket.connect();
 
+        joinRoom();  //채팅방 입장
 
-        JSONObject object = new JSONObject();
-        try {
-            object.put("room", roomNum);
-            object.put("user", userAccount); //본인 아이디
-            Log.e("Chatting User sender", String.valueOf(userAccount));
-            Log.e("Chatting roomnum", String.valueOf(roomNum));
-            mSocket.emit("joinRoom", object);
-        } catch (JSONException e) {
-            Log.d("SEND MESSAGE", "ERROR");
-            e.printStackTrace();
-        }
-
-
-
+        mSocket.on("toClient", toClient);
         //지난 메세지 출력
 
         if (dbHelper.getResult(roomNum).size() > 0 && dbHelper.getResult(roomNum) != null) {
@@ -194,10 +181,21 @@ public class ChattingDetailActivity extends BaseActivity {
     }
 
 
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+
+    }
+
+
     @Override
     protected void onResume() {
         super.onResume();
         isAleady = true;
+        //mSocket.on("toClient",toClient);
+
         if (pastMessages != null && pastMessages.size() > 0) {
             pastMessages.removeAll(pastMessages);
 
@@ -246,8 +244,7 @@ public class ChattingDetailActivity extends BaseActivity {
         try {
             object.put("sender", userAccount);
             object.put("msg", message);
-            //perform the sending message attempt.
-
+            //perform the sending message attempt
 
             Log.e("toserver:", message);
             mSocket.emit("toServer", object);
@@ -369,6 +366,8 @@ public class ChattingDetailActivity extends BaseActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() { //클릭시 뒤로가기
             @Override
             public void onClick(View view) {
+
+
                 onBackPressed();
             }
         });
@@ -414,48 +413,72 @@ public class ChattingDetailActivity extends BaseActivity {
         Log.e("message ", user + message);
     }
 
-//
-//    @Override
-//    protected void onDestroy() {
-//        super.onDestroy();
-//
-//        mSocket.disconnect();
-//
-//        mSocket.off(Socket.EVENT_CONNECT, onConnect);
-//        mSocket.off(Socket.EVENT_DISCONNECT, onDisconnect);
-//        mSocket.off(Socket.EVENT_CONNECT_ERROR, onConnectError);
-//        mSocket.off(Socket.EVENT_CONNECT_TIMEOUT, onConnectError);
-//        mSocket.off("toClinet", toClient);
-//        isAleady = true;
-//
-//
-//    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        mSocket.disconnect();
+
+        mSocket.off(Socket.EVENT_CONNECT, onConnect);
+        mSocket.off(Socket.EVENT_DISCONNECT, onDisconnect);
+        mSocket.off(Socket.EVENT_CONNECT_ERROR, onConnectError);
+        mSocket.off(Socket.EVENT_CONNECT_TIMEOUT, onConnectError);
+        mSocket.off("toClinet", toClient);
+        isAleady = true;
+        //sharedPreferenceUtil.setAccessToClient(0);
+        // sharedPreferenceUtil.removeAccessToClient();
+
+
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        mSocket.disconnect();
+        mSocket.off(Socket.EVENT_CONNECT, onConnect);
+        mSocket.off(Socket.EVENT_DISCONNECT, onDisconnect);
+        mSocket.off(Socket.EVENT_CONNECT_ERROR, onConnectError);
+        mSocket.off(Socket.EVENT_CONNECT_TIMEOUT, onConnectError);
+        mSocket.off("toClinet", toClient);
+        isAleady = true;
+
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mSocket.disconnect();
+        mSocket.off(Socket.EVENT_CONNECT, onConnect);
+        mSocket.off(Socket.EVENT_DISCONNECT, onDisconnect);
+        mSocket.off(Socket.EVENT_CONNECT_ERROR, onConnectError);
+        mSocket.off(Socket.EVENT_CONNECT_TIMEOUT, onConnectError);
+        mSocket.off("toClinet", toClient);
+    }
 
 //    @Override
-//    protected void onStop() {
-//        super.onStop();
-//
-//        mSocket.disconnect();
-//
-//        mSocket.off(Socket.EVENT_CONNECT, onConnect);
-//        mSocket.off(Socket.EVENT_DISCONNECT, onDisconnect);
-//        mSocket.off(Socket.EVENT_CONNECT_ERROR, onConnectError);
-//        mSocket.off(Socket.EVENT_CONNECT_TIMEOUT, onConnectError);
+//    protected void onRestart() {
+//        super.onRestart();
+//        mSocket.on(Socket.EVENT_CONNECT, onConnect);
+//        mSocket.on(Socket.EVENT_DISCONNECT, onDisconnect);
+//        mSocket.on(Socket.EVENT_CONNECT_ERROR, onConnectError);
+//        mSocket.on(Socket.EVENT_CONNECT_TIMEOUT, onConnectError);
 //        mSocket.off("toClinet", toClient);
-//        isAleady = true;
-//
 //    }
-//
-//    @Override
-//    protected void onPause() {
-//        super.onPause();
-//        mSocket.disconnect();
-//
-//        mSocket.off(Socket.EVENT_CONNECT, onConnect);
-//        mSocket.off(Socket.EVENT_DISCONNECT, onDisconnect);
-//        mSocket.off(Socket.EVENT_CONNECT_ERROR, onConnectError);
-//        mSocket.off(Socket.EVENT_CONNECT_TIMEOUT, onConnectError);
-//        mSocket.off("toClinet", toClient);
-//        isAleady = true;
-//    }
+    public void joinRoom(){
+        JSONObject object = new JSONObject();
+        try {
+            object.put("room", roomNum);
+            object.put("user", userAccount); //본인 아이디
+            Log.e("Chatting User sender", String.valueOf(userAccount));
+            Log.e("Chatting roomnum", String.valueOf(roomNum));
+
+            mSocket.emit("joinRoom", object);
+        } catch (JSONException e) {
+            Log.d("SEND MESSAGE", "ERROR");
+            e.printStackTrace();
+        }
+
+    }
 }
