@@ -26,6 +26,7 @@ import com.tacademy.sadajo.BaseActivity;
 import com.tacademy.sadajo.R;
 import com.tacademy.sadajo.SadajoContext;
 import com.tacademy.sadajo.SharedPreferenceUtil;
+import com.tacademy.sadajo.dialog.NewMessageAlertActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -58,6 +59,7 @@ public class ChattingDetailActivity extends BaseActivity {
     private EditText mInputMessageView;
     private ImageView targetUserImageView;
     private TextView targetUserNameTextView;
+    private ImageButton chatAttachButton;
     //private TextView conPositionTextView;
 
     private List<Message> mMessages = new ArrayList<>();
@@ -195,6 +197,16 @@ public class ChattingDetailActivity extends BaseActivity {
         requestButton = (ImageButton) findViewById(R.id.requestButton);//사다조 요청하기 버튼
         requestButton.setOnClickListener(clickListener);
 
+        chatAttachButton = (ImageButton)findViewById(R.id.chatAttachButton);
+        chatAttachButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent;
+                intent = new Intent(ChattingDetailActivity.this, NewMessageAlertActivity.class);
+                startActivity(intent);
+             //Toast.makeText(ChattingDetailActivity.this,"서비스 준비중",Toast.LENGTH_SHORT).show();
+            }
+        });
 
     }
 

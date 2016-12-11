@@ -4,8 +4,7 @@
     android:layout_height="118dp"
     android:background="@drawable/home_push"
     android:paddingBottom="20dp"
-    android:orientation="horizontal"
-    tools:context="com.tacademy.sadajo.dialog.NewMessageDialogFragment">
+    android:orientation="horizontal">
 
 
     <LinearLayout

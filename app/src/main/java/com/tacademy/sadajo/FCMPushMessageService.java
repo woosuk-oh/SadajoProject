@@ -113,6 +113,9 @@ public class FCMPushMessageService extends FirebaseMessagingService {
 
 
 
+
+        //alert
+
         NotificationManager notificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.notify(0, notificationBuilder.build());
