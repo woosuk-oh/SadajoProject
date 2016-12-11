@@ -9,10 +9,13 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,8 +33,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.tacademy.sadajo.R.id.conUserImageView;
-import static com.tacademy.sadajo.R.id.contUserNameTextView;
 
 public class ChattingDetailActivity extends BaseActivity {
 
@@ -65,12 +66,17 @@ public class ChattingDetailActivity extends BaseActivity {
 
     private Socket mSocket;
     private Boolean isConnected = true;
-     Boolean isAleady = false;
+    Boolean isAleady = false;
     MsgDB dbHelper;
     int i = 0;
 
     SharedPreferenceUtil sharedPreferenceUtil;
 
+    private LinearLayout chatDetailTop;
+    private Animation inAnim;
+    private Animation outAnim;
+
+    String temp = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,18 +88,22 @@ public class ChattingDetailActivity extends BaseActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);//title hidden
         setToolbar(true);
 
+        chatDetailTop = (LinearLayout)findViewById(R.id.chatDetailTop);
+        inAnim = AnimationUtils.loadAnimation(this, R.anim.abc_slide_in_top);
+        outAnim = AnimationUtils.loadAnimation(this, R.anim.abc_slide_out_top);
+
         getTypeIntent(); //intent로 넘어 온 데이터들 받아옴
 
         //MsgDB
         dbHelper = new MsgDB(getApplicationContext(), "MessageHistory", null, 1);
 
 
-         sharedPreferenceUtil = new SharedPreferenceUtil(this);
+        sharedPreferenceUtil = new SharedPreferenceUtil(this);
         userAccount = sharedPreferenceUtil.getAccessToken();
 
 
-        targetUserImageView = (ImageView) findViewById(conUserImageView);
-        targetUserNameTextView = (TextView) findViewById(contUserNameTextView);
+        targetUserImageView = (ImageView) findViewById(R.id.conUserImageView);
+        targetUserNameTextView = (TextView) findViewById(R.id.contUserNameTextView);
         //conPositionTextView = (TextView) findViewById(conPositionTextView);
 
 
@@ -111,6 +121,8 @@ public class ChattingDetailActivity extends BaseActivity {
         mMessagesView.setAdapter(mAdapter);
 
 
+
+        //socket연결
         SadajoContext app = (SadajoContext) getApplication();
         mSocket = app.getSocket();
         mSocket.on(Socket.EVENT_CONNECT, onConnect);
@@ -118,19 +130,20 @@ public class ChattingDetailActivity extends BaseActivity {
         mSocket.on(Socket.EVENT_CONNECT_ERROR, onConnectError);
         mSocket.on(Socket.EVENT_CONNECT_TIMEOUT, onConnectError);
 
+        mSocket.on("toClient", toClient);
+
         mSocket.connect();
 
         joinRoom();  //채팅방 입장
 
-        mSocket.on("toClient", toClient);
-        //지난 메세지 출력
 
+        //지난 메세지 출력
         if (dbHelper.getResult(roomNum).size() > 0 && dbHelper.getResult(roomNum) != null) {
             pastMessages = dbHelper.getResult(roomNum);
 
             for (int i = 0; i < pastMessages.size(); i++) {
 
-                Log.e("messge+" + pastMessages.get(i).id, pastMessages.get(i).message);
+               // Log.e("messge+" + pastMessages.get(i).id, pastMessages.get(i).message);
                 if (pastMessages.get(i).user == userAccount) {
 
                     mMessages.add(new Message.Builder(Message.TYPE_RIGHT)
@@ -148,6 +161,8 @@ public class ChattingDetailActivity extends BaseActivity {
         }
 
         mInputMessageView = (EditText) findViewById(R.id.chattingEditText);
+
+
         mInputMessageView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int id, KeyEvent event) {
@@ -162,6 +177,9 @@ public class ChattingDetailActivity extends BaseActivity {
                 return false;
             }
         });
+
+
+
         ImageButton sendButton = (ImageButton) findViewById(R.id.chatDetailSendButton);
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -181,7 +199,6 @@ public class ChattingDetailActivity extends BaseActivity {
     }
 
 
-
     @Override
     protected void onStart() {
         super.onStart();
@@ -193,8 +210,8 @@ public class ChattingDetailActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        isAleady = true;
-        //mSocket.on("toClient",toClient);
+//        isAleady = true;
+//        //mSocket.on("toClient",toClient);
 
         if (pastMessages != null && pastMessages.size() > 0) {
             pastMessages.removeAll(pastMessages);
@@ -315,6 +332,7 @@ public class ChattingDetailActivity extends BaseActivity {
                     JSONObject data = (JSONObject) args[0];
                     int username;
                     String message;
+
                     try {
 
 
@@ -322,7 +340,7 @@ public class ChattingDetailActivity extends BaseActivity {
                         Log.e("to client sender", String.valueOf(data.getString("msg")));
                         username = data.getInt("sender");
                         message = data.getString("msg");
-//                        insertMessage(message,username);
+
 
 
                     } catch (JSONException e) {
@@ -331,10 +349,10 @@ public class ChattingDetailActivity extends BaseActivity {
 
 
                     //  removeTyping(username);
-                  //  if (username != userAccount) {
-                        addMessageLeft(username, message);
+                    //  if (username != userAccount) {
+                    addMessageLeft(username, message);
 
-                  //  }
+                    //  }
                 }
             });
         }
@@ -418,46 +436,46 @@ public class ChattingDetailActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
 
-        mSocket.disconnect();
-
-        mSocket.off(Socket.EVENT_CONNECT, onConnect);
-        mSocket.off(Socket.EVENT_DISCONNECT, onDisconnect);
-        mSocket.off(Socket.EVENT_CONNECT_ERROR, onConnectError);
-        mSocket.off(Socket.EVENT_CONNECT_TIMEOUT, onConnectError);
-        mSocket.off("toClinet", toClient);
-        isAleady = true;
-        //sharedPreferenceUtil.setAccessToClient(0);
+        mSocket.off("toClient",toClient);
+//        mSocket.disconnect();
+//
+//        mSocket.off(Socket.EVENT_CONNECT, onConnect);
+//        mSocket.off(Socket.EVENT_DISCONNECT, onDisconnect);
+//        mSocket.off(Socket.EVENT_CONNECT_ERROR, onConnectError);
+//        mSocket.off(Socket.EVENT_CONNECT_TIMEOUT, onConnectError);
+//        mSocket.off("toClinet", toClient);
+//        isAleady = true;
+//        //sharedPreferenceUtil.setAccessToClient(0);
         // sharedPreferenceUtil.removeAccessToClient();
 
-
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-
-        mSocket.disconnect();
-        mSocket.off(Socket.EVENT_CONNECT, onConnect);
-        mSocket.off(Socket.EVENT_DISCONNECT, onDisconnect);
-        mSocket.off(Socket.EVENT_CONNECT_ERROR, onConnectError);
-        mSocket.off(Socket.EVENT_CONNECT_TIMEOUT, onConnectError);
-        mSocket.off("toClinet", toClient);
-        isAleady = true;
-
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        mSocket.disconnect();
-        mSocket.off(Socket.EVENT_CONNECT, onConnect);
-        mSocket.off(Socket.EVENT_DISCONNECT, onDisconnect);
-        mSocket.off(Socket.EVENT_CONNECT_ERROR, onConnectError);
-        mSocket.off(Socket.EVENT_CONNECT_TIMEOUT, onConnectError);
-        mSocket.off("toClinet", toClient);
     }
 
 //    @Override
+//    protected void onStop() {
+//        super.onStop();
+//
+//        mSocket.disconnect();
+//        mSocket.off(Socket.EVENT_CONNECT, onConnect);
+//        mSocket.off(Socket.EVENT_DISCONNECT, onDisconnect);
+//        mSocket.off(Socket.EVENT_CONNECT_ERROR, onConnectError);
+//        mSocket.off(Socket.EVENT_CONNECT_TIMEOUT, onConnectError);
+//        mSocket.off("toClinet", toClient);
+//        isAleady = true;
+//
+//    }
+//
+//    @Override
+//    protected void onPause() {
+//        super.onPause();
+//        mSocket.disconnect();
+//        mSocket.off(Socket.EVENT_CONNECT, onConnect);
+//        mSocket.off(Socket.EVENT_DISCONNECT, onDisconnect);
+//        mSocket.off(Socket.EVENT_CONNECT_ERROR, onConnectError);
+//        mSocket.off(Socket.EVENT_CONNECT_TIMEOUT, onConnectError);
+//        mSocket.off("toClinet", toClient);
+//    }
+
+    //    @Override
 //    protected void onRestart() {
 //        super.onRestart();
 //        mSocket.on(Socket.EVENT_CONNECT, onConnect);
@@ -466,7 +484,7 @@ public class ChattingDetailActivity extends BaseActivity {
 //        mSocket.on(Socket.EVENT_CONNECT_TIMEOUT, onConnectError);
 //        mSocket.off("toClinet", toClient);
 //    }
-    public void joinRoom(){
+    public void joinRoom() {
         JSONObject object = new JSONObject();
         try {
             object.put("room", roomNum);
@@ -481,4 +499,7 @@ public class ChattingDetailActivity extends BaseActivity {
         }
 
     }
+
+
+
 }

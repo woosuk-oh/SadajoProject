@@ -288,7 +288,6 @@ public class HomeActivity extends BaseActivity {
             ScheduleDialogFragment dialog = new ScheduleDialogFragment();
             switch (view.getId()) {
                 case R.id.scheduleRegisterButton:
-
                     dialog.show(getFragmentManager(), "scheduleDialog");
                     break;
                 case R.id.register:
