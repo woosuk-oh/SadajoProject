@@ -163,6 +163,12 @@ public class ChattingDetailActivity extends BaseActivity {
         }
 
         mInputMessageView = (EditText) findViewById(R.id.chattingEditText);
+//        mInputMessageView.requestFocus();
+//
+//        //키보드 보이게 하는 부분
+//        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+//        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
+
 
 
         mInputMessageView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
