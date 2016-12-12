@@ -26,6 +26,7 @@ import com.tacademy.sadajo.BaseActivity;
 import com.tacademy.sadajo.R;
 import com.tacademy.sadajo.SadajoContext;
 import com.tacademy.sadajo.SharedPreferenceUtil;
+import com.tacademy.sadajo.dialog.NewMessageAlertActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -200,11 +201,11 @@ public class ChattingDetailActivity extends BaseActivity {
         chatAttachButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Intent intent;
-//                intent = new Intent(ChattingDetailActivity.this, NewMessageAlertActivity.class);
-//                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//
-//                startActivity(intent);
+                Intent intent;
+                intent = new Intent(ChattingDetailActivity.this, NewMessageAlertActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+                startActivity(intent);
              Toast.makeText(ChattingDetailActivity.this,"서비스 준비중",Toast.LENGTH_SHORT).show();
             }
         });
