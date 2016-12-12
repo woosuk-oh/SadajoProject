@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -16,6 +17,7 @@ import com.tacademy.sadajo.R;
 public class MypageBuyActivity extends BaseActivity {
     TabLayout tabLayout;
     int tabNum;
+    int otheruserid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,23 +40,37 @@ public class MypageBuyActivity extends BaseActivity {
             }
         });
 
+        //select될 탭 설정
+        Intent intent = getIntent();
+        tabNum = intent.getExtras().getInt("tabNum");
+        otheruserid = intent.getExtras().getInt("targetUserCode");
+        Log.d("otheruserid","MypageBuyActivity 타겟아이디:"+otheruserid);
 
 
         // 커스텀 뷰페이저 선언.
         TradeListViewPager viewPager = (TradeListViewPager) findViewById(R.id.mypageDealViewpager);
         if (viewPager != null) {
-            setupBuySellViewPager(viewPager);
+            setupBuySellViewPager(viewPager, otheruserid);
         }
         tabLayout = (TabLayout) findViewById(R.id.mypageDealTab);
         tabLayout.setupWithViewPager(viewPager);
 
         setTabImage();
 
-        //select될 탭 설정
-        Intent intent = getIntent();
-        tabNum = intent.getExtras().getInt("tabNum");
         tabLayout.getTabAt(tabNum).select();
+/*
 
+        */
+/* 인텐트로 받아온 otheruserid 값을 번들을 통해 프래그먼트로 이동*//*
+
+        Bundle bundle = new Bundle();
+        bundle.putInt("targetUserCode", otheruserid);
+        BuyListFragment buyListFragment = new BuyListFragment();
+        DealSellListFragment dealSellListFragment = new DealSellListFragment();
+        buyListFragment.setArguments(bundle);
+        dealSellListFragment.setArguments(bundle);
+
+*/
 
 
 
@@ -70,10 +86,10 @@ public class MypageBuyActivity extends BaseActivity {
         tabLayout.getTabAt(1).setCustomView(imageView2);
 
     }
-    private void setupBuySellViewPager(TradeListViewPager viewPager) { //커스텀 뷰페이저 사용함.
+    private void setupBuySellViewPager(TradeListViewPager viewPager, int otheruserid) { //커스텀 뷰페이저 사용함.
         MyPagerAdapter buySellPagerAdapter = new MyPagerAdapter(getSupportFragmentManager());
-        buySellPagerAdapter.appendFragment(BuyListFragment.newInstance(1), "사다조");
-        buySellPagerAdapter.appendFragment(DealSellListFragment.newInstance(2), "사다줌");
+        buySellPagerAdapter.appendFragment(BuyListFragment.newInstance(otheruserid), "사다조"); // 프래그먼트 호출 - 생성 - 인자값 넘겨줌.
+        buySellPagerAdapter.appendFragment(DealSellListFragment.newInstance(otheruserid), "사다줌");
         viewPager.setAdapter(buySellPagerAdapter);
         viewPager.setPagingEnabled(false); // 커스텀뷰페이저의 setpagingEnabled로 page swipe disable.
     }

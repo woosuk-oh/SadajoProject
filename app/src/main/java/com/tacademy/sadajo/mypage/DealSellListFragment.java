@@ -37,6 +37,7 @@ public class DealSellListFragment extends Fragment {
     SellListRecyclerViewAdapter recyclerViewAdapter;
 
     int userAccount=0;
+    int ohteruserid = 0;
 
     public DealSellListFragment() {
     }
@@ -44,9 +45,9 @@ public class DealSellListFragment extends Fragment {
 
     public static DealSellListFragment newInstance(int initValue) {
         DealSellListFragment fragment = new DealSellListFragment();
-    //    Bundle bundle = new Bundle();
-     //   bundle.putInt("value", initValue);
-      //  fragment.setArguments(bundle);
+        Bundle bundle = new Bundle();
+        bundle.putInt("targetUserCode", initValue);
+        fragment.setArguments(bundle);
         return fragment;
     }
 
@@ -54,6 +55,7 @@ public class DealSellListFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        ohteruserid = getArguments().getInt("targetUserCode", 0);
     }
 
     @Override
@@ -84,7 +86,7 @@ public class DealSellListFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        new DealListRequest().execute(userAccount,userAccount);
+        new DealListRequest().execute(userAccount,ohteruserid);
     }
 
     public class DealListRequest extends AsyncTask<Integer, Void, ArrayList<DealListData>>{

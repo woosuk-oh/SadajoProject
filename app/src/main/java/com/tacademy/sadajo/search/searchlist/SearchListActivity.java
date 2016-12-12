@@ -452,10 +452,14 @@ public class SearchListActivity extends BaseActivity {
                 response = toServer.newCall(request).execute();
 
                 if (response.isSuccessful()) { //연결에 성공하면
-                    String returedMessage = response.body().string(); // okhttp로 부터 받아온 데이터 json을 스트링형태로 변환하여 returendMessage에 담아둠. 이때, home부분의 모든 오브젝트를 가져와 담아둠.
-                  //  Log.e("searchActivity", returedMessage);
 
-                    searchDB = SearchJSONParser.getSearchJsonParser(returedMessage); //만들어둔 파서로 returedMessage를 넣어서 파싱하여 homeDB에 값을 넣음.
+                    if (response.body()==null){
+                        Toast.makeText(SadajoContext.getContext(), "서버에서 보내주는 데이터 없음 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
+                    }else{
+                        String returedMessage = response.body().string(); // okhttp로 부터 받아온 데이터 json을 스트링형태로 변환하여 returendMessage에 담아둠. 이때, home부분의 모든 오브젝트를 가져와 담아둠.
+                        //  Log.e("searchActivity", returedMessage);
+                        searchDB = SearchJSONParser.getSearchJsonParser(returedMessage); //만들어둔 파서로 returedMessage를 넣어서 파싱하여 homeDB에 값을 넣음.
+                    }
 
                 } else { // 연결에 실패하면
                     Log.e("요청/응답", response.message().toString());
@@ -478,14 +482,16 @@ public class SearchListActivity extends BaseActivity {
         protected void onPostExecute(SearchDB searchDB) {
             super.onPostExecute(searchDB);
 
-            customTitleText2.setText(String.valueOf(searchDB.getCount()));
+            if(searchDB != null) {
 
-            // Log.d("searchDB",""+searchDB.getSearchGoodsDBs().get(0).toString());
+                customTitleText2.setText(String.valueOf(searchDB.getCount()));
 
-            mAdapter = new SearchListRecyclerAdapter(SearchListActivity.this, searchDB.searchGoodsDBs);
-            mRecycler.setAdapter(mAdapter);
-            mAdapter.notifyDataSetChanged();
+                // Log.d("searchDB",""+searchDB.getSearchGoodsDBs().get(0).toString());
 
+                mAdapter = new SearchListRecyclerAdapter(SearchListActivity.this, searchDB.searchGoodsDBs);
+                mRecycler.setAdapter(mAdapter);
+                mAdapter.notifyDataSetChanged();
+            }
 
         }
 

@@ -337,6 +337,8 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
 
 
             contenttext.setText(s.getGoods_content().toString());
+            zzimtext.setText(String.valueOf(s.getZzimcount()));
+            shoptext.setText(String.valueOf(s.getShopcount()));
 
 
     /*        // 상품 판매 국가명 연결 [12.05 11:31 수정 -> 인텐트로 가져온 값을 onCreate에서 대신 setText 해줌]
@@ -369,7 +371,6 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
             mAdapter4.notifyDataSetChanged();
 
 
-
             // 어디서 살 수 있어요?
             mAdapter5 = new DetailItemLocationRecyclerAdapter(s.sell_place, getContext());
             mRecycler5.setAdapter(mAdapter5);
@@ -382,7 +383,7 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
 
             // 상품의 이미지 갯수 가져와서 setText.
             img_count = s.getGoods_img().size();
-            itemcount.setText(String.valueOf(1)+" / " + img_count);
+            itemcount.setText(String.valueOf(1) + " / " + img_count);
 
 
             // 해시태그 가져와서 갯수만큼 for문 돌려서, createTagButton 커스텀 메소드로 버튼 동적 생성
@@ -390,13 +391,15 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
 
             ArrayList hashArray;
             hashArray = s.getHashtag();
-            Log.d("해시태그:","해시태그(SearchDetail)"+s.getHashtag().get(1).toString());
+            if (s.getHashtag() != null) {
+                Log.d("해시태그:", "해시태그(SearchDetail)" + s.getHashtag().get(0).toString());
 
-            int hashArraySize = hashArray.size();
-            Log.d("해시태그사이즈:","해시태그 사이즈(SearchDetail)"+hashArraySize);
+                int hashArraySize = hashArray.size();
+                Log.d("해시태그사이즈:", "해시태그 사이즈(SearchDetail)" + hashArraySize);
 
-            for (int i = 0; i < hashArraySize; i++) {
-                detailhashbutton.addView(createTagButton(hashArray.get(i).toString(), i));
+                for (int i = 0; i < hashArraySize; i++) {
+                    detailhashbutton.addView(createTagButton(hashArray.get(i).toString(), i));
+                }
             }
         }
     }

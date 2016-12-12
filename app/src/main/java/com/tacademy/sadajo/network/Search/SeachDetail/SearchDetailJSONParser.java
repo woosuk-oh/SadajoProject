@@ -18,6 +18,7 @@ public class SearchDetailJSONParser {
         ArrayList<TipsDB> tipsContainer = new ArrayList<>(); //배열에 있는 TipsDB 객체들 하나씩을 담기위한 Container
         ArrayList<ShopermanDB> shoperContainer = new ArrayList<>();
 
+
         try {
 
 
@@ -33,6 +34,9 @@ public class SearchDetailJSONParser {
             searchDetailDB.setGoods_country(searchDetail.optString("country"));
             searchDetailDB.setClick(searchDetail.optInt("click"));
             searchDetailDB.setRegdate(searchDetail.optString("regdate"));
+
+            searchDetailDB.setZzimcount(searchDetail.optInt("like_num"));
+            searchDetailDB.setShopcount(searchDetail.optInt("shop_num"));
 
 
             /* 이미지 파싱 부분 */
