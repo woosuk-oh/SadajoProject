@@ -13,7 +13,6 @@ public class SearchDB {
     public ArrayList<String> tag_price;
 
 
-  //  public ArrayList<SearchDB> searchDBs; // 재귀호출
     public ArrayList<SearchGoodsDB> searchGoodsDBs = new ArrayList<>(); //goods에서 data 제이슨 어레이리스트.
 
 

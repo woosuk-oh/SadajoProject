@@ -171,21 +171,25 @@ public class MyPageActivity extends BaseActivity {
                 case R.id.sellCountButton:
                     intent = new Intent(MyPageActivity.this, MypageBuyActivity.class);
                     intent.putExtra("tabNum", 1); //select될 tab값 전달
+                    intent.putExtra("targetUserCode", userAccount);
                     startActivity(intent);
                     break;
                 case R.id.buyCountButton:
                     intent = new Intent(MyPageActivity.this, MypageBuyActivity.class);
                     intent.putExtra("tabNum", 0);
+                    intent.putExtra("targetUserCode", userAccount);
                     startActivity(intent);
                     break;
                 case R.id.mypageSell:
                     intent = new Intent(MyPageActivity.this, MypageBuyActivity.class);
                     intent.putExtra("tabNum", 1); //select될 tab값 전달
+                    intent.putExtra("targetUserCode", userAccount);
                     startActivity(intent);
                     break;
                 case R.id.mypageBuy:
                     intent = new Intent(MyPageActivity.this, MypageBuyActivity.class);
                     intent.putExtra("tabNum", 0);
+                    intent.putExtra("targetUserCode", userAccount);
                     startActivity(intent);
                     break;
 

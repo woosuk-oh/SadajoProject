@@ -21,10 +21,12 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.tacademy.sadajo.BaseActivity;
 import com.tacademy.sadajo.BottomBarClickListener;
 import com.tacademy.sadajo.R;
+import com.tacademy.sadajo.SadajoContext;
 import com.tacademy.sadajo.funtion.SearchBarDeleteButton;
 import com.tacademy.sadajo.network.OkHttpInitManager;
 import com.tacademy.sadajo.network.Search.SearchDB;
@@ -450,10 +452,14 @@ public class SearchListActivity extends BaseActivity {
                 response = toServer.newCall(request).execute();
 
                 if (response.isSuccessful()) { //연결에 성공하면
-                    String returedMessage = response.body().string(); // okhttp로 부터 받아온 데이터 json을 스트링형태로 변환하여 returendMessage에 담아둠. 이때, home부분의 모든 오브젝트를 가져와 담아둠.
-                  //  Log.e("searchActivity", returedMessage);
 
-                    searchDB = SearchJSONParser.getSearchJsonParser(returedMessage); //만들어둔 파서로 returedMessage를 넣어서 파싱하여 homeDB에 값을 넣음.
+                    if (response.body()==null){
+                        Toast.makeText(SadajoContext.getContext(), "서버에서 보내주는 데이터 없음 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
+                    }else{
+                        String returedMessage = response.body().string(); // okhttp로 부터 받아온 데이터 json을 스트링형태로 변환하여 returendMessage에 담아둠. 이때, home부분의 모든 오브젝트를 가져와 담아둠.
+                        //  Log.e("searchActivity", returedMessage);
+                        searchDB = SearchJSONParser.getSearchJsonParser(returedMessage); //만들어둔 파서로 returedMessage를 넣어서 파싱하여 homeDB에 값을 넣음.
+                    }
 
                 } else { // 연결에 실패하면
                     Log.e("요청/응답", response.message().toString());
@@ -461,7 +467,7 @@ public class SearchListActivity extends BaseActivity {
 
             } catch (IOException e) {
                 e.printStackTrace();
-                //Toast.makeText(SadajoContext.getContext(), "서버와의 연결이 원활치 않음", Toast.LENGTH_SHORT).show();
+             //  Toast.makeText(SadajoContext.getContext(), "서버와의 연결이 원활치 않음", Toast.LENGTH_SHORT).show();
             } finally {
                 if (response != null) {
                     response.close();
@@ -477,6 +483,7 @@ public class SearchListActivity extends BaseActivity {
             super.onPostExecute(searchDB);
 
             if(searchDB != null) {
+
                 customTitleText2.setText(String.valueOf(searchDB.getCount()));
 
                 // Log.d("searchDB",""+searchDB.getSearchGoodsDBs().get(0).toString());

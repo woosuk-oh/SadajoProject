@@ -82,13 +82,6 @@ public class MyPageOtherActivity extends BaseActivity {
             }
         });
 
-        Intent intent = getIntent();
-        targetUserCode = intent.getIntExtra("targetUserCode", 0); //해당페이지의 유저아이디
-        targetUserName = intent.getStringExtra("targetUserName");
-
-        SharedPreferenceUtil sharedPreferenceUtil = new SharedPreferenceUtil(this);
-        userAccount = sharedPreferenceUtil.getAccessToken();
-
         otherBuyCountLL = (LinearLayout) findViewById(R.id.otherBuyCountLL);
         otherSellCountLL = (LinearLayout) findViewById(R.id.otherSellCountLL);
         otherSellCountButton = (ImageButton) findViewById(R.id.otherSellCountButton);
@@ -120,6 +113,14 @@ public class MyPageOtherActivity extends BaseActivity {
         otherBuyCountLL.setOnClickListener(clickListener);
 
 
+        Intent intent = getIntent();
+        targetUserCode = intent.getIntExtra("targetUserCode", 0); //해당페이지의 유저아이디
+        targetUserName = intent.getStringExtra("targetUserName");
+        Log.d("타겟유저코드1","ㅇㅇ"+targetUserCode);
+
+        SharedPreferenceUtil sharedPreferenceUtil = new SharedPreferenceUtil(this);
+        userAccount = sharedPreferenceUtil.getAccessToken();
+
 
     }
 
@@ -136,14 +137,19 @@ public class MyPageOtherActivity extends BaseActivity {
         @Override
         public void onClick(View view) {
             switch (view.getId()) {
-                case R.id.otherSellCountButton:
+                case R.id.otherSellCountButton: // 다른유저의 사다줌 내역
                     intent = new Intent(MyPageOtherActivity.this, MypageBuyActivity.class);
                     intent.putExtra("tabNum", 1); //select될 tab값 전달
+                    intent.putExtra("targetUserCode", targetUserCode); //해당페이지의 유저Id
+                    intent.putExtra("targetUserName",targetUserName);
                     startActivity(intent);
                     break;
-                case R.id.otherBuyCountButton:
+                case R.id.otherBuyCountButton: // 다른 유저의 사다조 내역
                     intent = new Intent(MyPageOtherActivity.this, MypageBuyActivity.class);
                     intent.putExtra("tabNum", 0);
+                    intent.putExtra("targetUserCode", targetUserCode); //해당페이지의 유저Id
+                    intent.putExtra("targetUserName",targetUserName);
+                    Log.d("MyPAgeOtherActivity","누른 유저의 아이디값: "+targetUserCode);
                     startActivity(intent);
                     break;
                 case R.id.otherShopListButton:
@@ -158,11 +164,15 @@ public class MyPageOtherActivity extends BaseActivity {
                 case R.id.otherBuyCountLL:
                     intent = new Intent(MyPageOtherActivity.this, MypageBuyActivity.class);
                     intent.putExtra("tabNum", 1); //select될 tab값 전달
+                    intent.putExtra("targetUserCode", targetUserCode); //해당페이지의 유저Id
+                    intent.putExtra("targetUserName",targetUserName);
                     startActivity(intent);
                     break;
                 case R.id.otherSellCountLL:
                     intent = new Intent(MyPageOtherActivity.this, MypageBuyActivity.class);
                     intent.putExtra("tabNum", 0);
+                    intent.putExtra("targetUserCode", targetUserCode); //해당페이지의 유저Id
+                    intent.putExtra("targetUserName",targetUserName);
                     startActivity(intent);
                     break;
                 case R.id.otherChattingButton:
@@ -176,9 +186,9 @@ public class MyPageOtherActivity extends BaseActivity {
 
     private void setupMyPageViewPager(ViewPager viewPager) {
         MyPagerAdapter pagerAdapter = new MyPagerAdapter(getSupportFragmentManager());
-        pagerAdapter.appendFragment(ReviewFragment.newInstance(targetUserCode), "후기");
-        pagerAdapter.appendFragment(TipFragment.newInstance(targetUserCode), "등록한 TIP");
-        pagerAdapter.appendFragment(ItemFragment.newInstance(targetUserCode), "등록한아이템");
+        pagerAdapter.appendFragment(ReviewFragment.newInstance(1), "후기");
+        pagerAdapter.appendFragment(TipFragment.newInstance(2), "등록한 TIP");
+        pagerAdapter.appendFragment(ItemFragment.newInstance(3), "등록한아이템");
         viewPager.setAdapter(pagerAdapter);
     }
 
@@ -310,6 +320,7 @@ public class MyPageOtherActivity extends BaseActivity {
             otherLocTextView.setText(myPage.targetUserLocation);
             Glide.with(SadajoContext.getContext())
                     .load(myPage.targetUserImg)
+
                     .into(otherProfileImageView);
 
 

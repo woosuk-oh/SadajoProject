@@ -28,6 +28,10 @@ import okhttp3.RequestBody;
 
 public class BuyListFragment extends Fragment {
 
+
+  //  Bundle initBundle = getArguments(); // 아래의 setArguments해준것 빼옴. (ohter user id와 targetuserid임.)
+    //initBundle.getInt("value");
+  int ohteruserid = 0;
     int userAccount=0;
 
     private RecyclerView recyclerView;
@@ -40,7 +44,7 @@ public class BuyListFragment extends Fragment {
     public static BuyListFragment newInstance(int initValue) {
         BuyListFragment fragment = new BuyListFragment();
         Bundle bundle = new Bundle();
-        bundle.putInt("value", initValue);
+        bundle.putInt("targetUserCode", initValue);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -49,6 +53,8 @@ public class BuyListFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        ohteruserid = getArguments().getInt("targetUserCode", 0);
+
     }
 
     @Override
@@ -56,7 +62,7 @@ public class BuyListFragment extends Fragment {
                              Bundle savedInstanceState) {
 
 
-        Bundle initBundle = getArguments();
+
 
 
         //layout3
@@ -84,7 +90,7 @@ public class BuyListFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        new BuyListFragment.BuyListRequest().execute(userAccount,userAccount);
+        new BuyListFragment.BuyListRequest().execute(userAccount,ohteruserid);
     }
 
 
