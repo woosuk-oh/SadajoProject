@@ -100,7 +100,7 @@ public class DetailShopermanRecyclerAdapter extends RecyclerView.Adapter<DetailS
         Glide.with(SadajoContext.getContext())
                 .load(mItems.get(position).getUser_img())
 
-                .thumbnail(0.1f)
+
                 .into(holder.itemImage);
 
 

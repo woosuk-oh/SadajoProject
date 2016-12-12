@@ -67,11 +67,11 @@ public class LikeListDetailRecyclerViewAdapter
 
         Glide.with(SadajoContext.getContext())
                 .load(goodsArrayList.get(position).goodsImg)
-                .thumbnail(0.1f)
+
                 .into(holder.itemProductImageView);
         Glide.with(SadajoContext.getContext())
                 .load(goodsArrayList.get(position).goodscountryFlagImg)
-                .thumbnail(0.1f)
+
                 .into(holder.itemFlagImageView);
         holder.itemProductNameTextView.setText(goodsArrayList.get(position).goodsName);
         holder.itemCountryNameTextView.setText(goodsArrayList.get(position).goodsCountryName);

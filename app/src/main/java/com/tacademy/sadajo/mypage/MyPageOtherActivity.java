@@ -310,7 +310,7 @@ public class MyPageOtherActivity extends BaseActivity {
             otherLocTextView.setText(myPage.targetUserLocation);
             Glide.with(SadajoContext.getContext())
                     .load(myPage.targetUserImg)
-                    .thumbnail(0.1f)
+
                     .into(otherProfileImageView);
 
 

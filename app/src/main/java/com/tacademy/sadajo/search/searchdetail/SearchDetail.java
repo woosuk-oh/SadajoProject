@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -26,6 +27,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -103,6 +105,9 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
     private RecyclerView mRecycler5;
 
 
+    NestedScrollView scrollView;
+
+
     ArrayList<Integer> imageList = new ArrayList<>();
 
     Button zzim; //찜하기 버튼
@@ -123,6 +128,9 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.search_detail_body);
+
+
+        scrollView = (NestedScrollView)findViewById(R.id.detail_body_scrollview);
 
         /* onCreate에서 생성할 위젯 (텍스트뷰) */
         final TextView itemID = (TextView) findViewById(R.id.search_detail_item_name);
@@ -458,6 +466,15 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
                 mAdapter4.notifyDataSetChanged();
                 mRecycler4.setNestedScrollingEnabled(false);
 
+            scrollView.post(new Runnable() { // 댓글달리면 밑으로 포커스 이동.
+
+                @Override
+                public void run() {
+                    scrollView.fullScroll(ScrollView.FOCUS_DOWN);
+                }
+            });
+
+
 
 
            /* HorizontalScrollView hsv = (HorizontalScrollView) findViewById(R.id.detail_body_scrollview);
@@ -708,7 +725,7 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
             Glide.with(getContext())
                     .load(imageList.get(position))
                     .centerCrop()
-                    .thumbnail(0.1f)
+
                     .into(itemImg);
             container.addView(view);
             return view;

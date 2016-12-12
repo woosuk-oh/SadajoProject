@@ -101,13 +101,13 @@ public class BuyListRecyclerViewAdapter
         Glide.with(SadajoContext.getContext())
                 .load(buyListDatas.get(position).carr_img)
 
-                .thumbnail(0.1f)
+
                 .into(holder.profileImageView);
 
         Glide.with(SadajoContext.getContext())
                 .load(buyListDatas.get(position).country_img)
 
-                .thumbnail(0.1f)
+
                 .into(holder.productImageView);
         holder.buyRequestTextView.setVisibility(View.VISIBLE);
 

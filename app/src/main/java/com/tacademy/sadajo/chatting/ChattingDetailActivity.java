@@ -90,7 +90,7 @@ public class ChattingDetailActivity extends BaseActivity {
 
         Glide.with(SadajoContext.getContext())
                 .load(targetUserImg)
-                .thumbnail(0.1f)
+
                 .into(targetUserImageView);
 
         targetUserNameTextView.setText(targetUserName);
