@@ -10,5 +10,5 @@ public class ChattingList {
 
     public String msg;
     public int user;
-    public ArrayList<ChatDataList> chatDataList;
+    public ArrayList<ChatDataList> chatDataList= new ArrayList<>();
 }

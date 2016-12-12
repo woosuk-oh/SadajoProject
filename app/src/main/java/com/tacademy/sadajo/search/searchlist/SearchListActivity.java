@@ -21,12 +21,10 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.tacademy.sadajo.BaseActivity;
 import com.tacademy.sadajo.BottomBarClickListener;
 import com.tacademy.sadajo.R;
-import com.tacademy.sadajo.SadajoContext;
 import com.tacademy.sadajo.funtion.SearchBarDeleteButton;
 import com.tacademy.sadajo.network.OkHttpInitManager;
 import com.tacademy.sadajo.network.Search.SearchDB;
@@ -463,7 +461,7 @@ public class SearchListActivity extends BaseActivity {
 
             } catch (IOException e) {
                 e.printStackTrace();
-                Toast.makeText(SadajoContext.getContext(), "서버와의 연결이 원활치 않음", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(SadajoContext.getContext(), "서버와의 연결이 원활치 않음", Toast.LENGTH_SHORT).show();
             } finally {
                 if (response != null) {
                     response.close();
@@ -478,14 +476,15 @@ public class SearchListActivity extends BaseActivity {
         protected void onPostExecute(SearchDB searchDB) {
             super.onPostExecute(searchDB);
 
-            customTitleText2.setText(String.valueOf(searchDB.getCount()));
+            if(searchDB != null) {
+                customTitleText2.setText(String.valueOf(searchDB.getCount()));
 
-            // Log.d("searchDB",""+searchDB.getSearchGoodsDBs().get(0).toString());
+                // Log.d("searchDB",""+searchDB.getSearchGoodsDBs().get(0).toString());
 
-            mAdapter = new SearchListRecyclerAdapter(SearchListActivity.this, searchDB.searchGoodsDBs);
-            mRecycler.setAdapter(mAdapter);
-            mAdapter.notifyDataSetChanged();
-
+                mAdapter = new SearchListRecyclerAdapter(SearchListActivity.this, searchDB.searchGoodsDBs);
+                mRecycler.setAdapter(mAdapter);
+                mAdapter.notifyDataSetChanged();
+            }
 
         }
 

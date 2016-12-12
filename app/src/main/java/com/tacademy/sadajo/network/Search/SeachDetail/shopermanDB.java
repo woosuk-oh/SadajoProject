@@ -7,8 +7,17 @@ package com.tacademy.sadajo.network.Search.SeachDetail;
 public class ShopermanDB {
 
     public String user_id;
+    public int user_code;
     public String user_name;
     public String user_img;
+
+    public int getUser_code() {
+        return user_code;
+    }
+
+    public void setUser_code(int user_code) {
+        this.user_code = user_code;
+    }
 
     public String getUser_img() {
         return user_img;

@@ -10,18 +10,18 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.tacademy.sadajo.R;
+import com.tacademy.sadajo.SharedPreferenceUtil;
 import com.tacademy.sadajo.shoppinglist.ShoppingListSample;
 
-/**
- * A simple {@link Fragment} subclass.
- */
+
 public class TipFragment extends Fragment {
 
 
     TipRecyclerViewAdapter tipRecyclerViewAdapter;
+    int userAccount;
+    int targetUserCode;
 
     public TipFragment() {
-        // Required empty public constructor
     }
 
     public static TipFragment newInstance(int initValue) {
@@ -29,6 +29,7 @@ public class TipFragment extends Fragment {
         Bundle bundle = new Bundle();
         bundle.putInt("value", initValue);
         fragment.setArguments(bundle);
+
         return fragment;
     }
 
@@ -50,8 +51,8 @@ public class TipFragment extends Fragment {
 
         Bundle initBundle = getArguments();
 
-        if(tipRecyclerViewAdapter.getItemCount()==0){
-          view = inflater.inflate(R.layout.mypage_tip_recyclerview_noitem, container, false);
+        if (tipRecyclerViewAdapter.getItemCount() == 0) {
+            view = inflater.inflate(R.layout.mypage_tip_recyclerview_noitem, container, false);
 
         }
         return view;

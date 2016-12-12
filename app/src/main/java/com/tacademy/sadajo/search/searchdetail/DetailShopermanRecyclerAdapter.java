@@ -1,6 +1,7 @@
 package com.tacademy.sadajo.search.searchdetail;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,6 +15,8 @@ import com.bumptech.glide.Glide;
 import com.tacademy.sadajo.R;
 import com.tacademy.sadajo.SadajoContext;
 import com.tacademy.sadajo.SharedPreferenceUtil;
+import com.tacademy.sadajo.mypage.MyPageActivity;
+import com.tacademy.sadajo.mypage.MyPageOtherActivity;
 import com.tacademy.sadajo.network.Search.SeachDetail.ShopermanDB;
 
 import java.util.ArrayList;
@@ -73,19 +76,19 @@ public class DetailShopermanRecyclerAdapter extends RecyclerView.Adapter<DetailS
             public void onClick(View view) {
 
 
-//                if (userAccount == targetUserCode) { //내 프로필일 경우
-//                    Intent intent = new Intent(context, MyPageActivity.class);
-//                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                    intent.putExtra("type", 1);
-//                    context.startActivity(intent);
-//                } else {
-//                    Intent intent = new Intent(context, MyPageOtherActivity.class);
-//                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                    intent.putExtra("targetUserCode", targetUserCode);
-//                    intent.putExtra("targetUserName", mItems.get(position).getUser_name());
-//                    context.startActivity(intent);
-//
-//                }
+                if (userAccount == targetUserCode) { //내 프로필일 경우
+                    Intent intent = new Intent(context, MyPageActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.putExtra("type", 1);
+                    context.startActivity(intent);
+                } else {
+                    Intent intent = new Intent(context, MyPageOtherActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.putExtra("targetUserCode", targetUserCode);
+                    intent.putExtra("targetUserName", mItems.get(position).getUser_id());
+                    context.startActivity(intent);
+
+                }
 
 //                Intent intent = new Intent(context, MyPageOtherActivity.class);
 //                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

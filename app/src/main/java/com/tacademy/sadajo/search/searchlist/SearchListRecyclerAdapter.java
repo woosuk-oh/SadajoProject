@@ -35,7 +35,7 @@ import java.util.ArrayList;
 public class SearchListRecyclerAdapter extends RecyclerView.Adapter<SearchListRecyclerAdapter.ViewHolder> {
     private Context context;
 
-    private ArrayList<SearchGoodsDB> searchgoodsDBs;
+    private ArrayList<SearchGoodsDB> searchgoodsDBs = new ArrayList<>();
 
 
     private final static int NO_ITEM_VIEW = 0;

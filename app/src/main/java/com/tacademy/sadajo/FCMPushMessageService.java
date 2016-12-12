@@ -97,6 +97,17 @@ public class FCMPushMessageService extends FirebaseMessagingService {
         intent.putExtra("type", 2);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
+//
+//
+//        Intent intent = new Intent(this, NewMessageAlertActivity.class);
+//        intent.putExtra("roomNum", chatListDB.roomNum);
+//        intent.putExtra("receiver", chatListDB.receiverCode); //상대방
+//        intent.putExtra("receiverName", chatListDB.receiverName);
+//        intent.putExtra("receiverImg", chatListDB.receiverImg);
+//        intent.putExtra("type", 2);
+//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//        startActivity(intent);
+
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
                 PendingIntent.FLAG_ONE_SHOT);//한번 실행하면 스테이터스바에서 없어지게
 

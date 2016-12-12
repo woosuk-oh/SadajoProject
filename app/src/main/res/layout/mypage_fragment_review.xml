@@ -1,12 +1,24 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.tacademy.sadajo.mypage.ReviewFragment">
+    tools:context="com.tacademy.sadajo.mypage.ReviewFragment"
+   >
+
+
+    <ImageView
+        android:id="@+id/reviewNoItemImageView"
+        android:paddingTop="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/my_review_default"
+        android:background="@color/white"
+        />
+
 
     <android.support.v7.widget.RecyclerView
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/reviewRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
-</LinearLayout>
+</RelativeLayout>

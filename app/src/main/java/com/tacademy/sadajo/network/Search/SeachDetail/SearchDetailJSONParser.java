@@ -91,6 +91,7 @@ public class SearchDetailJSONParser {
                 shoperDB.setUser_id(shoper.getString("user_id"));
                 shoperDB.setUser_img(shoper.getString("user_img"));
                 shoperDB.setUser_name(shoper.getString("user_name"));
+                shoperDB.setUser_code(shoper.getInt("user_code"));
 
                 shoperContainer.add(shoperDB);
             }
