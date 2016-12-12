@@ -113,7 +113,6 @@ public class FCMPushMessageService extends FirebaseMessagingService {
 
 
 
-
         //alert
 
         NotificationManager notificationManager =
