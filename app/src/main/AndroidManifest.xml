@@ -3,20 +3,18 @@
     package="com.tacademy.sadajo">
 
     <uses-permission android:name="android.permission.INTERNET" />
-
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <application
         android:name=".SadajoContext"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:largeHeap="true"
         android:supportsRtl="true"
-        android:theme="@style/Sadajo"
-        android:largeHeap="true">
+        android:theme="@style/Sadajo">
         <activity
             android:name=".home.HomeActivity"
-            android:screenOrientation="portrait">
-
-        </activity>
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".splash.SplashActivity"
             android:screenOrientation="portrait" />
@@ -69,20 +67,20 @@
             android:name="com.tacademy.sadajo.SadajoGlideModule"
             android:value="GlideModule" />
 
-
         <provider
             android:name="com.facebook.FacebookContentProvider"
             android:authorities="com.facebook.app.FacebookContentProvider1206308966129089"
             android:exported="true" />
+
         <activity
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
-            android:value="@string/facebook_app_id"/>
-
+            android:value="@string/facebook_app_id" />
         //FCM 토큰을 발급하는 서비스
         <service
             android:name=".SadajoFirebaseInstanceIDService"
@@ -102,7 +100,9 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".shoppinglist.ShoppingListDetailActivity"></activity>
+        <activity android:name=".shoppinglist.ShoppingListDetailActivity" />
+        <activity android:name=".dialog.NewMessageAlertActivity"
+            android:theme="@android:style/Theme.Dialog"/>
     </application>
 
 </manifest>

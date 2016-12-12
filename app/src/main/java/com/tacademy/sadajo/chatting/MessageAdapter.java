@@ -2,7 +2,6 @@ package com.tacademy.sadajo.chatting;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,7 +55,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
 
     @Override
     public int getItemCount() {
-        Log.e("size",String.valueOf(mMessages.size()));
+       // Log.e("size",String.valueOf(mMessages.size()));
         return mMessages.size();
     }
 
