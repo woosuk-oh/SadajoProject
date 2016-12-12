@@ -181,8 +181,10 @@ public class ChattingActivity extends BaseActivity {
         @Override
         public void onPostExecute(ChattingList chattingList) {
             super.onPostExecute(chattingList);
-            chattingRecyclerViewAdapter.addChatList(chattingList.chatDataList);
-            chattingRecyclerViewAdapter.notifyDataSetChanged();
+            if(chattingList !=null ) {
+                chattingRecyclerViewAdapter.addChatList(chattingList.chatDataList);
+                chattingRecyclerViewAdapter.notifyDataSetChanged();
+            }
 
         }
     }

@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.tacademy.sadajo.R;
-import com.tacademy.sadajo.shoppinglist.ShoppingListSample;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -42,13 +41,13 @@ public class ItemFragment extends Fragment {
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.itemRecyclerView);
         recyclerView.setLayoutManager(layoutManager);
 
-        itemReviewRecyclerViewAdapter = new ItemReviewRecyclerViewAdapter(getContext(), ShoppingListSample.shoppinList);
+        itemReviewRecyclerViewAdapter = new ItemReviewRecyclerViewAdapter(getContext(), MypageSampleDataList.itemDataArrayList);
         recyclerView.setAdapter(itemReviewRecyclerViewAdapter);
 
         Bundle initBundle = getArguments();
 
         if(itemReviewRecyclerViewAdapter.getItemCount()==0){
-            view = inflater.inflate(R.layout.mypage_item_recyclerview_noitem, container, false);
+                  view = inflater.inflate(R.layout.mypage_item_recyclerview_noitem, container, false);
 
         }
         return view;

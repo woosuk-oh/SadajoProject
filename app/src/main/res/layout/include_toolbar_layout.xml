@@ -33,6 +33,7 @@
                     android:textSize="17sp"
                     android:textStyle="bold"
                     android:textColor="@color/white"
+                    android:gravity="center"
                     android:id="@+id/customToolbarTitle" />
                 </android.support.v7.widget.Toolbar>
 

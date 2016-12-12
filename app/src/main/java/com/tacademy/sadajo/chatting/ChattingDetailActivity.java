@@ -1,5 +1,7 @@
 package com.tacademy.sadajo.chatting;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -8,10 +10,12 @@ import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -27,11 +31,15 @@ import com.tacademy.sadajo.R;
 import com.tacademy.sadajo.SadajoContext;
 import com.tacademy.sadajo.SharedPreferenceUtil;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 
 public class ChattingDetailActivity extends BaseActivity {
@@ -58,8 +66,13 @@ public class ChattingDetailActivity extends BaseActivity {
     private EditText mInputMessageView;
     private ImageView targetUserImageView;
     private TextView targetUserNameTextView;
+    private TextView customToolbarTitle;
     private ImageButton chatAttachButton;
     //private TextView conPositionTextView;
+
+    ArrayList<MsgDBEntity> msgDBEntityArrayList = new ArrayList<>();
+    ArrayList<MsgDBEntity> pastMsgs = new ArrayList<>();
+
 
     private List<Message> mMessages = new ArrayList<>();
     private ArrayList<MsgDBEntity> pastMessages = new ArrayList<>();
@@ -88,15 +101,17 @@ public class ChattingDetailActivity extends BaseActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);//title hidden
         setToolbar(true);
+        customToolbarTitle = (TextView) findViewById(R.id.customToolbarTitle);
 
-        chatDetailTop = (LinearLayout)findViewById(R.id.chatDetailTop);
+
+        chatDetailTop = (LinearLayout) findViewById(R.id.chatDetailTop);
         inAnim = AnimationUtils.loadAnimation(this, R.anim.abc_slide_in_top);
         outAnim = AnimationUtils.loadAnimation(this, R.anim.abc_slide_out_top);
 
         getTypeIntent(); //intent로 넘어 온 데이터들 받아옴
 
         //MsgDB
-        dbHelper = new MsgDB(getApplicationContext(), "MessageHistory", null, 1);
+       // dbHelper = new MsgDB(getApplicationContext(), "MessageHistory", null, 1);
 
 
         sharedPreferenceUtil = new SharedPreferenceUtil(this);
@@ -122,7 +137,6 @@ public class ChattingDetailActivity extends BaseActivity {
         mMessagesView.setAdapter(mAdapter);
 
 
-
         //socket연결
         SadajoContext app = (SadajoContext) getApplication();
         mSocket = app.getSocket();
@@ -132,37 +146,127 @@ public class ChattingDetailActivity extends BaseActivity {
         mSocket.on(Socket.EVENT_CONNECT_TIMEOUT, onConnectError);
 
         mSocket.on("toClient", toClient);
+//        mSocket.on("pastMsg",pastMsg);
 
         mSocket.connect();
 
         joinRoom();  //채팅방 입장
 
 
+//        //지난 메세지 출력 sqllite
+//        if (dbHelper.getResult(roomNum).size() > 0 && dbHelper.getResult(roomNum) != null) {
+//            pastMessages = dbHelper.getResult(roomNum);
+//
+//            for (int i = 0; i < pastMessages.size(); i++) {
+//
+//                // Log.e("messge+" + pastMessages.get(i).id, pastMessages.get(i).message);
+//                if (pastMessages.get(i).user == userAccount) {
+//
+//                    mMessages.add(new Message.Builder(Message.TYPE_RIGHT)
+//                            .username(pastMessages.get(i).user).message(pastMessages.get(i).message).build());
+//                    mAdapter.notifyItemInserted(mMessages.size() - 1);
+//                    scrollToBottom();
+//
+//                } else {
+//                    mMessages.add(new Message.Builder(Message.TYPE_LEFT)
+//                            .username(pastMessages.get(i).user).message(pastMessages.get(i).message).build());
+//                    mAdapter.notifyItemInserted(mMessages.size() - 1);
+//                    scrollToBottom();
+//                }
+//            }
+//        }
+
+
+        Log.e("pasgMsgsSIze", String.valueOf(pastMsgs.size()));
         //지난 메세지 출력
-        if (dbHelper.getResult(roomNum).size() > 0 && dbHelper.getResult(roomNum) != null) {
-            pastMessages = dbHelper.getResult(roomNum);
+        if (pastMsgs.size() > 0 && pastMsgs != null) {
+            pastMessages = pastMsgs;
 
-            for (int i = 0; i < pastMessages.size(); i++) {
-
-               // Log.e("messge+" + pastMessages.get(i).id, pastMessages.get(i).message);
-                if (pastMessages.get(i).user == userAccount) {
-
-                    mMessages.add(new Message.Builder(Message.TYPE_RIGHT)
-                            .username(pastMessages.get(i).user).message(pastMessages.get(i).message).build());
-                    mAdapter.notifyItemInserted(mMessages.size() - 1);
-                    scrollToBottom();
-
-                } else {
-                    mMessages.add(new Message.Builder(Message.TYPE_LEFT)
-                            .username(pastMessages.get(i).user).message(pastMessages.get(i).message).build());
-                    mAdapter.notifyItemInserted(mMessages.size() - 1);
-                    scrollToBottom();
-                }
+//            for (int i = 0; i < pastMessages.size(); i++) {
+//
+//                // Log.e("messge+" + pastMessages.get(i).id, pastMessages.get(i).message);
+//                if (pastMessages.get(i).user == userAccount) {
+//
+//                    mMessages.add(new Message.Builder(Message.TYPE_RIGHT)
+//                            .username(pastMessages.get(i).user).message(pastMessages.get(i).message).build());
+//                    mAdapter.notifyItemInserted(mMessages.size() - 1);
+//                    scrollToBottom();
+//
+//                } else {
+//                    mMessages.add(new Message.Builder(Message.TYPE_LEFT)
+//                            .username(pastMessages.get(i).user).message(pastMessages.get(i).message).build());
+//                    mAdapter.notifyItemInserted(mMessages.size() - 1);
+//                    scrollToBottom();
+//                }
+//            }
+            for (int i = 0; i < pastMsgs.size(); i++) {
+                Log.e("pastSender", String.valueOf(pastMsgs.get(i).user));
+                Log.e("pastMessage", pastMsgs.get(i).message);
             }
         }
 
         mInputMessageView = (EditText) findViewById(R.id.chattingEditText);
 
+//        //키보드 보이게 하는 부분
+//        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+//        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
+
+        if (mInputMessageView.hasFocus()) {
+            //키보드 보이게 하는 부분
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
+
+        } else {
+            InputMethodManager immhide = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
+            immhide.hideSoftInputFromWindow(mMessagesView.getWindowToken(), 0);
+        }
+
+        mMessagesView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+                    InputMethodManager immhide = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
+                    // immhide.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
+                    immhide.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                    mMessagesView.requestFocus();
+                    if (chatDetailTop.getVisibility() == View.GONE) {
+
+                        showCustomBar();
+                    }
+                    //  return false;
+                }
+                return false;
+            }
+        });
+
+        mInputMessageView.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int i, KeyEvent keyEvent) {
+                if (keyEvent.getAction() == KeyEvent.KEYCODE_BACK) {
+                    mInputMessageView.clearFocus();
+
+                }
+                return false;
+            }
+        });
+        mInputMessageView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+                    //키보드 보이게 하는 부분
+                    mInputMessageView.requestFocus();
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
+                    if (chatDetailTop.getVisibility() == View.VISIBLE) {
+
+                        hideCustomBar();
+                    }
+                    return true;
+
+                }
+                return false;
+            }
+        });
 
         mInputMessageView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -180,7 +284,6 @@ public class ChattingDetailActivity extends BaseActivity {
         });
 
 
-
         ImageButton sendButton = (ImageButton) findViewById(R.id.chatDetailSendButton);
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -196,7 +299,7 @@ public class ChattingDetailActivity extends BaseActivity {
         requestButton = (ImageButton) findViewById(R.id.requestButton);//사다조 요청하기 버튼
         requestButton.setOnClickListener(clickListener);
 
-        chatAttachButton = (ImageButton)findViewById(R.id.chatAttachButton);
+        chatAttachButton = (ImageButton) findViewById(R.id.chatAttachButton);
         chatAttachButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -205,7 +308,7 @@ public class ChattingDetailActivity extends BaseActivity {
 //                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 //
 //                startActivity(intent);
-             Toast.makeText(ChattingDetailActivity.this,"서비스 준비중",Toast.LENGTH_SHORT).show();
+                Toast.makeText(ChattingDetailActivity.this, "서비스 준비중", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -235,25 +338,25 @@ public class ChattingDetailActivity extends BaseActivity {
 
     }
 
-    private void addMessage(int username, String message) {
+    private void addMessage(int username, String message, String time) {
         if (username == userAccount) {
             mMessages.add(new Message.Builder(Message.TYPE_RIGHT)
-                    .username(username).message(message).build());
+                    .username(username).message(message).time(time).build());
             Log.e("right", String.valueOf(username));
             mAdapter.notifyItemInserted(mMessages.size() - 1);
-            insertMessage(message, username);
+            //insertMessage(message, username);
             scrollToBottom();
         }
     }
 
-    private void addMessageLeft(int username, String message) {
+    private void addMessageLeft(int username, String message, String time) {
 
         if (username != userAccount) {
             mMessages.add(new Message.Builder(Message.TYPE_LEFT)
-                    .username(username).message(message).build());
+                    .username(username).message(message).time(time).build());
             Log.e("left", String.valueOf(username));
             mAdapter.notifyItemInserted(mMessages.size() - 1);
-            insertMessage(message, username);
+            //insertMessage(message, username);
             scrollToBottom();
         }
     }
@@ -268,9 +371,11 @@ public class ChattingDetailActivity extends BaseActivity {
             mInputMessageView.requestFocus();
             return;
         }
-
+        SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm ", Locale.getDefault());
+        Date date = new Date(System.currentTimeMillis());
+        String time = dateFormat.format(date);
         mInputMessageView.setText("");
-        addMessage(userAccount, message);
+        addMessage(userAccount, message, time);
         JSONObject object = new JSONObject();
         try {
             object.put("sender", userAccount);
@@ -297,8 +402,8 @@ public class ChattingDetailActivity extends BaseActivity {
                 @Override
                 public void run() {
                     if (!isConnected) {
-                        Toast.makeText(getApplicationContext(),
-                                "연결", Toast.LENGTH_LONG).show();
+//                        Toast.makeText(getApplicationContext(),
+//                                "연결", Toast.LENGTH_LONG).show();
                         isConnected = true;
                     }
                     Log.e("connect", "success");
@@ -315,8 +420,8 @@ public class ChattingDetailActivity extends BaseActivity {
                 @Override
                 public void run() {
                     isConnected = false;
-                    Toast.makeText(getApplicationContext(),
-                            "disconnect", Toast.LENGTH_LONG).show();
+//                    Toast.makeText(getApplicationContext(),
+//                            "disconnect", Toast.LENGTH_LONG).show();
                 }
             });
         }
@@ -328,8 +433,8 @@ public class ChattingDetailActivity extends BaseActivity {
             (ChattingDetailActivity.this).runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    Toast.makeText(getApplicationContext(),
-                            "error_connect", Toast.LENGTH_LONG).show();
+//                    Toast.makeText(getApplicationContext(),
+//                            "error_connect", Toast.LENGTH_LONG).show();
                 }
             });
         }
@@ -346,15 +451,17 @@ public class ChattingDetailActivity extends BaseActivity {
                     JSONObject data = (JSONObject) args[0];
                     int username;
                     String message;
+                    String time;
 
                     try {
 
 
                         Log.e("to client sender", String.valueOf(data.getInt("sender")));
                         Log.e("to client sender", String.valueOf(data.getString("msg")));
+                        Log.e("to client time", String.valueOf(data.getString("time")));
                         username = data.getInt("sender");
                         message = data.getString("msg");
-
+                        time = data.getString("time");
 
 
                     } catch (JSONException e) {
@@ -364,9 +471,60 @@ public class ChattingDetailActivity extends BaseActivity {
 
                     //  removeTyping(username);
                     //  if (username != userAccount) {
-                    addMessageLeft(username, message);
+                    addMessageLeft(username, message, time);
 
                     //  }
+                }
+            });
+        }
+    };
+
+
+    //지난메세지 받아오는 부분
+    public Emitter.Listener pastMsg = new Emitter.Listener() {
+        @Override
+        public void call(final Object... args) {
+            (ChattingDetailActivity.this).runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    JSONObject data = (JSONObject) args[0];
+
+                    if (data != null) {
+
+                        try {
+
+
+                            JSONArray jsonArray = data.getJSONArray("message");
+                            for (int i = 0; i < jsonArray.length(); i++) {
+                                MsgDBEntity msgDBEntity = new MsgDBEntity();
+                                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                                msgDBEntity.user = jsonObject.getInt("sender");
+                                msgDBEntity.message = jsonObject.getString("msg");
+                                msgDBEntity.date = jsonObject.getString("time");
+//                            username = data.getInt("sender");
+//                            message = data.getString("msg");
+
+                                pastMsgs.add(msgDBEntity);
+
+                                Log.e("pastMsgr", String.valueOf(jsonObject.getInt("sender")));
+                                Log.e("pastMsg", String.valueOf(jsonObject.getString("msg")));
+                                Log.e("pastMsg", String.valueOf(jsonObject.getString("time")));
+
+                                if (msgDBEntity.user == userAccount) {
+                                    addMessage(msgDBEntity.user, msgDBEntity.message, msgDBEntity.date);
+                                } else {
+                                    addMessageLeft(msgDBEntity.user, msgDBEntity.message, msgDBEntity.date);
+                                }
+                            }
+
+                        } catch (JSONException e) {
+                            return;
+                        }
+
+
+                        //   addMessageLeft(username, message);
+
+                    }
                 }
             });
         }
@@ -416,6 +574,8 @@ public class ChattingDetailActivity extends BaseActivity {
             targetUserImg = intent.getExtras().getString("targetUserImg"); //상대방 이미지
             targetUserName = intent.getExtras().getString("targetUserName"); //상대방 이름
             targetUserCode = intent.getIntExtra("targetUserCode", 0);
+            customToolbarTitle.setText(targetUserName + "님과의 대화");
+            customToolbarTitle.setGravity(View.TEXT_ALIGNMENT_CENTER);
 
 
         } else if (type == MYPAGE) {
@@ -426,12 +586,18 @@ public class ChattingDetailActivity extends BaseActivity {
             targetUserCode = intent.getIntExtra("receiver", 0); //상대방
             targetUserName = intent.getStringExtra("receiverName");
             targetUserImg = intent.getStringExtra("receiverImg");
+            customToolbarTitle.setText(targetUserName + "님과의 대화");
+            customToolbarTitle.setGravity(View.TEXT_ALIGNMENT_CENTER);
+
 
         } else if (type == PUSH) {
             roomNum = intent.getIntExtra("roomNum", 0);
             targetUserCode = intent.getIntExtra("receiver", 0); //상대방
             targetUserName = intent.getStringExtra("receiverName");
             targetUserImg = intent.getStringExtra("receiverImg");
+            customToolbarTitle.setText(targetUserName + "님과의 대화");
+            customToolbarTitle.setGravity(View.TEXT_ALIGNMENT_CENTER);
+
 
         }
 
@@ -450,7 +616,8 @@ public class ChattingDetailActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
 
-        mSocket.off("toClient",toClient);
+        mSocket.off("toClient", toClient);
+        // mSocket.off("pastMsg",pastMsg);
 //        mSocket.disconnect();
 //
 //        mSocket.off(Socket.EVENT_CONNECT, onConnect);
@@ -507,13 +674,27 @@ public class ChattingDetailActivity extends BaseActivity {
             Log.e("Chatting roomnum", String.valueOf(roomNum));
 
             mSocket.emit("joinRoom", object);
+            mSocket.on("pastMsg", pastMsg);
         } catch (JSONException e) {
             Log.d("SEND MESSAGE", "ERROR");
             e.printStackTrace();
         }
 
+
     }
 
+    private void hideCustomBar() {
+        //chatDetailTop.startAnimation(outAnim);
+        //requestButton.startAnimation(outAnim);
+        chatDetailTop.setVisibility(View.GONE);
+    }
+
+    private void showCustomBar() {
+        // chatDetailTop.startAnimation(inAnim);
+        //requestButton.startAnimation(inAnim);
+
+        chatDetailTop.setVisibility(View.VISIBLE);
+    }
 
 
 }

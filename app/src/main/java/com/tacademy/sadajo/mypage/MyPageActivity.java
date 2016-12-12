@@ -98,6 +98,9 @@ public class MyPageActivity extends BaseActivity {
         myPageLocTextView = (TextView) findViewById(R.id.myPageLocTextView);
         myPageProfileImageView=(ImageView)findViewById(R.id.myPageProfileImageView);
 
+        SharedPreferenceUtil sharedPreferenceUtil = new SharedPreferenceUtil(this);
+        userAccount = sharedPreferenceUtil.getAccessToken();
+        Log.e("userAccount", "현재 유저 아이디"+userAccount);
 
         ViewPager viewPager = (ViewPager) findViewById(R.id.mypageViewpager);
         if (viewPager != null) {
@@ -111,9 +114,6 @@ public class MyPageActivity extends BaseActivity {
         buyCountButton.setOnClickListener(clickListener);
         mypageSell.setOnClickListener(clickListener);
         mypageBuy.setOnClickListener(clickListener);
-        SharedPreferenceUtil sharedPreferenceUtil = new SharedPreferenceUtil(this);
-        userAccount = sharedPreferenceUtil.getAccessToken();
-        Log.e("userAccount", "현재 유저 아이디"+userAccount);
 
 
      /*   Intent intent;
@@ -200,9 +200,9 @@ public class MyPageActivity extends BaseActivity {
 
     private void setupMyPageViewPager(ViewPager viewPager) {
         MyPagerAdapter pagerAdapter = new MyPagerAdapter(getSupportFragmentManager());
-        pagerAdapter.appendFragment(ReviewFragment.newInstance(1), "후기");
-        pagerAdapter.appendFragment(TipFragment.newInstance(2), "등록한 TIP");
-        pagerAdapter.appendFragment(ItemFragment.newInstance(3), "등록한아이템");
+        pagerAdapter.appendFragment(ReviewFragment.newInstance(userAccount), "후기");
+        pagerAdapter.appendFragment(TipFragment.newInstance(userAccount), "등록한 TIP");
+        pagerAdapter.appendFragment(ItemFragment.newInstance(userAccount), "등록한아이템");
         viewPager.setAdapter(pagerAdapter);
     }
 

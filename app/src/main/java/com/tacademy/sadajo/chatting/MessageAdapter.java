@@ -9,10 +9,7 @@ import android.widget.TextView;
 
 import com.tacademy.sadajo.R;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 
 public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHolder> {
@@ -47,10 +44,10 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
     public void onBindViewHolder(ViewHolder viewHolder, int position) {
         Message message = mMessages.get(position);
         viewHolder.setMessage(message.getMessage());
-        SimpleDateFormat dateFormat = new SimpleDateFormat("aa hh:mm ", Locale.getDefault());
-        Date date = new Date(System.currentTimeMillis());
-        String time = dateFormat.format(date);
-        viewHolder.chatTimeTextView.setText(time);
+//        SimpleDateFormat dateFormat = new SimpleDateFormat("aa hh:mm ", Locale.getDefault());
+//        //Date date = message.getTime();
+//        String time = dateFormat.format(message.getTime());
+        viewHolder.chatTimeTextView.setText(message.getTime());
     }
 
     @Override

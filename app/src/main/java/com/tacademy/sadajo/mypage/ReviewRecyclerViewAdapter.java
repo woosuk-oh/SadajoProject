@@ -12,20 +12,22 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.tacademy.sadajo.R;
-import com.tacademy.sadajo.shoppinglist.ShoppingListData;
+import com.tacademy.sadajo.SadajoContext;
+import com.tacademy.sadajo.network.mypage.MypageReview;
 
 import java.util.ArrayList;
 
 public class ReviewRecyclerViewAdapter
         extends RecyclerView.Adapter<ReviewRecyclerViewAdapter.ViewHolder> {
 
-    private ArrayList<ShoppingListData> shoppingListDatas;
+    private ArrayList<MypageReview> mypageReviews;
     private Context context;
 
-    public ReviewRecyclerViewAdapter(Context context, ArrayList<ShoppingListData> shoppingListDatas) {
+    public ReviewRecyclerViewAdapter(Context context) {
         this.context = context;
-        this.shoppingListDatas = shoppingListDatas;
+        this.mypageReviews = new ArrayList<>();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -62,45 +64,39 @@ public class ReviewRecyclerViewAdapter
     public void onBindViewHolder(final ReviewRecyclerViewAdapter.ViewHolder holder, final int position) {
 
 
-//
-//            holder.countryNameTextView.setText(shoppingListDatas.get(position).countryName);
-//            holder.cityNameTextView.setText(shoppingListDatas.get(position).cityName);
-//            holder.dateTextView.setText(shoppingListDatas.get(position).travelDate);
-//            holder.productImageView.setImageResource(shoppingListDatas.get(position).productImgae);
+        holder.userId.setText(mypageReviews.get(position).userName);
+        holder.reviewTitleTextView.setText(mypageReviews.get(position).userName);
+        holder.reviewDateTextView.setText(mypageReviews.get(position).date);
+        holder.reviewContentsTextView.setText(mypageReviews.get(position).content);
 
-        holder.userId.setText("아롱이다롱");
-        holder.reviewTitleTextView.setText("아이디");
-        holder.reviewDateTextView.setText("2016.11.20");
-        holder.reviewContentsTextView.setText("후기후기마이페이지ㅎㅎㅎㅎㅎㅎ");
-        holder.userProfileImageView.setImageResource(R.drawable.profile_empty);
+        Glide.with(SadajoContext.getContext())
+                .load(mypageReviews.get(position).userImg)
+                .into(holder.userProfileImageView);
 
-//            Glide.with(GirlsApplication.getGirlsContext())
-//                    .load(girlInfo)
-//                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-//                    .animate(android.R.anim.slide_in_left)
-//                    .into(holder.girlsImage);
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//
-//                    Intent intent = new Intent(GirlsApplication.getGirlsContext(), GirlsMemberDetailActivity.class);
-//                    intent.putExtra("memberImage", girlsImages.get(position));
-//                    intent.putExtra("memberName", holder.memberName.getText().toString());
-//
-//                    ActivityOptionsCompat options =
-//                            ActivityOptionsCompat.makeSceneTransitionAnimation(
-//                                    owner, holder.girlsImage, ViewCompat.getTransitionName(holder.girlsImage));
-//
-//                    ActivityCompat.startActivity(owner, intent, options.toBundle());
+
 
             }
         });
 
     }
 
+    public void addReview(ArrayList<MypageReview> listDB) {
+
+        if (mypageReviews != null && mypageReviews.size() > 0) {
+            mypageReviews.removeAll(mypageReviews);
+        }
+        mypageReviews.addAll(listDB);
+        notifyDataSetChanged();
+
+
+    }
+
     @Override
     public int getItemCount() {
-        return shoppingListDatas.size();
+        return mypageReviews.size();
     }
 }

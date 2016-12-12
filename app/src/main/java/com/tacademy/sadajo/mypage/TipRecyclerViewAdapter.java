@@ -1,7 +1,6 @@
 package com.tacademy.sadajo.mypage;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,7 +9,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.tacademy.sadajo.R;
-import com.tacademy.sadajo.search.searchdetail.SearchDetail;
 import com.tacademy.sadajo.shoppinglist.ShoppingListData;
 
 import java.util.ArrayList;
@@ -73,10 +71,10 @@ public class TipRecyclerViewAdapter
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(context, SearchDetail.class);
-
-                intent.putExtra("key",1); //상품아이디 전달
-                context.startActivity(intent);
+//                Intent intent = new Intent(context, SearchDetail.class);
+//
+//                intent.putExtra("key",1); //상품아이디 전달
+//                context.startActivity(intent);
 
 
             }

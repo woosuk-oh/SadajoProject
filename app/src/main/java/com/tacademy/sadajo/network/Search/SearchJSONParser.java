@@ -45,6 +45,7 @@ public class SearchJSONParser {
                 searchGoodsDB.setItem_img(data.optString("goods_img"));
 
 
+
                 searchGoodsDBs.add(searchGoodsDB);
             }
             searchDBs.setSearchGoodsDBs(searchGoodsDBs);
