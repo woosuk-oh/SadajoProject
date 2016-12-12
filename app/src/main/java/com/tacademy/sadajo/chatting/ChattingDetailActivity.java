@@ -31,11 +31,15 @@ import com.tacademy.sadajo.R;
 import com.tacademy.sadajo.SadajoContext;
 import com.tacademy.sadajo.SharedPreferenceUtil;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 
 public class ChattingDetailActivity extends BaseActivity {
@@ -66,6 +70,10 @@ public class ChattingDetailActivity extends BaseActivity {
     private ImageButton chatAttachButton;
     //private TextView conPositionTextView;
 
+    ArrayList<MsgDBEntity> msgDBEntityArrayList = new ArrayList<>();
+    ArrayList<MsgDBEntity> pastMsgs = new ArrayList<>();
+
+
     private List<Message> mMessages = new ArrayList<>();
     private ArrayList<MsgDBEntity> pastMessages = new ArrayList<>();
     private RecyclerView.Adapter mAdapter;
@@ -93,8 +101,7 @@ public class ChattingDetailActivity extends BaseActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);//title hidden
         setToolbar(true);
-        customToolbarTitle = (TextView)findViewById(R.id.customToolbarTitle);
-
+        customToolbarTitle = (TextView) findViewById(R.id.customToolbarTitle);
 
 
         chatDetailTop = (LinearLayout) findViewById(R.id.chatDetailTop);
@@ -104,7 +111,7 @@ public class ChattingDetailActivity extends BaseActivity {
         getTypeIntent(); //intent로 넘어 온 데이터들 받아옴
 
         //MsgDB
-        dbHelper = new MsgDB(getApplicationContext(), "MessageHistory", null, 1);
+       // dbHelper = new MsgDB(getApplicationContext(), "MessageHistory", null, 1);
 
 
         sharedPreferenceUtil = new SharedPreferenceUtil(this);
@@ -139,32 +146,62 @@ public class ChattingDetailActivity extends BaseActivity {
         mSocket.on(Socket.EVENT_CONNECT_TIMEOUT, onConnectError);
 
         mSocket.on("toClient", toClient);
+//        mSocket.on("pastMsg",pastMsg);
 
         mSocket.connect();
 
         joinRoom();  //채팅방 입장
 
 
+//        //지난 메세지 출력 sqllite
+//        if (dbHelper.getResult(roomNum).size() > 0 && dbHelper.getResult(roomNum) != null) {
+//            pastMessages = dbHelper.getResult(roomNum);
+//
+//            for (int i = 0; i < pastMessages.size(); i++) {
+//
+//                // Log.e("messge+" + pastMessages.get(i).id, pastMessages.get(i).message);
+//                if (pastMessages.get(i).user == userAccount) {
+//
+//                    mMessages.add(new Message.Builder(Message.TYPE_RIGHT)
+//                            .username(pastMessages.get(i).user).message(pastMessages.get(i).message).build());
+//                    mAdapter.notifyItemInserted(mMessages.size() - 1);
+//                    scrollToBottom();
+//
+//                } else {
+//                    mMessages.add(new Message.Builder(Message.TYPE_LEFT)
+//                            .username(pastMessages.get(i).user).message(pastMessages.get(i).message).build());
+//                    mAdapter.notifyItemInserted(mMessages.size() - 1);
+//                    scrollToBottom();
+//                }
+//            }
+//        }
+
+
+        Log.e("pasgMsgsSIze", String.valueOf(pastMsgs.size()));
         //지난 메세지 출력
-        if (dbHelper.getResult(roomNum).size() > 0 && dbHelper.getResult(roomNum) != null) {
-            pastMessages = dbHelper.getResult(roomNum);
+        if (pastMsgs.size() > 0 && pastMsgs != null) {
+            pastMessages = pastMsgs;
 
-            for (int i = 0; i < pastMessages.size(); i++) {
-
-                // Log.e("messge+" + pastMessages.get(i).id, pastMessages.get(i).message);
-                if (pastMessages.get(i).user == userAccount) {
-
-                    mMessages.add(new Message.Builder(Message.TYPE_RIGHT)
-                            .username(pastMessages.get(i).user).message(pastMessages.get(i).message).build());
-                    mAdapter.notifyItemInserted(mMessages.size() - 1);
-                    scrollToBottom();
-
-                } else {
-                    mMessages.add(new Message.Builder(Message.TYPE_LEFT)
-                            .username(pastMessages.get(i).user).message(pastMessages.get(i).message).build());
-                    mAdapter.notifyItemInserted(mMessages.size() - 1);
-                    scrollToBottom();
-                }
+//            for (int i = 0; i < pastMessages.size(); i++) {
+//
+//                // Log.e("messge+" + pastMessages.get(i).id, pastMessages.get(i).message);
+//                if (pastMessages.get(i).user == userAccount) {
+//
+//                    mMessages.add(new Message.Builder(Message.TYPE_RIGHT)
+//                            .username(pastMessages.get(i).user).message(pastMessages.get(i).message).build());
+//                    mAdapter.notifyItemInserted(mMessages.size() - 1);
+//                    scrollToBottom();
+//
+//                } else {
+//                    mMessages.add(new Message.Builder(Message.TYPE_LEFT)
+//                            .username(pastMessages.get(i).user).message(pastMessages.get(i).message).build());
+//                    mAdapter.notifyItemInserted(mMessages.size() - 1);
+//                    scrollToBottom();
+//                }
+//            }
+            for (int i = 0; i < pastMsgs.size(); i++) {
+                Log.e("pastSender", String.valueOf(pastMsgs.get(i).user));
+                Log.e("pastMessage", pastMsgs.get(i).message);
             }
         }
 
@@ -189,24 +226,22 @@ public class ChattingDetailActivity extends BaseActivity {
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
                     InputMethodManager immhide = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
-                   // immhide.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
+                    // immhide.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
                     immhide.hideSoftInputFromWindow(view.getWindowToken(), 0);
                     mMessagesView.requestFocus();
                     if (chatDetailTop.getVisibility() == View.GONE) {
 
                         showCustomBar();
                     }
-                  //  return false;
+                    //  return false;
                 }
                 return false;
             }
         });
 
-        mInputMessageView.setOnKeyListener(new View.OnKeyListener()
-        {
+        mInputMessageView.setOnKeyListener(new View.OnKeyListener() {
             @Override
-            public boolean onKey(View view, int i, KeyEvent keyEvent)
-            {
+            public boolean onKey(View view, int i, KeyEvent keyEvent) {
                 if (keyEvent.getAction() == KeyEvent.KEYCODE_BACK) {
                     mInputMessageView.clearFocus();
 
@@ -303,25 +338,25 @@ public class ChattingDetailActivity extends BaseActivity {
 
     }
 
-    private void addMessage(int username, String message) {
+    private void addMessage(int username, String message, String time) {
         if (username == userAccount) {
             mMessages.add(new Message.Builder(Message.TYPE_RIGHT)
-                    .username(username).message(message).build());
+                    .username(username).message(message).time(time).build());
             Log.e("right", String.valueOf(username));
             mAdapter.notifyItemInserted(mMessages.size() - 1);
-            insertMessage(message, username);
+            //insertMessage(message, username);
             scrollToBottom();
         }
     }
 
-    private void addMessageLeft(int username, String message) {
+    private void addMessageLeft(int username, String message, String time) {
 
         if (username != userAccount) {
             mMessages.add(new Message.Builder(Message.TYPE_LEFT)
-                    .username(username).message(message).build());
+                    .username(username).message(message).time(time).build());
             Log.e("left", String.valueOf(username));
             mAdapter.notifyItemInserted(mMessages.size() - 1);
-            insertMessage(message, username);
+            //insertMessage(message, username);
             scrollToBottom();
         }
     }
@@ -336,9 +371,11 @@ public class ChattingDetailActivity extends BaseActivity {
             mInputMessageView.requestFocus();
             return;
         }
-
+        SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm ", Locale.getDefault());
+        Date date = new Date(System.currentTimeMillis());
+        String time = dateFormat.format(date);
         mInputMessageView.setText("");
-        addMessage(userAccount, message);
+        addMessage(userAccount, message, time);
         JSONObject object = new JSONObject();
         try {
             object.put("sender", userAccount);
@@ -414,14 +451,17 @@ public class ChattingDetailActivity extends BaseActivity {
                     JSONObject data = (JSONObject) args[0];
                     int username;
                     String message;
+                    String time;
 
                     try {
 
 
                         Log.e("to client sender", String.valueOf(data.getInt("sender")));
                         Log.e("to client sender", String.valueOf(data.getString("msg")));
+                        Log.e("to client time", String.valueOf(data.getString("time")));
                         username = data.getInt("sender");
                         message = data.getString("msg");
+                        time = data.getString("time");
 
 
                     } catch (JSONException e) {
@@ -431,9 +471,60 @@ public class ChattingDetailActivity extends BaseActivity {
 
                     //  removeTyping(username);
                     //  if (username != userAccount) {
-                    addMessageLeft(username, message);
+                    addMessageLeft(username, message, time);
 
                     //  }
+                }
+            });
+        }
+    };
+
+
+    //지난메세지 받아오는 부분
+    public Emitter.Listener pastMsg = new Emitter.Listener() {
+        @Override
+        public void call(final Object... args) {
+            (ChattingDetailActivity.this).runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    JSONObject data = (JSONObject) args[0];
+
+                    if (data != null) {
+
+                        try {
+
+
+                            JSONArray jsonArray = data.getJSONArray("message");
+                            for (int i = 0; i < jsonArray.length(); i++) {
+                                MsgDBEntity msgDBEntity = new MsgDBEntity();
+                                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                                msgDBEntity.user = jsonObject.getInt("sender");
+                                msgDBEntity.message = jsonObject.getString("msg");
+                                msgDBEntity.date = jsonObject.getString("time");
+//                            username = data.getInt("sender");
+//                            message = data.getString("msg");
+
+                                pastMsgs.add(msgDBEntity);
+
+                                Log.e("pastMsgr", String.valueOf(jsonObject.getInt("sender")));
+                                Log.e("pastMsg", String.valueOf(jsonObject.getString("msg")));
+                                Log.e("pastMsg", String.valueOf(jsonObject.getString("time")));
+
+                                if (msgDBEntity.user == userAccount) {
+                                    addMessage(msgDBEntity.user, msgDBEntity.message, msgDBEntity.date);
+                                } else {
+                                    addMessageLeft(msgDBEntity.user, msgDBEntity.message, msgDBEntity.date);
+                                }
+                            }
+
+                        } catch (JSONException e) {
+                            return;
+                        }
+
+
+                        //   addMessageLeft(username, message);
+
+                    }
                 }
             });
         }
@@ -483,7 +574,7 @@ public class ChattingDetailActivity extends BaseActivity {
             targetUserImg = intent.getExtras().getString("targetUserImg"); //상대방 이미지
             targetUserName = intent.getExtras().getString("targetUserName"); //상대방 이름
             targetUserCode = intent.getIntExtra("targetUserCode", 0);
-            customToolbarTitle.setText(targetUserName +"님과의 대화");
+            customToolbarTitle.setText(targetUserName + "님과의 대화");
             customToolbarTitle.setGravity(View.TEXT_ALIGNMENT_CENTER);
 
 
@@ -495,7 +586,7 @@ public class ChattingDetailActivity extends BaseActivity {
             targetUserCode = intent.getIntExtra("receiver", 0); //상대방
             targetUserName = intent.getStringExtra("receiverName");
             targetUserImg = intent.getStringExtra("receiverImg");
-            customToolbarTitle.setText(targetUserName +"님과의 대화");
+            customToolbarTitle.setText(targetUserName + "님과의 대화");
             customToolbarTitle.setGravity(View.TEXT_ALIGNMENT_CENTER);
 
 
@@ -504,8 +595,8 @@ public class ChattingDetailActivity extends BaseActivity {
             targetUserCode = intent.getIntExtra("receiver", 0); //상대방
             targetUserName = intent.getStringExtra("receiverName");
             targetUserImg = intent.getStringExtra("receiverImg");
-            customToolbarTitle.setText(targetUserName +"님과의 대화");
-             customToolbarTitle.setGravity(View.TEXT_ALIGNMENT_CENTER);
+            customToolbarTitle.setText(targetUserName + "님과의 대화");
+            customToolbarTitle.setGravity(View.TEXT_ALIGNMENT_CENTER);
 
 
         }
@@ -526,6 +617,7 @@ public class ChattingDetailActivity extends BaseActivity {
         super.onDestroy();
 
         mSocket.off("toClient", toClient);
+        // mSocket.off("pastMsg",pastMsg);
 //        mSocket.disconnect();
 //
 //        mSocket.off(Socket.EVENT_CONNECT, onConnect);
@@ -582,10 +674,12 @@ public class ChattingDetailActivity extends BaseActivity {
             Log.e("Chatting roomnum", String.valueOf(roomNum));
 
             mSocket.emit("joinRoom", object);
+            mSocket.on("pastMsg", pastMsg);
         } catch (JSONException e) {
             Log.d("SEND MESSAGE", "ERROR");
             e.printStackTrace();
         }
+
 
     }
 
@@ -596,7 +690,7 @@ public class ChattingDetailActivity extends BaseActivity {
     }
 
     private void showCustomBar() {
-       // chatDetailTop.startAnimation(inAnim);
+        // chatDetailTop.startAnimation(inAnim);
         //requestButton.startAnimation(inAnim);
 
         chatDetailTop.setVisibility(View.VISIBLE);

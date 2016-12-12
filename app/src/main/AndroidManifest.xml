@@ -104,7 +104,7 @@
 
         <activity android:name=".shoppinglist.ShoppingListDetailActivity" />
         <activity android:name=".dialog.NewMessageAlertActivity"
-            android:theme="@style/CustomDialog"/>
+            android:theme="@android:style/Theme.Dialog"/>
     </application>
 
 </manifest>
