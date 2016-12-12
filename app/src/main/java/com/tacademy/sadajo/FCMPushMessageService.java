@@ -52,7 +52,7 @@ public class FCMPushMessageService extends FirebaseMessagingService {
             chatListDB.roomNum = Integer.parseInt(receiveData.get("room"));
 
 
-           // sendPushNotification(URLDecoder.decode(receiveData.get("partner"), "UTF-8"));
+            // sendPushNotification(URLDecoder.decode(receiveData.get("partner"), "UTF-8"));
             sendPushNotification(chatListDB);
 
         } catch (Exception e) {
@@ -89,12 +89,12 @@ public class FCMPushMessageService extends FirebaseMessagingService {
     //메세지 푸쉬
     private void sendPushNotification(ChatListDB chatListDB) {
         Intent intent = new Intent(this, ChattingDetailActivity.class);
-     //   intent.putExtra("fcmExtra", pushMessage);
-        intent.putExtra("roomNum",chatListDB.roomNum);
-        intent.putExtra("receiver",chatListDB.receiverCode ); //상대방
-        intent.putExtra("receiverName",chatListDB.receiverName);
-        intent.putExtra("receiverImg",chatListDB.receiverImg);
-        intent.putExtra("type",2);
+        //   intent.putExtra("fcmExtra", pushMessage);
+        intent.putExtra("roomNum", chatListDB.roomNum);
+        intent.putExtra("receiver", chatListDB.receiverCode); //상대방
+        intent.putExtra("receiverName", chatListDB.receiverName);
+        intent.putExtra("receiverImg", chatListDB.receiverImg);
+        intent.putExtra("type", 2);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
@@ -110,6 +110,10 @@ public class FCMPushMessageService extends FirebaseMessagingService {
                 .setAutoCancel(true)
                 .setSound(defaultSoundUri)
                 .setContentIntent(pendingIntent);
+
+
+
+        //alert
 
         NotificationManager notificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);

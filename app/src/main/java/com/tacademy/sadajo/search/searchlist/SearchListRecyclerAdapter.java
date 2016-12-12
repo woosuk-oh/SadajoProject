@@ -35,7 +35,7 @@ import java.util.ArrayList;
 public class SearchListRecyclerAdapter extends RecyclerView.Adapter<SearchListRecyclerAdapter.ViewHolder> {
     private Context context;
 
-    private ArrayList<SearchGoodsDB> searchgoodsDBs;
+    private ArrayList<SearchGoodsDB> searchgoodsDBs = new ArrayList<>();
 
 
     private final static int NO_ITEM_VIEW = 0;
@@ -99,7 +99,7 @@ public class SearchListRecyclerAdapter extends RecyclerView.Adapter<SearchListRe
         Glide.with(SadajoContext.getContext())
                 .load(searchgoodsDBs.get(position).getItem_img())
                 .centerCrop() // 이미지를 중앙에 맞게 자른다.
-                .thumbnail(0.1f)
+
                 .into(holder.itemImage);
 
         Glide.with(SadajoContext.getContext())

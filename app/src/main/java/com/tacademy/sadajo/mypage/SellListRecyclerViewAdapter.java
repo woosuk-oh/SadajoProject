@@ -116,13 +116,13 @@ public class SellListRecyclerViewAdapter
         Glide.with(SadajoContext.getContext())
                 .load(dealListDatas.get(position).req_img)
 
-                .thumbnail(0.1f)
+
                 .into(holder.profileImageView);
 
         Glide.with(SadajoContext.getContext())
                 .load(dealListDatas.get(position).country_img)
 
-                .thumbnail(0.1f)
+
                 .into(holder.productImageView);
 
         holder.okButton.setOnClickListener(new View.OnClickListener() { //사다조 요청수락버튼 클릭시

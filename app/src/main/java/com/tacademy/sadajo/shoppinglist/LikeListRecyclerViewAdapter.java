@@ -109,7 +109,7 @@ public class LikeListRecyclerViewAdapter
                 holder.listEmptyTextView.setVisibility(View.GONE);
                 Glide.with(SadajoContext.getContext())
                     .load(shopList.img)
-                        .thumbnail(0.1f)
+
                     .into(holder.productImageView);
             }
 

@@ -3,8 +3,6 @@ package com.tacademy.sadajo.network.Search.SeachDetail;
 import java.util.ArrayList;
 
 
-
-
 public class SearchDetailDB {
 
 
@@ -28,8 +26,25 @@ public class SearchDetailDB {
     public ArrayList<String> price = new ArrayList<>();
 
     public ArrayList<TipsDB> tips = new ArrayList<>();
+    public int zzimcount;
+    public int shopcount;
 
 
+    public int getShopcount() {
+        return shopcount;
+    }
+
+    public void setShopcount(int shopcount) {
+        this.shopcount = shopcount;
+    }
+
+    public int getZzimcount() {
+        return zzimcount;
+    }
+
+    public void setZzimcount(int zzimcount) {
+        this.zzimcount = zzimcount;
+    }
 
     public String getGoods_content() {
         return goods_content;

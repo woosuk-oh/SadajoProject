@@ -9,10 +9,13 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,8 +33,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.tacademy.sadajo.R.id.conUserImageView;
-import static com.tacademy.sadajo.R.id.contUserNameTextView;
 
 public class ChattingDetailActivity extends BaseActivity {
 
@@ -47,24 +48,36 @@ public class ChattingDetailActivity extends BaseActivity {
 
     private int userAccount; //본인유저코드
 
-    private  int type;
-    private  int BOTTOMBAR = 0;
-    private  int MYPAGE = 1;
-    private  int PUSH = 2;
+    private int type;
+    private int BOTTOMBAR = 0;
+    private int MYPAGE = 1;
+    private int PUSH = 2;
 
 
     private RecyclerView mMessagesView;
     private EditText mInputMessageView;
     private ImageView targetUserImageView;
     private TextView targetUserNameTextView;
+    private ImageButton chatAttachButton;
     //private TextView conPositionTextView;
 
     private List<Message> mMessages = new ArrayList<>();
+    private ArrayList<MsgDBEntity> pastMessages = new ArrayList<>();
     private RecyclerView.Adapter mAdapter;
 
     private Socket mSocket;
     private Boolean isConnected = true;
+    Boolean isAleady = false;
+    MsgDB dbHelper;
+    int i = 0;
 
+    SharedPreferenceUtil sharedPreferenceUtil;
+
+    private LinearLayout chatDetailTop;
+    private Animation inAnim;
+    private Animation outAnim;
+
+    String temp = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,48 +89,31 @@ public class ChattingDetailActivity extends BaseActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);//title hidden
         setToolbar(true);
 
-
-        SharedPreferenceUtil sharedPreferenceUtil = new SharedPreferenceUtil(this);
-        userAccount = sharedPreferenceUtil.getAccessToken();
-
+        chatDetailTop = (LinearLayout)findViewById(R.id.chatDetailTop);
+        inAnim = AnimationUtils.loadAnimation(this, R.anim.abc_slide_in_top);
+        outAnim = AnimationUtils.loadAnimation(this, R.anim.abc_slide_out_top);
 
         getTypeIntent(); //intent로 넘어 온 데이터들 받아옴
 
-        targetUserImageView = (ImageView) findViewById(conUserImageView);
-        targetUserNameTextView = (TextView) findViewById(contUserNameTextView);
+        //MsgDB
+        dbHelper = new MsgDB(getApplicationContext(), "MessageHistory", null, 1);
+
+
+        sharedPreferenceUtil = new SharedPreferenceUtil(this);
+        userAccount = sharedPreferenceUtil.getAccessToken();
+
+
+        targetUserImageView = (ImageView) findViewById(R.id.conUserImageView);
+        targetUserNameTextView = (TextView) findViewById(R.id.contUserNameTextView);
         //conPositionTextView = (TextView) findViewById(conPositionTextView);
 
 
         Glide.with(SadajoContext.getContext())
                 .load(targetUserImg)
-                .thumbnail(0.1f)
+
                 .into(targetUserImageView);
 
         targetUserNameTextView.setText(targetUserName);
-
-
-        SadajoContext app = (SadajoContext) getApplication();
-        mSocket = app.getSocket();
-        mSocket.on(Socket.EVENT_CONNECT, onConnect);
-        mSocket.on(Socket.EVENT_DISCONNECT, onDisconnect);
-        mSocket.on(Socket.EVENT_CONNECT_ERROR, onConnectError);
-        mSocket.on(Socket.EVENT_CONNECT_TIMEOUT, onConnectError);
-        mSocket.on("toClient", toClient);
-
-
-        mSocket.connect();
-        JSONObject object = new JSONObject();
-        try {
-            object.put("room", roomNum);
-            object.put("user", userAccount); //본인 아이디
-            //perform the sending message attempt.
-            Log.e("Chatting User sender",String.valueOf(userAccount));
-            Log.e("Chatting roomnum",String.valueOf(roomNum));
-            mSocket.emit("joinRoom", object);
-        } catch (JSONException e) {
-            Log.d("SEND MESSAGE", "ERROR");
-            e.printStackTrace();
-        }
 
 
         mAdapter = new MessageAdapter(ChattingDetailActivity.this, mMessages);
@@ -125,7 +121,49 @@ public class ChattingDetailActivity extends BaseActivity {
         mMessagesView.setLayoutManager(new LinearLayoutManager(this));
         mMessagesView.setAdapter(mAdapter);
 
+
+
+        //socket연결
+        SadajoContext app = (SadajoContext) getApplication();
+        mSocket = app.getSocket();
+        mSocket.on(Socket.EVENT_CONNECT, onConnect);
+        mSocket.on(Socket.EVENT_DISCONNECT, onDisconnect);
+        mSocket.on(Socket.EVENT_CONNECT_ERROR, onConnectError);
+        mSocket.on(Socket.EVENT_CONNECT_TIMEOUT, onConnectError);
+
+        mSocket.on("toClient", toClient);
+
+        mSocket.connect();
+
+        joinRoom();  //채팅방 입장
+
+
+        //지난 메세지 출력
+        if (dbHelper.getResult(roomNum).size() > 0 && dbHelper.getResult(roomNum) != null) {
+            pastMessages = dbHelper.getResult(roomNum);
+
+            for (int i = 0; i < pastMessages.size(); i++) {
+
+               // Log.e("messge+" + pastMessages.get(i).id, pastMessages.get(i).message);
+                if (pastMessages.get(i).user == userAccount) {
+
+                    mMessages.add(new Message.Builder(Message.TYPE_RIGHT)
+                            .username(pastMessages.get(i).user).message(pastMessages.get(i).message).build());
+                    mAdapter.notifyItemInserted(mMessages.size() - 1);
+                    scrollToBottom();
+
+                } else {
+                    mMessages.add(new Message.Builder(Message.TYPE_LEFT)
+                            .username(pastMessages.get(i).user).message(pastMessages.get(i).message).build());
+                    mAdapter.notifyItemInserted(mMessages.size() - 1);
+                    scrollToBottom();
+                }
+            }
+        }
+
         mInputMessageView = (EditText) findViewById(R.id.chattingEditText);
+
+
         mInputMessageView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int id, KeyEvent event) {
@@ -140,6 +178,9 @@ public class ChattingDetailActivity extends BaseActivity {
                 return false;
             }
         });
+
+
+
         ImageButton sendButton = (ImageButton) findViewById(R.id.chatDetailSendButton);
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -155,9 +196,44 @@ public class ChattingDetailActivity extends BaseActivity {
         requestButton = (ImageButton) findViewById(R.id.requestButton);//사다조 요청하기 버튼
         requestButton.setOnClickListener(clickListener);
 
+        chatAttachButton = (ImageButton)findViewById(R.id.chatAttachButton);
+        chatAttachButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                Intent intent;
+//                intent = new Intent(ChattingDetailActivity.this, NewMessageAlertActivity.class);
+//                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//
+//                startActivity(intent);
+             Toast.makeText(ChattingDetailActivity.this,"서비스 준비중",Toast.LENGTH_SHORT).show();
+            }
+        });
+
 
     }
 
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+//        isAleady = true;
+//        //mSocket.on("toClient",toClient);
+
+        if (pastMessages != null && pastMessages.size() > 0) {
+            pastMessages.removeAll(pastMessages);
+
+            Log.e("resumesize", String.valueOf(pastMessages.size()));
+        }
+
+    }
 
     private void addMessage(int username, String message) {
         if (username == userAccount) {
@@ -165,6 +241,7 @@ public class ChattingDetailActivity extends BaseActivity {
                     .username(username).message(message).build());
             Log.e("right", String.valueOf(username));
             mAdapter.notifyItemInserted(mMessages.size() - 1);
+            insertMessage(message, username);
             scrollToBottom();
         }
     }
@@ -175,8 +252,8 @@ public class ChattingDetailActivity extends BaseActivity {
             mMessages.add(new Message.Builder(Message.TYPE_LEFT)
                     .username(username).message(message).build());
             Log.e("left", String.valueOf(username));
-
             mAdapter.notifyItemInserted(mMessages.size() - 1);
+            insertMessage(message, username);
             scrollToBottom();
         }
     }
@@ -194,13 +271,13 @@ public class ChattingDetailActivity extends BaseActivity {
 
         mInputMessageView.setText("");
         addMessage(userAccount, message);
-
         JSONObject object = new JSONObject();
         try {
             object.put("sender", userAccount);
             object.put("msg", message);
-            //perform the sending message attempt.
+            //perform the sending message attempt
 
+            Log.e("toserver:", message);
             mSocket.emit("toServer", object);
         } catch (JSONException e) {
             Log.d("SEND MESSAGE", "ERROR");
@@ -269,10 +346,15 @@ public class ChattingDetailActivity extends BaseActivity {
                     JSONObject data = (JSONObject) args[0];
                     int username;
                     String message;
+
                     try {
+
+
                         Log.e("to client sender", String.valueOf(data.getInt("sender")));
+                        Log.e("to client sender", String.valueOf(data.getString("msg")));
                         username = data.getInt("sender");
                         message = data.getString("msg");
+
 
 
                     } catch (JSONException e) {
@@ -281,7 +363,10 @@ public class ChattingDetailActivity extends BaseActivity {
 
 
                     //  removeTyping(username);
+                    //  if (username != userAccount) {
                     addMessageLeft(username, message);
+
+                    //  }
                 }
             });
         }
@@ -293,8 +378,8 @@ public class ChattingDetailActivity extends BaseActivity {
                 case R.id.requestButton:
                     RequestDialogFragment dialog = new RequestDialogFragment();
                     Bundle bundle = new Bundle();
-                    bundle.putInt("targetUserCode",targetUserCode);
-                    Log.e("targetUserCode detail",String.valueOf(targetUserCode));
+                    bundle.putInt("targetUserCode", targetUserCode);
+                    Log.e("targetUserCode detail", String.valueOf(targetUserCode));
                     dialog.setArguments(bundle);
                     dialog.show(getFragmentManager(), "requestDialog");
                     break;
@@ -306,7 +391,6 @@ public class ChattingDetailActivity extends BaseActivity {
     };
 
 
-
     public void setToolbar(boolean b) {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(b); //back icon
@@ -314,33 +398,36 @@ public class ChattingDetailActivity extends BaseActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() { //클릭시 뒤로가기
             @Override
             public void onClick(View view) {
+
+
                 onBackPressed();
             }
         });
 
 
     }
+
     public void getTypeIntent() {
         Intent intent = getIntent();
         type = intent.getIntExtra("type", 0);
         if (type == BOTTOMBAR) {
             //bottom navigation으로 이동한 경우 ChattingActivity에서 넘어옴
-            roomNum =  intent.getIntExtra("roomNum", 0);
+            roomNum = intent.getIntExtra("roomNum", 0);
             targetUserImg = intent.getExtras().getString("targetUserImg"); //상대방 이미지
             targetUserName = intent.getExtras().getString("targetUserName"); //상대방 이름
-            targetUserCode = intent.getIntExtra("targetUserCode",0);
+            targetUserCode = intent.getIntExtra("targetUserCode", 0);
 
 
-        } else if(type == MYPAGE){
+        } else if (type == MYPAGE) {
 
             // OtherMypageActivity에서 넘어온 데이터들
             roomNum = intent.getIntExtra("roomNum", 0);
-           // sender = intent.getIntExtra("sender", 0); //본인
+            // sender = intent.getIntExtra("sender", 0); //본인
             targetUserCode = intent.getIntExtra("receiver", 0); //상대방
             targetUserName = intent.getStringExtra("receiverName");
             targetUserImg = intent.getStringExtra("receiverImg");
 
-        }else if(type == PUSH){
+        } else if (type == PUSH) {
             roomNum = intent.getIntExtra("roomNum", 0);
             targetUserCode = intent.getIntExtra("receiver", 0); //상대방
             targetUserName = intent.getStringExtra("receiverName");
@@ -349,5 +436,84 @@ public class ChattingDetailActivity extends BaseActivity {
         }
 
     }
+
+
+    //TODO : insert message 만들기
+    public void insertMessage(String message, int user) {
+
+        dbHelper.insert(roomNum, message, user);
+        Log.e("message ", user + message);
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        mSocket.off("toClient",toClient);
+//        mSocket.disconnect();
+//
+//        mSocket.off(Socket.EVENT_CONNECT, onConnect);
+//        mSocket.off(Socket.EVENT_DISCONNECT, onDisconnect);
+//        mSocket.off(Socket.EVENT_CONNECT_ERROR, onConnectError);
+//        mSocket.off(Socket.EVENT_CONNECT_TIMEOUT, onConnectError);
+//        mSocket.off("toClinet", toClient);
+//        isAleady = true;
+//        //sharedPreferenceUtil.setAccessToClient(0);
+        // sharedPreferenceUtil.removeAccessToClient();
+
+    }
+
+//    @Override
+//    protected void onStop() {
+//        super.onStop();
+//
+//        mSocket.disconnect();
+//        mSocket.off(Socket.EVENT_CONNECT, onConnect);
+//        mSocket.off(Socket.EVENT_DISCONNECT, onDisconnect);
+//        mSocket.off(Socket.EVENT_CONNECT_ERROR, onConnectError);
+//        mSocket.off(Socket.EVENT_CONNECT_TIMEOUT, onConnectError);
+//        mSocket.off("toClinet", toClient);
+//        isAleady = true;
+//
+//    }
+//
+//    @Override
+//    protected void onPause() {
+//        super.onPause();
+//        mSocket.disconnect();
+//        mSocket.off(Socket.EVENT_CONNECT, onConnect);
+//        mSocket.off(Socket.EVENT_DISCONNECT, onDisconnect);
+//        mSocket.off(Socket.EVENT_CONNECT_ERROR, onConnectError);
+//        mSocket.off(Socket.EVENT_CONNECT_TIMEOUT, onConnectError);
+//        mSocket.off("toClinet", toClient);
+//    }
+
+    //    @Override
+//    protected void onRestart() {
+//        super.onRestart();
+//        mSocket.on(Socket.EVENT_CONNECT, onConnect);
+//        mSocket.on(Socket.EVENT_DISCONNECT, onDisconnect);
+//        mSocket.on(Socket.EVENT_CONNECT_ERROR, onConnectError);
+//        mSocket.on(Socket.EVENT_CONNECT_TIMEOUT, onConnectError);
+//        mSocket.off("toClinet", toClient);
+//    }
+    public void joinRoom() {
+        JSONObject object = new JSONObject();
+        try {
+            object.put("room", roomNum);
+            object.put("user", userAccount); //본인 아이디
+            Log.e("Chatting User sender", String.valueOf(userAccount));
+            Log.e("Chatting roomnum", String.valueOf(roomNum));
+
+            mSocket.emit("joinRoom", object);
+        } catch (JSONException e) {
+            Log.d("SEND MESSAGE", "ERROR");
+            e.printStackTrace();
+        }
+
+    }
+
+
 
 }

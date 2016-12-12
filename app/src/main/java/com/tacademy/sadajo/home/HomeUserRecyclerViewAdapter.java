@@ -76,7 +76,7 @@ public class HomeUserRecyclerViewAdapter
 
         Glide.with(SadajoContext.getContext())
                 .load(shoppingListDatas.get(position).getUserImg())
-                .thumbnail(0.1f)
+
                 .into(holder.userProfileImageView);
 
 
