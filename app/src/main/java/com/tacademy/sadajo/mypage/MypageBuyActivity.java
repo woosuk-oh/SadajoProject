@@ -86,9 +86,9 @@ public class MypageBuyActivity extends BaseActivity {
         tabLayout.getTabAt(1).setCustomView(imageView2);
 
     }
-    private void setupBuySellViewPager(TradeListViewPager viewPager, int otheruserid) { //커스텀 뷰페이저 사용함.
+    private void setupBuySellViewPager(TradeListViewPager viewPager, int otheruserid) {
         MyPagerAdapter buySellPagerAdapter = new MyPagerAdapter(getSupportFragmentManager());
-        buySellPagerAdapter.appendFragment(BuyListFragment.newInstance(otheruserid), "사다조"); // 프래그먼트 호출 - 생성 - 인자값 넘겨줌.
+        buySellPagerAdapter.appendFragment(BuyListFragment.newInstance(otheruserid), "사다조");
         buySellPagerAdapter.appendFragment(DealSellListFragment.newInstance(otheruserid), "사다줌");
         viewPager.setAdapter(buySellPagerAdapter);
         viewPager.setPagingEnabled(false); // 커스텀뷰페이저의 setpagingEnabled로 page swipe disable.

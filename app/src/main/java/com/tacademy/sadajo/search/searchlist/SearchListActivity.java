@@ -239,21 +239,13 @@ public class SearchListActivity extends BaseActivity {
 
         countrySpinner.setAdapter(spinnerAdapter);
 
-
-
         searchBar.addTextChangedListener(new TextWatcher() {
                                              @Override
                                              public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                                              }
-
                                              @Override
                                              public void onTextChanged(CharSequence s, int start, int before, int count) {
-              /*  if (cnt == 0) {
-                    searchlayout.setStackFromEnd(false);
-                }
-*/
-                                               //  if (!TextUtils.isEmpty(searchBar.getText().toString())) {
-                                                    // Log.d("서치바", "서치바에 입력된 값이 있냐?" + !TextUtils.isEmpty(searchBar.getText().toString()));
+
                                                      new AsyncSearchRequest().execute(countrySpinner.getSelectedItem().toString(), searchBar.getText().toString(), sortvalue);
                                                      Log.d("조건문","서치바 값 입력됨 : 4"+searchBar.getText().toString());
 
@@ -263,7 +255,6 @@ public class SearchListActivity extends BaseActivity {
                                                       cnt++;
                                                  //}
                                              }
-
                                              @Override
                                              public void afterTextChanged(Editable editable) {
                                              }
