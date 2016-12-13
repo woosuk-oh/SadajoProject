@@ -3,7 +3,8 @@
     android:orientation="vertical"
     android:layout_width="264dp"
     android:layout_height="wrap_content"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:layout_gravity="center">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/sellCountryImageView"

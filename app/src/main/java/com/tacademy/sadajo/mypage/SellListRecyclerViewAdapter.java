@@ -4,9 +4,7 @@ package com.tacademy.sadajo.mypage;
  * Created by EUNZY on 2016. 11. 24..
  */
 
-import android.app.FragmentManager;
 import android.content.Context;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +13,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.tacademy.sadajo.R;
@@ -127,36 +126,39 @@ public class SellListRecyclerViewAdapter
 
         holder.okButton.setOnClickListener(new View.OnClickListener() { //사다조 요청수락버튼 클릭시
 
-            FragmentManager fragmentManager = ((AppCompatActivity) context).getFragmentManager();
+  //          FragmentManager fragmentManager = ((AppCompatActivity) context).getFragmentManager();
 
             @Override
             public void onClick(View v) {//TODO: 수정필요!
 
 
-                RequestConfirmDialogFragment requestConfirmDialogFragment = new RequestConfirmDialogFragment();
-                requestConfirmDialogFragment.show(fragmentManager, "requestConfirmDialog");
-                v.setVisibility(View.GONE);
+                Toast.makeText(SadajoContext.getContext(),"서비스 준비중",Toast.LENGTH_SHORT).show();
 
-                holder.sellRequestButton.setVisibility(View.VISIBLE); //요청보기 버튼 visible
-                holder.sellRequestButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        RequestConfirmDialogFragment requestConfirmDialogFragment = new RequestConfirmDialogFragment();
-                        requestConfirmDialogFragment.show(fragmentManager, "requestConfirmDialog");
-
-                    }
-                });
-                holder.sellReviewButton.setVisibility(View.VISIBLE);//후기작성버튼 visible
-                holder.sellReviewButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        ReviewDialogFragment dialog = new ReviewDialogFragment();
-                        dialog.show(fragmentManager, "reviewDialog");
-                        view.setSelected(true);
-                    }
-                });
-
-
+//                RequestConfirmDialogFragment requestConfirmDialogFragment = new RequestConfirmDialogFragment();
+//                requestConfirmDialogFragment.show(fragmentManager, "requestConfirmDialog");
+//
+//                v.setVisibility(View.GONE);
+//
+//                holder.sellRequestButton.setVisibility(View.VISIBLE); //요청보기 버튼 visible
+//                holder.sellRequestButton.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        RequestConfirmDialogFragment requestConfirmDialogFragment = new RequestConfirmDialogFragment();
+//                        requestConfirmDialogFragment.show(fragmentManager, "requestConfirmDialog");
+//
+//                    }
+//                });
+//                holder.sellReviewButton.setVisibility(View.VISIBLE);//후기작성버튼 visible
+//                holder.sellReviewButton.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        ReviewDialogFragment dialog = new ReviewDialogFragment();
+//                        dialog.show(fragmentManager, "reviewDialog");
+//                        view.setSelected(true);
+//                    }
+//                });
+//
+//
             }
         });
 
