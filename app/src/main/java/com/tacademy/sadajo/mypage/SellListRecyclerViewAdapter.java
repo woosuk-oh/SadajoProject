@@ -114,7 +114,8 @@ public class SellListRecyclerViewAdapter
 
         Glide.with(SadajoContext.getContext())
                 .load(dealListDatas.get(position).req_img)
-
+                .placeholder(R.drawable.profile_empty)
+                .thumbnail(0.1f)
 
                 .into(holder.profileImageView);
 

@@ -100,8 +100,8 @@ public class BuyListRecyclerViewAdapter
 
         Glide.with(SadajoContext.getContext())
                 .load(buyListDatas.get(position).carr_img)
-
-
+                .placeholder(R.drawable.profile_empty)
+                .thumbnail(0.1f)
                 .into(holder.profileImageView);
 
         Glide.with(SadajoContext.getContext())

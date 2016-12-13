@@ -850,13 +850,15 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
         button.setBackgroundResource(R.drawable.tag_button_file); //tag ninepatch background적용
 
         int width = ViewGroup.LayoutParams.WRAP_CONTENT;
-        int height = 69;
+        int height = 85;
 
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(width, height);
         button.setPadding(15, 0, 15, 0); // left,right padding : 3
-        params.setMargins(0, 0, 45, 45); // top, right margin : 15
+        params.setMargins(0, 7, 15, 7); // top, right margin : 15
+
         button.setGravity(Gravity.CENTER); //gravity : center
         button.setTextSize(13);// textsize : 13sp
+        button.setTextColor(getResources().getColor(R.color.blackFont));
         button.setTypeface(null, Typeface.NORMAL);//textstyle : Nanum M
         button.setLayoutParams(params);
         button.setTag("HomeTag");

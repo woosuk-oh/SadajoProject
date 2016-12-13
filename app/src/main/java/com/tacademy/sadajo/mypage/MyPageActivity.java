@@ -67,6 +67,9 @@ public class MyPageActivity extends BaseActivity {
     int SHOPERMAN =1;
     int userAccount;
 
+    String mycountry;
+    String mycity;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -242,6 +245,7 @@ public class MyPageActivity extends BaseActivity {
 
         } else {//bottom navigation으로 이동한 것이 아닌 경우
             getSupportActionBar().setDisplayHomeAsUpEnabled(false); //back icon
+
         }
 
     }
@@ -300,10 +304,17 @@ public class MyPageActivity extends BaseActivity {
             super.onPostExecute(myPage);
 
 
+            // TODO 인텐트 받아서 위치값 넣어주기.
             myPageBuyTextView.setText(String.valueOf(myPage.buyNum));
             myPageSellTextView.setText(String.valueOf(myPage.sellNum));
             myPageUserNameTextView.setText(myPage.targetUserName);
-            myPageLocTextView.setText(myPage.targetUserLocation);
+          //  myPageLocTextView.setText(myPage.targetUserLocation);
+            Intent intent = getIntent();
+            mycountry = intent.getExtras().getString("mycountry");
+            mycity = intent.getExtras().getString("mycity");
+
+            myPageLocTextView.setText(mycountry+mycity);
+
             Glide.with(SadajoContext.getContext())
                     .load(myPage.targetUserImg)
                     .into(myPageProfileImageView);

@@ -15,7 +15,6 @@ public class TradeListViewPager extends ViewPager {
 
     private boolean enabled;
 
-
     public TradeListViewPager(Context context, AttributeSet attrs) {
         super(context, attrs);
         this.enabled = true;
@@ -26,10 +25,7 @@ public class TradeListViewPager extends ViewPager {
         if (this.enabled) {
             return super.onInterceptTouchEvent(ev);
         }
-
         return false;
-
-
     }
 
     @Override
@@ -37,7 +33,6 @@ public class TradeListViewPager extends ViewPager {
         if (this.enabled) {
             return super.onTouchEvent(ev);
         }
-
         return false;
     }
 
