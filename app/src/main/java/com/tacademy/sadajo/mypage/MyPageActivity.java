@@ -321,10 +321,13 @@ public class MyPageActivity extends BaseActivity {
             super.onPostExecute(myPage);
 
 
+            // TODO 인텐트 받아서 위치값 넣어주기.
             myPageBuyTextView.setText(String.valueOf(myPage.buyNum));
             myPageSellTextView.setText(String.valueOf(myPage.sellNum));
             myPageUserNameTextView.setText(myPage.targetUserName);
-            myPageLocTextView.setText(myPage.targetUserLocation);
+          //  myPageLocTextView.setText(myPage.targetUserLocation);
+            myPageLocTextView.setText("Korea, Seoul");
+
             Glide.with(SadajoContext.getContext())
                     .load(myPage.targetUserImg)
                     .into(myPageProfileImageView);
