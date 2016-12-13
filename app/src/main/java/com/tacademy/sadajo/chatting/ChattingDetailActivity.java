@@ -144,13 +144,13 @@ public class ChattingDetailActivity extends BaseActivity {
         mSocket.on(Socket.EVENT_DISCONNECT, onDisconnect);
         mSocket.on(Socket.EVENT_CONNECT_ERROR, onConnectError);
         mSocket.on(Socket.EVENT_CONNECT_TIMEOUT, onConnectError);
-
+        joinRoom();  //채팅방 입장
         mSocket.on("toClient", toClient);
 //        mSocket.on("pastMsg",pastMsg);
 
         mSocket.connect();
 
-        joinRoom();  //채팅방 입장
+
 
 
 //        //지난 메세지 출력 sqllite
@@ -456,13 +456,15 @@ public class ChattingDetailActivity extends BaseActivity {
                     try {
 
 
-                        Log.e("to client sender", String.valueOf(data.getInt("sender")));
-                        Log.e("to client sender", String.valueOf(data.getString("msg")));
-                        Log.e("to client time", String.valueOf(data.getString("time")));
+
                         username = data.getInt("sender");
                         message = data.getString("msg");
                         time = data.getString("time");
 
+                        addMessageLeft(username, message, time);
+                        Log.e("to client sender", String.valueOf(username));
+                        Log.e("to client sender", message);
+                        Log.e("to client time", time);
 
                     } catch (JSONException e) {
                         return;
@@ -471,7 +473,8 @@ public class ChattingDetailActivity extends BaseActivity {
 
                     //  removeTyping(username);
                     //  if (username != userAccount) {
-                    addMessageLeft(username, message, time);
+
+
 
                     //  }
                 }

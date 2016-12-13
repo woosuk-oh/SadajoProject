@@ -49,6 +49,8 @@ public class ReviewFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+
+        targetUserCode = getArguments().getInt("targetUserCode", 0);
         SharedPreferenceUtil sharedPreferenceUtil = new SharedPreferenceUtil(getActivity());
         userAccount = sharedPreferenceUtil.getAccessToken();
 
@@ -68,8 +70,7 @@ public class ReviewFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.mypage_fragment_review, container, false);
-        Bundle bundle = getArguments();
-        targetUserCode = bundle.getInt("targetUserCode");
+
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.reviewRecyclerView);
         recyclerView.setLayoutManager(layoutManager);

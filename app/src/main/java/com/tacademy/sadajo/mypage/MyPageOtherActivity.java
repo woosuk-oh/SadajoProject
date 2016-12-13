@@ -75,6 +75,12 @@ public class MyPageOtherActivity extends BaseActivity {
         customToolbarTitle = (TextView) findViewById(R.id.customToolbarTitle);
 
 
+
+        Intent intent = getIntent();
+        targetUserCode = intent.getIntExtra("targetUserCode", 0); //해당페이지의 유저아이디
+        targetUserName = intent.getStringExtra("targetUserName");
+        Log.d("타겟유저코드1","ㅇㅇ"+targetUserCode);
+
         toolbar.setNavigationOnClickListener(new View.OnClickListener() { //뒤로가기
             @Override
             public void onClick(View view) {
@@ -113,10 +119,6 @@ public class MyPageOtherActivity extends BaseActivity {
         otherBuyCountLL.setOnClickListener(clickListener);
 
 
-        Intent intent = getIntent();
-        targetUserCode = intent.getIntExtra("targetUserCode", 0); //해당페이지의 유저아이디
-        targetUserName = intent.getStringExtra("targetUserName");
-        Log.d("타겟유저코드1","ㅇㅇ"+targetUserCode);
 
         SharedPreferenceUtil sharedPreferenceUtil = new SharedPreferenceUtil(this);
         userAccount = sharedPreferenceUtil.getAccessToken();
@@ -186,9 +188,9 @@ public class MyPageOtherActivity extends BaseActivity {
 
     private void setupMyPageViewPager(ViewPager viewPager) {
         MyPagerAdapter pagerAdapter = new MyPagerAdapter(getSupportFragmentManager());
-        pagerAdapter.appendFragment(ReviewFragment.newInstance(1), "후기");
-        pagerAdapter.appendFragment(TipFragment.newInstance(2), "등록한 TIP");
-        pagerAdapter.appendFragment(ItemFragment.newInstance(3), "등록한아이템");
+        pagerAdapter.appendFragment(ReviewFragment.newInstance(targetUserCode), "후기");
+        pagerAdapter.appendFragment(TipFragment.newInstance(targetUserCode), "등록한 TIP");
+        pagerAdapter.appendFragment(ItemFragment.newInstance(targetUserCode), "등록한아이템");
         viewPager.setAdapter(pagerAdapter);
     }
 
