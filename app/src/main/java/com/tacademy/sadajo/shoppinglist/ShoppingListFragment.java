@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.tacademy.sadajo.CustomRecyclerDecoration;
 import com.tacademy.sadajo.R;
@@ -38,6 +39,7 @@ public class ShoppingListFragment extends Fragment {
     ShoppingListRecyclerViewAdapter recyclerViewAdapter;
     RecyclerView shoppingListRecyclerView;
     int userAccount;
+    ImageView shopNoItemImageView;
 
     public ShoppingListFragment() {
     }
@@ -51,8 +53,8 @@ public class ShoppingListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-
-        shoppingListRecyclerView = (RecyclerView) inflater.inflate(R.layout.shoppinglist_frament, container, false);
+        View view = inflater.inflate(R.layout.shoppinglist_frament, container, false);
+        shoppingListRecyclerView = (RecyclerView)view.findViewById(R.id.shoppingListRecyclerView1);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         shoppingListRecyclerView.setLayoutManager(layoutManager);
 
@@ -61,6 +63,7 @@ public class ShoppingListFragment extends Fragment {
 
         recyclerViewAdapter = new ShoppingListRecyclerViewAdapter(getContext());
         shoppingListRecyclerView.setAdapter(recyclerViewAdapter);
+        shopNoItemImageView = (ImageView)view.findViewById(R.id.shopNoItemImageView);
 
 
         return shoppingListRecyclerView;
@@ -135,7 +138,11 @@ public class ShoppingListFragment extends Fragment {
         public void onPostExecute(ArrayList<ShopListDB> shopListDBs) {
             super.onPostExecute(shopListDBs);
             if(shopListDBs != null && shopListDBs.size() > 0 ){
+                shopNoItemImageView.setVisibility(View.GONE);
                 recyclerViewAdapter.addShopList(shopListDBs);
+            }else{
+                shopNoItemImageView.setVisibility(View.VISIBLE);
+
             }
 
         }
