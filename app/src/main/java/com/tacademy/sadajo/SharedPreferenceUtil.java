@@ -83,28 +83,6 @@ public class SharedPreferenceUtil {
 
     }
 
-    public static void setAccessToClient(int token) {
-
-        mEditor.putInt("toclient", token);
-        mEditor.commit();
-    }
-
-    //토큰 가져오기
-    public static int getAccessToClient() {
-
-
-        return mPrefs.getInt("toclient", 0);
-
-    }
-
-    //토큰 삭제
-    public static void removeAccessToClient() {
-
-        mEditor.remove("toclient");
-        mEditor.commit();
-
-
-    }
 
 
     private static final String FCM_TOKEN_KEY = "fcmTokenKey";

@@ -139,6 +139,7 @@ public class HomeActivity extends BaseActivity {
 
         String fcmToken = FirebaseInstanceId.getInstance().getToken(); //푸시 토큰받아옴
 
+
         Log.e("Home Activity :", String.valueOf(userAccount));
           Log.e("Home fcmToken :", fcmToken);
         // 페이스북 아이디 됐는지 확인
