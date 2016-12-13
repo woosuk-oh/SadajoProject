@@ -7,8 +7,8 @@ package com.tacademy.sadajo.chatting;
 public class MsgDBEntity {
     public int id;
     public String message;
-    int user;
-    int roomNum;
-    String date;
+    public int user;
+    public int roomNum;
+    public String date;
 }
 

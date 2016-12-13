@@ -12,8 +12,6 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -87,10 +85,7 @@ public class ChattingDetailActivity extends BaseActivity {
     SharedPreferenceUtil sharedPreferenceUtil;
 
     private LinearLayout chatDetailTop;
-    private Animation inAnim;
-    private Animation outAnim;
 
-    String temp = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,8 +100,6 @@ public class ChattingDetailActivity extends BaseActivity {
 
 
         chatDetailTop = (LinearLayout) findViewById(R.id.chatDetailTop);
-        inAnim = AnimationUtils.loadAnimation(this, R.anim.abc_slide_in_top);
-        outAnim = AnimationUtils.loadAnimation(this, R.anim.abc_slide_out_top);
 
         getTypeIntent(); //intent로 넘어 온 데이터들 받아옴
 
@@ -125,6 +118,7 @@ public class ChattingDetailActivity extends BaseActivity {
 
         Glide.with(SadajoContext.getContext())
                 .load(targetUserImg)
+
                 .into(targetUserImageView);
 
         targetUserNameTextView.setText(targetUserName);
@@ -143,9 +137,9 @@ public class ChattingDetailActivity extends BaseActivity {
         mSocket.on(Socket.EVENT_DISCONNECT, onDisconnect);
         mSocket.on(Socket.EVENT_CONNECT_ERROR, onConnectError);
         mSocket.on(Socket.EVENT_CONNECT_TIMEOUT, onConnectError);
-
         mSocket.on("toClient", toClient);
         mSocket.on("pastMsg", pastMsg);
+
 
         mSocket.connect();
 
@@ -175,34 +169,6 @@ public class ChattingDetailActivity extends BaseActivity {
 //            }
 //        }
 
-
-        Log.e("pasgMsgsSIze", String.valueOf(pastMsgs.size()));
-        //지난 메세지 출력
-        if (pastMsgs.size() > 0 && pastMsgs != null) {
-            pastMessages = pastMsgs;
-
-//            for (int i = 0; i < pastMessages.size(); i++) {
-//
-//                // Log.e("messge+" + pastMessages.get(i).id, pastMessages.get(i).message);
-//                if (pastMessages.get(i).user == userAccount) {
-//
-//                    mMessages.add(new Message.Builder(Message.TYPE_RIGHT)
-//                            .username(pastMessages.get(i).user).message(pastMessages.get(i).message).build());
-//                    mAdapter.notifyItemInserted(mMessages.size() - 1);
-//                    scrollToBottom();
-//
-//                } else {
-//                    mMessages.add(new Message.Builder(Message.TYPE_LEFT)
-//                            .username(pastMessages.get(i).user).message(pastMessages.get(i).message).build());
-//                    mAdapter.notifyItemInserted(mMessages.size() - 1);
-//                    scrollToBottom();
-//                }
-//            }
-            for (int i = 0; i < pastMsgs.size(); i++) {
-                Log.e("pastSender", String.valueOf(pastMsgs.get(i).user));
-                Log.e("pastMessage", pastMsgs.get(i).message);
-            }
-        }
 
         mInputMessageView = (EditText) findViewById(R.id.chattingEditText);
 
@@ -451,14 +417,12 @@ public class ChattingDetailActivity extends BaseActivity {
                     try {
 
 
+                        Log.e("to client sender", String.valueOf(data.getInt("sender")));
+                        Log.e("to client sender", String.valueOf(data.getString("msg")));
+                        Log.e("to client time", String.valueOf(data.getString("time")));
                         username = data.getInt("sender");
                         message = data.getString("msg");
                         time = data.getString("time");
-
-                        Log.e("to client sender", String.valueOf(username));
-                        Log.e("to client sender", message);
-                        Log.e("to client time", time);
-                        addMessageLeft(username, message, time);
 
 
                     } catch (JSONException e) {
@@ -468,7 +432,8 @@ public class ChattingDetailActivity extends BaseActivity {
 
                     //  removeTyping(username);
                     //  if (username != userAccount) {
-
+                    //  addMessageLeft(username, message, time);
+                    addMessageLeft(username, message, time);
 
                     //  }
                 }
@@ -498,8 +463,6 @@ public class ChattingDetailActivity extends BaseActivity {
                                 msgDBEntity.user = jsonObject.getInt("sender");
                                 msgDBEntity.message = jsonObject.getString("msg");
                                 msgDBEntity.date = jsonObject.getString("time");
-//                            username = data.getInt("sender");
-//                            message = data.getString("msg");
 
                                 pastMsgs.add(msgDBEntity);
 
@@ -600,20 +563,19 @@ public class ChattingDetailActivity extends BaseActivity {
 
     }
 
-
-    //TODO : insert message 만들기
-    public void insertMessage(String message, int user) {
-
-        dbHelper.insert(roomNum, message, user);
-        Log.e("message ", user + message);
-    }
+//
+//    public void insertMessage(String message, int user) {
+//
+//        dbHelper.insert(roomNum, message, user);
+//        Log.e("message ", user + message);
+//    }
 
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
 
-        //mSocket.off("toClient", toClient);
+        // mSocket.off("toClient", toClient);
         // mSocket.off("pastMsg",pastMsg);
 //        mSocket.disconnect();
 //
@@ -671,7 +633,6 @@ public class ChattingDetailActivity extends BaseActivity {
             Log.e("Chatting roomnum", String.valueOf(roomNum));
 
             mSocket.emit("joinRoom", object);
-
         } catch (JSONException e) {
             Log.d("SEND MESSAGE", "ERROR");
             e.printStackTrace();
