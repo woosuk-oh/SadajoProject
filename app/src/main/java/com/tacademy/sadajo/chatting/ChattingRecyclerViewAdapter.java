@@ -116,7 +116,8 @@ public class ChattingRecyclerViewAdapter
 
 
         }
-        holder.chattingContentTextView.setText("안녕하세요");
+        holder.chattingContentTextView.setVisibility(View.GONE);
+
         holder.chattingDateTextView.setText(chatDataLists.get(position).lastDate);
     }
 
