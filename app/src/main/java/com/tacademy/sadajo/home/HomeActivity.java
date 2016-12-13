@@ -174,7 +174,7 @@ public class HomeActivity extends BaseActivity  implements GoogleApiClient.Conne
 
 
         SharedPreferenceUtil sharedPreferenceUtil = new SharedPreferenceUtil(SadajoContext.getContext());
-        sharedPreferenceUtil.setAccessToken(11);
+        sharedPreferenceUtil.setAccessToken(12);
         userAccount = sharedPreferenceUtil.getAccessToken();
 
         String fcmToken = FirebaseInstanceId.getInstance().getToken(); //푸시 토큰받아옴
