@@ -50,8 +50,8 @@ public class NewMessageDialogFragment extends DialogFragment implements View.OnC
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_new_message_dialog, container, false);
-        messageCheckButton = (ImageButton)view.findViewById(R.id.messageCheckButton);
-        messageCancelButton = (ImageButton)view.findViewById(R.id.messageCancelButton);
+//        messageCheckButton = (ImageButton)view.findViewById(R.id.messageCheckButton);
+//        messageCancelButton = (ImageButton)view.findViewById(R.id.messageCancelButton);
         return  view;
     }
 
