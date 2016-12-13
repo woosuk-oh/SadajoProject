@@ -53,6 +53,7 @@ public class LikeListFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         SharedPreferenceUtil sharedPreferenceUtil = new SharedPreferenceUtil(getContext());
         userAccount = sharedPreferenceUtil.getAccessToken();
 

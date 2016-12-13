@@ -17,6 +17,7 @@ public class NetworkDefineConstant {
     public static String SERVER_URL_REQUST_SHOPDETAIL;
     public static String SERVER_URL_REQUST_MYPAGE;
     public static String SERVER_URL_REQUST_MYPAGE_REVIEW;
+    public static String SERVER_URL_REQUST_MYPAGE_TIP;
 
 
     public static String SERVER_URL_INSERT_SCHEDULE;
@@ -57,6 +58,8 @@ public class NetworkDefineConstant {
                 HOST_URL + "/userpage";
         SERVER_URL_REQUST_MYPAGE_REVIEW =
                 HOST_URL + "/review";
+        SERVER_URL_REQUST_MYPAGE_TIP =
+                HOST_URL + "/mytip";
         SEARCH_LIST =
                 HOST_URL + "/goods";
         SEARCH_LIST_COUNTRY =

@@ -52,21 +52,21 @@
 
 
             <LinearLayout
+                 android:paddingLeft="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/colorPrimary"
-                android:gravity="center"
+                android:gravity="left|center"
                 android:orientation="horizontal">
 
 
                 <Spinner
                     android:id="@+id/search_toolbar_spinner1"
-                   android:layout_width="wrap_content"
+                   android:layout_width="71dp"
                     android:layout_height="23dp"
                     android:layout_marginRight="5dp"
                     android:background="@drawable/search_bar1"
                     android:entries="@array/country"
-
 
                     android:text="ddd"/>
 

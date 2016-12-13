@@ -1,18 +1,19 @@
 package com.tacademy.sadajo.dialog;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageButton;
 
-import com.tacademy.sadajo.BaseActivity;
 import com.tacademy.sadajo.R;
 import com.tacademy.sadajo.chatting.ChattingDetailActivity;
 import com.tacademy.sadajo.network.chatting.ChatListDB;
 
-public class NewMessageAlertActivity extends BaseActivity implements View.OnClickListener {
+public class NewMessageAlertActivity extends AppCompatActivity implements View.OnClickListener {
 
 
     ImageButton messageCheckButton;
@@ -22,7 +23,7 @@ public class NewMessageAlertActivity extends BaseActivity implements View.OnClic
     int receiver;
     String receiverName;
     String receiverImg;
-
+    public static Context ctx;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,8 +42,8 @@ public class NewMessageAlertActivity extends BaseActivity implements View.OnClic
         messageCheckButton = (ImageButton) findViewById(R.id.messageCheckButton);
         chatListDB = new ChatListDB();
         Intent intent = getIntent();
-        roomNum  = intent.getIntExtra("roomNum",0);
-        receiver  = intent.getIntExtra("receiver",0);
+        roomNum = intent.getIntExtra("roomNum", 0);
+        receiver = intent.getIntExtra("receiver", 0);
         receiverName = intent.getStringExtra("receiverName");
         receiverImg = intent.getStringExtra("receiverImg");
 
@@ -51,6 +52,7 @@ public class NewMessageAlertActivity extends BaseActivity implements View.OnClic
 
 
     }
+
 
     @Override
     public void onClick(View view) {

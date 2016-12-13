@@ -22,7 +22,13 @@
             android:screenOrientation="portrait"></activity>
         <activity
             android:name=".splash.SplashActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            </activity>
         <activity
             android:name=".search.searchlist.SearchListActivity"
             android:screenOrientation="portrait"
@@ -108,7 +114,8 @@
 
         <activity android:name=".shoppinglist.ShoppingListDetailActivity" />
         <activity android:name=".dialog.NewMessageAlertActivity"
-            android:theme="@android:style/Theme.Dialog"/>
+            android:theme="@style/CustomDialog"/>
+
 
 
         <meta-data

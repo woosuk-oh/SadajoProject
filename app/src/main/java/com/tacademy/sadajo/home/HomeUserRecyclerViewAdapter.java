@@ -29,12 +29,17 @@ public class HomeUserRecyclerViewAdapter
 
     private ArrayList<HomeShoplistDB> shoppingListDatas;
     private Context context;
+    String mycountry;
+    String mycity;
 
      int userAccount;
 
-    public HomeUserRecyclerViewAdapter(Context context, ArrayList<HomeShoplistDB> shoppingListDatas) {
+    public HomeUserRecyclerViewAdapter(Context context, ArrayList<HomeShoplistDB> shoppingListDatas, String mycountry, String mycity) {
         this.context = context;
         this.shoppingListDatas = shoppingListDatas;
+        this.mycountry = mycountry;
+        this.mycity = mycity;
+
         SharedPreferenceUtil sharedPreferenceUtil = new SharedPreferenceUtil(context);
         userAccount = sharedPreferenceUtil.getAccessToken();
 
@@ -86,10 +91,14 @@ public class HomeUserRecyclerViewAdapter
             @Override
             public void onClick(View v) {
 
+
+
                 //user 본인/상대방 구분
                 if (shoppingListDatas.get(position).getUserId() == userAccount) {
                     intent = new Intent(context, MyPageActivity.class);
                     intent.putExtra("type", 1); //type이 1일 경우는 bottombar GONE & backNavigation생성
+                    intent.putExtra("mycountry", mycountry); // 현재 국가명
+                    intent.putExtra("mycity", mycity); //현재 지역명
                     context.startActivity(intent);
 
                 } else {

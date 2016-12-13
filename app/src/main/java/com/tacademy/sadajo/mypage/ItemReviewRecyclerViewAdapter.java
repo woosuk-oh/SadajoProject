@@ -29,6 +29,7 @@ public class ItemReviewRecyclerViewAdapter
     public ItemReviewRecyclerViewAdapter(Context context, ArrayList<MypageItemData> mypageItemDatas) {
         this.context = context;
         this.mypageItemDataArrayList = mypageItemDatas;
+
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

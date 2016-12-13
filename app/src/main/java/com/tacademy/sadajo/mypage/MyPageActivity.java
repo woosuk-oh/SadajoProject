@@ -8,8 +8,6 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
@@ -69,6 +67,9 @@ public class MyPageActivity extends BaseActivity {
     int SHOPERMAN =1;
     int userAccount;
 
+    String mycountry;
+    String mycity;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,6 +84,9 @@ public class MyPageActivity extends BaseActivity {
         toolbar.setBackgroundResource(R.drawable.tool_03_mypage); //toolbar image
         getSupportActionBar().setDisplayShowTitleEnabled(false);//title hidden
 
+        SharedPreferenceUtil sharedPreferenceUtil = new SharedPreferenceUtil(this);
+        userAccount = sharedPreferenceUtil.getAccessToken();
+        Log.e("userAccount", "현재 유저 아이디"+userAccount);
         getTypeIntent(); //이동경로에 따른 페이지구성을 위한 메소드
 
 
@@ -98,9 +102,7 @@ public class MyPageActivity extends BaseActivity {
         myPageLocTextView = (TextView) findViewById(R.id.myPageLocTextView);
         myPageProfileImageView=(ImageView)findViewById(R.id.myPageProfileImageView);
 
-        SharedPreferenceUtil sharedPreferenceUtil = new SharedPreferenceUtil(this);
-        userAccount = sharedPreferenceUtil.getAccessToken();
-        Log.e("userAccount", "현재 유저 아이디"+userAccount);
+
 
         ViewPager viewPager = (ViewPager) findViewById(R.id.mypageViewpager);
         if (viewPager != null) {
@@ -224,27 +226,7 @@ public class MyPageActivity extends BaseActivity {
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return false;//false하면 메뉴아이콘 hidden
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_delete) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 
     public void getTypeIntent() {
         Intent intent = getIntent();
@@ -263,6 +245,7 @@ public class MyPageActivity extends BaseActivity {
 
         } else {//bottom navigation으로 이동한 것이 아닌 경우
             getSupportActionBar().setDisplayHomeAsUpEnabled(false); //back icon
+
         }
 
     }
@@ -326,7 +309,11 @@ public class MyPageActivity extends BaseActivity {
             myPageSellTextView.setText(String.valueOf(myPage.sellNum));
             myPageUserNameTextView.setText(myPage.targetUserName);
           //  myPageLocTextView.setText(myPage.targetUserLocation);
-            myPageLocTextView.setText("Korea, Seoul");
+            Intent intent = getIntent();
+            mycountry = intent.getExtras().getString("mycountry");
+            mycity = intent.getExtras().getString("mycity");
+
+            myPageLocTextView.setText(mycountry+mycity);
 
             Glide.with(SadajoContext.getContext())
                     .load(myPage.targetUserImg)
