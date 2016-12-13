@@ -76,6 +76,7 @@ import static android.graphics.Typeface.NORMAL;
 public class HomeActivity extends BaseActivity  implements GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener, LocationListener {
 
+    int stateval = 0;
 
     private final long FINSH_INTERVAL_TIME = 2000;
     private long backPressedTime = 0;
@@ -444,8 +445,8 @@ public class HomeActivity extends BaseActivity  implements GoogleApiClient.Conne
     protected void onResume() { // onStart 이후 실행되는곳. + 액티비티 다시 불러오면 실행되는곳
         super.onResume();
 
-        mGoogleApiClient.connect(); // 순서2. GoogleApiClient 연결
-        Log.d("onResume", "onResume에서 mGoogleApiClient를 연결요청함.");
+/*        mGoogleApiClient.connect(); // 순서2. GoogleApiClient 연결
+        Log.d("onResume", "onResume에서 mGoogleApiClient를 연결요청함.");*/
 
         ConnectivityManager cm = (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
@@ -465,16 +466,43 @@ public class HomeActivity extends BaseActivity  implements GoogleApiClient.Conne
                     mGoogleApiClient.connect();
                     Log.d("onResume", "onResume에서 mGoogleApiClient 연결요청함.");
                 }
-/*                Handler mHandler = new Handler();
+
+                Handler mHandler = new Handler();
                 mHandler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         //Log.d("홈액티비티mycountry","홈액티비티 mycountry: "+mycountry);
+                        if(stateval == 0){
 
+                           // stateval=1; // 처음시작할때만 여기서 실행.
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !Settings.canDrawOverlays(SadajoContext.getContext())) { //마시멜로우 버전과 같거나 크고 다른앱위에 그리기 권한 없으면 실행됨.
+                                Intent myIntent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + getPackageName()));
+                                startActivity(myIntent);
+                                Log.d("오버레이 권한", "checkPermission 오버레이 권한 검사. 없어서 설정보내기");
+                                Toast.makeText(SadajoContext.getContext(), "다른앱 위에 그리기를 허용해주십시오.", Toast.LENGTH_SHORT).show();
+                                // 마시멜로 M버전 이상+오버레이 안한경우이면 실행되는곳.
+
+
+
+                              //  checkPermission(); // 순서4. 권한 확인 및 저장해둔 위경도 데이터 받기. 1.5초후 실행.
+
+                                // 위치정보를 SharedPreference에 저장한다.
+                                SharedPreferenceUtil sharedPreferenceUtil = new SharedPreferenceUtil(SadajoContext.getContext());
+                                sharedPreferenceUtil.setLocaleArea(mycountry+","+mycity);
+                                Log.d("홈액티비티mycountry","홈액티비티 mycountry: "+mycountry);
+
+                            }else if(Build.VERSION.SDK_INT < Build.VERSION_CODES.M){
+                                // 마시멜로 M버전 미만.
+                                getLocationData(); //권한 체크 없이 바로 위치 가져옴.
+                                SharedPreferenceUtil sharedPreferenceUtil = new SharedPreferenceUtil(SadajoContext.getContext());
+                                sharedPreferenceUtil.setLocaleArea(mycountry+","+mycity);
+                                Log.d("홈액티비티mycountry","홈액티비티 mycountry: "+mycountry);
+                            }
+                        }
                     }
 
 
-                }, 1500);*/
+                }, 1500);
 
 
 
@@ -509,7 +537,7 @@ public class HomeActivity extends BaseActivity  implements GoogleApiClient.Conne
     @TargetApi(Build.VERSION_CODES.M)
     private void checkPermission() {
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !Settings.canDrawOverlays(this)) { //마시멜로우 버전과 같거나 크고 다른앱위에 그리기 권한 없으면 실행됨.
+  /*      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !Settings.canDrawOverlays(this)) { //마시멜로우 버전과 같거나 크고 다른앱위에 그리기 권한 없으면 실행됨.
             Intent myIntent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + getPackageName()));
             startActivity(myIntent);
             Log.d("오버레이 권한", "checkPermission 오버레이 권한 검사. 없어서 설정보내기");
@@ -518,7 +546,7 @@ public class HomeActivity extends BaseActivity  implements GoogleApiClient.Conne
 
 
 
-        } else {
+        } else {*/
 
             Log.d("로케이션 퍼미션 갖고 있냐?", "" + checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION));
             if (checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION)
@@ -548,7 +576,7 @@ public class HomeActivity extends BaseActivity  implements GoogleApiClient.Conne
                 getLocationData();
             }
         }
-    }
+  /*  }*/
 
     public static boolean isLocationEnabled(Context context) { // 위치 on/off 여부 확인
         int locationMode = 0;
@@ -643,22 +671,27 @@ public class HomeActivity extends BaseActivity  implements GoogleApiClient.Conne
             mLocationRequest = LocationRequest.create();
             mLocationRequest.setPriority(LocationRequest.PRIORITY_LOW_POWER); //GPS, WIFI로 위치 받음.
 
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !Settings.canDrawOverlays(SadajoContext.getContext())) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 // 마시멜로 M버전 이상이면 실행되는곳.
+
+
+
                 checkPermission(); // 순서4. 권한 확인 및 저장해둔 위경도 데이터 받기. 1.5초후 실행.
 
                 // 위치정보를 SharedPreference에 저장한다.
                 SharedPreferenceUtil sharedPreferenceUtil = new SharedPreferenceUtil(SadajoContext.getContext());
                 sharedPreferenceUtil.setLocaleArea(mycountry+","+mycity);
                 Log.d("홈액티비티mycountry","홈액티비티 mycountry: "+mycountry);
-            }else if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && Settings.canDrawOverlays(SadajoContext.getContext())){
+
+            }else if(Build.VERSION.SDK_INT < Build.VERSION_CODES.M){
                 // 마시멜로 M버전 미만.
-                checkPermission();
+                getLocationData(); //권한 체크 없이 바로 위치 가져옴.
                 SharedPreferenceUtil sharedPreferenceUtil = new SharedPreferenceUtil(SadajoContext.getContext());
                 sharedPreferenceUtil.setLocaleArea(mycountry+","+mycity);
                 Log.d("홈액티비티mycountry","홈액티비티 mycountry: "+mycountry);
             }
+
+
 
             // mLocationRequest.setInterval(5000); 위치정보 업데이트 '주기'
 

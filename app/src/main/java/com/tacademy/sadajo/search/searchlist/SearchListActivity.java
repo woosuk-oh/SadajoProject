@@ -240,25 +240,25 @@ public class SearchListActivity extends BaseActivity {
         countrySpinner.setAdapter(spinnerAdapter);
 
         searchBar.addTextChangedListener(new TextWatcher() {
-                                             @Override
-                                             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                                             }
-                                             @Override
-                                             public void onTextChanged(CharSequence s, int start, int before, int count) {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
-                                                     new AsyncSearchRequest().execute(countrySpinner.getSelectedItem().toString(), searchBar.getText().toString(), sortvalue);
-                                                     Log.d("조건문","서치바 값 입력됨 : 4"+searchBar.getText().toString());
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            new AsyncSearchRequest().execute(countrySpinner.getSelectedItem().toString(), searchBar.getText().toString(), sortvalue);
+            Log.d("조건문","서치바 값 입력됨 : 4"+searchBar.getText().toString());
 
-                                                 if(sortvalue.equals("")){
-                                                     popularity.setPressed(true); // 초기값으로 '눌렸다' 세팅. (초기 정렬은 url이 goods이지만 인기순이며, 눌렸다라는 표시로 빨간색 처리를 위함)
-                                                 }
-                                                      cnt++;
-                                                 //}
-                                             }
-                                             @Override
-                                             public void afterTextChanged(Editable editable) {
-                                             }
-                                         }
+            if(sortvalue.equals("")){
+            popularity.setPressed(true); // 초기값으로 '눌렸다' 세팅. (초기 정렬은 url이 goods이지만 인기순이며, 눌렸다라는 표시로 빨간색 처리를 위함)
+            }
+            cnt++;
+
+            }
+            @Override
+            public void afterTextChanged(Editable editable) {
+              }
+            }
         );
 
 
