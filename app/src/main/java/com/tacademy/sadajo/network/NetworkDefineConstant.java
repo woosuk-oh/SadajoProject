@@ -3,8 +3,8 @@ package com.tacademy.sadajo.network;
 
 public class NetworkDefineConstant {
 
-    public static final String HOST_URL = "http://52.78.89.88:3000"; // 테스트 서버임.
-//    public static final String HOST_URL = "http://52.78.89.88:3000";
+//    public static final String HOST_URL = "http://52.78.89.88:3001"; // 테스트 서버임.
+    public static final String HOST_URL = "http://52.78.89.88:3000";
 
     public static String SERVER_URL_REQUEST_HOME;
     public static String SERVER_URL_REQUEST_SHOPLIST;
