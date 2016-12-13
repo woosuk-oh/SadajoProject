@@ -10,7 +10,6 @@ import android.content.pm.Signature;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
-import android.location.LocationListener;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -36,6 +35,7 @@ import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.tacademy.sadajo.home.HomeActivity;
@@ -47,7 +47,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
-public class MainActivity extends BaseActivity implements View.OnClickListener, GoogleApiClient.ConnectionCallbacks,
+import static com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
+
+public class MainActivity extends BaseActivity implements View.OnClickListener, ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener, LocationListener {
 
 
@@ -72,6 +74,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        buildGoogleApiClient();
 
         //반드시 초기화 해야한다.
         FacebookSdk.sdkInitialize(this);
@@ -168,6 +172,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
             public void onError(FacebookException error) {
             }
         });
+
+
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -416,20 +422,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
     }
 
-    @Override
-    public void onStatusChanged(String s, int i, Bundle bundle) {
-
-    }
-
-    @Override
-    public void onProviderEnabled(String s) {
-
-    }
-
-    @Override
-    public void onProviderDisabled(String s) {
-
-    }
 
 
     @TargetApi(Build.VERSION_CODES.M) //체크 셀프 퍼미션 사용에 따른 마시멜로우 대응
@@ -450,7 +442,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
 
             // 저장한 위치 받아오기.
-            LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, (com.google.android.gms.location.LocationListener) this);
+            LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
             Log.d("getLocationData", "getLocationData에서 위치 업데이트 요청함 (requestLocationUpdates).");
 
             mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
