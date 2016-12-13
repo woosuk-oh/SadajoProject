@@ -523,9 +523,9 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
                     //Toast.makeText(SearchDetail.this, "찜하기 완료!", Toast.LENGTH_SHORT).show();
                     Toast toast = new Toast(SadajoContext.getContext());
                     toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-                    toast.setDuration(Toast.LENGTH_LONG);
+                    toast.setDuration(Toast.LENGTH_SHORT);
                     ImageView zzimtoast = new ImageView(SadajoContext.getContext());
-                    zzimtoast.setImageResource(R.drawable.search_toast3);
+                    zzimtoast.setImageResource(R.drawable.search_toast4);
                     toast.setView(zzimtoast);
                     toast.show();
 
@@ -649,7 +649,7 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
 
                                                                   Toast toast = new Toast(SadajoContext.getContext());
                                                                   toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-                                                                  toast.setDuration(Toast.LENGTH_LONG);
+                                                                  toast.setDuration(Toast.LENGTH_SHORT);
                                                                   ImageView shoppingtoast = new ImageView(SadajoContext.getContext());
                                                                   shoppingtoast.setImageResource(R.drawable.search_toast3);
                                                                   toast.setView(shoppingtoast);

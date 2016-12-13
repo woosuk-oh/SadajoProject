@@ -137,7 +137,7 @@ public class HomeActivity extends BaseActivity {
 
 
         SharedPreferenceUtil sharedPreferenceUtil = new SharedPreferenceUtil(SadajoContext.getContext());
-        sharedPreferenceUtil.setAccessToken(4);
+        sharedPreferenceUtil.setAccessToken(2);
         userAccount = sharedPreferenceUtil.getAccessToken();
 
         String fcmToken = FirebaseInstanceId.getInstance().getToken(); //푸시 토큰받아옴
@@ -322,7 +322,6 @@ public class HomeActivity extends BaseActivity {
     public void createTagButton(String str, int i) {
         int width = ViewGroup.LayoutParams.WRAP_CONTENT;
         int height = 69;
-
         Button button = new Button(this);
         button.setText(str); //서버로부터 받아온 tag text set
         button.setBackgroundResource(R.drawable.tag_button_file); //tag ninepatch background적용

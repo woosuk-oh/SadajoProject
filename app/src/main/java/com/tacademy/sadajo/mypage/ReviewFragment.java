@@ -68,6 +68,8 @@ public class ReviewFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.mypage_fragment_review, container, false);
+        Bundle bundle = getArguments();
+        targetUserCode = bundle.getInt("targetUserCode");
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.reviewRecyclerView);
         recyclerView.setLayoutManager(layoutManager);
@@ -80,8 +82,7 @@ public class ReviewFragment extends Fragment {
         recyclerView.setAdapter(reviewRecyclerViewAdapter);
 
 
-        Bundle bundle = getArguments();
-        targetUserCode = bundle.getInt("targetUserCode");
+
 //        if(reviewRecyclerViewAdapter.getItemCount()==0){
 //            view =   inflater.inflate(R.layout.mypage_review_recyclerview_noitem, container, false);
 //        }
@@ -155,6 +156,7 @@ public class ReviewFragment extends Fragment {
 
 
             } else {
+                reviewNoItemImageView.setVisibility(View.VISIBLE);
 
                 Log.e("size---", String.valueOf(listDBs.size()));
             }
