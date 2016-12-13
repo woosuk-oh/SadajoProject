@@ -1,5 +1,7 @@
 package com.tacademy.sadajo.network.Search.SeachDetail;
 
+import android.util.Log;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -95,8 +97,9 @@ public class SearchDetailJSONParser {
                 shoperDB.setUser_id(shoper.getString("user_id"));
                 shoperDB.setUser_img(shoper.getString("user_img"));
                 shoperDB.setUser_name(shoper.getString("user_name"));
-                shoperDB.setUser_code(shoper.getInt("user_code"));
+                shoperDB.setUser_code(shoper.optInt("user_code"));
 
+                Log.e("parser",String.valueOf(shoper.optInt("user_code")));
                 shoperContainer.add(shoperDB);
             }
             searchDetailDB.setShoperman(shoperContainer);

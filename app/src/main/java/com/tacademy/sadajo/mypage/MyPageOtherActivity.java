@@ -76,6 +76,11 @@ public class MyPageOtherActivity extends BaseActivity {
 
 
 
+        SharedPreferenceUtil sharedPreferenceUtil = new SharedPreferenceUtil(this);
+        userAccount = sharedPreferenceUtil.getAccessToken();
+
+
+
         Intent intent = getIntent();
         targetUserCode = intent.getIntExtra("targetUserCode", 0); //해당페이지의 유저아이디
         targetUserName = intent.getStringExtra("targetUserName");
@@ -118,10 +123,6 @@ public class MyPageOtherActivity extends BaseActivity {
         otherSellCountLL.setOnClickListener(clickListener);
         otherBuyCountLL.setOnClickListener(clickListener);
 
-
-
-        SharedPreferenceUtil sharedPreferenceUtil = new SharedPreferenceUtil(this);
-        userAccount = sharedPreferenceUtil.getAccessToken();
 
 
     }

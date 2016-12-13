@@ -81,6 +81,9 @@ public class MyPageActivity extends BaseActivity {
         toolbar.setBackgroundResource(R.drawable.tool_03_mypage); //toolbar image
         getSupportActionBar().setDisplayShowTitleEnabled(false);//title hidden
 
+        SharedPreferenceUtil sharedPreferenceUtil = new SharedPreferenceUtil(this);
+        userAccount = sharedPreferenceUtil.getAccessToken();
+        Log.e("userAccount", "현재 유저 아이디"+userAccount);
         getTypeIntent(); //이동경로에 따른 페이지구성을 위한 메소드
 
 
@@ -96,9 +99,7 @@ public class MyPageActivity extends BaseActivity {
         myPageLocTextView = (TextView) findViewById(R.id.myPageLocTextView);
         myPageProfileImageView=(ImageView)findViewById(R.id.myPageProfileImageView);
 
-        SharedPreferenceUtil sharedPreferenceUtil = new SharedPreferenceUtil(this);
-        userAccount = sharedPreferenceUtil.getAccessToken();
-        Log.e("userAccount", "현재 유저 아이디"+userAccount);
+
 
         ViewPager viewPager = (ViewPager) findViewById(R.id.mypageViewpager);
         if (viewPager != null) {
