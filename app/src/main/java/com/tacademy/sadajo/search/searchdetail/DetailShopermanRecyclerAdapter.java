@@ -62,15 +62,13 @@ public class DetailShopermanRecyclerAdapter extends RecyclerView.Adapter<DetailS
 
         SharedPreferenceUtil sharedPreferenceUtil = new SharedPreferenceUtil(context);
         userAccount = sharedPreferenceUtil.getAccessToken();
-        targetUserCode = mItems.get(position).getUser_code();
 
         holder.itemName.setText(mItems.get(position).getUser_name());
         Log.d("쇼퍼맨", String.valueOf(targetUserCode));
         Log.d("userAccount", String.valueOf(userAccount));
+
         Glide.with(SadajoContext.getContext())
                 .load(mItems.get(position).getUser_img())
-
-
                 .into(holder.itemImage);
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
@@ -80,19 +78,19 @@ public class DetailShopermanRecyclerAdapter extends RecyclerView.Adapter<DetailS
             public void onClick(View view) {
 
                 Log.e("userAccount", String.valueOf(userAccount));
+                Log.e("target", String.valueOf(targetUserCode));
+                targetUserCode = mItems.get(position).getUser_code();
 
                 if (userAccount == targetUserCode) { //내 프로필일 경우
                     intent = new Intent(context, MyPageActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     intent.putExtra("type", 1);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(intent);
                 } else {
                     intent = new Intent(context, MyPageOtherActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     intent.putExtra("targetUserCode", targetUserCode);
                     intent.putExtra("targetUserName", mItems.get(position).getUser_name());
-
                     context.startActivity(intent);
 
                 }
