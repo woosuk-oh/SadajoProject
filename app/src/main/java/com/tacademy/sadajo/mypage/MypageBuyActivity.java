@@ -91,7 +91,7 @@ public class MypageBuyActivity extends BaseActivity {
         buySellPagerAdapter.appendFragment(BuyListFragment.newInstance(otheruserid), "사다조");
         buySellPagerAdapter.appendFragment(DealSellListFragment.newInstance(otheruserid), "사다줌");
         viewPager.setAdapter(buySellPagerAdapter);
-        viewPager.setPagingEnabled(true); // 커스텀뷰페이저의 setpagingEnabled로 page swipe disable.
+        viewPager.setPagingEnabled(false); // 커스텀뷰페이저의 setpagingEnabled로 page swipe disable.
     }
 
 

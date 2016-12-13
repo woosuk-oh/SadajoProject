@@ -137,6 +137,7 @@ public class HomeActivity extends BaseActivity  implements GoogleApiClient.Conne
 
         setBottomButtonClickListener();
 
+
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -178,9 +179,11 @@ public class HomeActivity extends BaseActivity  implements GoogleApiClient.Conne
         String fcmToken = FirebaseInstanceId.getInstance().getToken(); //푸시 토큰받아옴
 
         Log.e("Home Activity :", String.valueOf(userAccount));
-          Log.e("Home fcmToken :", fcmToken);
+//         Log.e("Home fcmToken :", fcmToken);
         // 페이스북 아이디 됐는지 확인
         Log.d("페북로그인", "가져온 페북아이디:" + sharedPreferenceUtil.getFaceBookId());
+
+
     }
 
     @Override
@@ -275,8 +278,21 @@ public class HomeActivity extends BaseActivity  implements GoogleApiClient.Conne
                 departDateTextView.setText(s.travelInfos.getStartDate()); // 떠나요
 
                 comeDateTextView.setText(s.travelInfos.getEndDate()); //돌아와요
+
+
+
+                // TODO 나중에 서버 되면 수정.
                 homeUserRecyclerViewAdapter = new HomeUserRecyclerViewAdapter(HomeActivity.this, s.shoplist, mycountry, mycity);
-                recyclerView.setAdapter(homeUserRecyclerViewAdapter);
+/*
+/........... 바꿔줘야됌. 이부분은 홈에서 다른 유저 눌렀을경우임.
+                if(mycountry != null) {
+                    //getLocationData();
+                    homeUserRecyclerViewAdapter = new HomeUserRecyclerViewAdapter(HomeActivity.this, s.shoplist, mycountry, mycity);
+                }
+                else {
+                    homeUserRecyclerViewAdapter = new HomeUserRecyclerViewAdapter(HomeActivity.this, s.shoplist, "korea가라", "seoul가라");
+                }
+                    recyclerView.setAdapter(homeUserRecyclerViewAdapter);*/
 
 
 
@@ -418,9 +434,9 @@ public class HomeActivity extends BaseActivity  implements GoogleApiClient.Conne
     @Override
     protected void onStart() {
         super.onStart();
-
         mGoogleApiClient.connect(); // 순서2. GoogleApiClient 연결
         Log.d("onStart", "onStart에서 mGoogleApiClient를 연결요청함.");
+
 
     }
 
@@ -428,6 +444,8 @@ public class HomeActivity extends BaseActivity  implements GoogleApiClient.Conne
     protected void onResume() { // onStart 이후 실행되는곳. + 액티비티 다시 불러오면 실행되는곳
         super.onResume();
 
+        mGoogleApiClient.connect(); // 순서2. GoogleApiClient 연결
+        Log.d("onResume", "onResume에서 mGoogleApiClient를 연결요청함.");
 
         ConnectivityManager cm = (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
@@ -447,13 +465,17 @@ public class HomeActivity extends BaseActivity  implements GoogleApiClient.Conne
                     mGoogleApiClient.connect();
                     Log.d("onResume", "onResume에서 mGoogleApiClient 연결요청함.");
                 }
-                Handler mHandler = new Handler();
+/*                Handler mHandler = new Handler();
                 mHandler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        checkPermission(); // 순서4. 권한 확인 및 저장해둔 위경도 데이터 받기. 1.5초후 실행.
+                        //Log.d("홈액티비티mycountry","홈액티비티 mycountry: "+mycountry);
+
                     }
-                }, 1500);
+
+
+                }, 1500);*/
+
 
 
             } else {
@@ -491,6 +513,10 @@ public class HomeActivity extends BaseActivity  implements GoogleApiClient.Conne
             Intent myIntent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + getPackageName()));
             startActivity(myIntent);
             Log.d("오버레이 권한", "checkPermission 오버레이 권한 검사. 없어서 설정보내기");
+            Toast.makeText(this, "다른앱 위에 그리기를 허용해주십시오.", Toast.LENGTH_SHORT).show();
+
+
+
 
         } else {
 
@@ -617,6 +643,22 @@ public class HomeActivity extends BaseActivity  implements GoogleApiClient.Conne
             mLocationRequest = LocationRequest.create();
             mLocationRequest.setPriority(LocationRequest.PRIORITY_LOW_POWER); //GPS, WIFI로 위치 받음.
 
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !Settings.canDrawOverlays(SadajoContext.getContext())) {
+                // 마시멜로 M버전 이상이면 실행되는곳.
+                checkPermission(); // 순서4. 권한 확인 및 저장해둔 위경도 데이터 받기. 1.5초후 실행.
+
+                // 위치정보를 SharedPreference에 저장한다.
+                SharedPreferenceUtil sharedPreferenceUtil = new SharedPreferenceUtil(SadajoContext.getContext());
+                sharedPreferenceUtil.setLocaleArea(mycountry+","+mycity);
+                Log.d("홈액티비티mycountry","홈액티비티 mycountry: "+mycountry);
+            }else if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && Settings.canDrawOverlays(SadajoContext.getContext())){
+                // 마시멜로 M버전 미만.
+                checkPermission();
+                SharedPreferenceUtil sharedPreferenceUtil = new SharedPreferenceUtil(SadajoContext.getContext());
+                sharedPreferenceUtil.setLocaleArea(mycountry+","+mycity);
+                Log.d("홈액티비티mycountry","홈액티비티 mycountry: "+mycountry);
+            }
 
             // mLocationRequest.setInterval(5000); 위치정보 업데이트 '주기'
 

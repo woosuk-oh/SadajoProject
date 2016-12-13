@@ -23,7 +23,6 @@ public class SharedPreferenceUtil {
     private static Context mContext;
     private static SharedPreferences mPrefs;
     private static SharedPreferences.Editor mEditor;
-
     final static  String USER_TOKEN = "Token";
 
 
@@ -32,7 +31,15 @@ public class SharedPreferenceUtil {
      */
     private static final String FIELD_FACEBOOK_ID = "facebookId";
     private static final String FIELD_FACEBOOK_TOKEN_KEY = "facebookToken";
+    private static final String LOCALE_KEY = "localeAreaKey";
 
+    public void setLocaleArea(String locationArea){
+        mEditor.putString(LOCALE_KEY, locationArea);
+        mEditor.commit();
+    }
+    public String getLocaleKey(){
+        return mPrefs.getString(LOCALE_KEY,"");
+    }
     public void setFacebookId(String id) {
         mEditor.putString(FIELD_FACEBOOK_ID, id);
         mEditor.commit();
@@ -44,19 +51,17 @@ public class SharedPreferenceUtil {
 
     public void setFacebookToken(String token) {
         mEditor.putString(FIELD_FACEBOOK_TOKEN_KEY, token);
+        mEditor.commit();
     }
 
     public String getFieldFacebookTokenKey() {
         return mPrefs.getString(FIELD_FACEBOOK_TOKEN_KEY, "");
     }
-
-
-        public SharedPreferenceUtil(Context context) {
+    public SharedPreferenceUtil(Context context) {
             mContext = context;
             mPrefs = mContext.getSharedPreferences("userInfo", MODE_PRIVATE);
             mEditor = mPrefs.edit();
-
-        }
+    }
 
 
     //토큰 저장하기
@@ -68,8 +73,6 @@ public class SharedPreferenceUtil {
 
     //토큰 가져오기
     public static int getAccessToken() {
-
-
         return mPrefs.getInt(USER_TOKEN, 0);
 
     }

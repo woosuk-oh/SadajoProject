@@ -40,6 +40,9 @@ public class HomeUserRecyclerViewAdapter
         this.mycountry = mycountry;
         this.mycity = mycity;
 
+
+
+
         SharedPreferenceUtil sharedPreferenceUtil = new SharedPreferenceUtil(context);
         userAccount = sharedPreferenceUtil.getAccessToken();
 
@@ -98,6 +101,7 @@ public class HomeUserRecyclerViewAdapter
                     intent = new Intent(context, MyPageActivity.class);
                     intent.putExtra("type", 1); //type이 1일 경우는 bottombar GONE & backNavigation생성
                     intent.putExtra("mycountry", mycountry); // 현재 국가명
+
                     intent.putExtra("mycity", mycity); //현재 지역명
                     context.startActivity(intent);
 

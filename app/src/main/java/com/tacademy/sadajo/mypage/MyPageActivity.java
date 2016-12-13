@@ -74,6 +74,18 @@ public class MyPageActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+     /*   Intent intent = getIntent();
+        mycountry = intent.getExtras().getString("mycountry");
+        mycity = intent.getExtras().getString("mycity");*/
+
+     /*   if(mycountry == null){*/
+            SharedPreferenceUtil sharedPreferenceUtil = new SharedPreferenceUtil(SadajoContext.getContext());
+            mycountry = sharedPreferenceUtil.getLocaleKey();
+        Log.d("마이페이지mycountry","마이페이지mycountry: "+mycountry);
+/*
+        }*/
+
+
 
         setContentView(R.layout.activity_mypage);
 
@@ -84,7 +96,7 @@ public class MyPageActivity extends BaseActivity {
         toolbar.setBackgroundResource(R.drawable.tool_03_mypage); //toolbar image
         getSupportActionBar().setDisplayShowTitleEnabled(false);//title hidden
 
-        SharedPreferenceUtil sharedPreferenceUtil = new SharedPreferenceUtil(this);
+     //   SharedPreferenceUtil sharedPreferenceUtil = new SharedPreferenceUtil(this);
         userAccount = sharedPreferenceUtil.getAccessToken();
         Log.e("userAccount", "현재 유저 아이디"+userAccount);
         getTypeIntent(); //이동경로에 따른 페이지구성을 위한 메소드
@@ -309,11 +321,8 @@ public class MyPageActivity extends BaseActivity {
             myPageSellTextView.setText(String.valueOf(myPage.sellNum));
             myPageUserNameTextView.setText(myPage.targetUserName);
           //  myPageLocTextView.setText(myPage.targetUserLocation);
-            Intent intent = getIntent();
-            mycountry = intent.getExtras().getString("mycountry");
-            mycity = intent.getExtras().getString("mycity");
 
-            myPageLocTextView.setText(mycountry+mycity);
+            myPageLocTextView.setText(mycountry);
 
             Glide.with(SadajoContext.getContext())
                     .load(myPage.targetUserImg)
