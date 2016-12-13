@@ -546,7 +546,7 @@ public class ChattingDetailActivity extends BaseActivity {
             targetUserCode = intent.getIntExtra("receiver", 0); //상대방
             targetUserName = intent.getStringExtra("receiverName");
             targetUserImg = intent.getStringExtra("receiverImg");
-            customToolbarTitle.setText(targetUserName + "님과의 대화");
+            customToolbarTitle.setText(targetUserName + " 님과의 대화");
             customToolbarTitle.setGravity(View.TEXT_ALIGNMENT_CENTER);
 
 
@@ -555,7 +555,7 @@ public class ChattingDetailActivity extends BaseActivity {
             targetUserCode = intent.getIntExtra("receiver", 0); //상대방
             targetUserName = intent.getStringExtra("receiverName");
             targetUserImg = intent.getStringExtra("receiverImg");
-            customToolbarTitle.setText(targetUserName + "님과의 대화");
+            customToolbarTitle.setText(targetUserName + " 님과의 대화");
             customToolbarTitle.setGravity(View.TEXT_ALIGNMENT_CENTER);
 
 

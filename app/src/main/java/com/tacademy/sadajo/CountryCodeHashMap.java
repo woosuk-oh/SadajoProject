@@ -20,6 +20,7 @@ public class CountryCodeHashMap {
         countryCodeHash.put("중국", "CHN");
         countryCodeHash.put("필리핀", "PHL");
         countryCodeHash.put("대만", "TWN");
+        countryCodeHash.put("한국", "KOR");
 
     }
 

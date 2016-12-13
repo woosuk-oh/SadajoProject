@@ -38,6 +38,7 @@ public class OtherLikeListFragment extends Fragment {
     OtherLikeListRecyclerViewAdapter otherLikeRecyclerViewAdapter;
     RecyclerView otherLikeListRecyclerView;
     private int targetUserCode; //해당 페이지의 userCode
+    ImageView otherLikeNoItem;
 
     public OtherLikeListFragment() {
 
@@ -66,8 +67,9 @@ public class OtherLikeListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        View view = inflater.inflate(R.layout.fragment_other_like_list, container, false);
 
-        otherLikeListRecyclerView = (RecyclerView) inflater.inflate(R.layout.fragment_other_like_list, container, false);
+        otherLikeListRecyclerView = (RecyclerView) view.findViewById(R.id.otherLikeListRecyclerView);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         otherLikeListRecyclerView.setLayoutManager(layoutManager);
 
@@ -76,7 +78,7 @@ public class OtherLikeListFragment extends Fragment {
 
         otherLikeRecyclerViewAdapter = new OtherLikeListRecyclerViewAdapter(getActivity());
         otherLikeListRecyclerView.setAdapter(otherLikeRecyclerViewAdapter);
-
+        otherLikeNoItem = (ImageView)view.findViewById(R.id.otherLikeNoItemImageView);
 
         return otherLikeListRecyclerView;
     }
@@ -140,7 +142,9 @@ public class OtherLikeListFragment extends Fragment {
             super.onPostExecute(listDBs);
             if (listDBs != null && listDBs.size() > 0) {
                 otherLikeRecyclerViewAdapter.addLikeList(listDBs);
+                otherLikeNoItem.setVisibility(View.GONE);
             } else {
+                otherLikeNoItem.setVisibility(View.VISIBLE);
 
                 Log.e("size---", String.valueOf(listDBs.size()));
             }

@@ -37,6 +37,7 @@ public class OtherShoppingListFragment extends Fragment {
     RecyclerView otherShopListRecyclerView;
     OtherShopListRecyclerViewAdapter otherShopListRecyclerViewAdapter;
     private int targetUserCode;
+    ImageView otherShopNoItem;
 
     public OtherShoppingListFragment() {
         // Required empty public constructor
@@ -59,7 +60,10 @@ public class OtherShoppingListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        otherShopListRecyclerView = (RecyclerView) inflater.inflate(R.layout.fragment_other_shopping_list, container, false);
+
+        View view = inflater.inflate(R.layout.fragment_other_shopping_list, container, false);
+
+        otherShopListRecyclerView = (RecyclerView) view.findViewById(R.id.otherShopListRecyclerView);
 
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
@@ -70,7 +74,7 @@ public class OtherShoppingListFragment extends Fragment {
 
         otherShopListRecyclerViewAdapter = new OtherShopListRecyclerViewAdapter(getActivity());
         otherShopListRecyclerView.setAdapter(otherShopListRecyclerViewAdapter);
-
+        otherShopNoItem = (ImageView)view.findViewById(R.id.otherShopNoItemImageView);
         return otherShopListRecyclerView;
     }
 
@@ -132,8 +136,11 @@ public class OtherShoppingListFragment extends Fragment {
             super.onPostExecute(listDBs);
             if (listDBs != null && listDBs.size() > 0) {
                 otherShopListRecyclerViewAdapter.addOtherShopList(listDBs);
+                otherShopNoItem.setVisibility(View.GONE);
             }else{
                 Log.e("size---", String.valueOf(listDBs.size()));
+                otherShopNoItem.setVisibility(View.VISIBLE);
+
             }
         }
     }
