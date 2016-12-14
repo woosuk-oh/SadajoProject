@@ -34,7 +34,7 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class MyPageActivity extends BaseActivity {
+public  class MyPageActivity extends BaseActivity {
 
     private final long FINSH_INTERVAL_TIME = 2000;
     private long backPressedTime = 0;
@@ -64,7 +64,7 @@ public class MyPageActivity extends BaseActivity {
 
     int type;
     int BOTTOM = 0;
-    int SHOPERMAN =1;
+    public static int SHOPERMAN =1;
     int userAccount;
 
     String mycountry;
@@ -230,7 +230,7 @@ public class MyPageActivity extends BaseActivity {
 
     public void getTypeIntent() {
         Intent intent = getIntent();
-        type = intent.getIntExtra("type", 0);
+        type = intent.getExtras().getInt("type");
         if (type == SHOPERMAN) { //bottom navigation으로 이동한 것이 아닌 경우
             FrameLayout bottomBar = (FrameLayout) findViewById(R.id.frameBottomBar);
             bottomBar.setVisibility(View.GONE);//bottom navigation 제거
@@ -243,7 +243,7 @@ public class MyPageActivity extends BaseActivity {
             });
 
 
-        } else {//bottom navigation으로 이동한 것이 아닌 경우
+        } else {//bottom navigation으로 이동한 경우
             getSupportActionBar().setDisplayHomeAsUpEnabled(false); //back icon
 
         }
@@ -299,6 +299,7 @@ public class MyPageActivity extends BaseActivity {
             return dbs;
         }
 
+
         @Override
         public void onPostExecute(MyPageData myPage) {
             super.onPostExecute(myPage);
@@ -313,7 +314,8 @@ public class MyPageActivity extends BaseActivity {
             mycountry = intent.getExtras().getString("mycountry");
             mycity = intent.getExtras().getString("mycity");
 
-            myPageLocTextView.setText(mycountry+mycity);
+            myPageLocTextView.setVisibility(View.GONE);
+          //  myPageLocTextView.setText(mycountry+mycity);
 
             Glide.with(SadajoContext.getContext())
                     .load(myPage.targetUserImg)

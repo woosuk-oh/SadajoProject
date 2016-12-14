@@ -518,7 +518,8 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
         String shopType;
         int count;
         int shopCount;
-        String listCode;
+        String result;
+        String listcode;
 
         @Override
         public void onClick(View view) {
@@ -648,7 +649,7 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
                                             .add("goods", itemidValue)
                                             .build();
 
-                                    Request request = new Request.Builder()
+                                    final Request request = new Request.Builder()
                                             .url(String.format(NetworkDefineConstant.SEARCH_LIST_DETAIL_SHOPPING))
                                             .post(postBody)
                                             .build();
@@ -668,7 +669,8 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
 
                                             JSONObject jsonObject = new JSONObject(returedMessage);
                                             shopType = jsonObject.optString("type"); //type결과 가져오기
-                                            listCode = jsonObject.optString("listcode");
+                                            result = jsonObject.optString("insertResult");
+                                            shopCount = jsonObject.optInt("shopCount");
 
 
 //                                            shoppingcountint = SearchDetailshoppingJSONParser.getSearchDetailshoppingJsonParser(returedMessage);
@@ -688,7 +690,7 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
                                                         shoppingtoast.setImageResource(R.drawable.search_toast2);
                                                         toast.setView(shoppingtoast);
                                                         toast.show();
-                                                    } else if (listCode.equals("no list")) {
+                                                    } else if (result.equals("insertResult")) {
                                                         //여행리스트가없을때
                                                         Toast toast = new Toast(SadajoContext.getContext());
                                                         toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
@@ -697,14 +699,16 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
                                                         shoppingtoast.setImageResource(R.drawable.search_toast5);
                                                         toast.setView(shoppingtoast);
                                                         toast.show();
-                                                    } else {
+                                                    } else if(request.equals("ok")){
                                                         //쇼핑리스트담기성공
-                                                        Toast toast = new Toast(SadajoContext.getContext());
-                                                        toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-                                                        toast.setDuration(Toast.LENGTH_SHORT);
+                                                        Toast toast1 = new Toast(SadajoContext.getContext());
+                                                        toast1.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+                                                        toast1.setDuration(Toast.LENGTH_SHORT);
                                                         ImageView shoppingtoast = new ImageView(SadajoContext.getContext());
                                                         shoppingtoast.setImageResource(R.drawable.search_toast3);
-                                                        toast.setView(shoppingtoast);
+                                                        toast1.setView(shoppingtoast);
+                                                        shoptext.setText(String.valueOf(shopCount));
+
                                                     }
 
 //                                                    if (!shoppingcountint.result.equals("failed")) {

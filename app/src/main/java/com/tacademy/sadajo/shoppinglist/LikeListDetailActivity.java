@@ -164,7 +164,6 @@ public class LikeListDetailActivity extends BaseActivity {
     public void getTypeIntent() {
         Intent intent = getIntent();
         int type = intent.getExtras().getInt("type");
-        Log.e("shoplistDetail", String.valueOf(type));
 
         switch (type) {
 
@@ -189,8 +188,6 @@ public class LikeListDetailActivity extends BaseActivity {
                 if(intent.getExtras().getInt("goodsCount")!= 0) {
                     goodsCountTextView.setText( String.valueOf(intent.getIntExtra("goodsCount", 0)));
                 }                toolbarTitle.setText(countryName + " 찜 리스트");
-
-
 
         }
 
