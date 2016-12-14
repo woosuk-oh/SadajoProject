@@ -1,31 +1,16 @@
 package com.tacademy.sadajo.home;
 
-import android.Manifest;
-import android.annotation.TargetApi;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
-import android.location.Address;
-import android.location.Geocoder;
-import android.location.Location;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.provider.Settings;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -38,12 +23,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.LocationListener;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationServices;
-import com.google.firebase.iid.FirebaseInstanceId;
 import com.tacademy.sadajo.BaseActivity;
 import com.tacademy.sadajo.BottomBarClickListener;
 import com.tacademy.sadajo.CustomRecyclerDecoration;
@@ -60,8 +39,6 @@ import org.apmem.tools.layouts.FlowLayout;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.util.List;
-import java.util.Locale;
 
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
@@ -73,16 +50,14 @@ import static android.app.ProgressDialog.show;
 import static android.graphics.Typeface.NORMAL;
 
 
-public class HomeActivity extends BaseActivity  implements GoogleApiClient.ConnectionCallbacks,
-        GoogleApiClient.OnConnectionFailedListener, LocationListener {
+public class HomeActivity extends BaseActivity {
 
-    int stateval = 0;
 
     private final long FINSH_INTERVAL_TIME = 2000;
     private long backPressedTime = 0;
 
-    private SharedPreferences sharedPreferences;
-    private SharedPreferences.Editor sharedEditor;
+  //  private SharedPreferences sharedPreferences;
+   // private SharedPreferences.Editor sharedEditor;
     private int userAccount;
 
     Toolbar toolbar;
@@ -116,28 +91,15 @@ public class HomeActivity extends BaseActivity  implements GoogleApiClient.Conne
     ProgressDialog progressDialog1;
 
 
-    private GoogleApiClient mGoogleApiClient;
-    private LocationRequest mLocationRequest;
-
-    //TextView txtOutputLat, txtOutputLon, myCountryName;
-    Location mLastLocation;
-    String lat, lon, mycountry, mycity;
-
-    private final int MY_PERMISSIONS_REQUEST_READ_CONTACTS = 100;
-
+    String mycountry;
+    String mycity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
-        buildGoogleApiClient(); // 순서 1. GoogleApiClient 빌드.
-
-
         setContentView(R.layout.activity_home);
 
         setBottomButtonClickListener();
-
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -174,26 +136,22 @@ public class HomeActivity extends BaseActivity  implements GoogleApiClient.Conne
 
 
         SharedPreferenceUtil sharedPreferenceUtil = new SharedPreferenceUtil(SadajoContext.getContext());
-        sharedPreferenceUtil.setAccessToken(12);
+        sharedPreferenceUtil.setAccessToken(5);
         userAccount = sharedPreferenceUtil.getAccessToken();
+        Log.e("accout", String.valueOf(userAccount));
+        //String fcmToken = FirebaseInstanceId.getInstance().getToken(); //푸시 토큰받아옴
+      //  Log.e("fcm", fcmToken);
 
-        String fcmToken = FirebaseInstanceId.getInstance().getToken(); //푸시 토큰받아옴
-
-        Log.e("Home Activity :", String.valueOf(userAccount));
-//         Log.e("Home fcmToken :", fcmToken);
+      //  Log.e("Home Activity :", String.valueOf(userAccount));
+      //   Log.e("Home fcmToken :", fcmToken);
         // 페이스북 아이디 됐는지 확인
-        Log.d("페북로그인", "가져온 페북아이디:" + sharedPreferenceUtil.getFaceBookId());
-
-
+       // Log.d("페북로그인", "가져온 페북아이디:" + sharedPreferenceUtil.getFaceBookId());
     }
-
     @Override
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         new AsyncHomeRequest().execute();
-
     }
-
     public class AsyncHomeRequest extends AsyncTask<Void, Void, HomeDB> {
         private ProgressDialog progressDialog;
 
@@ -275,26 +233,10 @@ public class HomeActivity extends BaseActivity  implements GoogleApiClient.Conne
 
 
                 countryNameTextView.setText(s.travelInfos.titleCountry); // 국가명 받아옴.
-
                 departDateTextView.setText(s.travelInfos.getStartDate()); // 떠나요
-
                 comeDateTextView.setText(s.travelInfos.getEndDate()); //돌아와요
-
-
-
-                // TODO 나중에 서버 되면 수정.
                 homeUserRecyclerViewAdapter = new HomeUserRecyclerViewAdapter(HomeActivity.this, s.shoplist, mycountry, mycity);
-/*
-/........... 바꿔줘야됌. 이부분은 홈에서 다른 유저 눌렀을경우임.
-                if(mycountry != null) {
-                    //getLocationData();
-                    homeUserRecyclerViewAdapter = new HomeUserRecyclerViewAdapter(HomeActivity.this, s.shoplist, mycountry, mycity);
-                }
-                else {
-                    homeUserRecyclerViewAdapter = new HomeUserRecyclerViewAdapter(HomeActivity.this, s.shoplist, "korea가라", "seoul가라");
-                }
-                    recyclerView.setAdapter(homeUserRecyclerViewAdapter);*/
-
+                recyclerView.setAdapter(homeUserRecyclerViewAdapter);
 
 
                 String flagUrl = s.getCountryImg();
@@ -377,7 +319,6 @@ public class HomeActivity extends BaseActivity  implements GoogleApiClient.Conne
     public void createTagButton(String str, int i) {
         int width = ViewGroup.LayoutParams.WRAP_CONTENT;
         int height = 69;
-
         Button button = new Button(this);
         button.setText(str); //서버로부터 받아온 tag text set
         button.setBackgroundResource(R.drawable.tag_button_file); //tag ninepatch background적용
@@ -430,405 +371,4 @@ public class HomeActivity extends BaseActivity  implements GoogleApiClient.Conne
 
         }
     };
-
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        mGoogleApiClient.connect(); // 순서2. GoogleApiClient 연결
-        Log.d("onStart", "onStart에서 mGoogleApiClient를 연결요청함.");
-
-
-    }
-
-    @Override
-    protected void onResume() { // onStart 이후 실행되는곳. + 액티비티 다시 불러오면 실행되는곳
-        super.onResume();
-
-/*        mGoogleApiClient.connect(); // 순서2. GoogleApiClient 연결
-        Log.d("onResume", "onResume에서 mGoogleApiClient를 연결요청함.");*/
-
-        ConnectivityManager cm = (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-        if (activeNetwork != null) { // connected to the internet
-
-            if (isLocationEnabled(this)) {
-                Log.d("onResume", "onResume에서 위치 ON을 파악함.");
-
-
-                if (mGoogleApiClient == null) {
-                    Log.d("onResume", "onResume에서 mGoogleApiClient가 Null임을 확인하여 GoogleApiClient 빌드함..");
-
-
-                    buildGoogleApiClient();
-                    Log.d("onResume", "onResume에서 GoogleApiClient 빌드함..");
-
-                    mGoogleApiClient.connect();
-                    Log.d("onResume", "onResume에서 mGoogleApiClient 연결요청함.");
-                }
-
-                Handler mHandler = new Handler();
-                mHandler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        //Log.d("홈액티비티mycountry","홈액티비티 mycountry: "+mycountry);
-                        if(stateval == 0){
-
-                           // stateval=1; // 처음시작할때만 여기서 실행.
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !Settings.canDrawOverlays(SadajoContext.getContext())) { //마시멜로우 버전과 같거나 크고 다른앱위에 그리기 권한 없으면 실행됨.
-                                Intent myIntent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + getPackageName()));
-                                startActivity(myIntent);
-                                Log.d("오버레이 권한", "checkPermission 오버레이 권한 검사. 없어서 설정보내기");
-                                Toast.makeText(SadajoContext.getContext(), "다른앱 위에 그리기를 허용해주십시오.", Toast.LENGTH_SHORT).show();
-                                // 마시멜로 M버전 이상+오버레이 안한경우이면 실행되는곳.
-
-
-
-                              //  checkPermission(); // 순서4. 권한 확인 및 저장해둔 위경도 데이터 받기. 1.5초후 실행.
-
-                                // 위치정보를 SharedPreference에 저장한다.
-                                SharedPreferenceUtil sharedPreferenceUtil = new SharedPreferenceUtil(SadajoContext.getContext());
-                                sharedPreferenceUtil.setLocaleArea(mycountry+","+mycity);
-                                Log.d("홈액티비티mycountry","홈액티비티 mycountry: "+mycountry);
-
-                            }else if(Build.VERSION.SDK_INT < Build.VERSION_CODES.M){
-                                // 마시멜로 M버전 미만.
-                                getLocationData(); //권한 체크 없이 바로 위치 가져옴.
-                                SharedPreferenceUtil sharedPreferenceUtil = new SharedPreferenceUtil(SadajoContext.getContext());
-                                sharedPreferenceUtil.setLocaleArea(mycountry+","+mycity);
-                                Log.d("홈액티비티mycountry","홈액티비티 mycountry: "+mycountry);
-                            }
-                        }
-                    }
-
-
-                }, 1500);
-
-
-
-            } else {
-                Toast.makeText(this, "설정에서 위치를 켜주세요.", Toast.LENGTH_SHORT).show();
-                finish(); // 위치 꺼져있으면 destroy. (mGoogleApiClient는 disconnect.
-                Log.d("onResume", "onResume에서 위치 꺼져있음을 파악하여 finish함.");
-            }
-
-        } else {
-            // not connected to the internet
-
-            Toast.makeText(this, "네트워크가 연결되지 않았습니다. 네트워크 연결 확인해주세요", Toast.LENGTH_SHORT).show();
-
-            finish();
-        }
-
-
-    }
-
-    synchronized void buildGoogleApiClient() {
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .addConnectionCallbacks(this)
-                .addOnConnectionFailedListener(this)
-                .addApi(LocationServices.API)
-                .build();
-
-
-    }
-
-
-    @TargetApi(Build.VERSION_CODES.M)
-    private void checkPermission() {
-
-  /*      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !Settings.canDrawOverlays(this)) { //마시멜로우 버전과 같거나 크고 다른앱위에 그리기 권한 없으면 실행됨.
-            Intent myIntent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + getPackageName()));
-            startActivity(myIntent);
-            Log.d("오버레이 권한", "checkPermission 오버레이 권한 검사. 없어서 설정보내기");
-            Toast.makeText(this, "다른앱 위에 그리기를 허용해주십시오.", Toast.LENGTH_SHORT).show();
-
-
-
-
-        } else {*/
-
-            Log.d("로케이션 퍼미션 갖고 있냐?", "" + checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION));
-            if (checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION)
-                    != PackageManager.PERMISSION_GRANTED
-                    || checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION)
-                    != PackageManager.PERMISSION_GRANTED) { // 권한이 없는경우
-
-            /*requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION},
-                    MY_PERMISSIONS_REQUEST_READ_CONTACTS); //안드로이드에서 제공하는 권한 요청 다이얼로그*/
-
-                if (shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_COARSE_LOCATION)) {
-                    // 사용자가 임의로 권한 취소한 경우.
-                    Toast.makeText(this, "위치 서비스를 사용하기 위해 권한을 설정해주십시오.", Toast.LENGTH_SHORT).show();
-                    //권한 재요청
-                    Log.d("checkPermission", "사용자가 취소한 권한 재요청");
-                    requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION},
-                            MY_PERMISSIONS_REQUEST_READ_CONTACTS); //안드로이드에서 제공하는 권한 요청 다이얼로그
-                } else {
-                    // 최초로 권한 요청
-                    Log.d("checkPermission", "최초 권한 요청");
-                    requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION},
-                            MY_PERMISSIONS_REQUEST_READ_CONTACTS); //안드로이드에서 제공하는 권한 요청 다이얼로그
-                }
-            } else {
-                // 사용 권한이 있는경우
-                Log.d("checkPermission", "권한 확인됨");
-                getLocationData();
-            }
-        }
-  /*  }*/
-
-    public static boolean isLocationEnabled(Context context) { // 위치 on/off 여부 확인
-        int locationMode = 0;
-        String locationProviders;
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            try {
-                locationMode = Settings.Secure.getInt(context.getContentResolver(), Settings.Secure.LOCATION_MODE);
-
-            } catch (Settings.SettingNotFoundException e) {
-                e.printStackTrace();
-                return false;
-            }
-
-            return locationMode != Settings.Secure.LOCATION_MODE_OFF;
-
-        } else {
-            locationProviders = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
-            return !TextUtils.isEmpty(locationProviders);
-        }
-
-
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           String[] permissions, int[] grantResults) { // 요청한 권한 체크의 결과값
-        switch (requestCode) {
-            case MY_PERMISSIONS_REQUEST_READ_CONTACTS:
-
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
-                    // 권한 허가
-                    // 해당 권한을 사용해서 작업을 진행할 수 있습니다
-                    Log.d("사용자가 해당권한을 허가", "");
-                    getLocationData();
-
-
-                } else {
-
-                    Log.d("사용자가 해당권한을 거부", "");
-                    // 권한 거부
-                    // 사용자가 해당권한을 거부했을때 해주어야 할 동작을 수행합니다
-                   /* requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION},
-                            MY_PERMISSIONS_REQUEST_READ_CONTACTS); //안드로이드에서 제공하는 권한 요청 다이얼로그*/
-
-                    Toast.makeText(this, "권한 거부하였기에 종료.", Toast.LENGTH_SHORT).show();
-                    finish();
-
-
-                }
-                return;
-        }
-    }
-
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-
-        ConnectivityManager cm = (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-
-        if (activeNetwork != null) { // connected to the internet
-
-            if (mGoogleApiClient != null) {
-                mGoogleApiClient.disconnect(); //mGoogleApiClient가 connect 되어있는 상태여야됨.'
-                Log.d("onDestroy", "onDestroy에서 네트워크 OFF로 확인되어 mGoogleApiClient 연결해제하고 종료 ");
-            }
-        }
-        Log.d("mGoogleApiClient 걍 꺼짐", "");
-
-    }
-
-    void updateUI() {
-        //  txtOutputLat.setText(lat);
-        //  txtOutputLon.setText(lon);
-
-
-        Log.d("받은 위도", "" + lat);
-        Log.d("받은 경도", "" + lon);
-    }
-
-
-    @Override
-    public void onConnected(@Nullable Bundle bundle) {
-
-        Log.d("onConnected", "mGoogleClient 가 연결되었음.");
-
-        if (isLocationEnabled(this)) {
-            Log.d("위치 켜져있음:", "");
-            mLocationRequest = LocationRequest.create();
-            mLocationRequest.setPriority(LocationRequest.PRIORITY_LOW_POWER); //GPS, WIFI로 위치 받음.
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                // 마시멜로 M버전 이상이면 실행되는곳.
-
-
-
-                checkPermission(); // 순서4. 권한 확인 및 저장해둔 위경도 데이터 받기. 1.5초후 실행.
-
-                // 위치정보를 SharedPreference에 저장한다.
-                SharedPreferenceUtil sharedPreferenceUtil = new SharedPreferenceUtil(SadajoContext.getContext());
-                sharedPreferenceUtil.setLocaleArea(mycountry+","+mycity);
-                Log.d("홈액티비티mycountry","홈액티비티 mycountry: "+mycountry);
-
-            }else if(Build.VERSION.SDK_INT < Build.VERSION_CODES.M){
-                // 마시멜로 M버전 미만.
-                getLocationData(); //권한 체크 없이 바로 위치 가져옴.
-                SharedPreferenceUtil sharedPreferenceUtil = new SharedPreferenceUtil(SadajoContext.getContext());
-                sharedPreferenceUtil.setLocaleArea(mycountry+","+mycity);
-                Log.d("홈액티비티mycountry","홈액티비티 mycountry: "+mycountry);
-            }
-
-
-
-            // mLocationRequest.setInterval(5000); 위치정보 업데이트 '주기'
-
-        } else {
-            Toast.makeText(this, "설정에서 위치를 켜주세요.", Toast.LENGTH_SHORT).show();
-
-            Log.d("onConnected:", "위치 꺼져있음을 확인함");
-            finish();
-        }
-
-
-    }
-
-    @Override
-    public void onConnectionSuspended(int i) {
-
-    }
-
-    @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-        buildGoogleApiClient();
-
-
-    }
-
-    @Override
-    public void onLocationChanged(Location location) {
-
-    }
-
-
-    @TargetApi(Build.VERSION_CODES.M) //체크 셀프 퍼미션 사용에 따른 마시멜로우 대응
-    public void getLocationData() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                && ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            Log.d("getLocationData", "권한 없음.");
-
-            Toast.makeText(this, "권한을 승인해야만 서비스 사용이 가능합니다.", Toast.LENGTH_SHORT).show();
-            finish();
-           /* requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION},
-                    MY_PERMISSIONS_REQUEST_READ_CONTACTS); //안드로이드에서 제공하는 권한 요청 다이얼로그*//**//**/
-
-        } else {
-
-
-            Log.d("getLocationData", "getLocationData에서 마지막 권한 확인 완료.");
-
-
-            // 저장한 위치 받아오기.
-            LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
-            Log.d("getLocationData", "getLocationData에서 위치 업데이트 요청함 (requestLocationUpdates).");
-
-            mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
-                    mGoogleApiClient);
-            Log.d("getLocationData", "getLocationData에서 마지막 위치 받아옴 (mLastLocation).");
-
-
-            if (mLastLocation != null) {
-
-                Log.d("getLocationData", "getLocationData에서 마지막 위치 (mLastLocation) 정상적으로 받아와서 lat, lon에 저장함..");
-                lat = String.valueOf(mLastLocation.getLatitude());
-                lon = String.valueOf(mLastLocation.getLongitude());
-                Log.d("getLocationData", "getLocationData에서 받아온 위치 데이터 정확도:" + mLastLocation.getAccuracy());
-
-
-
-             /* 위치 주소 Address를 통해 반환 받아옴 */
-                Geocoder geoCoder_local = new Geocoder(this, Locale.getDefault());
-                Geocoder geoCoder_kr = new Geocoder(this, Locale.KOREAN);
-                Geocoder geoCoder_en = new Geocoder(this, Locale.ENGLISH);
-
-
-                try {
-
-                    List<Address> addresses_local // 현재 위치에 맞게 자동으로 언어 로케일 맞춰줌.
-                            = geoCoder_local.getFromLocation(mLastLocation.getLatitude(),
-                            mLastLocation.getLongitude(), 10);
-
-                    List<Address> addresses_local_kr // 한글. 안되면 위에서 Locale.KOREA로 수정해보기.
-                            = geoCoder_kr.getFromLocation(mLastLocation.getLatitude(),
-                            mLastLocation.getLongitude(), 10);
-
-                    List<Address> addresses_local_en // 영문으로 반환 받음.
-                            = geoCoder_en.getFromLocation(mLastLocation.getLatitude(),
-                            mLastLocation.getLongitude(), 10);
-
-                    mycountry = addresses_local_en.get(0).getCountryName();
-                    mycity = addresses_local_en.get(0).getAdminArea();
-
-
-                    Log.d("현재 국가명", "" + mycountry);
-                    Log.d("현재 도시명", "" + mycity);
-
-                    // 대문자로 변환
-                    // myCountryName.setText(mycountry.toUpperCase());
-
-             /*       if (mycountry.equals("South Korea")) {
-                        myCountryName.setText("KOREA");
-                    }else{
-                        myCountryName.setText(mycountry);
-                    }*/
-
-
-
-                    Log.d("반환 받은 위치값", "반환 받은 위치값:" + addresses_local_en.get(0));
-                    updateUI();
-
-
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            } else {
-                Log.d("getLocationData", "getLocationData에서 마지막 위치 정상적으로 받아오지 못함 혹은 mLastLocation에 꺼내오질 못함.. 위치가 GPS만 되어있는 경우 예외처리.");
-
-                // 받아온 값이 없어서 디폴트로 KOREA 넣어줌.
-                // myCountryName.setText("KOREA");
-
-                mycountry = "Korea";
-                mycity = "seoul";
-
-
-              /*
-                Log.d("getLocationData", "getLocationData에서 마지막 위치 정상적으로 받아오지 못함 혹은 mLastLocation에 꺼내오질 못함.. 때문에 다시한번 요청하고 저장.");
-
-               //mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-                LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
-                mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
-                        mGoogleApiClient);
-
-                lat = String.valueOf(mLastLocation.getLatitude());
-                lon = String.valueOf(mLastLocation.getLongitude());*/
-
-
-            }
-
-
-        }
-    }
 }
