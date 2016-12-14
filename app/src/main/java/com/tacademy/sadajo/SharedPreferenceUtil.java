@@ -24,7 +24,7 @@ public class SharedPreferenceUtil {
     private static SharedPreferences mPrefs;
     private static SharedPreferences.Editor mEditor;
 
-    final static  String USER_TOKEN = "Token";
+    final static String USER_TOKEN = "Token";
 
 
     /*
@@ -51,12 +51,12 @@ public class SharedPreferenceUtil {
     }
 
 
-        public SharedPreferenceUtil(Context context) {
-            mContext = context;
-            mPrefs = mContext.getSharedPreferences("userInfo", MODE_PRIVATE);
-            mEditor = mPrefs.edit();
+    public SharedPreferenceUtil(Context context) {
+        mContext = context;
+        mPrefs = mContext.getSharedPreferences("userInfo", MODE_PRIVATE);
+        mEditor = mPrefs.edit();
 
-        }
+    }
 
 
     //토큰 저장하기
@@ -84,10 +84,15 @@ public class SharedPreferenceUtil {
     }
 
 
-
     private static final String FCM_TOKEN_KEY = "fcmTokenKey";
     private static final String UUID_KEY = "uuidKey";
 
+
+    public void setFcmTokenKey(String tokenKey) {
+        mEditor.putString(FCM_TOKEN_KEY, tokenKey);
+        mEditor.commit();
+
+    }
 
     public String getFcmTokenKey() {
         return mPrefs.getString(FCM_TOKEN_KEY, "");

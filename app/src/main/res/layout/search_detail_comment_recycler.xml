@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
+
         android:orientation="horizontal">
 
 
@@ -26,32 +26,36 @@
 
         <TextView
             android:id="@+id/detail_comment_body"
-            android:layout_width="218dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_width="200dp"
+            android:layout_height="match_parent"
+            android:gravity="left|center_vertical"
             android:layout_marginBottom="15dp"
             android:layout_marginTop="15dp"
             android:text="이번주에 샀는데 두개 사면 하나 20% 할인해주더라구여!!!!!!!!!!!!!!!!!!!"
-            android:textSize="11sp"
+            android:textSize="13sp"
+            android:textColor="@color/blackFont"
             android:textStyle="normal"
 
             />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="15dp"
-            android:gravity="right">
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_marginTop="15dp"-->
+            <!--android:gravity="center|right"-->
+            <!--android:layout_marginRight="16dp">-->
 
             <TextView
                 android:id="@+id/detail_comment_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="3시간전"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="2016-12-14"
                 android:textColor="@color/grayFont"
-                android:textSize="11sp"
+                android:textSize="12sp"
+                android:gravity="right|center_vertical"
+                android:layout_marginRight="16dp"
                 android:textStyle="normal"/>
-        </LinearLayout>
+        <!--</LinearLayout>-->
     </LinearLayout>
 
 
