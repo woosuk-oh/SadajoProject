@@ -68,7 +68,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="4dp"
-                    android:text="99+"
                     android:textSize="11sp"
                     android:textStyle="normal"/>
 
@@ -85,7 +84,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="4dp"
                     android:layout_marginRight="16dp"
-                    android:text="99+"
                     android:textSize="11sp"
                     android:textStyle="normal"/>
 
@@ -178,7 +176,6 @@
                         android:layout_gravity="center"
                         android:layout_marginLeft="3dp"
                         android:layout_marginRight="16dp"
-                        android:text="이탈리아"
                         android:textColor="#747474"
                         android:textSize="13sp" />
 
@@ -254,7 +251,6 @@
                     android:layout_marginBottom="17dp"
                     android:layout_marginTop="20dp"
                     android:layout_marginRight="16dp"
-                    android:text="텍스트텍스트텍스트텍스트"
                     android:textColor="@color/blackFont"
                     android:textSize="12sp"
                     android:textStyle="normal"/>
@@ -333,7 +329,7 @@
                         android:layout_gravity="right"
                         android:gravity="right"
 
-                        android:text="2016.11.13 기준 환율"
+                        android:text="2016.12.16 기준 환율"
                         android:textColor="@color/grayFont"
                         android:textSize="13sp"
                         android:textStyle="normal"/>

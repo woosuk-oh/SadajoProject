@@ -351,6 +351,7 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
             mRecycler.setNestedScrollingEnabled(false); // 리싸이클러뷰 스크롤 내리거나 올리는거 빡빡한 경우 세팅해줌.
             mAdapter.notifyDataSetChanged();
 
+
             // 얼마에 구매했어요? 리싸이클러뷰 연결
             mAdapter2 = new DetailPriceItemsRecyclerAdapter(s.tag_price, getContext());
             mRecycler2.setAdapter(mAdapter2);

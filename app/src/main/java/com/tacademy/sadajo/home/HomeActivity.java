@@ -45,7 +45,6 @@ import org.apmem.tools.layouts.FlowLayout;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.util.concurrent.TimeUnit;
 
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
@@ -155,9 +154,17 @@ public class HomeActivity extends BaseActivity {
 
 
         sharedPreferenceUtil = new SharedPreferenceUtil(SadajoContext.getContext());
-        sharedPreferenceUtil.setAccessToken(20); //유저 아이디
+        sharedPreferenceUtil.setAccessToken(1); //유저 아이디
         userAccount = sharedPreferenceUtil.getAccessToken(); //userID세팅
 
+        String fcmToken = FirebaseInstanceId.getInstance().getToken(); //토큰발급
+        if (!TextUtils.isEmpty(fcmToken) && !fcmToken.equals("")) { //토큰발급됐으면
+            new AsyncHomeRequest().execute(fcmToken);
+            Log.e("Home fcmToken :", fcmToken);
+        } else {
+            new AsyncHomeRequest().execute(sharedPreferenceUtil.getFcmTokenKey());
+            Log.e("fcmTocken", "FCM토큰 발급 안됨");
+        }
 
 
 //
@@ -170,23 +177,26 @@ public class HomeActivity extends BaseActivity {
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
 
-        if (sharedPreferenceUtil.getFcmTokenKey() != null) { //sharedPreferencesUtil
-            String fcmToken = FirebaseInstanceId.getInstance().getToken(); //토큰발급
-            Log.e("Home fcmToken :", fcmToken);
-
-            if (!TextUtils.isEmpty(fcmToken) && !fcmToken.equals("")) { //토큰발급됐으면
-                new MemberInsertAsyncTask().execute(fcmToken);
-            } else {
-                Log.e("fcmTocken","FCM토큰 발급 안됨");
-            }
-        }else{
-            new AsyncHomeRequest().execute();
-        }
+        //   if (sharedPreferenceUtil.getFcmTokenKey() == null) { //sharedPreferencesUtil
+//            String fcmToken = FirebaseInstanceId.getInstance().getToken(); //토큰발급
+//
+//
+//            if (!TextUtils.isEmpty(fcmToken) && !fcmToken.equals("")) { //토큰발급됐으면
+//                new AsyncHomeRequest().execute(fcmToken);
+//                Log.e("Home fcmToken :", fcmToken);
+//            } else {
+//                Log.e("fcmTocken","FCM토큰 발급 안됨");
+//            }
+//        }else{
+//            new MemberInsertAsyncTask().execute(sharedPreferenceUtil.getFcmTokenKey());
+//           Log.e("Home fcmToken :", sharedPreferenceUtil.getFcmTokenKey());
+//
+//       }
 
 
     }
 
-    public class AsyncHomeRequest extends AsyncTask<Void, Void, HomeDB> {
+    public class AsyncHomeRequest extends AsyncTask<String, Void, HomeDB> {
         private ProgressDialog progressDialog;
 
         @Override
@@ -197,7 +207,9 @@ public class HomeActivity extends BaseActivity {
         }
 
         @Override
-        protected HomeDB doInBackground(Void... homeDBs) {
+        protected HomeDB doInBackground(String... params) {
+            String fcmToken = params[0];
+
             Response response = null; //응답 담당
             OkHttpClient toServer;
             homeDB = new HomeDB();
@@ -209,6 +221,7 @@ public class HomeActivity extends BaseActivity {
 
                 RequestBody postBody = new FormBody.Builder()
                         .add("user", String.valueOf(userAccount))
+                        .add("token", fcmToken)
                         .build();
 
 
@@ -227,7 +240,7 @@ public class HomeActivity extends BaseActivity {
                     String returedMessage = response.body().string(); // okhttp로 부터 받아온 데이터 json을 스트링형태로 변환하여 returendMessage에 담아둠. 이때, home부분의 모든 오브젝트를 가져와 담아둠.
                     //  Log.e("wooseokLog", returedMessage);
                     homeDB = HomeJSONParser.getHomeJsonParser(returedMessage); //만들어둔 파서로 returedMessage를 넣어서 파싱하여 homeDB에 값을 넣음.
-
+                    sharedPreferenceUtil.setFcmTokenKey(fcmToken);
                 } else { // 연결에 실패하면
                     Log.e("요청/응답", response.message().toString());
                 }
@@ -273,7 +286,6 @@ public class HomeActivity extends BaseActivity {
                 comeDateTextView.setText(s.travelInfos.getEndDate()); //돌아와요
                 homeUserRecyclerViewAdapter = new HomeUserRecyclerViewAdapter(HomeActivity.this, s.shoplist, mycountry, mycity);
                 recyclerView.setAdapter(homeUserRecyclerViewAdapter);
-
 
 
                 String flagUrl = s.getCountryImg();
@@ -426,55 +438,4 @@ public class HomeActivity extends BaseActivity {
     }
 
 
-    public class MemberInsertAsyncTask extends AsyncTask<String, Void, String> {
-
-        @Override
-        protected String doInBackground(String... params) {
-            String fcmToken = params[0];
-
-            Response response = null;
-            String result = "";
-            try {
-                OkHttpClient toServer = new OkHttpClient.Builder()
-                        .connectTimeout(10, TimeUnit.SECONDS)
-                        .readTimeout(15, TimeUnit.SECONDS)
-                        .build();
-                RequestBody reqBody = new FormBody.Builder()
-                        .add("user", String.valueOf(userAccount))
-                        .add("token", fcmToken)
-                        .build();
-                Request request = new Request.Builder()
-                        .url(String.format(NetworkDefineConstant.SERVER_URL_REQUEST_HOME))
-                        .post(reqBody)
-                        .build();
-                response = toServer.newCall(request).execute();
-                boolean isHttpConn = response.isSuccessful();
-                if (isHttpConn) {
-                    result = response.body().string();
-                    //성공하면 Android Preference에 FCM Push Token(Registration ID)와 UUID를 저장한다.
-                    if (result.equalsIgnoreCase("success")) {
-                        //preference에 있다면 메인으로 넘어가게 해주면됨
-                        sharedPreferenceUtil.setFcmTokenKey(fcmToken);
-                    }
-                }
-            } catch (Exception e) {
-                Log.e("MemberInsert", e.toString(), e);
-            } finally {
-                if (response != null) {
-                    response.close();
-                }
-            }
-            return result;
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-            if (s.equals("success")) {
-
-                Log.e("저장된_FCMToken",sharedPreferenceUtil.getFcmTokenKey());
-            }
-
-        }
-    }
 }

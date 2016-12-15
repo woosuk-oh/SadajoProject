@@ -71,6 +71,7 @@ public class DetailPriceItems2RecyclerAdapter extends RecyclerView.Adapter<Detai
             super(itemView);
 
             itemName = (TextView) itemView.findViewById(R.id.detail_itemprice_itemnames);
+            //itemName.setGravity(RIGHT);
 
 
         }

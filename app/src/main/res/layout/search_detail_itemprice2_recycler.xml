@@ -7,13 +7,19 @@
     android:orientation="vertical">
 
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="right">
     <TextView
         android:id="@+id/detail_itemprice2_itemnames"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:paddingBottom="12dp"
         android:text="test"
         android:textColor="@color/grayFont"
         android:textSize="13sp"
+        android:gravity="right"
         android:textStyle="normal"/>
+    </LinearLayout>
 </LinearLayout>

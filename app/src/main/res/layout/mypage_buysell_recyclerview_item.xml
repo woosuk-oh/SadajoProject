@@ -53,7 +53,7 @@
                 android:id="@+id/buyProfileImageView"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
-                android:src="@drawable/profile_empty" />
+                android:src="@drawable/search_profile_105" />
 
             <TextView
                 android:id="@+id/buyUserNameTextView"
