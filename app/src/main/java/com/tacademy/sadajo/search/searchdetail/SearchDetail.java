@@ -672,6 +672,8 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
                                             result = jsonObject.optString("insertResult");
                                             shopCount = jsonObject.optInt("shopCount");
 
+                                            Log.e("shopbutton", returedMessage);
+
 
 //                                            shoppingcountint = SearchDetailshoppingJSONParser.getSearchDetailshoppingJsonParser(returedMessage);
 //                                            Log.d("담기", "insertID 값 테스트. 들어갔는지??" + shoppingcountint.getShoppingcount());
@@ -690,7 +692,7 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
                                                         shoppingtoast.setImageResource(R.drawable.search_toast2);
                                                         toast.setView(shoppingtoast);
                                                         toast.show();
-                                                    } else if (result.equals("insertResult")) {
+                                                    } else if (result.equals("failed")) {
                                                         //여행리스트가없을때
                                                         Toast toast = new Toast(SadajoContext.getContext());
                                                         toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
@@ -699,7 +701,7 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
                                                         shoppingtoast.setImageResource(R.drawable.search_toast5);
                                                         toast.setView(shoppingtoast);
                                                         toast.show();
-                                                    } else if(request.equals("ok")){
+                                                    } else if(shopType.equals("ok")){
                                                         //쇼핑리스트담기성공
                                                         Toast toast1 = new Toast(SadajoContext.getContext());
                                                         toast1.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
@@ -707,6 +709,8 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
                                                         ImageView shoppingtoast = new ImageView(SadajoContext.getContext());
                                                         shoppingtoast.setImageResource(R.drawable.search_toast3);
                                                         toast1.setView(shoppingtoast);
+                                                        toast1.show();
+
                                                         shoptext.setText(String.valueOf(shopCount));
 
                                                     }
