@@ -40,9 +40,6 @@ public class HomeUserRecyclerViewAdapter
         this.mycountry = mycountry;
         this.mycity = mycity;
 
-
-
-
         SharedPreferenceUtil sharedPreferenceUtil = new SharedPreferenceUtil(context);
         userAccount = sharedPreferenceUtil.getAccessToken();
 
@@ -90,26 +87,24 @@ public class HomeUserRecyclerViewAdapter
 
         holder.userProfileImageView.setOnClickListener(new View.OnClickListener() {
             Intent intent;
-
+            HomeShoplistDB userInfo = shoppingListDatas.get(position);
             @Override
             public void onClick(View v) {
 
 
 
                 //user 본인/상대방 구분
-                if (shoppingListDatas.get(position).getUserId() == userAccount) {
+                if (userInfo.getUserId() == userAccount) {
                     intent = new Intent(context, MyPageActivity.class);
-                    intent.putExtra("type", 1); //type이 1일 경우는 bottombar GONE & backNavigation생성
-                    intent.putExtra("mycountry", mycountry); // 현재 국가명
+                    intent.putExtra("type", MyPageActivity.SHOPERMAN); //type이 1일 경우는 bottombar GONE & backNavigation생성
 
-                    intent.putExtra("mycity", mycity); //현재 지역명
                     context.startActivity(intent);
 
                 } else {
                     intent = new Intent(context, MyPageOtherActivity.class);//해당 유저의 마이페이지로 이동
-                    intent.putExtra("targetUserCode", shoppingListDatas.get(position).getUserId()); //해당페이지userID넘겨줌
-                    intent.putExtra("targetUserName",shoppingListDatas.get(position).getUserName());
-                    Log.e("userCode", shoppingListDatas.get(position).getUserId().toString());
+                    intent.putExtra("targetUserCode", userInfo.getUserId()); //해당페이지userID넘겨줌
+                    intent.putExtra("targetUserName",userInfo.getUserName());
+                    Log.e("userCode", userInfo.toString());
                     context.startActivity(intent);
                 }
 

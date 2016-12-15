@@ -34,7 +34,6 @@ public class ShoppingListRecyclerViewAdapter
 
 
     //item viewType
-    private final static int NO_ITEM_VIEW = 0;
     private final static int HEADER_VIEW = 1;
     private final static int CONTENT_VIEW = 2;
 
@@ -82,14 +81,12 @@ public class ShoppingListRecyclerViewAdapter
         int layoutRes = 0;
 
         switch (viewType) {
-            case NO_ITEM_VIEW: //리스트가 빈 경우
-                layoutRes = R.layout.shoppinglist_noitem_layout;
-                break;
+
             case HEADER_VIEW:
                 layoutRes = R.layout.shoppinglist_recyclerview_item_first; //첫번째 item layout
                 break;
             case CONTENT_VIEW:
-                layoutRes = R.layout.shoppinglist_recyclerview_item; //나머지 item lyaout
+                layoutRes = R.layout.shoppinglist_recyclerview_item; //나머지 item layout
                 break;
         }
 
@@ -100,11 +97,11 @@ public class ShoppingListRecyclerViewAdapter
 
     @Override
     public int getItemViewType(int position) {
-         if (position == 0) {
+        if (position == 0) {
 
             return HEADER_VIEW; //첫번째 아이템 viewType
         } else {
-            return CONTENT_VIEW;
+            return CONTENT_VIEW; //나머지 아이템 viewType
 
         }
 
@@ -120,26 +117,26 @@ public class ShoppingListRecyclerViewAdapter
         //TODO:position수정
         //첫번째 아이템이 아닌 경우
         if (viewType == CONTENT_VIEW) {
-            String countryKor = shopListDB.get(position-1).countryNameKor;
-            holder.countryNameTextView.setText(shopListDB.get(position-1).countryNameEng);
-            holder.cityNameTextView.setText(countryKor + ", " + shopListDB.get(position-1).cityName);
-            holder.dateTextView.setText(shopListDB.get(position-1).startDate + "~" + shopListDB.get(position-1).endDate);
+            String countryKor = shopListDB.get(position - 1).countryNameKor;
+            holder.countryNameTextView.setText(shopListDB.get(position - 1).countryNameEng);
+            holder.cityNameTextView.setText(countryKor + ", " + shopListDB.get(position - 1).cityName);
+            holder.dateTextView.setText(shopListDB.get(position - 1).startDate + "~" + shopListDB.get(position - 1).endDate);
             //           holder.productImageView.setImageResource(R.drawable.product_sample);
             // holder.shoplistCountTextView.setText("99+");
 
-            if (shopListDB.get(position-1).goodsCount == 0) { //goods count가 0일 때 widget Visibility설정
+            if (shopListDB.get(position - 1).goodsCount == 0) { //goods count가 0일 때 widget Visibility설정
                 holder.shoplistCountTextView.setVisibility(View.GONE);
                 holder.productEmptyTextView.setVisibility(View.VISIBLE);
             } else {
                 holder.shoplistCountTextView.setVisibility(View.VISIBLE);
-                holder.shoplistCountTextView.setText(String.valueOf(shopListDB.get(position-1).goodsCount));
+                holder.shoplistCountTextView.setText(String.valueOf(shopListDB.get(position - 1).goodsCount));
                 holder.productEmptyTextView.setVisibility(View.GONE);
 
 
             }
 
             Glide.with(SadajoContext.getContext())//productImage
-                    .load(shopListDB.get(position-1).img)
+                    .load(shopListDB.get(position - 1).img)
                     .into(holder.productImageView);
 
 
@@ -148,11 +145,11 @@ public class ShoppingListRecyclerViewAdapter
                 public void onClick(View v) {
 
                     Intent intent = new Intent(mContext, ShoppingListDetailActivity.class); //ShopList의 Detail 액티비티로 이동
-                    intent.putExtra("listCode", shopListDB.get(position-1).listCode); //listCode넘겨줌
-                    intent.putExtra("countryName", shopListDB.get(position-1).countryNameKor.toString()); //국가명 넘겨줌
-                    intent.putExtra("type",0);
-                    intent.putExtra("goodsCount",shopListDB.get(position-1).goodsCount);
-                    Log.e("shopListCode", shopListDB.get(position-1).listCode.toString());
+                    intent.putExtra("listCode", shopListDB.get(position - 1).listCode); //listCode넘겨줌
+                    intent.putExtra("countryName", shopListDB.get(position - 1).countryNameKor.toString()); //국가명 넘겨줌
+                    intent.putExtra("type", 0);
+                    intent.putExtra("goodsCount", shopListDB.get(position - 1).goodsCount);
+                    Log.e("shopListCode", shopListDB.get(position - 1).listCode.toString());
                     mContext.startActivity(intent);
                 }
             });
@@ -182,11 +179,6 @@ public class ShoppingListRecyclerViewAdapter
 
     @Override
     public int getItemCount() {
-//        if (shopListDB.size() == 0) {
-//            return 0;
-//        } else {
-//            return shopListDB.size();
-//        }
 
         return shopListDB.size() + 1;
     }

@@ -518,7 +518,8 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
         String shopType;
         int count;
         int shopCount;
-        String listCode;
+        String result;
+        String listcode;
 
         @Override
         public void onClick(View view) {
@@ -565,7 +566,7 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
 
                                             JSONObject jsonObject = new JSONObject(returedMessage);
                                             type = jsonObject.optString("type"); //type결과 가져오기
-                                            count = jsonObject.optInt("likeCount"); //type결과 가져오기
+                                            count = jsonObject.optInt("likeCount"); //count결과 가져오기
 
                                             //zzimcountint = SearchDetailzzimJSONParser.getSearchDetailzzimJsonParser(returedMessage);
 
@@ -604,7 +605,6 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
                                             });
 
                                             Log.d("찜카운트", "" + zzimcountint.getZzimcount());
-                                            //TODO 서버에서 goods(goods_code)별 count, state(눌림,안눌림) 처리가 완료되면 paser 수정, TextView에 적용 필요, selector 또한.
                                         }
 
                                     } catch (IOException e) {
@@ -648,7 +648,7 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
                                             .add("goods", itemidValue)
                                             .build();
 
-                                    Request request = new Request.Builder()
+                                    final Request request = new Request.Builder()
                                             .url(String.format(NetworkDefineConstant.SEARCH_LIST_DETAIL_SHOPPING))
                                             .post(postBody)
                                             .build();
@@ -668,7 +668,10 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
 
                                             JSONObject jsonObject = new JSONObject(returedMessage);
                                             shopType = jsonObject.optString("type"); //type결과 가져오기
-                                            listCode = jsonObject.optString("listcode");
+                                            result = jsonObject.optString("insertResult");
+                                            shopCount = jsonObject.optInt("shopCount");
+
+                                            Log.e("shopbutton", returedMessage);
 
 
 //                                            shoppingcountint = SearchDetailshoppingJSONParser.getSearchDetailshoppingJsonParser(returedMessage);
@@ -688,7 +691,7 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
                                                         shoppingtoast.setImageResource(R.drawable.search_toast2);
                                                         toast.setView(shoppingtoast);
                                                         toast.show();
-                                                    } else if (listCode.equals("no list")) {
+                                                    } else if (result.equals("failed")) {
                                                         //여행리스트가없을때
                                                         Toast toast = new Toast(SadajoContext.getContext());
                                                         toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
@@ -697,32 +700,21 @@ public class SearchDetail extends BaseActivity implements ViewPager.OnPageChange
                                                         shoppingtoast.setImageResource(R.drawable.search_toast5);
                                                         toast.setView(shoppingtoast);
                                                         toast.show();
-                                                    } else {
+                                                    } else if(shopType.equals("ok")){
                                                         //쇼핑리스트담기성공
-                                                        Toast toast = new Toast(SadajoContext.getContext());
-                                                        toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-                                                        toast.setDuration(Toast.LENGTH_SHORT);
+                                                        Toast toast1 = new Toast(SadajoContext.getContext());
+                                                        toast1.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+                                                        toast1.setDuration(Toast.LENGTH_SHORT);
                                                         ImageView shoppingtoast = new ImageView(SadajoContext.getContext());
                                                         shoppingtoast.setImageResource(R.drawable.search_toast3);
-                                                        toast.setView(shoppingtoast);
+                                                        toast1.setView(shoppingtoast);
+                                                        toast1.show();
+
+                                                        shoptext.setText(String.valueOf(shopCount));
+
                                                     }
 
-//                                                    if (!shoppingcountint.result.equals("failed")) {
-//                                                        shoptext.setText(String.valueOf(shoppingcountint.getShoppingcount()));
 //
-//                                                        Toast toast = new Toast(SadajoContext.getContext());
-//                                                        toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-//                                                        toast.setDuration(Toast.LENGTH_SHORT);
-//                                                        ImageView shoppingtoast = new ImageView(SadajoContext.getContext());
-//                                                        shoppingtoast.setImageResource(R.drawable.search_toast3);
-//                                                        toast.setView(shoppingtoast);
-//                                                        toast.show();
-//
-//
-//                                                        // Toast.makeText(SearchDetail.this, "쇼핑리스트에 담겼습니다", Toast.LENGTH_SHORT).show();
-//                                                    } else if (shoppingcountint.result.equals("failed")) {
-//                                                        Toast.makeText(SearchDetail.this, "여행 일정을 먼저 등록해주세요.", Toast.LENGTH_SHORT).show();
-//                                                    }
                                                 }
                                             });
 

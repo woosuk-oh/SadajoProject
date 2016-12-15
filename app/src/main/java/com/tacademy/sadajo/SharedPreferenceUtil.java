@@ -23,6 +23,7 @@ public class SharedPreferenceUtil {
     private static Context mContext;
     private static SharedPreferences mPrefs;
     private static SharedPreferences.Editor mEditor;
+
     final static  String USER_TOKEN = "Token";
 
 
@@ -57,11 +58,14 @@ public class SharedPreferenceUtil {
     public String getFieldFacebookTokenKey() {
         return mPrefs.getString(FIELD_FACEBOOK_TOKEN_KEY, "");
     }
-    public SharedPreferenceUtil(Context context) {
+
+
+        public SharedPreferenceUtil(Context context) {
             mContext = context;
             mPrefs = mContext.getSharedPreferences("userInfo", MODE_PRIVATE);
             mEditor = mPrefs.edit();
-    }
+
+        }
 
 
     //토큰 저장하기
@@ -73,6 +77,8 @@ public class SharedPreferenceUtil {
 
     //토큰 가져오기
     public static int getAccessToken() {
+
+
         return mPrefs.getInt(USER_TOKEN, 0);
 
     }
@@ -86,33 +92,16 @@ public class SharedPreferenceUtil {
 
     }
 
-    public static void setAccessToClient(int token) {
-
-        mEditor.putInt("toclient", token);
-        mEditor.commit();
-    }
-
-    //토큰 가져오기
-    public static int getAccessToClient() {
-
-
-        return mPrefs.getInt("toclient", 0);
-
-    }
-
-    //토큰 삭제
-    public static void removeAccessToClient() {
-
-        mEditor.remove("toclient");
-        mEditor.commit();
-
-
-    }
-
 
     private static final String FCM_TOKEN_KEY = "fcmTokenKey";
     private static final String UUID_KEY = "uuidKey";
 
+
+    public void setFcmTokenKey(String tokenKey) {
+        mEditor.putString(FCM_TOKEN_KEY, tokenKey);
+        mEditor.commit();
+
+    }
 
     public String getFcmTokenKey() {
         return mPrefs.getString(FCM_TOKEN_KEY, "");

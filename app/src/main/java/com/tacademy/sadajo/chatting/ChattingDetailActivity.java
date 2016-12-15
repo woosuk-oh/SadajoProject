@@ -151,18 +151,16 @@ public class ChattingDetailActivity extends BaseActivity {
 //            pastMessages = dbHelper.getResult(roomNum);
 //
 //            for (int i = 0; i < pastMessages.size(); i++) {
-//
-//                // Log.e("messge+" + pastMessages.get(i).id, pastMessages.get(i).message);
-//                if (pastMessages.get(i).user == userAccount) {
-//
+//                MsgDBEntity pasgMsg = pastMessages.get(i);
+//                if (pasgMsg.user == userAccount) {
 //                    mMessages.add(new Message.Builder(Message.TYPE_RIGHT)
-//                            .username(pastMessages.get(i).user).message(pastMessages.get(i).message).build());
+//                            .username(pasgMsg.user).message(pasgMsg.message).build());
 //                    mAdapter.notifyItemInserted(mMessages.size() - 1);
 //                    scrollToBottom();
 //
 //                } else {
 //                    mMessages.add(new Message.Builder(Message.TYPE_LEFT)
-//                            .username(pastMessages.get(i).user).message(pastMessages.get(i).message).build());
+//                            .username(pasgMsg.user).message(pasgMsg.message).build());
 //                    mAdapter.notifyItemInserted(mMessages.size() - 1);
 //                    scrollToBottom();
 //                }
@@ -317,7 +315,7 @@ public class ChattingDetailActivity extends BaseActivity {
                     .username(username).message(message).time(time).build());
             Log.e("left", String.valueOf(username));
             mAdapter.notifyItemInserted(mMessages.size() - 1);
-            //insertMessage(message, username);
+//            insertMessage(message, username);
             scrollToBottom();
         }
     }
@@ -567,9 +565,8 @@ public class ChattingDetailActivity extends BaseActivity {
 //    public void insertMessage(String message, int user) {
 //
 //        dbHelper.insert(roomNum, message, user);
-//        Log.e("message ", user + message);
 //    }
-
+//
 
     @Override
     protected void onDestroy() {

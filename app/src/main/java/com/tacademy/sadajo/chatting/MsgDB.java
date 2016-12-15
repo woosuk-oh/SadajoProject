@@ -31,28 +31,18 @@ public class MsgDB extends SQLiteOpenHelper {
 
     }
 
-    public void insert(int roomNum,String message,int user) {
-        // 읽고 쓰기가 가능하게 DB 열기
+    public void insert(int roomNum, String message, int user) {
         SQLiteDatabase db = getWritableDatabase();
-        // DB에 입력한 값으로 행 추가
-        db.execSQL("INSERT INTO MESSAGESTORE VALUES(null, '" + message + "','"+roomNum+"','"+user+"');");
-
+        db.execSQL("INSERT INTO MESSAGESTORE VALUES(null, '" + message + "','" + roomNum + "','" + user + "');");
         db.close();
     }
 
-    public  ArrayList<MsgDBEntity> getResult(int roomNum) {
-        // 읽기가 가능하게 DB 열기
+    public ArrayList<MsgDBEntity> getResult(int roomNum) {
         SQLiteDatabase db = getReadableDatabase();
-        //String result = "";
+        ArrayList<MsgDBEntity> msgDBEntity = new ArrayList<>();
+        Cursor cursor = db.rawQuery("SELECT * FROM MESSAGESTORE WHERE roomNum = " + roomNum + "", null);
 
-        ArrayList<MsgDBEntity>  msgDBEntity = new ArrayList<>();
-        Cursor cursor = db.rawQuery("SELECT * FROM MESSAGESTORE WHERE roomNum = "+roomNum+"", null);
-
-
-
-
-        int count =0;
-        if(cursor!=null && cursor.getCount() > 0) {
+        if (cursor != null && cursor.getCount() > 0) {
             while (cursor.moveToNext()) {
                 MsgDBEntity msgDBEntity1 = new MsgDBEntity();
                 msgDBEntity1.id = cursor.getInt(0);
@@ -61,9 +51,6 @@ public class MsgDB extends SQLiteOpenHelper {
                 msgDBEntity1.user = cursor.getInt(3);
                 msgDBEntity.add(msgDBEntity1);
 
-//            msgDBEntity.get(count).id = cursor.getInt(0);
-//            msgDBEntity.get(count).message = cursor.getString(1);
-                count++;
             }
         }
 

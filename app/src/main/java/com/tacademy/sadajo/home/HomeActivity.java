@@ -3,6 +3,8 @@ package com.tacademy.sadajo.home;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -11,6 +13,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -23,6 +26,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationRequest;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.tacademy.sadajo.BaseActivity;
 import com.tacademy.sadajo.BottomBarClickListener;
 import com.tacademy.sadajo.CustomRecyclerDecoration;
@@ -39,6 +45,7 @@ import org.apmem.tools.layouts.FlowLayout;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
@@ -56,8 +63,8 @@ public class HomeActivity extends BaseActivity {
     private final long FINSH_INTERVAL_TIME = 2000;
     private long backPressedTime = 0;
 
-  //  private SharedPreferences sharedPreferences;
-   // private SharedPreferences.Editor sharedEditor;
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor sharedEditor;
     private int userAccount;
 
     Toolbar toolbar;
@@ -90,13 +97,25 @@ public class HomeActivity extends BaseActivity {
     HomeDB homeDB;
     ProgressDialog progressDialog1;
 
+    SharedPreferenceUtil sharedPreferenceUtil;
+    private GoogleApiClient mGoogleApiClient;
+    private LocationRequest mLocationRequest;
 
-    String mycountry;
-    String mycity;
+    //TextView txtOutputLat, txtOutputLon, myCountryName;
+    Location mLastLocation;
+    String lat, lon, mycountry, mycity;
+
+    private final int MY_PERMISSIONS_REQUEST_READ_CONTACTS = 100;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+        //buildGoogleApiClient(); // 순서 1. GoogleApiClient 빌드.
+
+
         setContentView(R.layout.activity_home);
 
         setBottomButtonClickListener();
@@ -135,23 +154,38 @@ public class HomeActivity extends BaseActivity {
         recyclerView.addItemDecoration(decoration);
 
 
-        SharedPreferenceUtil sharedPreferenceUtil = new SharedPreferenceUtil(SadajoContext.getContext());
-        sharedPreferenceUtil.setAccessToken(5);
-        userAccount = sharedPreferenceUtil.getAccessToken();
-        Log.e("accout", String.valueOf(userAccount));
-        //String fcmToken = FirebaseInstanceId.getInstance().getToken(); //푸시 토큰받아옴
-      //  Log.e("fcm", fcmToken);
+        sharedPreferenceUtil = new SharedPreferenceUtil(SadajoContext.getContext());
+        sharedPreferenceUtil.setAccessToken(20); //유저 아이디
+        userAccount = sharedPreferenceUtil.getAccessToken(); //userID세팅
 
-      //  Log.e("Home Activity :", String.valueOf(userAccount));
-      //   Log.e("Home fcmToken :", fcmToken);
-        // 페이스북 아이디 됐는지 확인
-       // Log.d("페북로그인", "가져온 페북아이디:" + sharedPreferenceUtil.getFaceBookId());
+
+
+//
+//        Log.e("Home Activity :", String.valueOf(userAccount));
+//        // 페이스북 아이디 됐는지 확인
+//        Log.d("페북로그인", "가져온 페북아이디:" + sharedPreferenceUtil.getFaceBookId());
     }
+
     @Override
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-        new AsyncHomeRequest().execute();
+
+        if (sharedPreferenceUtil.getFcmTokenKey() != null) { //sharedPreferencesUtil
+            String fcmToken = FirebaseInstanceId.getInstance().getToken(); //토큰발급
+            Log.e("Home fcmToken :", fcmToken);
+
+            if (!TextUtils.isEmpty(fcmToken) && !fcmToken.equals("")) { //토큰발급됐으면
+                new MemberInsertAsyncTask().execute(fcmToken);
+            } else {
+                Log.e("fcmTocken","FCM토큰 발급 안됨");
+            }
+        }else{
+            new AsyncHomeRequest().execute();
+        }
+
+
     }
+
     public class AsyncHomeRequest extends AsyncTask<Void, Void, HomeDB> {
         private ProgressDialog progressDialog;
 
@@ -233,10 +267,13 @@ public class HomeActivity extends BaseActivity {
 
 
                 countryNameTextView.setText(s.travelInfos.titleCountry); // 국가명 받아옴.
+
                 departDateTextView.setText(s.travelInfos.getStartDate()); // 떠나요
+
                 comeDateTextView.setText(s.travelInfos.getEndDate()); //돌아와요
                 homeUserRecyclerViewAdapter = new HomeUserRecyclerViewAdapter(HomeActivity.this, s.shoplist, mycountry, mycity);
                 recyclerView.setAdapter(homeUserRecyclerViewAdapter);
+
 
 
                 String flagUrl = s.getCountryImg();
@@ -319,6 +356,7 @@ public class HomeActivity extends BaseActivity {
     public void createTagButton(String str, int i) {
         int width = ViewGroup.LayoutParams.WRAP_CONTENT;
         int height = 69;
+
         Button button = new Button(this);
         button.setText(str); //서버로부터 받아온 tag text set
         button.setBackgroundResource(R.drawable.tag_button_file); //tag ninepatch background적용
@@ -371,4 +409,72 @@ public class HomeActivity extends BaseActivity {
 
         }
     };
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+//        mGoogleApiClient.connect(); // 순서2. GoogleApiClient 연결
+        Log.d("onStart", "onStart에서 mGoogleApiClient를 연결요청함.");
+
+    }
+
+    @Override
+    protected void onResume() { // onStart 이후 실행되는곳. + 액티비티 다시 불러오면 실행되는곳
+        super.onResume();
+    }
+
+
+    public class MemberInsertAsyncTask extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... params) {
+            String fcmToken = params[0];
+
+            Response response = null;
+            String result = "";
+            try {
+                OkHttpClient toServer = new OkHttpClient.Builder()
+                        .connectTimeout(10, TimeUnit.SECONDS)
+                        .readTimeout(15, TimeUnit.SECONDS)
+                        .build();
+                RequestBody reqBody = new FormBody.Builder()
+                        .add("user", String.valueOf(userAccount))
+                        .add("token", fcmToken)
+                        .build();
+                Request request = new Request.Builder()
+                        .url(String.format(NetworkDefineConstant.SERVER_URL_REQUEST_HOME))
+                        .post(reqBody)
+                        .build();
+                response = toServer.newCall(request).execute();
+                boolean isHttpConn = response.isSuccessful();
+                if (isHttpConn) {
+                    result = response.body().string();
+                    //성공하면 Android Preference에 FCM Push Token(Registration ID)와 UUID를 저장한다.
+                    if (result.equalsIgnoreCase("success")) {
+                        //preference에 있다면 메인으로 넘어가게 해주면됨
+                        sharedPreferenceUtil.setFcmTokenKey(fcmToken);
+                    }
+                }
+            } catch (Exception e) {
+                Log.e("MemberInsert", e.toString(), e);
+            } finally {
+                if (response != null) {
+                    response.close();
+                }
+            }
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            if (s.equals("success")) {
+
+                Log.e("저장된_FCMToken",sharedPreferenceUtil.getFcmTokenKey());
+            }
+
+        }
+    }
 }

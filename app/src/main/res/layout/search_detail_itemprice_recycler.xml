@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:paddingBottom="12dp"
         android:text="test"
-        android:textColor="@color/grayFont"
+        android:textColor="@color/blackFont"
         android:textSize="13sp"
         android:textStyle="normal"/>
 </LinearLayout>

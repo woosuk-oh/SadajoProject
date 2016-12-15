@@ -64,7 +64,7 @@ public class MyPageActivity extends BaseActivity {
 
     int type;
     int BOTTOM = 0;
-    int SHOPERMAN =1;
+    public static int SHOPERMAN =1;
     int userAccount;
 
     String mycountry;
@@ -74,9 +74,6 @@ public class MyPageActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-     /*   Intent intent = getIntent();
-        mycountry = intent.getExtras().getString("mycountry");
-        mycity = intent.getExtras().getString("mycity");*/
 
      /*   if(mycountry == null){*/
             SharedPreferenceUtil sharedPreferenceUtil = new SharedPreferenceUtil(SadajoContext.getContext());
@@ -96,7 +93,7 @@ public class MyPageActivity extends BaseActivity {
         toolbar.setBackgroundResource(R.drawable.tool_03_mypage); //toolbar image
         getSupportActionBar().setDisplayShowTitleEnabled(false);//title hidden
 
-     //   SharedPreferenceUtil sharedPreferenceUtil = new SharedPreferenceUtil(this);
+
         userAccount = sharedPreferenceUtil.getAccessToken();
         Log.e("userAccount", "현재 유저 아이디"+userAccount);
         getTypeIntent(); //이동경로에 따른 페이지구성을 위한 메소드
@@ -242,7 +239,7 @@ public class MyPageActivity extends BaseActivity {
 
     public void getTypeIntent() {
         Intent intent = getIntent();
-        type = intent.getIntExtra("type", 0);
+        type = intent.getExtras().getInt("type");
         if (type == SHOPERMAN) { //bottom navigation으로 이동한 것이 아닌 경우
             FrameLayout bottomBar = (FrameLayout) findViewById(R.id.frameBottomBar);
             bottomBar.setVisibility(View.GONE);//bottom navigation 제거
@@ -255,7 +252,7 @@ public class MyPageActivity extends BaseActivity {
             });
 
 
-        } else {//bottom navigation으로 이동한 것이 아닌 경우
+        } else {//bottom navigation으로 이동한 경우
             getSupportActionBar().setDisplayHomeAsUpEnabled(false); //back icon
 
         }
@@ -321,8 +318,12 @@ public class MyPageActivity extends BaseActivity {
             myPageSellTextView.setText(String.valueOf(myPage.sellNum));
             myPageUserNameTextView.setText(myPage.targetUserName);
           //  myPageLocTextView.setText(myPage.targetUserLocation);
+            Intent intent = getIntent();
+            mycountry = intent.getExtras().getString("mycountry");
+            mycity = intent.getExtras().getString("mycity");
 
-            myPageLocTextView.setText(mycountry);
+            myPageLocTextView.setVisibility(View.GONE);
+          //  myPageLocTextView.setText(mycountry+mycity);
 
             Glide.with(SadajoContext.getContext())
                     .load(myPage.targetUserImg)
