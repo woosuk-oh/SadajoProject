@@ -123,10 +123,11 @@ public class SearchListActivity extends BaseActivity {
 
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
-                switch (motionEvent.getAction()) {
-                    case ACTION_DOWN:
-                        popularity.setPressed(true);
-                        latest.setPressed(false);
+                switch (motionEvent.getAction()) { //터치에 관한 각종 행위를 정의하기 위한 MotionEvent
+                    case ACTION_DOWN: // 눌렸을때
+                        popularity.setTextColor(getResources().getColor(R.color.red));
+                        latest.setTextColor(getResources().getColor(R.color.grayFont));
+
                         sortvalue= "click=1";
                         new AsyncSearchRequest().execute(countrySpinner.getSelectedItem().toString(), searchBar.getText().toString(), sortvalue);
                         Log.d("조건문","인기순 눌림 : 1");
@@ -145,8 +146,12 @@ public class SearchListActivity extends BaseActivity {
                 switch (motionEvent.getAction()) {
                     // When the user clicks the TextView
                     case ACTION_DOWN:
-                        latest.setPressed(true);
+                       /* latest.setPressed(true);
                         popularity.setPressed(false);
+                        셀럭터 대신 아래에서 강제로 적용함 (스피너 쓸때 풀리기 때문)*/
+
+                        popularity.setTextColor(getResources().getColor(R.color.grayFont));
+                        latest.setTextColor(getResources().getColor(R.color.red));
                         Log.d("조건문","최신순 눌림 : 2");
                         sortvalue= "date=1";
 
@@ -199,15 +204,25 @@ public class SearchListActivity extends BaseActivity {
 
         countrySpinner = (Spinner) findViewById(R.id.search_toolbar_spinner1); //국가별 선택 스피너
         countrySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+
+
+
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
+                Log.d("스피너","OnCreate -> onItemSelected 스피너 눌림");
                 if(sortvalue.equals("")){
-                    popularity.setPressed(true); // 초기값으로 '눌렸다' 세팅. (초기 정렬은 url이 goods이지만 인기순이며, 눌렸다라는 표시로 빨간색 처리를 위함)
+                    //popularity.setPressed(true); // 초기값으로 '눌렸다' 세팅. (초기 정렬은 url이 goods이지만 인기순이며, 눌렸다라는 표시로 빨간색 처리를 위함)
+                    popularity.setTextColor(getResources().getColor(R.color.red));
+
+
                 }
                 new AsyncSearchRequest().execute(countrySpinner.getSelectedItem().toString(), searchBar.getText().toString(),sortvalue);
                 if(sortvalue.equals("")){
-                    popularity.setPressed(true); // 초기값으로 '눌렸다' 세팅. (초기 정렬은 url이 goods이지만 인기순이며, 눌렸다라는 표시로 빨간색 처리를 위함)
+                    //popularity.setPressed(true); // 초기값으로 '눌렸다' 세팅. (초기 정렬은 url이 goods이지만 인기순이며, 눌렸다라는 표시로 빨간색 처리를 위함)
+                    popularity.setTextColor(getResources().getColor(R.color.red));
+
                 }
                 Log.d("조건문","스피너 눌림: 3 " + countrySpinner.getSelectedItem().toString());
                 //Log.e("spinner:", "" + countrySpinner.getSelectedItem().toString());
@@ -216,8 +231,13 @@ public class SearchListActivity extends BaseActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
+                if(sortvalue.equals("")){
+                    //popularity.setPressed(true); // 초기값으로 '눌렸다' 세팅. (초기 정렬은 url이 goods이지만 인기순이며, 눌렸다라는 표시로 빨간색 처리를 위함)
+                    popularity.setTextColor(getResources().getColor(R.color.red));
+                }
 
             }
+
         });
 
 
@@ -250,7 +270,10 @@ public class SearchListActivity extends BaseActivity {
             Log.d("조건문","서치바 값 입력됨 : 4"+searchBar.getText().toString());
 
             if(sortvalue.equals("")){
-            popularity.setPressed(true); // 초기값으로 '눌렸다' 세팅. (초기 정렬은 url이 goods이지만 인기순이며, 눌렸다라는 표시로 빨간색 처리를 위함)
+                //popularity.setPressed(true); // 초기값으로 '눌렸다' 세팅. (초기 정렬은 url이 goods이지만 인기순이며, 눌렸다라는 표시로 빨간색 처리를 위함)
+                popularity.setTextColor(getResources().getColor(R.color.red));
+
+
             }
             cnt++;
 
@@ -295,11 +318,17 @@ public class SearchListActivity extends BaseActivity {
 
 
         if(sortvalue.equals("")){
-            popularity.setPressed(true); // 초기값으로 '눌렸다' 세팅. (초기 정렬은 url이 goods이지만 인기순이며, 눌렸다라는 표시로 빨간색 처리를 위함)
+            //popularity.setPressed(true); // 초기값으로 '눌렸다' 세팅. (초기 정렬은 url이 goods이지만 인기순이며, 눌렸다라는 표시로 빨간색 처리를 위함)
+            popularity.setTextColor(getResources().getColor(R.color.red));
+
         }else if(sortvalue.equals("/click=1")){
-            popularity.setPressed(true);
+            //popularity.setPressed(true);
+            popularity.setTextColor(getResources().getColor(R.color.red));
+
         }else if(sortvalue.equals("/date=1")){
-            latest.setPressed(true);
+            //latest.setPressed(true);
+
+            latest.setTextColor(getResources().getColor(R.color.grayFont));
         }
        // popularity.setTextColor(getResources().getColor(pink));
 
@@ -311,7 +340,9 @@ public class SearchListActivity extends BaseActivity {
                 new AsyncSearchRequest().execute(countrySpinner.getSelectedItem().toString(), searchBar.getText().toString(), sortvalue);
 
                 if(sortvalue.equals("")){
-                    popularity.setPressed(true); // 초기값으로 '눌렸다' 세팅. (초기 정렬은 url이 goods이지만 인기순이며, 눌렸다라는 표시로 빨간색 처리를 위함)
+                    //popularity.setPressed(true); // 초기값으로 '눌렸다' 세팅. (초기 정렬은 url이 goods이지만 인기순이며, 눌렸다라는 표시로 빨간색 처리를 위함)
+                    popularity.setTextColor(getResources().getColor(R.color.red));
+
                 }
                 Log.d("조건문","onResume 상태임. : 5");
 
