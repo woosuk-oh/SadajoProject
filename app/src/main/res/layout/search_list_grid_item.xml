@@ -70,7 +70,7 @@
                     android:id="@+id/cuntry_image"
                     android:layout_width="15dp"
                     android:layout_height="15dp"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginRight="3dp"
 
                     card_view:srcCompat="@drawable/flag" />
 
