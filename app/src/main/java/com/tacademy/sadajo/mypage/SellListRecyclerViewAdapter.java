@@ -142,7 +142,8 @@ public class SellListRecyclerViewAdapter
         // TODO 서버로 부터 받아온 상태값에 따라 보이는 버튼이 달라야 됌.
 
         int status = dealListDatas.get(position).status; // 서버로부터 받아온 사다조 아이템 리스트들 내용 중 특정 아이템의 status값을 비교함.
-        if(status==1) { //요청 수락버튼이 보여야 하는 상태값임
+        Log.d("버튼 상태값","상태는? "+dealListDatas.get(position).status);
+        if(status==0) { //요청 수락버튼이 보여야 하는 상태값임
 
 
             holder.okButton.setOnClickListener(new View.OnClickListener() { // TODO 사다조 요청수락버튼 클릭시 서버콜로 서버에 해당 아이템의 상태값 변경해줘야 됌.
@@ -228,7 +229,7 @@ public class SellListRecyclerViewAdapter
                 }
             });
         }
-        else if(status == 2){// 받아온 값이 요청 수락한 상태이면.
+        else if(status == 1){// 받아온 값이 요청 수락한 상태이면.
 
 
         }
