@@ -100,8 +100,7 @@ public class BuyListRecyclerViewAdapter
 
         Glide.with(SadajoContext.getContext())
                 .load(buyListDatas.get(position).carr_img)
-                .placeholder(R.drawable.profile_empty)
-                .thumbnail(0.1f)
+
                 .into(holder.profileImageView);
 
         Glide.with(SadajoContext.getContext())
@@ -109,44 +108,53 @@ public class BuyListRecyclerViewAdapter
 
 
                 .into(holder.productImageView);
+
+
+        // TODO 서버콜 이후에 사다조 상태값이 거래중이면 아래 비지빌리티 gone,
+        // 후기작성 버튼으로 변경, 상태값을 로컬 데이터모델에서 저장.
+        // runonui Thread 사용,
+        // 스크롤로 움직였다가 돌아와도 적용되게 하려면 멤버변수에 상태값을 저장해둬야함. 서버콜을 보낼때 로컬의 데이터모델에 저장해둘것.
         holder.buyRequestTextView.setVisibility(View.VISIBLE);
 
-//        holder.okButton.setOnClickListener(new View.OnClickListener() { //사다조 요청수락버튼 클릭시
-//
-//            FragmentManager fragmentManager = ((AppCompatActivity) context).getFragmentManager();
-//
-//            @Override
-//            public void onClick(View v) {//TODO: 수정필요!
-//
-//
-//                RequestConfirmDialogFragment requestConfirmDialogFragment = new RequestConfirmDialogFragment();
-//                requestConfirmDialogFragment.show(fragmentManager, "requestConfirmDialog");
-//                v.setVisibility(View.GONE);
-//
-//                holder.buyRequestButton.setVisibility(View.VISIBLE); //요청보기 버튼 visible
-//                holder.buyRequestButton.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View view) {
-//                        RequestConfirmDialogFragment requestConfirmDialogFragment = new RequestConfirmDialogFragment();
-//                        requestConfirmDialogFragment.show(fragmentManager, "requestConfirmDialog");
-//
-//                    }
-//                });
-//                holder.buyReviewButton.setVisibility(View.VISIBLE);//후기작성버튼 visible
-//                holder.buyReviewButton.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View view) {
-//                        ReviewDialogFragment dialog = new ReviewDialogFragment();
-//                        dialog.show(fragmentManager, "reviewDialog");
-//                        view.setSelected(true);
-//                    }
-//                });
-//
-//
-//            }
-//        });
+        //if(buyListDatas)
 
 
+      /*  holder.okButton.setOnClickListener(new View.OnClickListener() { //사다조 요청수락버튼 클릭시
+
+            FragmentManager fragmentManager = ((AppCompatActivity) context).getFragmentManager();
+
+            @Override
+            public void onClick(View v) {//TODO: 수정필요!
+
+
+                RequestConfirmDialogFragment requestConfirmDialogFragment = new RequestConfirmDialogFragment();
+                requestConfirmDialogFragment.show(fragmentManager, "requestConfirmDialog");
+                v.setVisibility(View.GONE);
+
+                holder.buyRequestButton.setVisibility(View.VISIBLE); //요청보기 버튼 visible
+                holder.buyRequestButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        RequestConfirmDialogFragment requestConfirmDialogFragment = new RequestConfirmDialogFragment();
+                        requestConfirmDialogFragment.show(fragmentManager, "requestConfirmDialog");
+
+                    }
+                });
+                holder.buyReviewButton.setVisibility(View.VISIBLE);//후기작성버튼 visible
+                holder.buyReviewButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        ReviewDialogFragment dialog = new ReviewDialogFragment();
+                        dialog.show(fragmentManager, "reviewDialog");
+                        view.setSelected(true);
+                    }
+                });
+
+
+            }
+        });
+
+*/
     }
 
     @Override

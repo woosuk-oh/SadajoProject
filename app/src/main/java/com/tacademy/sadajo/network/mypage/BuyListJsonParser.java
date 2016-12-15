@@ -34,6 +34,7 @@ public class BuyListJsonParser {
                 buylistdata.thedate = buys.getString("thedate");
                 buylistdata.goods_name = buys.getString("goods_name");
                 buylistdata.req_code = buys.getInt("req_code");
+                buylistdata.status = buys.getInt("status");
 
                 buylistdatas.add(buylistdata);
             }

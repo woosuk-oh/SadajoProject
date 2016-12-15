@@ -14,5 +14,6 @@ public class BuyListData {
     public String thedate;
     public String goods_name;
     public int req_code;
+    public int status;
 
 }

@@ -18,6 +18,7 @@ public class NetworkDefineConstant {
     public static String SERVER_URL_REQUST_MYPAGE;
     public static String SERVER_URL_REQUST_MYPAGE_REVIEW;
     public static String SERVER_URL_REQUST_MYPAGE_TIP;
+    public static String SERVER_URL_REQUST_MYPAGE_DEALLIST_SAYYES;
 
 
     public static String SERVER_URL_INSERT_SCHEDULE;
@@ -42,6 +43,9 @@ public class NetworkDefineConstant {
                 HOST_URL + "/carrlist";
         SERVER_URL_REQUEST_BUYLIST =
                 HOST_URL + "/reqlist";
+        SERVER_URL_REQUST_MYPAGE_DEALLIST_SAYYES =
+                HOST_URL + "/sayYes";
+
         SERVER_URL_INSERT_SCHEDULE =
                 HOST_URL + "/registerSchedule";
         SERVER_URL_INSERT_REQUEST =

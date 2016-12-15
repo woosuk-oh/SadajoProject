@@ -34,6 +34,7 @@ public class DealListJsonParser {
                 deallistdata.thedate = deals.getString("thedate");
                 deallistdata.goods_name = deals.getString("goods_name");
                 deallistdata.req_code = deals.getInt("req_code");
+                deallistdata.status = deals.getInt("status");
 
                 deallistdatas.add(deallistdata);
             }
